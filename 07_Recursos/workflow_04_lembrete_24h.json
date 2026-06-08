@@ -1,0 +1,221 @@
+{
+  "meta": {
+    "instanceId": "kronosintelligence"
+  },
+  "name": "04-lembrete-24h",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9-18 * * 1-6"
+            }
+          ]
+        }
+      },
+      "id": "cron-lembrete",
+      "name": "Cron — A cada hora",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const agora = new Date();\nconst amanha = new Date(agora.getTime() + 24 * 60 * 60 * 1000);\nconst dataAmanha = amanha.toISOString().split('T')[0];\n\nconst horaInicio = agora.getHours().toString().padStart(2, '0') + ':00';\nconst horaFim = ((agora.getHours() + 1) % 24).toString().padStart(2, '0') + ':00';\n\nreturn [{\n  json: {\n    dataAmanha,\n    horaInicio,\n    horaFim,\n    agoraBR: agora.toLocaleString('pt-BR')\n  }\n}];"
+      },
+      "id": "code-janela",
+      "name": "Calcular Janela 24h",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [320, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Agendamentos",
+          "mode": "name"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "gsh-agendamentos",
+      "name": "Buscar Agendamentos Amanhã",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [540, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const dataAmanha = $('Calcular Janela 24h').first().json.dataAmanha;\nconst todos = $input.all();\n\nconst agendamentosAmanha = todos.filter(item => {\n  const ag = item.json;\n  return (\n    ag.Data === dataAmanha &&\n    ag.Status === 'confirmado' &&\n    ag.Lembrete_Enviado !== 'SIM' &&\n    ag.Telefone\n  );\n});\n\nif (agendamentosAmanha.length === 0) return [];\n\nreturn agendamentosAmanha.map(item => ({ json: item.json }));"
+      },
+      "id": "code-filtrar",
+      "name": "Filtrar Agendamentos",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [760, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "loop-agendamentos",
+      "name": "Para Cada Agendamento",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [980, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ag = $input.first().json;\nconst { Nome, Procedimento, Data, Hora, Profissional, Telefone } = ag;\n\nlet dataFormatada = Data;\ntry {\n  const d = new Date(Data + 'T12:00:00');\n  const diasSemana = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira',\n                      'quinta-feira', 'sexta-feira', 'sábado'];\n  dataFormatada = `${diasSemana[d.getDay()]}, ${d.getDate().toString().padStart(2,'0')}/${(d.getMonth()+1).toString().padStart(2,'0')}`;\n} catch(e) {}\n\nconst mensagem =\n  `Olá, ${Nome}! 💛\\n\\n` +\n  `Lembrando seu agendamento *amanhã*:\\n` +\n  `📋 ${Procedimento}\\n` +\n  `📅 ${dataFormatada} às ${Hora}\\n` +\n  (Profissional ? `👩‍⚕️ ${Profissional}\\n` : '') +\n  `\\nResponda:\\n` +\n  `*1* — Confirmar presença ✅\\n` +\n  `*2* — Quero remarcar 🔄`;\n\nreturn [{\n  json: { ...ag, mensagem, telefone: Telefone }\n}];"
+      },
+      "id": "code-msg-lembrete",
+      "name": "Montar Mensagem Lembrete",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "={{ $env.EVO_API_KEY }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { number: $json.telefone, text: $json.mensagem } }}",
+        "options": {}
+      },
+      "id": "http-evo-lembrete",
+      "name": "Enviar WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1420, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Agendamentos",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Lembrete_Enviado": "SIM"
+          },
+          "matchingColumns": ["ID"],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gsh-marcar-lembrete",
+      "name": "Marcar Lembrete Enviado",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1640, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Log_Lembretes",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Data_Hora": "={{ new Date().toLocaleString('pt-BR') }}",
+            "Telefone": "={{ $json.telefone }}",
+            "Nome": "={{ $json.Nome }}",
+            "Procedimento": "={{ $json.Procedimento }}",
+            "Data_Agendamento": "={{ $json.Data }}",
+            "Hora_Agendamento": "={{ $json.Hora }}",
+            "Status": "enviado"
+          },
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gsh-log-lembrete",
+      "name": "Log Lembrete",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1860, 300]
+    }
+  ],
+  "connections": {
+    "Cron — A cada hora": {
+      "main": [[{ "node": "Calcular Janela 24h", "type": "main", "index": 0 }]]
+    },
+    "Calcular Janela 24h": {
+      "main": [[{ "node": "Buscar Agendamentos Amanhã", "type": "main", "index": 0 }]]
+    },
+    "Buscar Agendamentos Amanhã": {
+      "main": [[{ "node": "Filtrar Agendamentos", "type": "main", "index": 0 }]]
+    },
+    "Filtrar Agendamentos": {
+      "main": [[{ "node": "Para Cada Agendamento", "type": "main", "index": 0 }]]
+    },
+    "Para Cada Agendamento": {
+      "main": [
+        [{ "node": "Montar Mensagem Lembrete", "type": "main", "index": 0 }],
+        []
+      ]
+    },
+    "Montar Mensagem Lembrete": {
+      "main": [[{ "node": "Enviar WhatsApp", "type": "main", "index": 0 }]]
+    },
+    "Enviar WhatsApp": {
+      "main": [[{ "node": "Marcar Lembrete Enviado", "type": "main", "index": 0 }]]
+    },
+    "Marcar Lembrete Enviado": {
+      "main": [[{ "node": "Log Lembrete", "type": "main", "index": 0 }]]
+    },
+    "Log Lembrete": {
+      "main": [[{ "node": "Para Cada Agendamento", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    { "name": "clinica-estetica" },
+    { "name": "lembrete" },
+    { "name": "cron" }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-03T00:00:00.000Z",
+  "versionId": "04-lembrete-v1"
+}

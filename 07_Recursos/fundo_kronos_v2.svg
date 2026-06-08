@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+
+    <!-- Gradientes metálicos verticais - cada oval tem mistura de cores -->
+
+    <!-- 1. Azul Safira Metálico -->
+    <linearGradient id="safira" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#c8d8f0;stop-opacity:0"/>
+      <stop offset="20%"  style="stop-color:#7b9fd4;stop-opacity:0.5"/>
+      <stop offset="45%"  style="stop-color:#3a5fa8;stop-opacity:0.85"/>
+      <stop offset="55%"  style="stop-color:#6a4fc8;stop-opacity:0.9"/>
+      <stop offset="75%"  style="stop-color:#8ab4e8;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#c8d8f0;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- 2. Verde Esmeralda Metálico -->
+    <linearGradient id="esmeralda" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#d0f0e8;stop-opacity:0"/>
+      <stop offset="20%"  style="stop-color:#5ec8a8;stop-opacity:0.5"/>
+      <stop offset="45%"  style="stop-color:#1a8a68;stop-opacity:0.85"/>
+      <stop offset="55%"  style="stop-color:#2ab8d8;stop-opacity:0.8"/>
+      <stop offset="75%"  style="stop-color:#70d0b8;stop-opacity:0.5"/>
+      <stop offset="100%" style="stop-color:#d0f0e8;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- 3. Roxo Aurora Metálico -->
+    <linearGradient id="aurora" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#f0d8f0;stop-opacity:0"/>
+      <stop offset="20%"  style="stop-color:#c878c8;stop-opacity:0.5"/>
+      <stop offset="40%"  style="stop-color:#8a28b8;stop-opacity:0.85"/>
+      <stop offset="55%"  style="stop-color:#e040a0;stop-opacity:0.8"/>
+      <stop offset="70%"  style="stop-color:#5848d8;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#f0d8f0;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- 4. Turquesa Glacial Metálico -->
+    <linearGradient id="glacial" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#d8f4f8;stop-opacity:0"/>
+      <stop offset="20%"  style="stop-color:#70d0e8;stop-opacity:0.5"/>
+      <stop offset="45%"  style="stop-color:#18a8c8;stop-opacity:0.85"/>
+      <stop offset="55%"  style="stop-color:#40c8e0;stop-opacity:0.9"/>
+      <stop offset="75%"  style="stop-color:#90dce8;stop-opacity:0.5"/>
+      <stop offset="100%" style="stop-color:#d8f4f8;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- 5. Champagne Dourado Metálico -->
+    <linearGradient id="champagne" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#f8f0e0;stop-opacity:0"/>
+      <stop offset="20%"  style="stop-color:#e0c870;stop-opacity:0.5"/>
+      <stop offset="45%"  style="stop-color:#b89828;stop-opacity:0.85"/>
+      <stop offset="55%"  style="stop-color:#d4b860;stop-opacity:0.9"/>
+      <stop offset="75%"  style="stop-color:#e8d898;stop-opacity:0.5"/>
+      <stop offset="100%" style="stop-color:#f8f0e0;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Glow suave -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowsoft">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+  </defs>
+
+  <!-- Fundo branco limpo -->
+  <rect width="1920" height="1080" fill="#ffffff"/>
+
+  <!-- === OVALS VERTICAIS === -->
+  <!-- Cada oval é estreita horizontalmente e alongada verticalmente, levemente inclinada -->
+
+  <!-- Oval 1 - Azul Safira - esquerda -->
+  <ellipse cx="280" cy="540" rx="38" ry="480" fill="none" stroke="url(#safira)" stroke-width="2.5" opacity="0.75" transform="rotate(-2 280 540)" filter="url(#glowsoft)"/>
+  <ellipse cx="280" cy="540" rx="34" ry="475" fill="none" stroke="url(#safira)" stroke-width="1" opacity="0.4" transform="rotate(-2 280 540)"/>
+
+  <!-- Oval 2 - Verde Esmeralda -->
+  <ellipse cx="560" cy="540" rx="42" ry="490" fill="none" stroke="url(#esmeralda)" stroke-width="2.5" opacity="0.7" transform="rotate(1.5 560 540)" filter="url(#glowsoft)"/>
+  <ellipse cx="560" cy="540" rx="38" ry="485" fill="none" stroke="url(#esmeralda)" stroke-width="1" opacity="0.35" transform="rotate(1.5 560 540)"/>
+
+  <!-- Oval 3 - Roxo Aurora - centro-esquerda -->
+  <ellipse cx="820" cy="540" rx="40" ry="495" fill="none" stroke="url(#aurora)" stroke-width="2.5" opacity="0.72" transform="rotate(-1 820 540)" filter="url(#glow)"/>
+  <ellipse cx="820" cy="540" rx="36" ry="490" fill="none" stroke="url(#aurora)" stroke-width="1" opacity="0.38" transform="rotate(-1 820 540)"/>
+
+  <!-- Oval 4 - Turquesa Glacial - centro -->
+  <ellipse cx="1080" cy="540" rx="44" ry="500" fill="none" stroke="url(#glacial)" stroke-width="2.5" opacity="0.75" transform="rotate(2 1080 540)" filter="url(#glow)"/>
+  <ellipse cx="1080" cy="540" rx="40" ry="495" fill="none" stroke="url(#glacial)" stroke-width="1" opacity="0.4" transform="rotate(2 1080 540)"/>
+
+  <!-- Oval 5 - Champagne Dourado - centro-direita -->
+  <ellipse cx="1340" cy="540" rx="40" ry="490" fill="none" stroke="url(#champagne)" stroke-width="2.5" opacity="0.7" transform="rotate(-1.5 1340 540)" filter="url(#glowsoft)"/>
+  <ellipse cx="1340" cy="540" rx="36" ry="485" fill="none" stroke="url(#champagne)" stroke-width="1" opacity="0.35" transform="rotate(-1.5 1340 540)"/>
+
+  <!-- Oval 6 - Azul Safira - direita -->
+  <ellipse cx="1600" cy="540" rx="38" ry="480" fill="none" stroke="url(#safira)" stroke-width="2.5" opacity="0.65" transform="rotate(1 1600 540)" filter="url(#glowsoft)"/>
+  <ellipse cx="1600" cy="540" rx="34" ry="475" fill="none" stroke="url(#safira)" stroke-width="1" opacity="0.3" transform="rotate(1 1600 540)"/>
+
+  <!-- Oval extra fina - entre cada par, mais sutil -->
+  <ellipse cx="420" cy="540" rx="22" ry="460" fill="none" stroke="url(#aurora)" stroke-width="1.2" opacity="0.25" transform="rotate(0.5 420 540)"/>
+  <ellipse cx="690" cy="540" rx="22" ry="465" fill="none" stroke="url(#glacial)" stroke-width="1.2" opacity="0.22" transform="rotate(-0.5 690 540)"/>
+  <ellipse cx="950" cy="540" rx="22" ry="470" fill="none" stroke="url(#champagne)" stroke-width="1.2" opacity="0.22" transform="rotate(1 950 540)"/>
+  <ellipse cx="1210" cy="540" rx="22" ry="465" fill="none" stroke="url(#esmeralda)" stroke-width="1.2" opacity="0.22" transform="rotate(-0.5 1210 540)"/>
+  <ellipse cx="1470" cy="540" rx="22" ry="460" fill="none" stroke="url(#aurora)" stroke-width="1.2" opacity="0.2" transform="rotate(0.5 1470 540)"/>
+  <ellipse cx="1740" cy="540" rx="20" ry="455" fill="none" stroke="url(#safira)" stroke-width="1.2" opacity="0.18" transform="rotate(-0.5 1740 540)"/>
+
+</svg>

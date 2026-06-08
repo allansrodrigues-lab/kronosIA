@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#050a14"/>
+      <stop offset="100%" style="stop-color:#0a1628"/>
+    </linearGradient>
+    <linearGradient id="oval1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a4a8a;stop-opacity:0"/>
+      <stop offset="40%" style="stop-color:#4a90d9;stop-opacity:0.8"/>
+      <stop offset="60%" style="stop-color:#7ab8f5;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#1a4a8a;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="oval2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d2e5c;stop-opacity:0"/>
+      <stop offset="35%" style="stop-color:#2e6db4;stop-opacity:0.6"/>
+      <stop offset="65%" style="stop-color:#5fa8e8;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#0d2e5c;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="oval3" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a2244;stop-opacity:0"/>
+      <stop offset="45%" style="stop-color:#3a7fd4;stop-opacity:0.5"/>
+      <stop offset="55%" style="stop-color:#6ab2f2;stop-opacity:0.7"/>
+      <stop offset="100%" style="stop-color:#0a2244;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="oval4" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#061832;stop-opacity:0"/>
+      <stop offset="40%" style="stop-color:#1e5fa0;stop-opacity:0.4"/>
+      <stop offset="60%" style="stop-color:#4a90d9;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#061832;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="oval5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1e3d;stop-opacity:0"/>
+      <stop offset="50%" style="stop-color:#5b9fd6;stop-opacity:0.35"/>
+      <stop offset="100%" style="stop-color:#0a1e3d;stop-opacity:0"/>
+    </linearGradient>
+    <filter id="glow1">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow2">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Fundo escuro -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- Ruído sutil (pontinhos) -->
+  <filter id="noise">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feBlend in="SourceGraphic" mode="overlay"/>
+  </filter>
+  <rect width="1920" height="1080" filter="url(#noise)" opacity="0.03"/>
+
+  <!-- Ovals grandes - camada de fundo -->
+  <ellipse cx="960" cy="540" rx="820" ry="340" fill="none" stroke="url(#oval5)" stroke-width="1.5" opacity="0.3"/>
+  <ellipse cx="960" cy="540" rx="680" ry="280" fill="none" stroke="url(#oval5)" stroke-width="1" opacity="0.2"/>
+
+  <!-- Oval principal grande - inclinada -->
+  <ellipse cx="960" cy="580" rx="900" ry="320" fill="none" stroke="url(#oval1)" stroke-width="1.8" opacity="0.7" transform="rotate(-12 960 580)" filter="url(#glow1)"/>
+
+  <!-- Oval secundária - inclinação oposta -->
+  <ellipse cx="900" cy="500" rx="750" ry="260" fill="none" stroke="url(#oval2)" stroke-width="1.4" opacity="0.6" transform="rotate(8 900 500)" filter="url(#glow2)"/>
+
+  <!-- Oval terciária - mais fina -->
+  <ellipse cx="1020" cy="600" rx="650" ry="200" fill="none" stroke="url(#oval3)" stroke-width="1" opacity="0.5" transform="rotate(-18 1020 600)"/>
+
+  <!-- Oval superior direita -->
+  <ellipse cx="1400" cy="280" rx="520" ry="180" fill="none" stroke="url(#oval2)" stroke-width="1.2" opacity="0.4" transform="rotate(-25 1400 280)" filter="url(#glow2)"/>
+
+  <!-- Oval inferior esquerda -->
+  <ellipse cx="480" cy="820" rx="480" ry="160" fill="none" stroke="url(#oval4)" stroke-width="1.2" opacity="0.45" transform="rotate(15 480 820)"/>
+
+  <!-- Oval pequena superior esquerda -->
+  <ellipse cx="320" cy="220" rx="300" ry="110" fill="none" stroke="url(#oval3)" stroke-width="0.9" opacity="0.35" transform="rotate(-10 320 220)"/>
+
+  <!-- Oval pequena inferior direita -->
+  <ellipse cx="1620" cy="880" rx="340" ry="120" fill="none" stroke="url(#oval1)" stroke-width="0.9" opacity="0.3" transform="rotate(20 1620 880)"/>
+
+  <!-- Linhas finas extras para profundidade -->
+  <ellipse cx="960" cy="540" rx="1050" ry="400" fill="none" stroke="#1a4a8a" stroke-width="0.6" opacity="0.15" transform="rotate(-5 960 540)"/>
+  <ellipse cx="960" cy="540" rx="1150" ry="450" fill="none" stroke="#1a4a8a" stroke-width="0.4" opacity="0.1" transform="rotate(3 960 540)"/>
+
+  <!-- Brilho sutil no centro -->
+  <radialGradient id="centerGlow" cx="50%" cy="50%" r="40%">
+    <stop offset="0%" style="stop-color:#1a3a6a;stop-opacity:0.15"/>
+    <stop offset="100%" style="stop-color:#050a14;stop-opacity:0"/>
+  </radialGradient>
+  <rect width="1920" height="1080" fill="url(#centerGlow)"/>
+</svg>

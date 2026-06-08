@@ -1,0 +1,462 @@
+{
+  "meta": {
+    "instanceId": "kronosintelligence"
+  },
+  "id": "02-agendamento-bia",
+  "name": "02-agendamento-bia",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "ewt-bia-001",
+      "name": "Trigger — Receber do Orquestrador",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Slots_Disponiveis",
+          "mode": "name"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "gsh-slots-001",
+      "name": "Buscar Slots Disponíveis",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [320, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sessoes_Ativas",
+          "mode": "name"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "gsh-sess-read-001",
+      "name": "Buscar Sessão Bia",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [540, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ctx = $('Trigger — Receber do Orquestrador').first().json;\nconst { telefone, nome, texto, remoteJid, instancia, timestamp, messageId } = ctx;\n\nconst todosSlots = $('Buscar Slots Disponíveis').all();\nconst hoje = new Date();\nconst em14dias = new Date(hoje.getTime() + 14 * 24 * 60 * 60 * 1000);\n\nconst slotsDisponiveis = todosSlots\n  .filter(item => {\n    if (!item.json.Data || !item.json.Hora) return false;\n    const dataSlot = new Date(`${item.json.Data}T${item.json.Hora}`);\n    return dataSlot >= hoje && dataSlot <= em14dias;\n  })\n  .slice(0, 25)\n  .map(item => `ID:${item.json.ID} | ${item.json.Data} | ${item.json.Hora} | ${item.json.Profissional} | ${item.json.Procedimento_Tipo}`);\n\nconst slotsFormatados = slotsDisponiveis.length > 0\n  ? slotsDisponiveis.join('\\n')\n  : 'Nenhum horário disponível nos próximos 14 dias.';\n\nconst todasSessoes = $('Buscar Sessão Bia').all();\nconst sessao = todasSessoes.find(\n  s => s.json.Telefone === telefone && s.json.Agente === 'BIA' && s.json.Status === 'ativo'\n)?.json ?? null;\n\nlet historico = [];\nif (sessao?.Historico) {\n  try { historico = JSON.parse(sessao.Historico); } catch(e) {}\n}\n\nhistorico.push({ role: 'user', content: texto });\n\nconst systemPrompt = `Você é Bia, especialista em agendamentos da Clínica de Estética.\\n\\nSeu objetivo é conduzir o cliente até a confirmação do agendamento em no máximo 4 mensagens.\\n\\nPROCEDIMENTOS DISPONÍVEIS (e duração):\\n- Limpeza de Pele Profunda (60 min)\\n- Peeling Químico (45 min)\\n- Botox / Toxina Botulínica (30 min)\\n- Drenagem Linfática (60 min)\\n- Criolipólise (60 min por área)\\n- Massagem Modeladora (50 min)\\n- Avaliação Inicial (30 min, gratuita)\\n\\nHORÁRIOS DISPONÍVEIS (próximos 14 dias):\\n${slotsFormatados}\\n\\nREGRAS:\\n1. Se o cliente não informou o procedimento → pergunte antes de mostrar horários\\n2. Se já sabe o procedimento → mostre EXATAMENTE 3 opções formatadas assim:\\n   1️⃣ [dia da semana], [DD/MM] às [HH:mm] com [Profissional]\\n   2️⃣ ...\\n   3️⃣ ...\\n3. Quando o cliente escolher → confirme: procedimento + data + hora + profissional e peça confirmação\\n4. Após \"sim\" → acao: criar_agendamento com dados preenchidos\\n5. Cancelamento: confirme antes (acao: confirmar_cancelamento); só cancela após \"sim\" (acao: cancelar_agendamento)\\n6. Sem horários disponíveis → informe e acao: escalar_humano\\n7. Responda SEMPRE em JSON válido, sem texto fora do JSON\\n\\nFORMATO OBRIGATÓRIO (JSON):\\n{\"mensagem\": \"texto para o cliente (max 280 chars)\", \"acao\": \"aguardar_resposta|criar_agendamento|cancelar_agendamento|confirmar_cancelamento|encerrar|escalar_humano\", \"dados\": {\"procedimento\": null, \"slot_id\": null, \"data_hora\": null, \"profissional\": null}, \"encerrar_sessao\": false}\\n\\nTOM: Objetiva e calorosa. Máximo 1 emoji por mensagem. Nome do cliente: ${nome}.`;\n\nreturn [{\n  json: {\n    telefone, nome, texto, remoteJid, instancia, timestamp, messageId,\n    historico,\n    sessao_id: sessao?.ID ?? null,\n    sessao_fase: sessao?.Fase ?? 'novo',\n    anthropicBody: {\n      model: 'claude-sonnet-4-6',\n      max_tokens: 600,\n      temperature: 0.3,\n      system: systemPrompt,\n      messages: historico\n    }\n  }\n}];"
+      },
+      "id": "code-prompt-bia",
+      "name": "Montar Prompt Bia",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [760, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $env.ANTHROPIC_API_KEY }}" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.anthropicBody }}",
+        "options": {}
+      },
+      "id": "http-bia-sonnet",
+      "name": "Claude Sonnet — Bia",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [980, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst ctx = $('Montar Prompt Bia').first().json;\n\nif (input.error || !input.content) {\n  return [{\n    json: {\n      ...ctx,\n      mensagem: `Oi ${ctx.nome}! Tive uma instabilidade aqui. Pode repetir o que você quer fazer? 😊`,\n      acao: 'aguardar_resposta',\n      dados: { procedimento: null, slot_id: null, data_hora: null, profissional: null },\n      encerrar_sessao: false,\n      historicoAtualizado: ctx.historico,\n      erro: true\n    }\n  }];\n}\n\nconst rawText = input.content?.[0]?.text ?? '{}';\n\nlet parsed;\ntry {\n  const cleaned = rawText.replace(/```json?/g, '').replace(/```/g, '').trim();\n  parsed = JSON.parse(cleaned);\n} catch(e) {\n  parsed = {\n    mensagem: `Oi ${ctx.nome}! Poderia me dizer novamente o que você quer fazer?`,\n    acao: 'aguardar_resposta',\n    dados: {},\n    encerrar_sessao: false\n  };\n}\n\nconst validAcoes = ['aguardar_resposta', 'criar_agendamento', 'cancelar_agendamento',\n                    'confirmar_cancelamento', 'encerrar', 'escalar_humano'];\nif (!validAcoes.includes(parsed.acao)) parsed.acao = 'aguardar_resposta';\n\nconst historicoAtualizado = [...ctx.historico, { role: 'assistant', content: parsed.mensagem }];\n\nreturn [{\n  json: {\n    telefone: ctx.telefone,\n    nome: ctx.nome,\n    remoteJid: ctx.remoteJid,\n    instancia: ctx.instancia,\n    timestamp: ctx.timestamp,\n    messageId: ctx.messageId,\n    sessao_id: ctx.sessao_id,\n    sessao_fase: ctx.sessao_fase,\n    mensagem: parsed.mensagem,\n    acao: parsed.acao,\n    dados: parsed.dados ?? {},\n    encerrar_sessao: parsed.encerrar_sessao ?? false,\n    historicoAtualizado,\n    bia_raw: rawText\n  }\n}];"
+      },
+      "id": "code-parse-bia",
+      "name": "Parsear Resposta Bia",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 300]
+    },
+    {
+      "parameters": {
+        "mode": "rules",
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+                "conditions": [
+                  { "leftValue": "={{ $json.acao }}", "rightValue": "criar_agendamento", "operator": { "type": "string", "operation": "equals" } }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Criar Agendamento"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+                "conditions": [
+                  { "leftValue": "={{ $json.acao }}", "rightValue": "cancelar_agendamento", "operator": { "type": "string", "operation": "equals" } }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Cancelar"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+                "conditions": [
+                  { "leftValue": "={{ $json.acao }}", "rightValue": "escalar_humano", "operator": { "type": "string", "operation": "equals" } }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Escalar Humano"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "sw-acao-bia",
+      "name": "Switch por Ação",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [1420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { telefone, nome, remoteJid, instancia, timestamp, dados, mensagem,\n        historicoAtualizado, encerrar_sessao } = $input.first().json;\n\nconst instrucoes = {\n  'Limpeza de Pele Profunda': '• Não use ácidos 5 dias antes\\n• Venha sem maquiagem\\n• Evite sol 24h antes',\n  'Peeling Químico': '• Não use ácidos 7 dias antes\\n• Sem sol 48h antes\\n• Venha com pele hidratada',\n  'Botox / Toxina Botulínica': '• Evite álcool 24h antes\\n• Não tome AAS/anti-inflamatório 7 dias antes',\n  'Drenagem Linfática': '• Venha com roupa confortável\\n• Beba bastante água no dia',\n  'Criolipólise': '• Sem atividade física intensa no dia\\n• Venha com roupa larga',\n  'Massagem Modeladora': '• Beba bastante água antes\\n• Venha com roupa confortável',\n  'Avaliação Inicial': '• Venha com a pele limpa se possível\\n• Pode trazer fotos de resultados desejados'\n};\n\nconst instrucao = instrucoes[dados.procedimento] ?? '• Siga as orientações da profissional no dia';\nconst mensagemFinal = `${mensagem}\\n\\n📋 *Antes do procedimento:*\\n${instrucao}\\n\\nVou te lembrar 24h antes! ✨`;\nconst agendamentoId = `AGD-${Date.now()}`;\n\nreturn [{\n  json: {\n    telefone, nome, remoteJid, instancia, timestamp,\n    mensagem: mensagemFinal,\n    acao: 'criar_agendamento',\n    dados, historicoAtualizado,\n    encerrar_sessao: true,\n    agendamentoId,\n    slot_id: dados.slot_id,\n    procedimento: dados.procedimento,\n    data_hora: dados.data_hora,\n    profissional: dados.profissional\n  }\n}];"
+      },
+      "id": "code-prep-reserva",
+      "name": "Preparar Dados Reserva",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1640, 100]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Slots_Disponiveis",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "reservado",
+            "Reservado_Para": "={{ $json.telefone }}",
+            "Agendamento_ID": "={{ $json.agendamentoId }}"
+          },
+          "matchingColumns": ["ID"],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gsh-reservar-slot",
+      "name": "Reservar Slot",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1860, 100],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Agendamentos",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $json.agendamentoId }}",
+            "Telefone": "={{ $json.telefone }}",
+            "Nome": "={{ $json.nome }}",
+            "Procedimento": "={{ $json.procedimento }}",
+            "Data": "={{ $json.data_hora?.split(' ')[0] }}",
+            "Hora": "={{ $json.data_hora?.split(' ')[1] }}",
+            "Profissional": "={{ $json.profissional }}",
+            "Status": "confirmado",
+            "Criado_Em": "={{ new Date().toLocaleString('pt-BR') }}"
+          },
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gsh-salvar-crm",
+      "name": "Salvar no CRM",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2080, 100]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Agendamentos",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "cancelado"
+          },
+          "matchingColumns": ["Telefone"],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gsh-cancelar-crm",
+      "name": "Cancelar no CRM",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1640, 400],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Slots_Disponiveis",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "disponivel",
+            "Reservado_Para": " ",
+            "Agendamento_ID": " "
+          },
+          "matchingColumns": ["Reservado_Para"],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gsh-liberar-slot",
+      "name": "Liberar Slot",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1860, 400],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst { telefone, nome, acao, dados, historicoAtualizado,\n        encerrar_sessao, sessao_id, timestamp } = input;\n\nconst agora = new Date().toLocaleString('pt-BR');\nconst statusSessao = (encerrar_sessao || acao === 'encerrar') ? 'encerrado' : 'ativo';\nconst historicoLimitado = (historicoAtualizado ?? []).slice(-20);\n\nreturn [{\n  json: {\n    telefone, nome, timestamp, acao,\n    dados: dados ?? {},\n    mensagem: input.mensagem,\n    remoteJid: input.remoteJid,\n    instancia: input.instancia,\n    sessao_id,\n    sessao_update: {\n      Agente: 'BIA',\n      Fase: acao,\n      Historico: JSON.stringify(historicoLimitado),\n      Dado_Temp: JSON.stringify(dados ?? {}),\n      Atualizado_Em: agora,\n      Status: statusSessao\n    }\n  }\n}];"
+      },
+      "id": "code-prep-sessao",
+      "name": "Preparar Sessão",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2300, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "={{ $env.EVO_API_KEY }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { number: $json.telefone, text: $json.mensagem } }}",
+        "options": {}
+      },
+      "id": "http-evo-bia",
+      "name": "Enviar Mensagem WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [2520, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sessoes_Ativas",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Telefone": "={{ $json.telefone }}",
+            "Agente": "BIA",
+            "Fase": "={{ $json.sessao_update.Fase }}",
+            "Historico": "={{ $json.sessao_update.Historico }}",
+            "Dado_Temp": "={{ $json.sessao_update.Dado_Temp }}",
+            "Criado_Em": "={{ $json.sessao_update.Atualizado_Em }}",
+            "Atualizado_Em": "={{ $json.sessao_update.Atualizado_Em }}",
+            "Status": "={{ $json.sessao_update.Status }}"
+          },
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gsh-sess-write",
+      "name": "Atualizar Sessão Bia",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2740, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Log_Agendamentos",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Data_Hora": "={{ new Date($json.timestamp * 1000).toLocaleString('pt-BR') }}",
+            "Telefone": "={{ $json.telefone }}",
+            "Nome": "={{ $json.nome }}",
+            "Acao": "={{ $json.acao }}",
+            "Procedimento": "={{ $json.dados?.procedimento ?? '' }}",
+            "Detalhes": "={{ ($json.dados?.slot_id ?? '') + ' ' + ($json.dados?.data_hora ?? '') }}"
+          },
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gsh-log-bia",
+      "name": "Log Interação Bia",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2960, 300]
+    }
+  ],
+  "connections": {
+    "Trigger — Receber do Orquestrador": {
+      "main": [[{ "node": "Buscar Slots Disponíveis", "type": "main", "index": 0 }]]
+    },
+    "Buscar Slots Disponíveis": {
+      "main": [[{ "node": "Buscar Sessão Bia", "type": "main", "index": 0 }]]
+    },
+    "Buscar Sessão Bia": {
+      "main": [[{ "node": "Montar Prompt Bia", "type": "main", "index": 0 }]]
+    },
+    "Montar Prompt Bia": {
+      "main": [[{ "node": "Claude Sonnet — Bia", "type": "main", "index": 0 }]]
+    },
+    "Claude Sonnet — Bia": {
+      "main": [[{ "node": "Parsear Resposta Bia", "type": "main", "index": 0 }]]
+    },
+    "Parsear Resposta Bia": {
+      "main": [[{ "node": "Switch por Ação", "type": "main", "index": 0 }]]
+    },
+    "Switch por Ação": {
+      "main": [
+        [{ "node": "Preparar Dados Reserva", "type": "main", "index": 0 }],
+        [{ "node": "Cancelar no CRM", "type": "main", "index": 0 }],
+        [{ "node": "Preparar Sessão", "type": "main", "index": 0 }],
+        [{ "node": "Preparar Sessão", "type": "main", "index": 0 }]
+      ]
+    },
+    "Preparar Dados Reserva": {
+      "main": [[{ "node": "Reservar Slot", "type": "main", "index": 0 }]]
+    },
+    "Reservar Slot": {
+      "main": [[{ "node": "Salvar no CRM", "type": "main", "index": 0 }]]
+    },
+    "Salvar no CRM": {
+      "main": [[{ "node": "Preparar Sessão", "type": "main", "index": 0 }]]
+    },
+    "Cancelar no CRM": {
+      "main": [[{ "node": "Liberar Slot", "type": "main", "index": 0 }]]
+    },
+    "Liberar Slot": {
+      "main": [[{ "node": "Preparar Sessão", "type": "main", "index": 0 }]]
+    },
+    "Preparar Sessão": {
+      "main": [[{ "node": "Enviar Mensagem WhatsApp", "type": "main", "index": 0 }]]
+    },
+    "Enviar Mensagem WhatsApp": {
+      "main": [[{ "node": "Atualizar Sessão Bia", "type": "main", "index": 0 }]]
+    },
+    "Atualizar Sessão Bia": {
+      "main": [[{ "node": "Log Interação Bia", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    { "name": "clinica-estetica" },
+    { "name": "agendamento" },
+    { "name": "bia" }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-03T00:00:00.000Z",
+  "versionId": "02-bia-v1"
+}

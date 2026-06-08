@@ -1,0 +1,304 @@
+{
+  "meta": {
+    "instanceId": "kronosintelligence"
+  },
+  "name": "03-atendimento-clara",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "ewt-clara-001",
+      "name": "Trigger — Receber do Orquestrador",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sessoes_Ativas",
+          "mode": "name"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "gsh-sess-clara",
+      "name": "Buscar Sessão Clara",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [320, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ctx = $('Trigger — Receber do Orquestrador').first().json;\nconst { telefone, nome, texto, remoteJid, instancia, timestamp, messageId, intent } = ctx;\n\nconst todasSessoes = $('Buscar Sessão Clara').all();\nconst sessao = todasSessoes.find(\n  s => s.json.Telefone === telefone && s.json.Agente === 'CLARA' && s.json.Status === 'ativo'\n)?.json ?? null;\n\nlet historico = [];\nif (sessao?.Historico) {\n  try { historico = JSON.parse(sessao.Historico); } catch(e) {}\n}\n\nhistorico.push({ role: 'user', content: texto });\n\nconst systemPrompt = `Você é Clara, atendente especializada da Clínica de Estética.\\n\\nSua missão é tirar dúvidas com clareza e empatia, sempre baseando a resposta NA BASE DE CONHECIMENTO abaixo.\\nSE A INFORMAÇÃO NÃO ESTIVER NA BASE DE CONHECIMENTO → diga \"Vou confirmar com a nossa equipe e te retorno em breve.\"\\n\\n━━━━━━━━━━━━━━━━━━━━━━━\\nBASE DE CONHECIMENTO\\n━━━━━━━━━━━━━━━━━━━━━━━\\n\\n## PROCEDIMENTOS\\n\\n### Limpeza de Pele Profunda\\n- Duração: 60 min | Preço: R$ 220 (avulso) | Pacote 6 sessões: R$ 1.120 (15% off)\\n- Indicações: cravos, oleosidade, pele congestionada\\n- Contraindicações: pele em processo inflamatório, herpes ativo, uso recente de ácidos fortes\\n- Recuperação: 24-48h de leve vermelhidão | Frequência: a cada 30-45 dias\\n- Avaliação prévia: não obrigatória\\n\\n### Peeling Químico\\n- Duração: 45 min | Preço: R$ 290 (avulso) | Pacote 6 sessões: R$ 1.480 (15% off)\\n- Indicações: manchas, textura irregular, sinais de envelhecimento leve\\n- Contraindicações: gestantes, pele bronzeada, lesões ativas\\n- Recuperação: descamação por 3-7 dias | Frequência: série de 4-6 sessões, a cada 15 dias\\n- Avaliação prévia: não obrigatória\\n\\n### Botox / Toxina Botulínica\\n- Duração: 30 min | Preço: R$ 650 (1 área) / R$ 1.500 (3 áreas)\\n- Indicações: rugas dinâmicas (testa, glabela, pés-de-galinha)\\n- Contraindicações: gestantes, lactantes, doenças neuromusculares\\n- Recuperação: sem downtime; evitar deitar 4h após\\n- Resultado: aparece em 5-15 dias, dura 4-6 meses\\n- Avaliação prévia: OBRIGATÓRIA (gratuita, 30 min)\\n\\n### Drenagem Linfática\\n- Duração: 60 min | Preço: R$ 180 (avulso) | Pacote 10 sessões pós-cirúrgico: R$ 1.440 (20% off)\\n- Indicações: retenção líquida, pós-cirúrgico, pernas pesadas\\n- Contraindicações: trombose, infecções agudas, câncer em tratamento\\n- Frequência: série de 10 sessões, 2-3x/semana\\n- Avaliação prévia: não obrigatória (exceto pós-cirúrgico)\\n\\n### Criolipólise\\n- Duração: 60 min por área | Preço: R$ 590 (1 área) | Pacote 2 áreas: R$ 1.060 (10% off)\\n- Indicações: gordura localizada (abdômen, flancos, culote)\\n- Contraindicações: hérnia na área, crioglobulinemia, gestantes\\n- Recuperação: sensibilidade local 1-2 semanas | Resultado: 30-45 dias\\n- Avaliação prévia: OBRIGATÓRIA (gratuita, 30 min)\\n\\n### Massagem Modeladora\\n- Duração: 50 min | Preço: R$ 160 (avulso) | Pacote 10 sessões: R$ 1.280 (20% off)\\n- Indicações: modelagem corporal, celulite leve a moderada\\n- Frequência: série de 10 sessões, 2x/semana\\n- Avaliação prévia: não obrigatória\\n\\n### Avaliação Inicial\\n- Duração: 30 min | Gratuita\\n- Inclui: anamnese, análise visual, plano de tratamento personalizado\\n\\n## FORMAS DE PAGAMENTO\\n- PIX: 5% de desconto adicional | Cartão: até 3x sem juros; 4x-10x com juros\\n\\n## DESCONTOS\\n- Indicação de amiga: 10% para quem indicou + 10% para a indicada\\n- Aniversariante do mês: 15% em qualquer procedimento avulso\\n\\n## FAQ\\n- Horário: Seg-Sex 9h-19h | Sáb 9h-14h | Dom fechado\\n- Remarcação: gratuita até 4h antes; depois retém 50%\\n- Tolerância de atraso: 15 min\\n- Gestante: apenas drenagem suave (2º tri) com autorização médica\\n- Plano de saúde: não aceito | Nota fiscal: sim (NFS-e)\\n- Estacionamento: conveniado R$ 10/4h\\n\\n━━━━━━━━━━━━━━━━━━━━━━━\\n\\nGUARDRAILS:\\n❌ Nunca diagnóstico, prescrição ou promessa de resultado\\n✅ Cite contraindicações relevantes | ✅ Indique avaliação para casos específicos\\n✅ Se não souber → \"Vou confirmar com a equipe\"\\n\\nESTRUTURA: 1) Reconheça a dúvida | 2) Responda com KB | 3) Convide para próximo passo\\n\\nTOM: Acolhedora e profissional. Frases curtas. Máx 1 emoji. Nome: ${nome}.\\nSem abreviações. Ortografia impecável. Nunca: \\\"Querida\\\", \\\"Amor\\\", \\\"Linda\\\".\\n\\nRESPONDA SEMPRE EM JSON VÁLIDO (sem texto fora):\\n{\\\"mensagem\\\": \\\"texto (max 400 chars)\\\", \\\"acao\\\": \\\"responder|passar_para_bia|escalar_humano|encerrar\\\", \\\"topico\\\": \\\"procedimento|preco|faq|lead|outro\\\", \\\"procedimento_interesse\\\": null, \\\"encerrar_sessao\\\": false}\\n\\n- passar_para_bia: cliente quer agendar/marcar horário\\n- escalar_humano: dúvida médica específica ou reclamação\\n- encerrar: conversa claramente encerrada`;\n\nreturn [{\n  json: {\n    telefone, nome, texto, remoteJid, instancia, timestamp, messageId, intent,\n    historico,\n    sessao_id: sessao?.ID ?? null,\n    sessao_fase: sessao?.Fase ?? 'novo',\n    anthropicBody: {\n      model: 'claude-sonnet-4-6',\n      max_tokens: 500,\n      temperature: 0.4,\n      system: systemPrompt,\n      messages: historico\n    }\n  }\n}];"
+      },
+      "id": "code-prompt-clara",
+      "name": "Montar Prompt Clara",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [540, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $env.ANTHROPIC_API_KEY }}" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.anthropicBody }}",
+        "options": {}
+      },
+      "id": "http-clara-sonnet",
+      "name": "Claude Sonnet — Clara",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [760, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst ctx = $('Montar Prompt Clara').first().json;\n\nif (input.error || !input.content) {\n  return [{\n    json: {\n      ...ctx,\n      mensagem: `Oi ${ctx.nome}! Tive uma instabilidade. Pode repetir sua dúvida? 😊`,\n      acao: 'responder',\n      topico: 'outro',\n      procedimento_interesse: null,\n      encerrar_sessao: false,\n      historicoAtualizado: ctx.historico,\n      erro: true\n    }\n  }];\n}\n\nconst rawText = input.content?.[0]?.text ?? '{}';\n\nlet parsed;\ntry {\n  const cleaned = rawText.replace(/```json?/g, '').replace(/```/g, '').trim();\n  parsed = JSON.parse(cleaned);\n} catch(e) {\n  parsed = {\n    mensagem: `Oi ${ctx.nome}! Pode repetir sua pergunta de outro jeito?`,\n    acao: 'responder',\n    topico: 'outro',\n    procedimento_interesse: null,\n    encerrar_sessao: false\n  };\n}\n\nconst validAcoes = ['responder', 'passar_para_bia', 'escalar_humano', 'encerrar'];\nif (!validAcoes.includes(parsed.acao)) parsed.acao = 'responder';\n\nconst historicoAtualizado = [...ctx.historico, { role: 'assistant', content: parsed.mensagem }];\n\nreturn [{\n  json: {\n    telefone: ctx.telefone,\n    nome: ctx.nome,\n    remoteJid: ctx.remoteJid,\n    instancia: ctx.instancia,\n    timestamp: ctx.timestamp,\n    messageId: ctx.messageId,\n    intent: ctx.intent,\n    sessao_id: ctx.sessao_id,\n    sessao_fase: ctx.sessao_fase,\n    mensagem: parsed.mensagem,\n    acao: parsed.acao,\n    topico: parsed.topico ?? 'outro',\n    procedimento_interesse: parsed.procedimento_interesse ?? null,\n    encerrar_sessao: parsed.encerrar_sessao ?? false,\n    historicoAtualizado,\n    clara_raw: rawText\n  }\n}];"
+      },
+      "id": "code-parse-clara",
+      "name": "Parsear Resposta Clara",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [980, 300]
+    },
+    {
+      "parameters": {
+        "mode": "rules",
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+                "conditions": [
+                  { "leftValue": "={{ $json.acao }}", "rightValue": "passar_para_bia", "operator": { "type": "string", "operation": "equals" } }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Passar para Bia"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+                "conditions": [
+                  { "leftValue": "={{ $json.acao }}", "rightValue": "escalar_humano", "operator": { "type": "string", "operation": "equals" } }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Escalar Humano"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "sw-acao-clara",
+      "name": "Switch por Ação",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [1200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { telefone, nome, remoteJid, instancia, timestamp, messageId,\n        procedimento_interesse, mensagem, historicoAtualizado } = $input.first().json;\n\nconst textoParaBia = procedimento_interesse\n  ? `Quero agendar: ${procedimento_interesse}`\n  : 'Quero agendar um horário';\n\nreturn [{\n  json: {\n    telefone, nome, remoteJid, instancia, timestamp, messageId,\n    mensagem,\n    acao: 'passar_para_bia',\n    historicoAtualizado,\n    encerrar_sessao: true,\n    procedimento_interesse,\n    topico: 'procedimento',\n    contexto_bia: {\n      telefone, nome, remoteJid, instancia, timestamp, messageId,\n      texto: textoParaBia,\n      intent: 'AGENDAR'\n    }\n  }\n}];"
+      },
+      "id": "code-prep-bia",
+      "name": "Preparar Passagem para Bia",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1420, 100]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "03-bia-ref",
+          "mode": "id"
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "ew-chamar-bia",
+      "name": "Chamar Bia",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [1640, 100],
+      "notes": "IMPORTANTE: Após importar, edite este node e selecione o workflow '02-agendamento-bia' manualmente pelo nome."
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst { telefone, nome, acao, topico, historicoAtualizado,\n        encerrar_sessao, sessao_id, timestamp } = input;\n\nconst agora = new Date().toLocaleString('pt-BR');\nconst statusSessao = (encerrar_sessao || acao === 'encerrar' || acao === 'passar_para_bia')\n  ? 'encerrado'\n  : 'ativo';\nconst historicoLimitado = (historicoAtualizado ?? []).slice(-16);\n\nreturn [{\n  json: {\n    telefone, nome, timestamp, acao, topico,\n    mensagem: input.mensagem,\n    remoteJid: input.remoteJid,\n    instancia: input.instancia,\n    sessao_id,\n    sessao_update: {\n      Agente: 'CLARA',\n      Fase: acao,\n      Historico: JSON.stringify(historicoLimitado),\n      Dado_Temp: JSON.stringify({ topico, procedimento_interesse: input.procedimento_interesse }),\n      Atualizado_Em: agora,\n      Status: statusSessao\n    }\n  }\n}];"
+      },
+      "id": "code-prep-sess-clara",
+      "name": "Preparar Sessão",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1860, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "={{ $env.EVO_API_KEY }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { number: $json.telefone, text: $json.mensagem } }}",
+        "options": {}
+      },
+      "id": "http-evo-clara",
+      "name": "Enviar Mensagem WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [2080, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sessoes_Ativas",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Telefone": "={{ $json.telefone }}",
+            "Agente": "CLARA",
+            "Fase": "={{ $json.sessao_update.Fase }}",
+            "Historico": "={{ $json.sessao_update.Historico }}",
+            "Dado_Temp": "={{ $json.sessao_update.Dado_Temp }}",
+            "Criado_Em": "={{ $json.sessao_update.Atualizado_Em }}",
+            "Atualizado_Em": "={{ $json.sessao_update.Atualizado_Em }}",
+            "Status": "={{ $json.sessao_update.Status }}"
+          },
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gsh-sess-clara-write",
+      "name": "Atualizar Sessão Clara",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2300, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Log_Interacoes",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Data": "={{ new Date($json.timestamp * 1000).toLocaleString('pt-BR') }}",
+            "Telefone": "={{ $json.telefone }}",
+            "Nome": "={{ $json.nome }}",
+            "Mensagem": "={{ $json.mensagem }}",
+            "Intent": "={{ $json.topico }}",
+            "Resposta": "={{ $json.mensagem }}",
+            "Escalacao": "={{ $json.acao === 'escalar_humano' ? 'SIM' : 'NAO' }}"
+          },
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gsh-log-clara",
+      "name": "Log Interação Clara",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2520, 300]
+    }
+  ],
+  "connections": {
+    "Trigger — Receber do Orquestrador": {
+      "main": [[{ "node": "Buscar Sessão Clara", "type": "main", "index": 0 }]]
+    },
+    "Buscar Sessão Clara": {
+      "main": [[{ "node": "Montar Prompt Clara", "type": "main", "index": 0 }]]
+    },
+    "Montar Prompt Clara": {
+      "main": [[{ "node": "Claude Sonnet — Clara", "type": "main", "index": 0 }]]
+    },
+    "Claude Sonnet — Clara": {
+      "main": [[{ "node": "Parsear Resposta Clara", "type": "main", "index": 0 }]]
+    },
+    "Parsear Resposta Clara": {
+      "main": [[{ "node": "Switch por Ação", "type": "main", "index": 0 }]]
+    },
+    "Switch por Ação": {
+      "main": [
+        [{ "node": "Preparar Passagem para Bia", "type": "main", "index": 0 }],
+        [{ "node": "Preparar Sessão", "type": "main", "index": 0 }],
+        [{ "node": "Preparar Sessão", "type": "main", "index": 0 }]
+      ]
+    },
+    "Preparar Passagem para Bia": {
+      "main": [[{ "node": "Chamar Bia", "type": "main", "index": 0 }]]
+    },
+    "Chamar Bia": {
+      "main": [[{ "node": "Preparar Sessão", "type": "main", "index": 0 }]]
+    },
+    "Preparar Sessão": {
+      "main": [[{ "node": "Enviar Mensagem WhatsApp", "type": "main", "index": 0 }]]
+    },
+    "Enviar Mensagem WhatsApp": {
+      "main": [[{ "node": "Atualizar Sessão Clara", "type": "main", "index": 0 }]]
+    },
+    "Atualizar Sessão Clara": {
+      "main": [[{ "node": "Log Interação Clara", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    { "name": "clinica-estetica" },
+    { "name": "atendimento" },
+    { "name": "clara" }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-03T00:00:00.000Z",
+  "versionId": "03-clara-v1"
+}

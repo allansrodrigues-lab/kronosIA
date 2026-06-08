@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowsm">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="centro" cx="50%" cy="50%" r="20%">
+      <stop offset="0%"   style="stop-color:#7010c0;stop-opacity:0.45"/>
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Fundo preto -->
+  <rect width="1920" height="1080" fill="#000000"/>
+
+  <!--
+    SPIROGRAPH DESLOCADO
+    Oval grande: rx=560, ry=220
+    Centro da oval deslocado 200px do ponto de rotação:
+      cx=1160, cy=540 (rotação em torno de 960,540)
+    60 ovals de 3° em 3° → 180° cobrindo toda simetria
+    4 cores ciclando
+  -->
+
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.82" transform="rotate(0   960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.82" transform="rotate(3   960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.82" transform="rotate(6   960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.82" transform="rotate(9   960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.80" transform="rotate(12  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.80" transform="rotate(15  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.80" transform="rotate(18  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.80" transform="rotate(21  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.78" transform="rotate(24  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.78" transform="rotate(27  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.78" transform="rotate(30  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.78" transform="rotate(33  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.76" transform="rotate(36  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.76" transform="rotate(39  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.76" transform="rotate(42  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.76" transform="rotate(45  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.74" transform="rotate(48  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.74" transform="rotate(51  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.74" transform="rotate(54  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.74" transform="rotate(57  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.72" transform="rotate(60  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.72" transform="rotate(63  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.72" transform="rotate(66  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.72" transform="rotate(69  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.70" transform="rotate(72  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.70" transform="rotate(75  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.70" transform="rotate(78  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.70" transform="rotate(81  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.68" transform="rotate(84  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.68" transform="rotate(87  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.68" transform="rotate(90  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.68" transform="rotate(93  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.66" transform="rotate(96  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.66" transform="rotate(99  960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.66" transform="rotate(102 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.66" transform="rotate(105 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.64" transform="rotate(108 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.64" transform="rotate(111 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.64" transform="rotate(114 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.64" transform="rotate(117 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.62" transform="rotate(120 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.62" transform="rotate(123 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.62" transform="rotate(126 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.62" transform="rotate(129 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.60" transform="rotate(132 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.60" transform="rotate(135 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.60" transform="rotate(138 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.60" transform="rotate(141 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.58" transform="rotate(144 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.58" transform="rotate(147 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.58" transform="rotate(150 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.58" transform="rotate(153 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.56" transform="rotate(156 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.56" transform="rotate(159 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.56" transform="rotate(162 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.56" transform="rotate(165 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#8010c8" stroke-width="1.8" opacity="0.54" transform="rotate(168 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#0828c8" stroke-width="1.8" opacity="0.54" transform="rotate(171 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#c020c0" stroke-width="1.8" opacity="0.54" transform="rotate(174 960 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="560" ry="220" fill="none" stroke="#08a8e8" stroke-width="1.8" opacity="0.54" transform="rotate(177 960 540)" filter="url(#glow)"/>
+
+  <!-- Segunda camada deslocada mais ainda - cria pétalas externas -->
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#5008a0" stroke-width="1" opacity="0.35" transform="rotate(1.5  960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#04149a" stroke-width="1" opacity="0.35" transform="rotate(4.5  960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#900890" stroke-width="1" opacity="0.35" transform="rotate(7.5  960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#047cb0" stroke-width="1" opacity="0.35" transform="rotate(10.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#5008a0" stroke-width="1" opacity="0.33" transform="rotate(13.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#04149a" stroke-width="1" opacity="0.33" transform="rotate(16.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#900890" stroke-width="1" opacity="0.33" transform="rotate(19.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#047cb0" stroke-width="1" opacity="0.33" transform="rotate(22.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#5008a0" stroke-width="1" opacity="0.30" transform="rotate(25.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#04149a" stroke-width="1" opacity="0.30" transform="rotate(28.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#900890" stroke-width="1" opacity="0.30" transform="rotate(31.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#047cb0" stroke-width="1" opacity="0.30" transform="rotate(34.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#5008a0" stroke-width="1" opacity="0.28" transform="rotate(37.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#04149a" stroke-width="1" opacity="0.28" transform="rotate(40.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#900890" stroke-width="1" opacity="0.28" transform="rotate(43.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#047cb0" stroke-width="1" opacity="0.28" transform="rotate(46.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#5008a0" stroke-width="1" opacity="0.26" transform="rotate(49.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#04149a" stroke-width="1" opacity="0.26" transform="rotate(52.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#900890" stroke-width="1" opacity="0.26" transform="rotate(55.5 960 540)" filter="url(#glowsm)"/>
+  <ellipse cx="1260" cy="540" rx="480" ry="160" fill="none" stroke="#047cb0" stroke-width="1" opacity="0.26" transform="rotate(58.5 960 540)" filter="url(#glowsm)"/>
+
+  <!-- Brilho central -->
+  <rect width="1920" height="1080" fill="url(#centro)"/>
+
+</svg>

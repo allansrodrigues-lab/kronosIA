@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kronos Intelligence — Automação com IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --azul:    #020c2a;
+      --violeta: #4a0e90;
+      --indigo:  #3060c8;
+      --turq:    #1890c0;
+      --branco:  #f0f4ff;
+      --cinza:   #8898bb;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--azul);
+      color: var(--branco);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: linear-gradient(to bottom, rgba(2,12,42,0.95), transparent);
+      backdrop-filter: blur(4px);
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, #a080ff, #40a8e0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo span { font-weight: 300; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 36px;
+    }
+
+    nav ul a {
+      color: var(--cinza);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--branco); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--violeta), var(--indigo));
+      color: var(--branco) !important;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 600 !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 60px 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .hero-bg svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(74,14,144,0.25);
+      border: 1px solid rgba(120,72,200,0.4);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: #b090f0;
+      margin-bottom: 28px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #7848c8;
+      box-shadow: 0 0 8px #7848c8;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #a080ff 0%, #40a8e0 60%, #18c0a0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-slogan {
+      font-size: 1.15rem;
+      color: var(--cinza);
+      font-weight: 400;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--violeta), var(--indigo));
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 24px rgba(74,14,144,0.4);
+    }
+
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(120,72,200,0.5);
+      color: var(--branco);
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(120,72,200,0.9);
+      background: rgba(120,72,200,0.1);
+    }
+
+    /* ── SEÇÕES ── */
+    section { padding: 100px 60px; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7848c8;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      color: var(--cinza);
+      font-size: 1rem;
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 60px;
+    }
+
+    /* ── SERVIÇOS ── */
+    #servicos { background: rgba(255,255,255,0.02); }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(120,72,200,0.2);
+      border-radius: 12px;
+      padding: 32px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .card:hover {
+      border-color: rgba(120,72,200,0.6);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--cinza);
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    /* ── COMO FUNCIONA ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      counter-reset: step;
+    }
+
+    .step { position: relative; padding-left: 20px; }
+
+    .step-num {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+      background: linear-gradient(135deg, rgba(120,72,200,0.4), rgba(48,96,200,0.4));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .step h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .step p { color: var(--cinza); font-size: 0.87rem; line-height: 1.65; }
+
+    /* ── NICHO ── */
+    .nichos {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .nicho {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(120,72,200,0.2);
+      border-radius: 50px;
+      padding: 12px 24px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* ── CONTATO ── */
+    #contato {
+      background: linear-gradient(135deg, rgba(74,14,144,0.15), rgba(48,96,200,0.1));
+      border-top: 1px solid rgba(120,72,200,0.2);
+    }
+
+    .contato-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .contato-info { display: flex; flex-direction: column; gap: 24px; }
+
+    .contato-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .contato-item-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      background: rgba(120,72,200,0.2);
+      border: 1px solid rgba(120,72,200,0.3);
+      flex-shrink: 0;
+    }
+
+    .contato-item-text { font-size: 0.9rem; color: var(--cinza); }
+    .contato-item-text strong { display: block; color: var(--branco); font-size: 1rem; margin-bottom: 2px; }
+
+    form { display: flex; flex-direction: column; gap: 16px; }
+
+    form input, form textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(120,72,200,0.25);
+      border-radius: 8px;
+      padding: 14px 18px;
+      color: var(--branco);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    form input::placeholder, form textarea::placeholder { color: var(--cinza); }
+    form input:focus, form textarea:focus { border-color: rgba(120,72,200,0.7); }
+    form textarea { resize: vertical; min-height: 120px; }
+
+    form button {
+      background: linear-gradient(135deg, var(--violeta), var(--indigo));
+      color: #fff;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: opacity 0.2s;
+    }
+
+    form button:hover { opacity: 0.88; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 60px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--cinza);
+      font-size: 0.82rem;
+    }
+
+    /* ── WHATSAPP FIXO ── */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 200;
+      background: #25d366;
+      color: #fff;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: transform 0.2s;
+    }
+
+    .whatsapp-btn:hover { transform: scale(1.1); }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      nav ul { display: none; }
+      section { padding: 70px 24px; }
+      .hero { padding: 100px 24px 60px; }
+      .contato-grid { grid-template-columns: 1fr; gap: 48px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">KRONOS<span> Intelligence</span></div>
+  <ul>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#como-funciona">Como funciona</a></li>
+    <li><a href="#planos">Planos</a></li>
+    <li><a href="#contato" class="nav-cta">Falar com especialista</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="m1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a0438"/><stop offset="30%" style="stop-color:#4a0e90"/><stop offset="50%" style="stop-color:#9060e0"/><stop offset="70%" style="stop-color:#4a0e90"/><stop offset="100%" style="stop-color:#0e0220"/></linearGradient>
+        <linearGradient id="m2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#020820"/><stop offset="30%" style="stop-color:#0c2078"/><stop offset="50%" style="stop-color:#3060c8"/><stop offset="70%" style="stop-color:#0c2078"/><stop offset="100%" style="stop-color:#020818"/></linearGradient>
+        <linearGradient id="m3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#080228"/><stop offset="30%" style="stop-color:#1c0c88"/><stop offset="50%" style="stop-color:#5040d8"/><stop offset="70%" style="stop-color:#1c0c88"/><stop offset="100%" style="stop-color:#060118"/></linearGradient>
+        <linearGradient id="m4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#010e20"/><stop offset="30%" style="stop-color:#044878"/><stop offset="50%" style="stop-color:#1890c0"/><stop offset="70%" style="stop-color:#044878"/><stop offset="100%" style="stop-color:#010a18"/></linearGradient>
+        <linearGradient id="m1b" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#0e0220"/><stop offset="30%" style="stop-color:#3a0a70"/><stop offset="50%" style="stop-color:#7848c8"/><stop offset="70%" style="stop-color:#3a0a70"/><stop offset="100%" style="stop-color:#1a0438"/></linearGradient>
+        <linearGradient id="m2b" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#020818"/><stop offset="30%" style="stop-color:#081860"/><stop offset="50%" style="stop-color:#2048a8"/><stop offset="70%" style="stop-color:#081860"/><stop offset="100%" style="stop-color:#020820"/></linearGradient>
+        <linearGradient id="m3b" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#060118"/><stop offset="30%" style="stop-color:#160a68"/><stop offset="50%" style="stop-color:#3830b0"/><stop offset="70%" style="stop-color:#160a68"/><stop offset="100%" style="stop-color:#080228"/></linearGradient>
+        <linearGradient id="m4b" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#010a18"/><stop offset="30%" style="stop-color:#033860"/><stop offset="50%" style="stop-color:#1070a0"/><stop offset="70%" style="stop-color:#033860"/><stop offset="100%" style="stop-color:#010e20"/></linearGradient>
+        <linearGradient id="mascara" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#020c2a;stop-opacity:1"/><stop offset="40%" style="stop-color:#020c2a;stop-opacity:1"/><stop offset="70%" style="stop-color:#020c2a;stop-opacity:0.6"/><stop offset="100%" style="stop-color:#020c2a;stop-opacity:0"/></linearGradient>
+        <radialGradient id="centro" cx="75%" cy="50%" r="35%"><stop offset="0%" style="stop-color:#201060;stop-opacity:0.35"/><stop offset="100%" style="stop-color:#020c2a;stop-opacity:0"/></radialGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <rect width="1920" height="1080" fill="#020c2a"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1)"  stroke-width="2" opacity="0.80" transform="rotate(0   1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2)"  stroke-width="2" opacity="0.80" transform="rotate(3   1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3)"  stroke-width="2" opacity="0.80" transform="rotate(6   1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4)"  stroke-width="2" opacity="0.80" transform="rotate(9   1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1b)" stroke-width="2" opacity="0.76" transform="rotate(12  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2b)" stroke-width="2" opacity="0.76" transform="rotate(15  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3b)" stroke-width="2" opacity="0.76" transform="rotate(18  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4b)" stroke-width="2" opacity="0.76" transform="rotate(21  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1)"  stroke-width="2" opacity="0.72" transform="rotate(24  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2)"  stroke-width="2" opacity="0.72" transform="rotate(27  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3)"  stroke-width="2" opacity="0.72" transform="rotate(30  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4)"  stroke-width="2" opacity="0.72" transform="rotate(33  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1b)" stroke-width="2" opacity="0.68" transform="rotate(36  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2b)" stroke-width="2" opacity="0.68" transform="rotate(39  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3b)" stroke-width="2" opacity="0.68" transform="rotate(42  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4b)" stroke-width="2" opacity="0.68" transform="rotate(45  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1)"  stroke-width="2" opacity="0.64" transform="rotate(48  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2)"  stroke-width="2" opacity="0.64" transform="rotate(51  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3)"  stroke-width="2" opacity="0.64" transform="rotate(54  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4)"  stroke-width="2" opacity="0.64" transform="rotate(57  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1b)" stroke-width="2" opacity="0.60" transform="rotate(60  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2b)" stroke-width="2" opacity="0.60" transform="rotate(63  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3b)" stroke-width="2" opacity="0.60" transform="rotate(66  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4b)" stroke-width="2" opacity="0.60" transform="rotate(69  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1)"  stroke-width="2" opacity="0.55" transform="rotate(72  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2)"  stroke-width="2" opacity="0.55" transform="rotate(75  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3)"  stroke-width="2" opacity="0.55" transform="rotate(78  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4)"  stroke-width="2" opacity="0.55" transform="rotate(81  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1b)" stroke-width="2" opacity="0.50" transform="rotate(84  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2b)" stroke-width="2" opacity="0.50" transform="rotate(87  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3b)" stroke-width="2" opacity="0.50" transform="rotate(90  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4b)" stroke-width="2" opacity="0.50" transform="rotate(93  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1)"  stroke-width="2" opacity="0.44" transform="rotate(96  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2)"  stroke-width="2" opacity="0.44" transform="rotate(99  1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3)"  stroke-width="2" opacity="0.44" transform="rotate(102 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4)"  stroke-width="2" opacity="0.44" transform="rotate(105 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1b)" stroke-width="2" opacity="0.38" transform="rotate(108 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2b)" stroke-width="2" opacity="0.38" transform="rotate(111 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3b)" stroke-width="2" opacity="0.38" transform="rotate(114 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4b)" stroke-width="2" opacity="0.38" transform="rotate(117 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1)"  stroke-width="2" opacity="0.30" transform="rotate(120 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2)"  stroke-width="2" opacity="0.30" transform="rotate(123 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3)"  stroke-width="2" opacity="0.30" transform="rotate(126 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4)"  stroke-width="2" opacity="0.30" transform="rotate(129 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1b)" stroke-width="2" opacity="0.22" transform="rotate(132 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2b)" stroke-width="2" opacity="0.22" transform="rotate(135 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3b)" stroke-width="2" opacity="0.22" transform="rotate(138 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4b)" stroke-width="2" opacity="0.22" transform="rotate(141 1380 540)" filter="url(#glow)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m1)"  stroke-width="2" opacity="0.14" transform="rotate(144 1380 540)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m2)"  stroke-width="2" opacity="0.14" transform="rotate(147 1380 540)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m3)"  stroke-width="2" opacity="0.14" transform="rotate(150 1380 540)"/>
+      <ellipse cx="1580" cy="540" rx="560" ry="220" fill="none" stroke="url(#m4)"  stroke-width="2" opacity="0.14" transform="rotate(153 1380 540)"/>
+      <rect width="1920" height="1080" fill="url(#mascara)"/>
+      <rect width="1920" height="1080" fill="url(#centro)"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">IA aplicada para negócios</div>
+    <h1>Automação<br/><span>inteligente</span><br/>para o seu negócio</h1>
+    <p class="hero-slogan">Inteligência que automatiza. Resultado que transforma.</p>
+    <div class="hero-btns">
+      <a href="#contato" class="btn-primary">Quero automatizar agora</a>
+      <a href="#servicos" class="btn-secondary">Ver serviços</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="section-label">O que fazemos</div>
+  <h2 class="section-title">Soluções de automação<br/>com agentes de IA</h2>
+  <p class="section-sub">Implantamos agentes inteligentes que trabalham 24 horas por dia, 7 dias por semana — sem pausas, sem erros, sem custo de equipe.</p>
+  <p style="color:var(--cinza);font-size:0.85rem;margin-top:-44px;margin-bottom:52px">Atendemos clínicas, consultórios, escritórios de advocacia e empresas de serviços.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon" style="background:rgba(74,14,144,0.25)">💬</div>
+      <h3>Atendimento Automatizado via WhatsApp</h3>
+      <p>Agente de IA responde, qualifica e agenda seus clientes automaticamente, 24 horas por dia, sem intervenção humana.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(48,96,200,0.25)">📅</div>
+      <h3>Agendamento Inteligente</h3>
+      <p>Integração com sua agenda e confirmações automáticas. Zero falhas de comunicação, zero esquecimentos.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(24,144,192,0.25)">🔁</div>
+      <h3>Pós-venda e Fidelização</h3>
+      <p>Follow-up automático após cada atendimento. Mantenha o cliente engajado e aumente o retorno sem esforço.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(74,14,144,0.25)">🔔</div>
+      <h3>Lembretes e Notificações</h3>
+      <p>Reduza faltas e no-shows com lembretes automáticos personalizados por WhatsApp antes de cada compromisso.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(48,96,200,0.25)">📊</div>
+      <h3>Relatórios e Métricas</h3>
+      <p>Painel com dados de atendimento em tempo real. Tome decisões baseadas em números, não em suposições.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="como-funciona">
+  <div class="section-label">Processo</div>
+  <h2 class="section-title">Como funciona</h2>
+  <p class="section-sub">Implantação rápida, sem complicação técnica para você.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Diagnóstico</h3>
+      <p>Entendemos o seu negócio, fluxos de atendimento e pontos de melhoria.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Configuração</h3>
+      <p>Configuramos os agentes de IA com a identidade e regras do seu negócio.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Integração</h3>
+      <p>Conectamos com WhatsApp, agenda e sistemas que você já usa.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Ativação</h3>
+      <p>Seu agente entra em operação. Monitoramos e ajustamos continuamente.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- PLANOS -->
+<section id="planos" style="border-top:1px solid rgba(120,72,200,0.12)">
+  <div class="section-label">Investimento</div>
+  <h2 class="section-title">Planos a partir de<br/><span style="background:linear-gradient(135deg,#a080ff,#40a8e0);-webkit-background-clip:text;-webkit-text-fill-color:transparent">R$ 397/mês</span></h2>
+  <p class="section-sub">Sem contrato de fidelidade. Sem taxa de setup no primeiro mês. Escolha o plano ideal após um diagnóstico gratuito com nossa equipe.</p>
+
+  <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:8px">
+    <a href="https://wa.me/5519971266736?text=Olá!%20Quero%20um%20diagnóstico%20gratuito%20da%20Kronos%20Intelligence." target="_blank" class="btn-primary" style="font-size:1rem;padding:16px 36px">
+      Quero um diagnóstico gratuito
+    </a>
+    <span style="color:var(--cinza);font-size:0.88rem">👉 Respondemos em até 1 hora útil</span>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="section-label">Contato</div>
+  <h2 class="section-title">Pronto para automatizar<br/>seu negócio?</h2>
+
+  <div class="contato-grid">
+    <div class="contato-info">
+      <p style="color:var(--cinza);line-height:1.7;margin-bottom:8px">Fale com a nossa equipe e descubra como a Kronos Intelligence pode transformar o atendimento do seu negócio.</p>
+      <div class="contato-item">
+        <div class="contato-item-icon">📱</div>
+        <div class="contato-item-text">
+          <strong>WhatsApp</strong>
+          +55 19 97126-6736
+        </div>
+      </div>
+      <div class="contato-item">
+        <div class="contato-item-icon">✉️</div>
+        <div class="contato-item-text">
+          <strong>E-mail</strong>
+          allansrodrigues@gmail.com
+        </div>
+      </div>
+    </div>
+
+    <form>
+      <input type="text" placeholder="Seu nome"/>
+      <input type="text" placeholder="WhatsApp ou e-mail"/>
+      <input type="text" placeholder="Seu segmento (clínica, advocacia...)"/>
+      <textarea placeholder="Como posso ajudar seu negócio?"></textarea>
+      <button type="submit">Enviar mensagem</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo" style="font-size:1rem">KRONOS<span> Intelligence</span></div>
+  <span>© 2026 Kronos Intelligence. Todos os direitos reservados.</span>
+</footer>
+
+<!-- WHATSAPP FIXO -->
+<a class="whatsapp-btn" href="https://wa.me/5519971266736" target="_blank" title="Fale no WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="28" height="28">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+</body>
+</html>

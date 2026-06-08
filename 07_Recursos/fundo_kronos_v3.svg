@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+
+    <!-- Oval 1 - Roxo Violeta profundo + azul marinho -->
+    <linearGradient id="g1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#e8d8ff;stop-opacity:0"/>
+      <stop offset="15%"  style="stop-color:#9060e0;stop-opacity:0.4"/>
+      <stop offset="35%"  style="stop-color:#5010a8;stop-opacity:0.9"/>
+      <stop offset="50%"  style="stop-color:#1a0560;stop-opacity:1"/>
+      <stop offset="65%"  style="stop-color:#3820b0;stop-opacity:0.85"/>
+      <stop offset="85%"  style="stop-color:#7840d0;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#e8d8ff;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Oval 2 - Azul marinho + violeta -->
+    <linearGradient id="g2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#d0d8ff;stop-opacity:0"/>
+      <stop offset="15%"  style="stop-color:#4060d8;stop-opacity:0.45"/>
+      <stop offset="35%"  style="stop-color:#0820a0;stop-opacity:0.9"/>
+      <stop offset="50%"  style="stop-color:#050e58;stop-opacity:1"/>
+      <stop offset="65%"  style="stop-color:#2030b8;stop-opacity:0.85"/>
+      <stop offset="85%"  style="stop-color:#5068e0;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#d0d8ff;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Oval 3 - Roxo + rosa violeta + marinho (aurora) -->
+    <linearGradient id="g3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#ffd8ff;stop-opacity:0"/>
+      <stop offset="15%"  style="stop-color:#c050c0;stop-opacity:0.45"/>
+      <stop offset="30%"  style="stop-color:#8010a8;stop-opacity:0.88"/>
+      <stop offset="48%"  style="stop-color:#280868;stop-opacity:1"/>
+      <stop offset="62%"  style="stop-color:#6020b0;stop-opacity:0.85"/>
+      <stop offset="80%"  style="stop-color:#a840c8;stop-opacity:0.45"/>
+      <stop offset="100%" style="stop-color:#ffd8ff;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Oval 4 - Turquesa puxado ao azul marinho + violeta -->
+    <linearGradient id="g4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#c8f0ff;stop-opacity:0"/>
+      <stop offset="15%"  style="stop-color:#2898c8;stop-opacity:0.45"/>
+      <stop offset="35%"  style="stop-color:#0848a0;stop-opacity:0.88"/>
+      <stop offset="50%"  style="stop-color:#041858;stop-opacity:1"/>
+      <stop offset="65%"  style="stop-color:#3048b8;stop-opacity:0.85"/>
+      <stop offset="82%"  style="stop-color:#5898d8;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#c8f0ff;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Oval 5 - Champagne dourado puxado a violeta dourado -->
+    <linearGradient id="g5" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#fff0e8;stop-opacity:0"/>
+      <stop offset="15%"  style="stop-color:#c8a040;stop-opacity:0.4"/>
+      <stop offset="35%"  style="stop-color:#806018;stop-opacity:0.85"/>
+      <stop offset="48%"  style="stop-color:#382870;stop-opacity:1"/>
+      <stop offset="62%"  style="stop-color:#7850b8;stop-opacity:0.85"/>
+      <stop offset="80%"  style="stop-color:#c8a050;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#fff0e8;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Oval 6 - Roxo violeta intenso -->
+    <linearGradient id="g6" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#f0d8ff;stop-opacity:0"/>
+      <stop offset="15%"  style="stop-color:#a858e8;stop-opacity:0.45"/>
+      <stop offset="35%"  style="stop-color:#6010c0;stop-opacity:0.92"/>
+      <stop offset="50%"  style="stop-color:#1e0568;stop-opacity:1"/>
+      <stop offset="65%"  style="stop-color:#4818a8;stop-opacity:0.88"/>
+      <stop offset="82%"  style="stop-color:#9050d8;stop-opacity:0.42"/>
+      <stop offset="100%" style="stop-color:#f0d8ff;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Oval 7 - Esmeralda puxado a azul marinho -->
+    <linearGradient id="g7" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#d0ffee;stop-opacity:0"/>
+      <stop offset="18%"  style="stop-color:#30b888;stop-opacity:0.42"/>
+      <stop offset="38%"  style="stop-color:#087858;stop-opacity:0.85"/>
+      <stop offset="52%"  style="stop-color:#042848;stop-opacity:1"/>
+      <stop offset="65%"  style="stop-color:#185890;stop-opacity:0.82"/>
+      <stop offset="82%"  style="stop-color:#40b8a8;stop-opacity:0.38"/>
+      <stop offset="100%" style="stop-color:#d0ffee;stop-opacity:0"/>
+    </linearGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowsm">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+  </defs>
+
+  <!-- Fundo preto -->
+  <rect width="1920" height="1080" fill="#000000"/>
+
+  <!-- === OVALS VERTICAIS PRINCIPAIS === -->
+
+  <!-- Oval 1 - Roxo violeta -->
+  <ellipse cx="200" cy="540" rx="36" ry="490" fill="none" stroke="url(#g1)" stroke-width="3" opacity="0.82" transform="rotate(-1.5 200 540)" filter="url(#glow)"/>
+  <ellipse cx="200" cy="540" rx="30" ry="484" fill="none" stroke="url(#g1)" stroke-width="1" opacity="0.45" transform="rotate(-1.5 200 540)"/>
+
+  <!-- Oval 2 - Azul marinho -->
+  <ellipse cx="440" cy="540" rx="38" ry="495" fill="none" stroke="url(#g2)" stroke-width="3" opacity="0.8" transform="rotate(1 440 540)" filter="url(#glow)"/>
+  <ellipse cx="440" cy="540" rx="32" ry="489" fill="none" stroke="url(#g2)" stroke-width="1" opacity="0.42" transform="rotate(1 440 540)"/>
+
+  <!-- Oval 3 - Aurora roxo-rosa -->
+  <ellipse cx="680" cy="540" rx="36" ry="492" fill="none" stroke="url(#g3)" stroke-width="3" opacity="0.82" transform="rotate(-0.8 680 540)" filter="url(#glow)"/>
+  <ellipse cx="680" cy="540" rx="30" ry="486" fill="none" stroke="url(#g3)" stroke-width="1" opacity="0.42" transform="rotate(-0.8 680 540)"/>
+
+  <!-- Oval 4 - Turquesa marinho -->
+  <ellipse cx="920" cy="540" rx="40" ry="498" fill="none" stroke="url(#g4)" stroke-width="3" opacity="0.8" transform="rotate(1.2 920 540)" filter="url(#glow)"/>
+  <ellipse cx="920" cy="540" rx="34" ry="492" fill="none" stroke="url(#g4)" stroke-width="1" opacity="0.42" transform="rotate(1.2 920 540)"/>
+
+  <!-- Oval 5 - Dourado violeta -->
+  <ellipse cx="1160" cy="540" rx="36" ry="493" fill="none" stroke="url(#g5)" stroke-width="3" opacity="0.78" transform="rotate(-1 1160 540)" filter="url(#glow)"/>
+  <ellipse cx="1160" cy="540" rx="30" ry="487" fill="none" stroke="url(#g5)" stroke-width="1" opacity="0.4" transform="rotate(-1 1160 540)"/>
+
+  <!-- Oval 6 - Roxo violeta intenso -->
+  <ellipse cx="1400" cy="540" rx="38" ry="495" fill="none" stroke="url(#g6)" stroke-width="3" opacity="0.84" transform="rotate(0.8 1400 540)" filter="url(#glow)"/>
+  <ellipse cx="1400" cy="540" rx="32" ry="489" fill="none" stroke="url(#g6)" stroke-width="1" opacity="0.44" transform="rotate(0.8 1400 540)"/>
+
+  <!-- Oval 7 - Esmeralda marinho -->
+  <ellipse cx="1640" cy="540" rx="36" ry="490" fill="none" stroke="url(#g7)" stroke-width="3" opacity="0.76" transform="rotate(-1.2 1640 540)" filter="url(#glow)"/>
+  <ellipse cx="1640" cy="540" rx="30" ry="484" fill="none" stroke="url(#g7)" stroke-width="1" opacity="0.38" transform="rotate(-1.2 1640 540)"/>
+
+  <!-- Oval 8 - Azul marinho - extremo direito -->
+  <ellipse cx="1860" cy="540" rx="32" ry="485" fill="none" stroke="url(#g2)" stroke-width="2.5" opacity="0.6" transform="rotate(1 1860 540)" filter="url(#glowsm)"/>
+
+  <!-- === OVALS SECUNDÁRIAS - mais finas, entre as principais === -->
+  <ellipse cx="320" cy="540" rx="18" ry="465" fill="none" stroke="url(#g3)" stroke-width="1.4" opacity="0.28" transform="rotate(0.5 320 540)"/>
+  <ellipse cx="560" cy="540" rx="18" ry="468" fill="none" stroke="url(#g6)" stroke-width="1.4" opacity="0.26" transform="rotate(-0.5 560 540)"/>
+  <ellipse cx="800" cy="540" rx="18" ry="470" fill="none" stroke="url(#g1)" stroke-width="1.4" opacity="0.26" transform="rotate(0.8 800 540)"/>
+  <ellipse cx="1040" cy="540" rx="18" ry="470" fill="none" stroke="url(#g5)" stroke-width="1.4" opacity="0.24" transform="rotate(-0.8 1040 540)"/>
+  <ellipse cx="1280" cy="540" rx="18" ry="468" fill="none" stroke="url(#g4)" stroke-width="1.4" opacity="0.26" transform="rotate(0.5 1280 540)"/>
+  <ellipse cx="1520" cy="540" rx="18" ry="465" fill="none" stroke="url(#g3)" stroke-width="1.4" opacity="0.24" transform="rotate(-0.5 1520 540)"/>
+  <ellipse cx="1760" cy="540" rx="16" ry="462" fill="none" stroke="url(#g6)" stroke-width="1.4" opacity="0.22" transform="rotate(0.5 1760 540)"/>
+
+</svg>

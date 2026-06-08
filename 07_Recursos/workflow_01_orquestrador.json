@@ -1,0 +1,302 @@
+{
+  "name": "01-orquestrador-whatsapp",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "wh-001",
+      "name": "Webhook WhatsApp",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [100, 300],
+      "webhookId": "whatsapp-clinica-main"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body ?? $input.first().json;\n\nif (body.data?.key?.fromMe === true) return [];\nif (body.event !== 'messages.upsert') return [];\n\nconst data = body.data;\nconst remoteJid = data.key?.remoteJid;\nif (!remoteJid) return [];\nif (remoteJid.endsWith('@g.us')) return [];\n\nconst telefone = remoteJid.replace('@s.whatsapp.net', '');\n\nlet texto = '';\nlet tipoMensagem = data.messageType ?? 'unknown';\n\nif (data.message?.conversation) {\n  texto = data.message.conversation;\n} else if (data.message?.extendedTextMessage?.text) {\n  texto = data.message.extendedTextMessage.text;\n} else if (data.message?.imageMessage?.caption) {\n  texto = data.message.imageMessage.caption;\n  tipoMensagem = 'imagem';\n} else if (data.message?.audioMessage) {\n  tipoMensagem = 'audio';\n  texto = '[áudio]';\n} else {\n  return [];\n}\n\nif (!texto.trim()) return [];\n\nreturn [{\n  json: {\n    telefone,\n    nome: data.pushName ?? 'Cliente',\n    texto: texto.trim(),\n    tipoMensagem,\n    messageId: data.key?.id ?? '',\n    timestamp: data.messageTimestamp ?? Math.floor(Date.now() / 1000),\n    instancia: body.instance ?? 'clinica',\n    remoteJid\n  }\n}];"
+      },
+      "id": "code-001",
+      "name": "Normalizar Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [320, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { telefone, nome, texto, tipoMensagem, remoteJid, instancia, timestamp, messageId } = $input.first().json;\n\nconst systemPrompt = `Você é Aurora, recepcionista virtual de uma clínica de estética.\\n\\nClassifique a intenção da mensagem do cliente e gere uma resposta curta de transição.\\n\\nRetorne APENAS um JSON válido neste formato exato:\\n{\"intent\": \"INTENT\", \"confidence\": 0.0, \"resposta\": \"Frase de transição\"}\\n\\nINTENÇÕES DISPONÍVEIS:\\n- AGENDAR: marcar, desmarcar, reagendar, consultar horários/agenda\\n- DUVIDA_PROCEDIMENTO: dúvidas sobre tratamentos, procedimentos, cuidados, indicações\\n- DUVIDA_PRECO: valores, preços, promoções, pacotes, formas de pagamento\\n- POS_PROCEDIMENTO: retorno pós-atendimento, efeitos, resultados, cuidados pós\\n- LEAD_NOVO: primeiro contato, quer conhecer a clínica, sem histórico\\n- RECLAMACAO: insatisfação, problema, crítica, urgência, pedido de reembolso\\n- OUTRO: cumprimento genérico, áudio, não identificado\\n\\nTOM: Caloroso, profissional, máximo 2 frases curtas, máximo 1 emoji.\\nUse o nome \"${nome}\" se disponível.\\n\\nResposta de transição = o que Aurora fala ANTES de passar para o especialista.\\n\\nResponda APENAS com o JSON. Nenhum texto adicional.`;\n\nconst userMessage = tipoMensagem === 'audio'\n  ? '[cliente enviou áudio — use intent OUTRO e peça para escrever]'\n  : texto;\n\nreturn [{\n  json: {\n    telefone,\n    nome,\n    texto,\n    tipoMensagem,\n    remoteJid,\n    instancia,\n    timestamp,\n    messageId,\n    anthropicBody: {\n      model: 'claude-haiku-4-5-20251001',\n      max_tokens: 300,\n      system: systemPrompt,\n      messages: [\n        { role: 'user', content: userMessage }\n      ]\n    }\n  }\n}];"
+      },
+      "id": "code-002",
+      "name": "Montar Prompt Haiku",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [540, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{ $env.ANTHROPIC_API_KEY }}"
+            },
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.anthropicBody }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "http-001",
+      "name": "Claude Haiku — Classificar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [760, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst ctx = $('Montar Prompt Haiku').first().json;\n\n// FIX: trata erro HTTP da API Anthropic (rate limit, API key inválida, etc.)\nif (input.error || !input.content) {\n  return [{\n    json: {\n      telefone: ctx.telefone,\n      nome: ctx.nome,\n      texto: ctx.texto,\n      tipoMensagem: ctx.tipoMensagem,\n      remoteJid: ctx.remoteJid,\n      instancia: ctx.instancia,\n      timestamp: ctx.timestamp,\n      messageId: ctx.messageId,\n      intent: 'OUTRO',\n      confidence: 0,\n      resposta: `Oi, ${ctx.nome}! Estou com uma instabilidade agora. Pode me repetir em instantes? 😊`,\n      haiku_raw: JSON.stringify(input.error ?? 'sem resposta da API')\n    }\n  }];\n}\n\nconst rawText = input.content?.[0]?.text ?? '{}';\n\nlet parsed;\ntry {\n  const cleaned = rawText.replace(/```json?/g, '').replace(/```/g, '').trim();\n  parsed = JSON.parse(cleaned);\n} catch(e) {\n  parsed = { intent: 'OUTRO', confidence: 0.5, resposta: 'Olá! Como posso te ajudar hoje? 😊' };\n}\n\nconst validIntents = ['AGENDAR', 'DUVIDA_PROCEDIMENTO', 'DUVIDA_PRECO', 'POS_PROCEDIMENTO', 'LEAD_NOVO', 'RECLAMACAO', 'OUTRO'];\nif (!validIntents.includes(parsed.intent)) {\n  parsed.intent = 'OUTRO';\n}\n\nreturn [{\n  json: {\n    telefone: ctx.telefone,\n    nome: ctx.nome,\n    texto: ctx.texto,\n    tipoMensagem: ctx.tipoMensagem,\n    remoteJid: ctx.remoteJid,\n    instancia: ctx.instancia,\n    timestamp: ctx.timestamp,\n    messageId: ctx.messageId,\n    intent: parsed.intent,\n    confidence: parsed.confidence ?? 0.8,\n    resposta: parsed.resposta ?? 'Como posso te ajudar?',\n    haiku_raw: rawText\n  }\n}];"
+      },
+      "id": "code-003",
+      "name": "Parsear Intent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [980, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-001",
+              "leftValue": "={{ $json.intent }}",
+              "rightValue": "RECLAMACAO",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-001",
+      "name": "É Reclamação?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { telefone, nome, texto, intent, resposta, remoteJid, instancia, timestamp, messageId, confidence } = $input.first().json;\n\nconst mensagemParaCliente = resposta || `${nome}, sinto muito pelo inconveniente. Nossa equipe já foi notificada e entrará em contato em breve.`;\n\nconst mensagemParaEquipe =\n  '🚨 *ESCALAÇÃO — ATENDIMENTO MANUAL NECESSÁRIO*\\n\\n' +\n  `👤 Cliente: ${nome}\\n` +\n  `📱 Telefone: ${telefone}\\n` +\n  `💬 Mensagem: \"${texto}\"\\n` +\n  `🏷️ Intent: ${intent}\\n\\n` +\n  'Por favor, assuma o atendimento manualmente.';\n\nreturn [{\n  json: {\n    telefone,\n    nome,\n    texto,\n    intent,\n    confidence,\n    remoteJid,\n    instancia,\n    timestamp,\n    messageId,\n    mensagemParaCliente,\n    mensagemParaEquipe,\n    ehEscalacao: true\n  }\n}];"
+      },
+      "id": "code-004",
+      "name": "Preparar Escalação",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1420, 160]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $env.EVO_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { number: $env.EVO_TEAM_NUMBER, text: $json.mensagemParaEquipe } }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "http-003",
+      "name": "Notificar Equipe",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1640, 160],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const { telefone, nome, texto, intent, resposta, confidence, remoteJid, instancia, timestamp, messageId } = $input.first().json;\n\nreturn [{\n  json: {\n    telefone,\n    nome,\n    texto,\n    intent,\n    confidence,\n    remoteJid,\n    instancia,\n    timestamp,\n    messageId,\n    mensagemParaCliente: resposta,\n    ehEscalacao: false\n  }\n}];"
+      },
+      "id": "code-005",
+      "name": "Preparar Resposta Normal",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1420, 440]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $env.EVO_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { number: $json.telefone, text: $json.mensagemParaCliente } }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "http-002",
+      "name": "Enviar Resposta (Evolution)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1860, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Log_Interacoes",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Data": "={{ new Date($json.timestamp * 1000).toLocaleString('pt-BR') }}",
+            "Telefone": "={{ $json.telefone }}",
+            "Nome": "={{ $json.nome }}",
+            "Mensagem": "={{ $json.texto }}",
+            "Intent": "={{ $json.intent }}",
+            "Confianca": "={{ $json.confidence }}",
+            "Resposta": "={{ $json.mensagemParaCliente }}",
+            "Escalacao": "={{ $json.ehEscalacao ? 'SIM' : 'NAO' }}"
+          },
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gs-001",
+      "name": "Log no Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2080, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-clinica",
+          "name": "Google Sheets — Clinica"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook WhatsApp": {
+      "main": [
+        [{ "node": "Normalizar Payload", "type": "main", "index": 0 }]
+      ]
+    },
+    "Normalizar Payload": {
+      "main": [
+        [{ "node": "Montar Prompt Haiku", "type": "main", "index": 0 }]
+      ]
+    },
+    "Montar Prompt Haiku": {
+      "main": [
+        [{ "node": "Claude Haiku — Classificar", "type": "main", "index": 0 }]
+      ]
+    },
+    "Claude Haiku — Classificar": {
+      "main": [
+        [{ "node": "Parsear Intent", "type": "main", "index": 0 }]
+      ]
+    },
+    "Parsear Intent": {
+      "main": [
+        [{ "node": "É Reclamação?", "type": "main", "index": 0 }]
+      ]
+    },
+    "É Reclamação?": {
+      "main": [
+        [{ "node": "Preparar Escalação", "type": "main", "index": 0 }],
+        [{ "node": "Preparar Resposta Normal", "type": "main", "index": 0 }]
+      ]
+    },
+    "Preparar Escalação": {
+      "main": [
+        [{ "node": "Notificar Equipe", "type": "main", "index": 0 }]
+      ]
+    },
+    "Notificar Equipe": {
+      "main": [
+        [{ "node": "Enviar Resposta (Evolution)", "type": "main", "index": 0 }]
+      ]
+    },
+    "Preparar Resposta Normal": {
+      "main": [
+        [{ "node": "Enviar Resposta (Evolution)", "type": "main", "index": 0 }]
+      ]
+    },
+    "Enviar Resposta (Evolution)": {
+      "main": [
+        [{ "node": "Log no Sheets", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": ""
+  },
+  "tags": [
+    { "name": "whatsapp" },
+    { "name": "orquestrador" },
+    { "name": "aurora" },
+    { "name": "mvp" }
+  ]
+}
