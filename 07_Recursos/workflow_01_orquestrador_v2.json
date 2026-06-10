@@ -1,0 +1,714 @@
+{
+ "updatedAt": "2026-06-08T01:16:46.379Z",
+ "createdAt": "2026-06-01T20:27:04.384Z",
+ "id": "Orq01RouterV2aa1",
+ "name": "01-orquestrador-v2",
+ "description": null,
+ "isArchived": false,
+ "nodes": [
+  {
+   "parameters": {
+    "httpMethod": "POST",
+    "path": "whatsapp",
+    "options": {}
+   },
+   "id": "a3068d03-025d-4969-b4e9-0c57144f4e0e",
+   "name": "Webhook WhatsApp",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 2,
+   "position": [
+    -1328,
+    144
+   ],
+   "webhookId": "whatsapp-clinica-main"
+  },
+  {
+   "parameters": {
+    "jsCode": "const body = $input.first().json.body ?? $input.first().json;\n\nconst data = body.data ?? body.dados;\nif (!data) return [];\n\nif (data.key?.fromMe === true) return [];\n\nconst remoteJid = data.key?.remoteJid;\nif (!remoteJid) return [];\nif (remoteJid.endsWith('@g.us')) return [];\n\nconst telefone = remoteJid.replace('@s.whatsapp.net', '');\n\nlet texto = '';\nlet tipoMensagem = data.messageType ?? 'unknown';\n\nif (data.message?.conversation) {\n  texto = data.message.conversation;\n} else if (data.message?.extendedTextMessage?.text) {\n  texto = data.message.extendedTextMessage.text;\n} else if (data.message?.imageMessage?.caption) {\n  texto = data.message.imageMessage.caption;\n  tipoMensagem = 'imagem';\n} else if (data.message?.audioMessage) {\n  tipoMensagem = 'audio';\n  texto = '[áudio]';\n} else {\n  return [];\n}\n\nif (!texto.trim()) return [];\n\nconst instance = body.instance ?? body.instância ?? body.instancia ?? 'clinica01';\n\nreturn [{\n  json: {\n    telefone,\n    nome: data.pushName ?? 'Cliente',\n    texto: texto.trim(),\n    tipoMensagem,\n    messageId: data.key?.id ?? '',\n    timestamp: data.messageTimestamp ?? Math.floor(Date.now() / 1000),\n    instancia: instance,\n    remoteJid\n  }\n}];\n"
+   },
+   "id": "1a61fed3-40ce-4f3f-9364-01f7aaf33dbe",
+   "name": "Normalizar Payload",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    -1104,
+    144
+   ]
+  },
+  {
+   "parameters": {
+    "method": "POST",
+    "url": "https://api.anthropic.com/v1/messages",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      {
+       "name": "x-api-key",
+       "value": "={{ $env.ANTHROPIC_API_KEY }}"
+      },
+      {
+       "name": "anthropic-version",
+       "value": "2023-06-01"
+      },
+      {
+       "name": "Content-Type",
+       "value": "application/json"
+      }
+     ]
+    },
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ $json.anthropicBody }}",
+    "options": {
+     "timeout": 30000
+    }
+   },
+   "id": "13fd0631-e869-4a4c-83cd-ba195ac178b2",
+   "name": "Claude Haiku — Classificar",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    -656,
+    144
+   ],
+   "onError": "continueRegularOutput"
+  },
+  {
+   "parameters": {
+    "jsCode": "const input = $input.first().json;\n\n// Tenta ambos os nomes (n8n pode traduzir)\nlet ctx;\nfor (const n of ['Haicai de Montar Prompt', 'Montar Prompt Haiku']) {\n  try { ctx = $(n).first().json; break; } catch(e) {}\n}\nif (!ctx) ctx = { telefone:'', nome:'Cliente', texto:'', tipoMensagem:'text', remoteJid:'', instancia:'clinica', timestamp: Math.floor(Date.now()/1000), messageId:'' };\n\nif (input.error || !input.content) {\n  return [{ json: { ...ctx, intent:'OUTRO', confidence:0, resposta:`Oi, ${ctx.nome}! Estou com instabilidade. Pode repetir em instantes? 😊`, haiku_raw: JSON.stringify(input.error ?? 'sem resposta') } }];\n}\n\nconst rawText = input.content?.[0]?.text ?? '{}';\nlet parsed;\ntry {\n  parsed = JSON.parse(rawText.replace(/```json?/g,'').replace(/```/g,'').trim());\n} catch(e) {\n  parsed = { intent:'OUTRO', confidence:0.5, resposta:'Olá! Como posso te ajudar hoje? 😊' };\n}\n\nconst validos = ['AGENDAR','DUVIDA_PROCEDIMENTO','DUVIDA_PRECO','POS_PROCEDIMENTO','LEAD_NOVO','RECLAMACAO','OUTRO'];\nif (!validos.includes(parsed.intent)) parsed.intent = 'OUTRO';\n\nreturn [{ json: { ...ctx, intent: parsed.intent, confidence: parsed.confidence ?? 0.8, resposta: parsed.resposta ?? 'Como posso te ajudar?', haiku_raw: rawText } }];\n"
+   },
+   "id": "ab300121-75ff-425a-ac72-73aa234a4cb3",
+   "name": "Parsear Intent",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    -448,
+    144
+   ]
+  },
+  {
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "strict",
+      "version": 1
+     },
+     "conditions": [
+      {
+       "id": "cond-001",
+       "leftValue": "={{ $json.intent }}",
+       "rightValue": "RECLAMACAO",
+       "operator": {
+        "type": "string",
+        "operation": "equals"
+       }
+      }
+     ],
+     "combinator": "and"
+    },
+    "options": {}
+   },
+   "id": "b811c9e2-e03b-45c5-95e3-e237a48642d2",
+   "name": "É Reclamação?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2,
+   "position": [
+    -224,
+    144
+   ]
+  },
+  {
+   "parameters": {
+    "jsCode": "const { telefone, nome, texto, intent, resposta, remoteJid, instancia, timestamp, messageId, confidence } = $input.first().json;\n\nconst mensagemParaCliente = resposta || `${nome}, sinto muito pelo inconveniente. Nossa equipe já foi notificada e entrará em contato em breve.`;\n\nconst mensagemParaEquipe =\n  '🚨 *ESCALAÇÃO — ATENDIMENTO MANUAL NECESSÁRIO*\\n\\n' +\n  `👤 Cliente: ${nome}\\n` +\n  `📱 Telefone: ${telefone}\\n` +\n  `💬 Mensagem: \"${texto}\"\\n` +\n  `🏷️ Intent: ${intent}\\n\\n` +\n  'Por favor, assuma o atendimento manualmente.';\n\nreturn [{\n  json: {\n    telefone,\n    nome,\n    texto,\n    intent,\n    confidence,\n    remoteJid,\n    instancia,\n    timestamp,\n    messageId,\n    mensagemParaCliente,\n    mensagemParaEquipe,\n    ehEscalacao: true\n  }\n}];"
+   },
+   "id": "e2c5ccae-a093-48f5-8426-a692ad17f1d8",
+   "name": "Preparar Escalação",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    0,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "method": "POST",
+    "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE }}",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      {
+       "name": "apikey",
+       "value": "={{ $env.EVO_API_KEY }}"
+      },
+      {
+       "name": "Content-Type",
+       "value": "application/json"
+      }
+     ]
+    },
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ { number: $env.EVO_TEAM_NUMBER, text: $json.mensagemParaEquipe } }}",
+    "options": {
+     "timeout": 10000
+    }
+   },
+   "id": "b8ac0854-47e5-4840-841d-b6534cf8b8c0",
+   "name": "Notificar Equipe",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    224,
+    0
+   ],
+   "onError": "continueErrorOutput"
+  },
+  {
+   "parameters": {
+    "jsCode": "const { telefone, nome, texto, tipoMensagem, remoteJid, instancia,\n  timestamp, messageId } = $input.first().json;\n\nconst systemPrompt = `Você é Aurora, recepcionista virtual da Clínica Aurora Estética, localizada em Campinas/SP.\n\nSOBRE A CLÍNICA:\n- Nome: Clínica Aurora Estética\n- Endereço: Rua das Flores, 142 - Cambuí, Campinas/SP\n- Horário: Seg a Sex das 9h às 19h | Sáb das 9h às 14h\n- WhatsApp: (19) 99971-4971\n- Instagram: @clinicaaurora.estetica\n\nSERVIÇOS E VALORES:\n- Limpeza de Pele Profunda: R$ 180 (60 min)\n- Peeling Químico: R$ 220 (45 min)\n- Microagulhamento: R$ 350 (60 min)\n- Botox Facial: a partir de R$ 800\n- Preenchimento Labial: a partir de R$ 900\n- Depilação a Laser (buço): R$ 120 | (pernas completas): R$ 480\n- Drenagem Linfática: R$ 130 (60 min) | Pacote 10x: R$ 1.100\n- Radiofrequência Facial: R$ 250 (45 min)\n- Design de Sobrancelha: R$ 50\n- Hidratação Facial: R$ 160 (50 min)\n\nFORMAS DE PAGAMENTO:\n- Pix (5% desconto), cartão de crédito (até 6x sem juros), dinheiro\n\nPROFISSIONAIS:\n- Dra. Fernanda Lima (biomédica, especialista em estética avançada)\n- Dra. Carla Souza (esteticista, especialista em tratamentos corporais)\n\nClassifique a intenção da mensagem do cliente e gere uma resposta curta de transição.\nRetorne APENAS um JSON válido neste formato exato:\n{\"intent\": \"INTENT\", \"confidence\": 0.0, \"resposta\": \"Frase de transição\"}\n\nINTENÇÕES DISPONÍVEIS:\n- AGENDAR: marcar, desmarcar, reagendar, consultar horários/agenda\n- DUVIDA_PROCEDIMENTO: dúvidas sobre tratamentos, procedimentos, cuidados, indicações\n- DUVIDA_PRECO: valores, preços, promoções, pacotes, formas de pagamento\n- POS_PROCEDIMENTO: retorno pós-atendimento, efeitos, resultados, cuidados pós\n- LEAD_NOVO: primeiro contato, quer conhecer a clínica, sem histórico\n- RECLAMACAO: insatisfação, problema, crítica, urgência, pedido de reembolso\n- OUTRO: cumprimento genérico, áudio, não identificado\n\nTOM: Caloroso, profissional, máximo 2 frases curtas, máximo 1 emoji.\nUse o nome \"${nome}\" se disponível.\n\nResposta de transição = o que Aurora fala ANTES de passar para o especialista.\n\nResponda APENAS com o JSON. Nenhum texto adicional.`;\n\nconst userMessage = tipoMensagem === 'audio'\n  ? '[cliente enviou áudio — use intent OUTRO e peça para escrever]'\n  : texto;\n\nreturn [{\n  json: {\n    telefone,\n    nome,\n    texto,\n    tipoMensagem,\n    remoteJid,\n    instancia,\n    timestamp,\n    messageId,\n    anthropicBody: {\n      model: 'claude-haiku-4-5-20251001',\n      max_tokens: 300,\n      system: systemPrompt,\n      messages: [\n        { role: 'user', content: userMessage }\n      ]\n    }\n  }\n}];\n"
+   },
+   "id": "4e97668b-7778-4908-ade9-41df488ed4fb",
+   "name": "Montar Prompt Haiku",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    -880,
+    144
+   ]
+  },
+  {
+   "parameters": {
+    "authentication": "serviceAccount",
+    "documentId": {
+     "__rl": true,
+     "value": "1ZlDFYkgx6aXUM0ayj1e1_K6uX0cruo7VuCcmg1_w5ps",
+     "mode": "id"
+    },
+    "sheetName": {
+     "__rl": true,
+     "value": "Sessoes_Ativas",
+     "mode": "name"
+    },
+    "options": {}
+   },
+   "id": "v2-buscar-sessao",
+   "name": "Buscar Sessao Ativa",
+   "type": "n8n-nodes-base.googleSheets",
+   "typeVersion": 4,
+   "position": [
+    460,
+    140
+   ],
+   "credentials": {
+    "googleApi": {
+     "id": "6GDsDWcaNNjXqoV0",
+     "name": "Google Service Account account"
+    }
+   },
+   "onError": "continueRegularOutput",
+   "alwaysOutputData": true
+  },
+  {
+   "parameters": {
+    "jsCode": "const ctx = $('Normalizar Payload').first().json;\nlet rota = 'CLASSIFICAR';\ntry {\n  for (const item of $input.all()) {\n    const s = item.json || {};\n    if (String(s.Telefone || '') === String(ctx.telefone) && String(s.Status || '').toLowerCase() === 'ativo') {\n      const ag = String(s.Agente || '').toUpperCase();\n      if (ag.includes('BIA')) rota = 'BIA';\n      else if (ag.includes('CLARA')) rota = 'CLARA';\n    }\n  }\n} catch (e) {}\nreturn [{ json: { ...ctx, rota, intent: 'CONTINUACAO' } }];"
+   },
+   "id": "v2-decidir-rota",
+   "name": "Decidir Rota",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    640,
+    140
+   ]
+  },
+  {
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "strict",
+      "version": 1
+     },
+     "conditions": [
+      {
+       "id": "v2-if-bia-c",
+       "leftValue": "={{ $json.rota }}",
+       "rightValue": "BIA",
+       "operator": {
+        "type": "string",
+        "operation": "equals"
+       }
+      }
+     ],
+     "combinator": "and"
+    },
+    "options": {}
+   },
+   "id": "v2-if-bia",
+   "name": "Rota e Bia?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2,
+   "position": [
+    820,
+    80
+   ]
+  },
+  {
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "strict",
+      "version": 1
+     },
+     "conditions": [
+      {
+       "id": "v2-if-clara-c",
+       "leftValue": "={{ $json.rota }}",
+       "rightValue": "CLARA",
+       "operator": {
+        "type": "string",
+        "operation": "equals"
+       }
+      }
+     ],
+     "combinator": "and"
+    },
+    "options": {}
+   },
+   "id": "v2-if-clara",
+   "name": "Rota e Clara?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2,
+   "position": [
+    1000,
+    140
+   ]
+  },
+  {
+   "parameters": {
+    "conditions": {
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "strict",
+      "version": 1
+     },
+     "conditions": [
+      {
+       "id": "v2-if-agendar-c",
+       "leftValue": "={{ $json.intent }}",
+       "rightValue": "AGENDAR",
+       "operator": {
+        "type": "string",
+        "operation": "equals"
+       }
+      }
+     ],
+     "combinator": "and"
+    },
+    "options": {}
+   },
+   "id": "v2-if-agendar",
+   "name": "Intent e Agendar?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2,
+   "position": [
+    1500,
+    420
+   ]
+  },
+  {
+   "parameters": {
+    "workflowId": {
+     "__rl": true,
+     "value": "02-agendamento-bia",
+     "mode": "list",
+     "cachedResultName": "02-agendamento-bia"
+    },
+    "workflowInputs": {
+     "mappingMode": "defineBelow",
+     "value": {},
+     "matchingColumns": [],
+     "schema": [],
+     "attemptToConvertTypes": false,
+     "convertFieldsToString": true
+    },
+    "options": {}
+   },
+   "type": "n8n-nodes-base.executeWorkflow",
+   "typeVersion": 1.3,
+   "position": [
+    1240,
+    60
+   ],
+   "id": "v2-call-bia",
+   "name": "Chamar Bia"
+  },
+  {
+   "parameters": {
+    "workflowId": {
+     "__rl": true,
+     "value": "TDJQkNQDJh9PnmSh",
+     "mode": "list",
+     "cachedResultName": "03-atendimento-clara"
+    },
+    "workflowInputs": {
+     "mappingMode": "defineBelow",
+     "value": {},
+     "matchingColumns": [],
+     "schema": [],
+     "attemptToConvertTypes": false,
+     "convertFieldsToString": true
+    },
+    "options": {}
+   },
+   "type": "n8n-nodes-base.executeWorkflow",
+   "typeVersion": 1.3,
+   "position": [
+    1240,
+    220
+   ],
+   "id": "v2-call-clara",
+   "name": "Chamar Clara"
+  }
+ ],
+ "connections": {
+  "Webhook WhatsApp": {
+   "main": [
+    [
+     {
+      "node": "Normalizar Payload",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Normalizar Payload": {
+   "main": [
+    [
+     {
+      "node": "Buscar Sessao Ativa",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Claude Haiku — Classificar": {
+   "main": [
+    [
+     {
+      "node": "Parsear Intent",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Parsear Intent": {
+   "main": [
+    [
+     {
+      "node": "É Reclamação?",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "É Reclamação?": {
+   "main": [
+    [
+     {
+      "node": "Preparar Escalação",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "Intent e Agendar?",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Preparar Escalação": {
+   "main": [
+    [
+     {
+      "node": "Notificar Equipe",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Notificar Equipe": {
+   "main": [
+    []
+   ]
+  },
+  "Montar Prompt Haiku": {
+   "main": [
+    [
+     {
+      "node": "Claude Haiku — Classificar",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Buscar Sessao Ativa": {
+   "main": [
+    [
+     {
+      "node": "Decidir Rota",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Decidir Rota": {
+   "main": [
+    [
+     {
+      "node": "Rota e Bia?",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Rota e Bia?": {
+   "main": [
+    [
+     {
+      "node": "Chamar Bia",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "Rota e Clara?",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Rota e Clara?": {
+   "main": [
+    [
+     {
+      "node": "Chamar Clara",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "Montar Prompt Haiku",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Intent e Agendar?": {
+   "main": [
+    [
+     {
+      "node": "Chamar Bia",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "Chamar Clara",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  }
+ },
+ "settings": {
+  "executionOrder": "v1",
+  "binaryMode": "separate",
+  "timeSavedMode": "fixed",
+  "callerPolicy": "workflowsFromSameOwner",
+  "availableInMCP": false
+ },
+ "staticData": null,
+ "meta": {
+  "templateCredsSetupCompleted": true
+ },
+ "pinData": {
+  "Montar Prompt Haiku": [
+   {
+    "json": {
+     "name": "First item",
+     "code": 1
+    }
+   },
+   {
+    "json": {
+     "name": "Second item",
+     "code": 2
+    }
+   }
+  ],
+  "Parsear Intent": [
+   {
+    "json": {
+     "name": "First item",
+     "code": 1
+    }
+   },
+   {
+    "json": {
+     "name": "Second item",
+     "code": 2
+    }
+   }
+  ],
+  "Enviar Resposta (Evolution)": [
+   {
+    "json": {
+     "name": "First item",
+     "code": 1
+    }
+   },
+   {
+    "json": {
+     "name": "Second item",
+     "code": 2
+    }
+   }
+  ],
+  "Notificar Equipe": [
+   {
+    "json": {
+     "name": "First item",
+     "code": 1
+    }
+   },
+   {
+    "json": {
+     "name": "Second item",
+     "code": 2
+    }
+   }
+  ],
+  "Claude Haiku — Classificar": [
+   {
+    "json": {
+     "method": "POST",
+     "url": "https://api.anthropic.com/v1/messages",
+     "sendHeaders": true,
+     "headerParameters": {
+      "parameters": [
+       {
+        "name": "x-api-key",
+        "value": "={{ $env.ANTHROPIC_API_KEY }}"
+       },
+       {
+        "name": "anthropic-version",
+        "value": "2023-06-01"
+       },
+       {
+        "name": "Content-Type",
+        "value": "application/json"
+       }
+      ]
+     },
+     "sendBody": true,
+     "specifyBody": "json",
+     "jsonBody": "={{ $json.anthropicBody }}",
+     "options": {
+      "timeout": 30000
+     }
+    }
+   }
+  ],
+  "Normalizar Payload": [
+   {
+    "json": {
+     "name": "First item",
+     "code": 1
+    }
+   },
+   {
+    "json": {
+     "name": "Second item",
+     "code": 2
+    }
+   }
+  ]
+ },
+ "activeVersionId": "560bb0e5-0d03-43df-8b67-aa4263eebfe9",
+ "versionCounter": 377,
+ "triggerCount": 1,
+ "tags": [
+  {
+   "updatedAt": "2026-06-01T20:27:02.641Z",
+   "createdAt": "2026-06-01T20:27:02.641Z",
+   "id": "8QwR7To8P9AlUPEg",
+   "name": "orquestrador"
+  },
+  {
+   "updatedAt": "2026-06-01T20:27:02.644Z",
+   "createdAt": "2026-06-01T20:27:02.644Z",
+   "id": "9nBmjJaflItSO87V",
+   "name": "mvp"
+  },
+  {
+   "updatedAt": "2026-06-01T20:27:02.630Z",
+   "createdAt": "2026-06-01T20:27:02.630Z",
+   "id": "NDiwydWUUsCzrnMl",
+   "name": "aurora"
+  },
+  {
+   "updatedAt": "2026-06-01T20:27:02.637Z",
+   "createdAt": "2026-06-01T20:27:02.637Z",
+   "id": "OlPVPyNkB5KTwFWF",
+   "name": "whatsapp"
+  }
+ ],
+ "shared": [
+  {
+   "updatedAt": "2026-06-01T20:27:04.387Z",
+   "createdAt": "2026-06-01T20:27:04.387Z",
+   "role": "workflow:owner",
+   "workflowId": "vyTSJIvoXYEFTx6Z",
+   "projectId": "efsgdboBEPcuOFKw",
+   "project": {
+    "updatedAt": "2026-05-15T18:39:19.014Z",
+    "createdAt": "2026-05-15T18:34:59.621Z",
+    "id": "efsgdboBEPcuOFKw",
+    "name": "Allan dos Santos Rodrigues <allansrodrigues@gmail.com>",
+    "type": "personal",
+    "icon": null,
+    "description": null,
+    "creatorId": "74cc6eb6-911c-4ae1-a1ae-e1c33c5b8899"
+   }
+  }
+ ],
+ "versionMetadata": {
+  "name": "Version 560bb0e5",
+  "description": ""
+ }
+}
