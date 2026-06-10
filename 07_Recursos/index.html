@@ -685,7 +685,9 @@
       '*Contato:* ' + dados.contato +
       (dados.segmento ? '\n*Segmento:* ' + dados.segmento : '') +
       (dados.mensagem ? '\n*Mensagem:* ' + dados.mensagem : '');
-    window.open('https://wa.me/5519971266736?text=' + encodeURIComponent(texto), '_blank');
+    // location.href em vez de window.open: navegacao direta nao e bloqueada
+    // como popup pelo navegador (window.open apos await e barrado pelo Chrome)
+    window.location.href = 'https://wa.me/5519971266736?text=' + encodeURIComponent(texto);
   }
 
   // Opção 2 — envia os dados pro webhook do n8n (com fallback pro WhatsApp)
