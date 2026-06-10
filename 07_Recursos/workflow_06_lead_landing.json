@@ -78,7 +78,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ { number: $env.EVO_TEAM_NUMBER, text: $json.alerta } }}",
+        "jsonBody": "={{ { number: '5519971266736', text: $('Validar e Normalizar Lead').first().json.alerta } }}",
         "options": {}
       },
       "id": "http-notificar-equipe",
