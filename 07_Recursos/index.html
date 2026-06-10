@@ -674,61 +674,36 @@
 </a>
 
 <script>
-  // ⚙️ Cole aqui a URL do webhook de produção do seu n8n:
+  // URL do webhook do n8n (registro do lead no CRM, em segundo plano)
   var WEBHOOK_URL = 'https://n8n.kronosintelligence.com.br/webhook/contato-kronos';
 
-  // Abre o WhatsApp já com a mensagem montada (usado como fallback)
-  function abrirWhatsApp(dados) {
+  function enviarFormulario(e) {
+    e.preventDefault();
+    var nome     = document.getElementById('nome').value.trim();
+    var contato  = document.getElementById('contato').value.trim();
+    var segmento = document.getElementById('segmento').value.trim();
+    var mensagem = document.getElementById('mensagem').value.trim();
+
+    // 1) Registra o lead no n8n em segundo plano.
+    //    sendBeacon com text/plain = "simple request": NÃO dispara preflight
+    //    de CORS, então a chamada chega ao n8n mesmo sem cabeçalho CORS.
+    try {
+      var payload = JSON.stringify({
+        nome: nome, contato: contato, segmento: segmento, mensagem: mensagem,
+        origem: 'landing-page', data: new Date().toISOString()
+      });
+      navigator.sendBeacon(WEBHOOK_URL, new Blob([payload], { type: 'text/plain;charset=UTF-8' }));
+    } catch (err) { /* best-effort: se falhar, o WhatsApp abaixo garante o lead */ }
+
+    // 2) Abre o WhatsApp com a mensagem montada — síncrono, dentro do clique,
+    //    nunca bloqueado pelo navegador.
     var texto =
       'Olá! Vim pelo site da Kronos Intelligence.\n\n' +
-      '*Nome:* ' + dados.nome + '\n' +
-      '*Contato:* ' + dados.contato +
-      (dados.segmento ? '\n*Segmento:* ' + dados.segmento : '') +
-      (dados.mensagem ? '\n*Mensagem:* ' + dados.mensagem : '');
-    // location.href em vez de window.open: navegacao direta nao e bloqueada
-    // como popup pelo navegador (window.open apos await e barrado pelo Chrome)
+      '*Nome:* ' + nome + '\n' +
+      '*Contato:* ' + contato +
+      (segmento ? '\n*Segmento:* ' + segmento : '') +
+      (mensagem ? '\n*Mensagem:* ' + mensagem : '');
     window.location.href = 'https://wa.me/5519971266736?text=' + encodeURIComponent(texto);
-  }
-
-  // Opção 2 — envia os dados pro webhook do n8n (com fallback pro WhatsApp)
-  async function enviarFormulario(e) {
-    e.preventDefault();
-    var btn    = document.getElementById('btn-enviar');
-    var status = document.getElementById('form-status');
-    var dados = {
-      nome:     document.getElementById('nome').value.trim(),
-      contato:  document.getElementById('contato').value.trim(),
-      segmento: document.getElementById('segmento').value.trim(),
-      mensagem: document.getElementById('mensagem').value.trim(),
-      origem:   'landing-page',
-      data:     new Date().toISOString()
-    };
-
-    btn.disabled = true;
-    btn.textContent = 'Enviando...';
-    status.textContent = '';
-    status.style.color = 'var(--cinza)';
-
-    try {
-      var resp = await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dados)
-      });
-      if (!resp.ok) throw new Error('HTTP ' + resp.status);
-
-      status.style.color = '#18c0a0';
-      status.textContent = '✅ Mensagem enviada! Respondemos em até 1 hora útil.';
-      document.getElementById('form-contato').reset();
-    } catch (err) {
-      // Falhou o webhook → não perde o lead: manda pro WhatsApp
-      status.style.color = '#f0b020';
-      status.textContent = 'Abrindo o WhatsApp para finalizar seu contato...';
-      abrirWhatsApp(dados);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Enviar mensagem';
-    }
   }
 </script>
 
