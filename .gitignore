@@ -1,0 +1,12 @@
+# Configurações locais do Claude Code (pessoais, não publicar)
+**/settings.local.json
+.github/.claude/
+
+# Materiais comerciais — manter PRIVADOS (este repo é público)
+05_Comercial/
+
+# Pasta leftover/duplicada (sobra da estrutura antiga)
+07_Recursos/kronosIA/
+
+# Temporários
+.tmp_img/
