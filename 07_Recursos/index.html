@@ -430,6 +430,86 @@
 
     .whatsapp-btn:hover { transform: scale(1.1); }
 
+    /* ── ROI ── */
+    .roi-box {
+      background: linear-gradient(135deg, rgba(74,14,144,0.18), rgba(24,144,192,0.10));
+      border: 1px solid rgba(120,72,200,0.25);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 56px;
+    }
+    .roi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin: 28px 0;
+    }
+    .roi-item { display: flex; align-items: flex-start; gap: 14px; }
+    .roi-item .ic { font-size: 1.6rem; line-height: 1; }
+    .roi-item strong { display: block; font-size: 1.25rem; color: var(--branco); margin-bottom: 2px; }
+    .roi-item span { color: var(--cinza); font-size: 0.86rem; line-height: 1.5; }
+    .roi-total {
+      font-size: 1.05rem;
+      color: var(--branco);
+      padding-top: 22px;
+      border-top: 1px solid rgba(120,72,200,0.2);
+    }
+    .roi-total b {
+      background: linear-gradient(135deg, #a080ff, #18c0a0);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-size: 1.15rem;
+    }
+
+    /* ── PLANOS ── */
+    .planos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      align-items: stretch;
+    }
+    .plano {
+      position: relative;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(120,72,200,0.2);
+      border-radius: 16px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .plano:hover { border-color: rgba(120,72,200,0.5); transform: translateY(-4px); }
+    .plano-destaque {
+      border-color: rgba(120,72,200,0.7);
+      background: linear-gradient(135deg, rgba(74,14,144,0.22), rgba(48,96,200,0.12));
+    }
+    .plano-tag {
+      position: absolute;
+      top: -12px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--violeta), var(--indigo));
+      color: #fff; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 5px 16px; border-radius: 50px;
+      white-space: nowrap;
+    }
+    .plano-nome { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+    .plano-publico { color: var(--cinza); font-size: 0.8rem; margin-bottom: 20px; min-height: 2.4em; }
+    .plano-preco { font-size: 2.2rem; font-weight: 700; line-height: 1; }
+    .plano-preco small { font-size: 0.9rem; font-weight: 400; color: var(--cinza); }
+    .plano-preco span {
+      background: linear-gradient(135deg, #a080ff, #40a8e0);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .plano ul {
+      list-style: none; margin: 24px 0; padding: 0;
+      display: flex; flex-direction: column; gap: 11px; flex-grow: 1;
+    }
+    .plano ul li { font-size: 0.88rem; color: var(--branco); display: flex; gap: 10px; line-height: 1.4; }
+    .plano ul li::before { content: '✓'; color: #18c0a0; font-weight: 700; flex-shrink: 0; }
+    .plano ul li.off { color: var(--cinza); opacity: 0.5; }
+    .plano ul li.off::before { content: '—'; color: var(--cinza); }
+    .plano .btn-primary, .plano .btn-secondary { justify-content: center; width: 100%; }
+    .planos-nota { text-align: center; color: var(--cinza); font-size: 0.85rem; margin-top: 32px; }
+
     @media (max-width: 768px) {
       nav { padding: 16px 24px; }
       nav ul { display: none; }
@@ -437,6 +517,7 @@
       .hero { padding: 100px 24px 60px; }
       .contato-grid { grid-template-columns: 1fr; gap: 48px; }
       footer { flex-direction: column; gap: 12px; text-align: center; }
+      .roi-box { padding: 28px 20px; }
     }
   </style>
 </head>
@@ -611,15 +692,70 @@
 <!-- PLANOS -->
 <section id="planos" style="border-top:1px solid rgba(120,72,200,0.12)">
   <div class="section-label">Investimento</div>
-  <h2 class="section-title">Planos a partir de<br/><span style="background:linear-gradient(135deg,#a080ff,#40a8e0);-webkit-background-clip:text;-webkit-text-fill-color:transparent">R$ 397/mês</span></h2>
-  <p class="section-sub">Sem contrato de fidelidade. Sem taxa de setup no primeiro mês. Escolha o plano ideal após um diagnóstico gratuito com nossa equipe.</p>
+  <h2 class="section-title">Planos que se pagam<br/>na primeira semana</h2>
+  <p class="section-sub">Antes de olhar o preço, veja o que sua clínica já perde todo mês sem automação.</p>
 
-  <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:8px">
-    <a href="https://wa.me/5519971266736?text=Olá!%20Quero%20um%20diagnóstico%20gratuito%20da%20Kronos%20Intelligence." target="_blank" class="btn-primary" style="font-size:1rem;padding:16px 36px">
-      Quero um diagnóstico gratuito
-    </a>
-    <span style="color:var(--cinza);font-size:0.88rem">👉 Respondemos em até 1 hora útil</span>
+  <!-- ROI -->
+  <div class="roi-box">
+    <div style="font-weight:600;font-size:1.05rem;margin-bottom:6px">💸 Quanto sua clínica perde hoje</div>
+    <p style="color:var(--cinza);font-size:0.9rem;line-height:1.6;margin-bottom:4px">Numa clínica média, sem responder rápido e sem confirmar consultas:</p>
+    <div class="roi-grid">
+      <div class="roi-item"><div class="ic">📅</div><div><strong>R$ 1.600</strong><span>em faltas/no-shows por mês (8 × R$ 200)</span></div></div>
+      <div class="roi-item"><div class="ic">📵</div><div><strong>R$ 1.200</strong><span>em leads que não são respondidos a tempo</span></div></div>
+      <div class="roi-item"><div class="ic">⏱️</div><div><strong>R$ 528</strong><span>em horas da equipe no WhatsApp repetitivo</span></div></div>
+    </div>
+    <div class="roi-total">Total que evapora: <b>≈ R$ 2.300/mês</b> — o sistema custa uma fração disso e <b>se paga na primeira semana</b>.</div>
   </div>
+
+  <!-- CARDS -->
+  <div class="planos-grid">
+    <div class="plano">
+      <div class="plano-nome">Essencial</div>
+      <div class="plano-publico">Consultório individual — dentista, psicólogo, esteticista</div>
+      <div class="plano-preco"><span>R$ 397</span><small> /mês</small></div>
+      <ul>
+        <li>Atendimento WhatsApp 24h</li>
+        <li>Agendamento automático</li>
+        <li>Integração Google Calendar</li>
+        <li>Lembrete 24h antes (reduz faltas)</li>
+        <li class="off">Pós-venda e fidelização</li>
+        <li class="off">Relatórios de desempenho</li>
+      </ul>
+      <a href="https://wa.me/5519971266736?text=Olá!%20Tenho%20interesse%20no%20plano%20Essencial%20da%20Kronos%20Intelligence." target="_blank" class="btn-secondary">Quero o Essencial</a>
+    </div>
+
+    <div class="plano plano-destaque">
+      <div class="plano-tag">⭐ Mais vendido</div>
+      <div class="plano-nome">Profissional</div>
+      <div class="plano-publico">Clínica com 2 a 5 profissionais</div>
+      <div class="plano-preco"><span>R$ 697</span><small> /mês</small></div>
+      <ul>
+        <li>Tudo do Essencial</li>
+        <li>Pós-venda e fidelização</li>
+        <li>Reativação de clientes inativos</li>
+        <li>Relatório mensal de desempenho</li>
+        <li>Personalização avançada do agente</li>
+        <li>Suporte prioritário</li>
+      </ul>
+      <a href="https://wa.me/5519971266736?text=Olá!%20Tenho%20interesse%20no%20plano%20Profissional%20da%20Kronos%20Intelligence." target="_blank" class="btn-primary">Quero o Profissional</a>
+    </div>
+
+    <div class="plano">
+      <div class="plano-nome">Premium</div>
+      <div class="plano-publico">Clínica grande, rede ou multi-unidade</div>
+      <div class="plano-preco"><span>R$ 1.197</span><small> /mês</small></div>
+      <ul>
+        <li>Tudo do Profissional</li>
+        <li>Multi-unidade / multi-profissional</li>
+        <li>Relatórios semanais</li>
+        <li>Personalização total (voz da marca)</li>
+        <li>Suporte dedicado</li>
+      </ul>
+      <a href="https://wa.me/5519971266736?text=Olá!%20Tenho%20interesse%20no%20plano%20Premium%20da%20Kronos%20Intelligence." target="_blank" class="btn-secondary">Quero o Premium</a>
+    </div>
+  </div>
+
+  <p class="planos-nota">✅ Sem fidelidade &nbsp;·&nbsp; 🎁 Setup grátis no lançamento &nbsp;·&nbsp; 👉 Diagnóstico gratuito, respondemos em até 1 hora útil</p>
 </section>
 
 <!-- CONTATO -->
