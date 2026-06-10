@@ -47,7 +47,7 @@ var WEBHOOK_URL = 'https://SEU-N8N.com/webhook/contato-kronos';
 | `EVO_BASE_URL` | URL base da Evolution API | `https://evo.seudominio.com` |
 | `EVO_INSTANCE` | Instância WhatsApp que envia o alerta | `kronos` |
 | `EVO_API_KEY` | API key da Evolution | `••••••` |
-| `EVO_NOTIFY_NUMBER` | Número que recebe os alertas de lead (com DDI+DDD) | `5519971266736` |
+| `EVO_TEAM_NUMBER` | Número que recebe os alertas de lead (com DDI+DDD) | `5519971266736` |
 
 ## Planilha — aba `Leads`
 

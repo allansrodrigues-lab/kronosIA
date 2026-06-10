@@ -78,7 +78,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ { number: $env.EVO_NOTIFY_NUMBER, text: $json.alerta } }}",
+        "jsonBody": "={{ { number: $env.EVO_TEAM_NUMBER, text: $json.alerta } }}",
         "options": {}
       },
       "id": "http-notificar-equipe",
