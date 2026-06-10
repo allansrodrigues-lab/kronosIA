@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "instanceId": "kronosintelligence"
+  },
+  "name": "06-lead-landing",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contato-kronos",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "wh-lead",
+      "name": "Receber Lead (Site)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [100, 300],
+      "webhookId": "lead-landing-kronos"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Dados vindos do formulário da landing page (fetch POST JSON)\nconst b = $input.first().json.body || $input.first().json || {};\n\nconst lead = {\n  nome:     (b.nome     || '').toString().trim(),\n  contato:  (b.contato  || '').toString().trim(),\n  segmento: (b.segmento || '').toString().trim(),\n  mensagem: (b.mensagem || '').toString().trim(),\n  origem:   (b.origem   || 'landing-page').toString().trim(),\n  dataHora: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })\n};\n\n// Validação mínima\nlead.valido = lead.nome.length > 0 && lead.contato.length > 0;\n\n// Mensagem de alerta interno para a equipe Kronos\nlead.alerta =\n  '🔔 *Novo lead pelo site!*\\n\\n' +\n  '*Nome:* ' + (lead.nome || '—') + '\\n' +\n  '*Contato:* ' + (lead.contato || '—') +\n  (lead.segmento ? '\\n*Segmento:* ' + lead.segmento : '') +\n  (lead.mensagem ? '\\n*Mensagem:* ' + lead.mensagem : '') +\n  '\\n\\n_via ' + lead.origem + ' • ' + lead.dataHora + '_';\n\nreturn [{ json: lead }];"
+      },
+      "id": "code-validar-lead",
+      "name": "Validar e Normalizar Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [320, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEETS_CRM_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Data_Hora": "={{ $json.dataHora }}",
+            "Nome": "={{ $json.nome }}",
+            "Contato": "={{ $json.contato }}",
+            "Segmento": "={{ $json.segmento }}",
+            "Mensagem": "={{ $json.mensagem }}",
+            "Origem": "={{ $json.origem }}",
+            "Status": "novo"
+          },
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "gsh-salvar-lead",
+      "name": "Salvar Lead (Sheets)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [540, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "={{ $env.EVO_API_KEY }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { number: $env.EVO_NOTIFY_NUMBER, text: $json.alerta } }}",
+        "options": {}
+      },
+      "id": "http-notificar-equipe",
+      "name": "Notificar Equipe (WhatsApp)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [760, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, message: 'Lead recebido com sucesso' } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-sucesso",
+      "name": "Responder ao Site",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [980, 300]
+    }
+  ],
+  "connections": {
+    "Receber Lead (Site)": {
+      "main": [[{ "node": "Validar e Normalizar Lead", "type": "main", "index": 0 }]]
+    },
+    "Validar e Normalizar Lead": {
+      "main": [[{ "node": "Salvar Lead (Sheets)", "type": "main", "index": 0 }]]
+    },
+    "Salvar Lead (Sheets)": {
+      "main": [[{ "node": "Notificar Equipe (WhatsApp)", "type": "main", "index": 0 }]]
+    },
+    "Notificar Equipe (WhatsApp)": {
+      "main": [[{ "node": "Responder ao Site", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    { "name": "landing-page" },
+    { "name": "lead" },
+    { "name": "webhook" }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-09T00:00:00.000Z",
+  "versionId": "06-lead-landing-v1"
+}

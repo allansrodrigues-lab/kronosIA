@@ -4,6 +4,24 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kronos Intelligence — Automação com IA</title>
+  <meta name="description" content="Agentes de IA que atendem, agendam e fidelizam seus clientes 24/7 pelo WhatsApp. Inteligência que automatiza. Resultado que transforma."/>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="identidade_visual/kronos_logoC_azul_marinho.png"/>
+  <link rel="apple-touch-icon" href="identidade_visual/kronos_perfil_azul_marinho.png"/>
+
+  <!-- Open Graph / preview ao compartilhar (WhatsApp, redes) -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Kronos Intelligence — Automação com IA"/>
+  <meta property="og:description" content="Agentes de IA que atendem, agendam e fidelizam seus clientes 24/7 pelo WhatsApp."/>
+  <meta property="og:image" content="https://kronosintelligence.com.br/identidade_visual/kronos_perfil_azul_marinho.png"/>
+  <meta property="og:url" content="https://kronosintelligence.com.br"/>
+  <meta property="og:locale" content="pt_BR"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Kronos Intelligence — Automação com IA"/>
+  <meta name="twitter:description" content="Inteligência que automatiza. Resultado que transforma."/>
+  <meta name="twitter:image" content="https://kronosintelligence.com.br/identidade_visual/kronos_perfil_azul_marinho.png"/>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,6 +67,15 @@
     }
 
     .logo span { font-weight: 300; }
+
+    .logo-lockup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-icon { height: 42px; width: auto; display: block; }
+    footer .logo-icon { height: 32px; }
 
     nav ul {
       list-style: none;
@@ -417,7 +444,10 @@
 
 <!-- NAVBAR -->
 <nav>
-  <div class="logo">KRONOS<span> Intelligence</span></div>
+  <a href="#" class="logo-lockup" aria-label="Kronos Intelligence">
+    <img src="identidade_visual/kronos_icone_transparente.png" alt="" class="logo-icon"/>
+    <span class="logo">KRONOS<span> Intelligence</span></span>
+  </a>
   <ul>
     <li><a href="#servicos">Serviços</a></li>
     <li><a href="#como-funciona">Como funciona</a></li>
@@ -616,19 +646,23 @@
       </div>
     </div>
 
-    <form>
-      <input type="text" placeholder="Seu nome"/>
-      <input type="text" placeholder="WhatsApp ou e-mail"/>
-      <input type="text" placeholder="Seu segmento (clínica, advocacia...)"/>
-      <textarea placeholder="Como posso ajudar seu negócio?"></textarea>
-      <button type="submit">Enviar mensagem</button>
+    <form id="form-contato" onsubmit="enviarFormulario(event)">
+      <input type="text" id="nome" placeholder="Seu nome" required/>
+      <input type="text" id="contato" placeholder="WhatsApp ou e-mail" required/>
+      <input type="text" id="segmento" placeholder="Seu segmento (clínica, advocacia...)"/>
+      <textarea id="mensagem" placeholder="Como posso ajudar seu negócio?"></textarea>
+      <button type="submit" id="btn-enviar">Enviar mensagem</button>
+      <p id="form-status" style="font-size:0.85rem;margin-top:4px;min-height:1.1em"></p>
     </form>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="logo" style="font-size:1rem">KRONOS<span> Intelligence</span></div>
+  <div class="logo-lockup">
+    <img src="identidade_visual/kronos_icone_transparente.png" alt="" class="logo-icon"/>
+    <span class="logo" style="font-size:1rem">KRONOS<span> Intelligence</span></span>
+  </div>
   <span>© 2026 Kronos Intelligence. Todos os direitos reservados.</span>
 </footer>
 
@@ -638,6 +672,63 @@
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
   </svg>
 </a>
+
+<script>
+  // ⚙️ Cole aqui a URL do webhook de produção do seu n8n:
+  var WEBHOOK_URL = 'https://SEU-N8N.com/webhook/contato-kronos';
+
+  // Abre o WhatsApp já com a mensagem montada (usado como fallback)
+  function abrirWhatsApp(dados) {
+    var texto =
+      'Olá! Vim pelo site da Kronos Intelligence.\n\n' +
+      '*Nome:* ' + dados.nome + '\n' +
+      '*Contato:* ' + dados.contato +
+      (dados.segmento ? '\n*Segmento:* ' + dados.segmento : '') +
+      (dados.mensagem ? '\n*Mensagem:* ' + dados.mensagem : '');
+    window.open('https://wa.me/5519971266736?text=' + encodeURIComponent(texto), '_blank');
+  }
+
+  // Opção 2 — envia os dados pro webhook do n8n (com fallback pro WhatsApp)
+  async function enviarFormulario(e) {
+    e.preventDefault();
+    var btn    = document.getElementById('btn-enviar');
+    var status = document.getElementById('form-status');
+    var dados = {
+      nome:     document.getElementById('nome').value.trim(),
+      contato:  document.getElementById('contato').value.trim(),
+      segmento: document.getElementById('segmento').value.trim(),
+      mensagem: document.getElementById('mensagem').value.trim(),
+      origem:   'landing-page',
+      data:     new Date().toISOString()
+    };
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    status.textContent = '';
+    status.style.color = 'var(--cinza)';
+
+    try {
+      var resp = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+      });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+
+      status.style.color = '#18c0a0';
+      status.textContent = '✅ Mensagem enviada! Respondemos em até 1 hora útil.';
+      document.getElementById('form-contato').reset();
+    } catch (err) {
+      // Falhou o webhook → não perde o lead: manda pro WhatsApp
+      status.style.color = '#f0b020';
+      status.textContent = 'Abrindo o WhatsApp para finalizar seu contato...';
+      abrirWhatsApp(dados);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Enviar mensagem';
+    }
+  }
+</script>
 
 </body>
 </html>
