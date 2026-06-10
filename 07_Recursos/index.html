@@ -784,7 +784,7 @@
 
     <form id="form-contato" onsubmit="enviarFormulario(event)">
       <input type="text" id="nome" placeholder="Seu nome" required/>
-      <input type="text" id="contato" placeholder="WhatsApp ou e-mail" required/>
+      <input type="text" id="campo-contato" placeholder="WhatsApp ou e-mail" required/>
       <input type="text" id="segmento" placeholder="Seu segmento (clínica, advocacia...)"/>
       <textarea id="mensagem" placeholder="Como posso ajudar seu negócio?"></textarea>
       <button type="submit" id="btn-enviar">Enviar mensagem</button>
@@ -816,7 +816,7 @@
   function enviarFormulario(e) {
     e.preventDefault();
     var nome     = document.getElementById('nome').value.trim();
-    var contato  = document.getElementById('contato').value.trim();
+    var contato  = document.getElementById('campo-contato').value.trim();
     var segmento = document.getElementById('segmento').value.trim();
     var mensagem = document.getElementById('mensagem').value.trim();
 
