@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "proposta-pdf",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-s", "05_Comercial", "-p", "3456", "--no-clipboard"],
+      "port": 3456
+    }
+  ]
+}

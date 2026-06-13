@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(git -C * log *)",
+      "PowerShell(git -C * status *)",
+      "PowerShell(git -C * ls-files *)",
+      "PowerShell(git -C * remote *)",
+      "mcp__ccd_session_mgmt__search_session_transcripts"
+    ]
+  }
+}
