@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kronos",
+  "compatibility_date": "2026-06-14",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "07_Recursos"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
