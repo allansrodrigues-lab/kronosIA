@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<title>Kronos Intelligence — Portfólio Clínicas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body { font-family: 'Inter', Arial, sans-serif; background: #f0f0f0; color: #0d1117; }
+
+  .pagina {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 10mm auto;
+    background: #fff;
+    display: grid;
+    grid-template-rows: auto auto auto 1fr auto auto;
+    overflow: hidden;
+  }
+
+  /* ── TOPO AZUL ESCURO ── */
+  .topo {
+    background: #0b1f3a;
+    color: #fff;
+    padding: 10mm 12mm 8mm;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topo-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .topo-logo img { height: 40px; width: auto; filter: brightness(10); }
+  .topo-nome {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #fff;
+  }
+  .topo-nome span { font-weight: 300; color: #a0aec0; }
+  .topo-tagline {
+    font-size: 0.72rem;
+    color: #a0aec0;
+    text-align: right;
+    line-height: 1.7;
+  }
+  .topo-tagline strong { color: #fff; display: block; font-size: 0.82rem; }
+
+  /* ── FAIXA DESTINATÁRIO ── */
+  .destinatario {
+    background: #f7f9fc;
+    border-bottom: 2px solid #0b1f3a;
+    padding: 5mm 12mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dest-para { font-size: 0.95rem; font-weight: 700; color: #0b1f3a; }
+  .dest-sub { font-size: 0.78rem; color: #4a5568; margin-top: 2px; }
+  .dest-data { font-size: 0.75rem; color: #718096; text-align: right; }
+
+  /* ── CORPO DA CARTA ── */
+  .carta {
+    padding: 6mm 12mm 4mm;
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: #1a202c;
+  }
+  .carta p { margin-bottom: 7px; }
+  .carta strong { color: #0b1f3a; }
+
+  /* ── DEMO ── */
+  .demo-wrap {
+    padding: 0 12mm 5mm;
+  }
+  .demo-label {
+    background: #0b1f3a;
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px 4px 0 0;
+  }
+  .demo-wrap img {
+    width: 100%;
+    display: block;
+    border: 1.5px solid #0b1f3a;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+  }
+
+  /* ── PLANOS + BENEFÍCIOS ── */
+  .info-grid {
+    padding: 0 12mm 5mm;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .plano-card {
+    border: 1.5px solid #0b1f3a;
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+  .plano-card.destaque {
+    background: #0b1f3a;
+    color: #fff;
+  }
+  .plano-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #7c5cc4;
+    margin-bottom: 3px;
+  }
+  .plano-card.destaque .plano-tag { color: #a78bfa; }
+  .plano-nome { font-size: 1rem; font-weight: 700; margin-bottom: 1px; }
+  .plano-publico { font-size: 0.7rem; color: #4a5568; margin-bottom: 8px; }
+  .plano-card.destaque .plano-publico { color: #a0aec0; }
+  .plano-preco { font-size: 1.8rem; font-weight: 700; line-height: 1; margin-bottom: 8px; }
+  .plano-preco small { font-size: 0.75rem; font-weight: 400; color: #718096; }
+  .plano-card.destaque .plano-preco small { color: #a0aec0; }
+  .plano-card ul { list-style: none; font-size: 0.76rem; line-height: 1.8; }
+  .plano-card ul li::before { content: '✓  '; color: #18c0a0; font-weight: 700; }
+  .plano-card.destaque ul li::before { color: #34d399; }
+
+  .beneficios-card {
+    border: 1.5px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    background: #f7fafc;
+  }
+  .beneficios-titulo {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #4a5568;
+    margin-bottom: 8px;
+  }
+  .beneficios-card ul { list-style: none; font-size: 0.76rem; line-height: 2; }
+  .beneficios-card ul li { display: flex; align-items: flex-start; gap: 6px; }
+  .beneficios-card ul li .ic { font-size: 0.85rem; flex-shrink: 0; }
+
+  /* ── ROI ── */
+  .roi-bar {
+    margin: 0 12mm 5mm;
+    background: #fff8e1;
+    border-left: 4px solid #f59e0b;
+    border-radius: 0 4px 4px 0;
+    padding: 7px 14px;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: #1a202c;
+  }
+  .roi-bar strong { color: #92400e; }
+
+  /* ── CTA ── */
+  .cta {
+    margin: 0 12mm 5mm;
+    background: #0b1f3a;
+    color: #fff;
+    border-radius: 6px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .cta-texto { font-size: 0.82rem; line-height: 1.6; }
+  .cta-texto strong { font-size: 0.95rem; display: block; margin-bottom: 2px; }
+  .cta-contato {
+    text-align: right;
+    font-size: 0.78rem;
+    color: #a0aec0;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .cta-contato strong { color: #fff; font-size: 1rem; display: block; }
+  .cta-contato span { color: #34d399; font-size: 0.68rem; }
+
+  /* ── RODAPÉ ── */
+  .rodape {
+    background: #f7f9fc;
+    border-top: 1px solid #e2e8f0;
+    padding: 4mm 12mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.68rem;
+    color: #718096;
+  }
+  .rodape-site { font-weight: 600; color: #0b1f3a; }
+
+  .setup-nota {
+    padding: 0 12mm;
+    font-size: 0.68rem;
+    color: #718096;
+    font-style: italic;
+    margin-bottom: 4mm;
+  }
+
+  /* ── DIFERENCIAL ── */
+  .diferencial {
+    margin: 0 12mm 5mm;
+    background: #f0f4ff;
+    border: 1.5px solid #7c5cc4;
+    border-radius: 6px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: #1a202c;
+  }
+  .diferencial .ic { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .diferencial strong { color: #4c1d95; }
+
+  @media print {
+    body { background: #fff; }
+    .pagina { margin: 0; page-break-after: always; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     PÁGINA 1 — Dra. Débora Baruchi
+══════════════════════════════════════════════════ -->
+<div class="pagina">
+  <div class="topo">
+    <div class="topo-logo">
+      <img src="../07_Recursos/identidade_visual/kronos_icone_transparente.png" alt=""/>
+      <div class="topo-nome">KRONOS<span> Intelligence</span></div>
+    </div>
+    <div class="topo-tagline">
+      <strong>Automação com IA para clínicas</strong>
+      kronosintelligence.com.br &nbsp;·&nbsp; (19) 97126-6736
+    </div>
+  </div>
+
+  <div class="destinatario">
+    <div>
+      <div class="dest-para">À Dra. Débora Baruchi</div>
+      <div class="dest-sub">Consultório Odontológico Dra. Débora F. Baruchi — Pedreira/SP</div>
+    </div>
+    <div class="dest-data">Pedreira/SP<br/>Junho de 2026</div>
+  </div>
+
+  <div class="carta">
+    <p>Dra. Débora,</p>
+    <p>Sei que entre uma consulta e outra, o WhatsApp não para: agendamentos, dúvidas sobre aparelho, pedidos de retorno de harmonização — tudo ao mesmo tempo, enquanto você está na cadeira atendendo. Cada mensagem sem resposta rápida é um paciente que agenda na clínica ao lado.</p>
+    <p>A <strong>Kronos Intelligence</strong> coloca uma assistente virtual com IA no WhatsApp do seu consultório que atende <strong>24 horas por dia, 7 dias por semana</strong> — responde na hora, apresenta seus serviços, verifica horários disponíveis, fecha o agendamento e ainda manda lembrete 24h antes para reduzir faltas. Tudo com a sua cara, seus horários e seus valores. Você só recebe a agenda cheia.</p>
+    <p>Abaixo, como ficaria o atendimento automatizado do <strong>seu consultório</strong>:</p>
+  </div>
+
+  <div class="demo-wrap">
+    <div class="demo-label">📱 Demonstração — Consultório Dra. Débora Baruchi</div>
+    <img src="demo_dra_debora.jpg" alt="Demo WhatsApp Dra. Débora Baruchi"/>
+  </div>
+
+  <div class="roi-bar">
+    💸 <strong>Clínicas sem automação perdem em média R$ 2.300/mês</strong> — R$ 1.600 em faltas/no-shows, R$ 1.200 em leads sem resposta rápida e R$ 528 em horas gastas no WhatsApp repetitivo. O sistema custa uma fração disso e <strong>se paga na primeira semana</strong>.
+  </div>
+
+  <div class="diferencial">
+    <span class="ic">🧠</span>
+    <span><strong>Isso não é um chatbot genérico.</strong> É um agente com inteligência emocional — ele percebe quando o paciente está ansioso, insatisfeito ou num momento delicado, e responde com acolhimento e sensibilidade, não com scripts engessados. A diferença entre "robô de cardápio" e atendimento humano de verdade.</span>
+  </div>
+  <div class="info-grid">
+    <div class="plano-card destaque">
+      <div class="plano-tag">⭐ Recomendado para você</div>
+      <div class="plano-nome">Plano Essencial</div>
+      <div class="plano-publico">Consultório individual — dentista solo</div>
+      <div class="plano-preco">R$ 397<small> /mês</small></div>
+      <div style="font-size:0.7rem;color:#a0aec0;margin-bottom:6px">+ R$ 2.000 implantação</div>
+      <ul>
+        <li>Atendimento WhatsApp 24h</li>
+        <li>Agendamento automático</li>
+        <li>Integração Google Calendar</li>
+        <li>Lembrete 24h (reduz faltas)</li>
+        <li>Respostas sobre seus serviços e preços</li>
+      </ul>
+    </div>
+    <div class="beneficios-card">
+      <div class="beneficios-titulo">O que muda no seu dia a dia</div>
+      <ul>
+        <li><span class="ic">🕐</span> Paciente recebe resposta em segundos, não horas</li>
+        <li><span class="ic">📅</span> Agenda se preenche sozinha, sem você tocar no celular</li>
+        <li><span class="ic">🔔</span> Lembrete automático reduz no-show em até 30%</li>
+        <li><span class="ic">💰</span> Orthodontia + harmonização viram recorrência mensal</li>
+        <li><span class="ic">😌</span> Você foca nos pacientes, não no WhatsApp</li>
+        <li><span class="ic">📞</span> Suporte direto com o especialista</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="cta">
+    <div class="cta-texto">
+      <strong>Próximo passo: 15 minutos de demo ao vivo</strong>
+      Mostro o sistema funcionando com o número e os serviços do seu consultório — sem compromisso.
+    </div>
+    <div class="cta-contato">
+      <strong>(19) 97126-6736</strong>
+      Allan Rodrigues<br/>
+      <span>● WhatsApp disponível</span>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span>Kronos Intelligence — Automação com IA para clínicas e consultórios</span>
+    <span class="rodape-site">kronosintelligence.com.br</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PÁGINA 2 — Bucal On
+══════════════════════════════════════════════════ -->
+<div class="pagina">
+  <div class="topo">
+    <div class="topo-logo">
+      <img src="../07_Recursos/identidade_visual/kronos_icone_transparente.png" alt=""/>
+      <div class="topo-nome">KRONOS<span> Intelligence</span></div>
+    </div>
+    <div class="topo-tagline">
+      <strong>Automação com IA para clínicas</strong>
+      kronosintelligence.com.br &nbsp;·&nbsp; (19) 97126-6736
+    </div>
+  </div>
+
+  <div class="destinatario">
+    <div>
+      <div class="dest-para">À Direção da Clínica Bucal On</div>
+      <div class="dest-sub">R. Cananeia, 290 — Jd. Triunfo, Pedreira/SP</div>
+    </div>
+    <div class="dest-data">Pedreira/SP<br/>Junho de 2026</div>
+  </div>
+
+  <div class="carta">
+    <p>Prezada equipe Bucal On,</p>
+    <p>Clínicas com múltiplos profissionais enfrentam um desafio diário: coordenar agendas diferentes, responder pacientes de vários dentistas ao mesmo tempo e garantir que nenhuma consulta seja perdida por falta de resposta rápida — tudo isso sobrecarrega a recepção e gera oportunidades perdidas.</p>
+    <p>A <strong>Kronos Intelligence</strong> centraliza tudo num único agente de IA que atende o WhatsApp da Bucal On <strong>24 horas por dia</strong>, distribui agendamentos por profissional, confirma consultas, manda lembretes e acompanha o paciente após o atendimento — sem aumentar a equipe.</p>
+    <p>Veja como ficaria o atendimento automatizado da <strong>Bucal On</strong>:</p>
+  </div>
+
+  <div class="demo-wrap">
+    <div class="demo-label">📱 Demonstração — Clínica Bucal On — Pedreira/SP</div>
+    <img src="demo_bucalon.jpg" alt="Demo WhatsApp Bucal On"/>
+  </div>
+
+  <div class="roi-bar">
+    💸 <strong>Clínicas sem automação perdem em média R$ 2.300/mês</strong> — R$ 1.600 em faltas/no-shows, R$ 1.200 em leads sem resposta rápida e R$ 528 em horas gastas no WhatsApp repetitivo. O sistema custa uma fração disso e <strong>se paga na primeira semana</strong>.
+  </div>
+
+  <div class="diferencial">
+    <span class="ic">🧠</span>
+    <span><strong>Isso não é um chatbot genérico.</strong> É um agente com inteligência emocional — ele percebe quando o paciente está ansioso, insatisfeito ou num momento delicado, e responde com acolhimento e sensibilidade, não com scripts engessados. A diferença entre "robô de cardápio" e atendimento humano de verdade.</span>
+  </div>
+  <div class="info-grid">
+    <div class="plano-card destaque">
+      <div class="plano-tag">⭐ Recomendado para vocês</div>
+      <div class="plano-nome">Plano Profissional</div>
+      <div class="plano-publico">Clínica com 2 a 5 profissionais</div>
+      <div class="plano-preco">R$ 697<small> /mês</small></div>
+      <div style="font-size:0.7rem;color:#a0aec0;margin-bottom:6px">+ R$ 2.000 implantação</div>
+      <ul>
+        <li>Atendimento WhatsApp 24h</li>
+        <li>Agendamento por profissional</li>
+        <li>Pós-venda e fidelização</li>
+        <li>Reativação de pacientes inativos</li>
+        <li>Relatório mensal de desempenho</li>
+      </ul>
+    </div>
+    <div class="beneficios-card">
+      <div class="beneficios-titulo">O que muda no dia a dia da clínica</div>
+      <ul>
+        <li><span class="ic">🕐</span> Resposta imediata — paciente não espera</li>
+        <li><span class="ic">📅</span> Agenda de cada dentista preenchida automaticamente</li>
+        <li><span class="ic">🔔</span> Lembrete automático reduz no-show em até 30%</li>
+        <li><span class="ic">🔁</span> Pós-venda reativa pacientes que somem</li>
+        <li><span class="ic">📊</span> Relatório mensal mostra resultados reais</li>
+        <li><span class="ic">📞</span> Suporte direto com o especialista</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="cta">
+    <div class="cta-texto">
+      <strong>Próximo passo: 15 minutos de demo ao vivo</strong>
+      Mostro o sistema funcionando com o número e os profissionais da Bucal On — sem compromisso.
+    </div>
+    <div class="cta-contato">
+      <strong>(19) 97126-6736</strong>
+      Allan Rodrigues<br/>
+      <span>● WhatsApp disponível</span>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span>Kronos Intelligence — Automação com IA para clínicas e consultórios</span>
+    <span class="rodape-site">kronosintelligence.com.br</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PÁGINA 3 — Clínica D&D
+══════════════════════════════════════════════════ -->
+<div class="pagina">
+  <div class="topo">
+    <div class="topo-logo">
+      <img src="../07_Recursos/identidade_visual/kronos_icone_transparente.png" alt=""/>
+      <div class="topo-nome">KRONOS<span> Intelligence</span></div>
+    </div>
+    <div class="topo-tagline">
+      <strong>Automação com IA para clínicas</strong>
+      kronosintelligence.com.br &nbsp;·&nbsp; (19) 97126-6736
+    </div>
+  </div>
+
+  <div class="destinatario">
+    <div>
+      <div class="dest-para">À Direção da Clínica Odontológica D&amp;D</div>
+      <div class="dest-sub">R. Pres. Castelo Branco, 300 — Pedreira/SP</div>
+    </div>
+    <div class="dest-data">Pedreira/SP<br/>Junho de 2026</div>
+  </div>
+
+  <div class="carta">
+    <p>Prezada direção,</p>
+    <p>Todo dia, clínicas odontológicas perdem pacientes simplesmente por não responder o WhatsApp rápido o suficiente. O paciente manda mensagem, não recebe retorno em minutos — e agenda na clínica ao lado. Além disso, horas valiosas da equipe são gastas respondendo sempre as mesmas perguntas sobre preços, horários e procedimentos.</p>
+    <p>A <strong>Kronos Intelligence</strong> resolve tudo isso com um agente de IA que atende o WhatsApp da sua clínica <strong>na hora, 24 horas por dia</strong> — apresenta serviços, verifica agenda, fecha agendamento e confirma consultas com lembrete automático.</p>
+    <p>Veja como ficaria o atendimento automatizado da <strong>Clínica D&amp;D</strong>:</p>
+  </div>
+
+  <div class="demo-wrap">
+    <div class="demo-label">📱 Demonstração — Clínica Odontológica D&amp;D — Pedreira/SP</div>
+    <img src="demo_dd.jpg" alt="Demo WhatsApp Clínica D&D"/>
+  </div>
+
+  <div class="roi-bar">
+    💸 <strong>Clínicas sem automação perdem em média R$ 2.300/mês</strong> — R$ 1.600 em faltas/no-shows, R$ 1.200 em leads sem resposta rápida e R$ 528 em horas gastas no WhatsApp repetitivo. O sistema custa uma fração disso e <strong>se paga na primeira semana</strong>.
+  </div>
+
+  <div class="diferencial">
+    <span class="ic">🧠</span>
+    <span><strong>Isso não é um chatbot genérico.</strong> É um agente com inteligência emocional — ele percebe quando o paciente está ansioso, insatisfeito ou num momento delicado, e responde com acolhimento e sensibilidade, não com scripts engessados. A diferença entre "robô de cardápio" e atendimento humano de verdade.</span>
+  </div>
+  <div class="info-grid">
+    <div class="plano-card destaque">
+      <div class="plano-tag">⭐ Recomendado</div>
+      <div class="plano-nome">Plano Essencial</div>
+      <div class="plano-publico">Consultório individual</div>
+      <div class="plano-preco">R$ 397<small> /mês</small></div>
+      <div style="font-size:0.7rem;color:#a0aec0;margin-bottom:6px">+ R$ 2.000 implantação</div>
+      <ul>
+        <li>Atendimento WhatsApp 24h</li>
+        <li>Agendamento automático</li>
+        <li>Integração Google Calendar</li>
+        <li>Lembrete 24h (reduz faltas)</li>
+        <li>Respostas sobre serviços e preços</li>
+      </ul>
+    </div>
+    <div class="beneficios-card">
+      <div class="beneficios-titulo">O que muda no dia a dia da clínica</div>
+      <ul>
+        <li><span class="ic">🕐</span> Resposta imediata — paciente não espera</li>
+        <li><span class="ic">📅</span> Agenda preenchida automaticamente</li>
+        <li><span class="ic">🔔</span> Lembrete automático reduz no-show em até 30%</li>
+        <li><span class="ic">💬</span> Dúvidas respondidas sem ocupar a equipe</li>
+        <li><span class="ic">📈</span> Mais consultas realizadas, menos cadeira parada</li>
+        <li><span class="ic">📞</span> Suporte direto com o especialista</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="cta">
+    <div class="cta-texto">
+      <strong>Próximo passo: 15 minutos de demo ao vivo</strong>
+      Mostro o sistema funcionando com o número e os serviços da sua clínica — sem compromisso.
+    </div>
+    <div class="cta-contato">
+      <strong>(19) 97126-6736</strong>
+      Allan Rodrigues<br/>
+      <span>● WhatsApp disponível</span>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span>Kronos Intelligence — Automação com IA para clínicas e consultórios</span>
+    <span class="rodape-site">kronosintelligence.com.br</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PÁGINA 4 — Allegra Odontologia
+══════════════════════════════════════════════════ -->
+<div class="pagina">
+  <div class="topo">
+    <div class="topo-logo">
+      <img src="../07_Recursos/identidade_visual/kronos_icone_transparente.png" alt=""/>
+      <div class="topo-nome">KRONOS<span> Intelligence</span></div>
+    </div>
+    <div class="topo-tagline">
+      <strong>Automação com IA para clínicas</strong>
+      kronosintelligence.com.br &nbsp;·&nbsp; (19) 97126-6736
+    </div>
+  </div>
+
+  <div class="destinatario">
+    <div>
+      <div class="dest-para">À Direção da Allegra Odontologia</div>
+      <div class="dest-sub">Pedreira/SP</div>
+    </div>
+    <div class="dest-data">Pedreira/SP<br/>Junho de 2026</div>
+  </div>
+
+  <div class="carta">
+    <p>Prezada equipe Allegra,</p>
+    <p>Você sabia que clínicas odontológicas perdem em média <strong>R$ 2.300 por mês</strong> com faltas, leads não respondidos e horas da equipe gastas em mensagens repetitivas no WhatsApp? Em cidades como Pedreira, onde a concorrência é crescente, a velocidade de resposta pode ser o diferencial que fideliza o paciente antes mesmo de ele entrar no consultório.</p>
+    <p>A <strong>Kronos Intelligence</strong> resolve isso com um agente de IA treinado com os seus serviços que atende <strong>24 horas por dia</strong>, agenda consultas, tira dúvidas, reduz faltas e mantém o relacionamento com o paciente — tudo automático.</p>
+    <p>Veja como ficaria o atendimento automatizado da <strong>Allegra Odontologia</strong>:</p>
+  </div>
+
+  <div class="demo-wrap">
+    <div class="demo-label">📱 Demonstração — Allegra Odontologia — Pedreira/SP</div>
+    <img src="demo_allegra.jpg" alt="Demo WhatsApp Allegra"/>
+  </div>
+
+  <div class="roi-bar">
+    💸 <strong>Clínicas sem automação perdem em média R$ 2.300/mês</strong> — R$ 1.600 em faltas/no-shows, R$ 1.200 em leads sem resposta rápida e R$ 528 em horas gastas no WhatsApp repetitivo. O sistema custa uma fração disso e <strong>se paga na primeira semana</strong>.
+  </div>
+
+  <div class="diferencial">
+    <span class="ic">🧠</span>
+    <span><strong>Isso não é um chatbot genérico.</strong> É um agente com inteligência emocional — ele percebe quando o paciente está ansioso, insatisfeito ou num momento delicado, e responde com acolhimento e sensibilidade, não com scripts engessados. A diferença entre "robô de cardápio" e atendimento humano de verdade.</span>
+  </div>
+  <div class="info-grid">
+    <div class="plano-card destaque">
+      <div class="plano-tag">⭐ Recomendado</div>
+      <div class="plano-nome">Plano Essencial</div>
+      <div class="plano-publico">Consultório individual</div>
+      <div class="plano-preco">R$ 397<small> /mês</small></div>
+      <div style="font-size:0.7rem;color:#a0aec0;margin-bottom:6px">+ R$ 2.000 implantação</div>
+      <ul>
+        <li>Atendimento WhatsApp 24h</li>
+        <li>Agendamento automático</li>
+        <li>Integração Google Calendar</li>
+        <li>Lembrete 24h (reduz faltas)</li>
+        <li>Respostas sobre serviços e preços</li>
+      </ul>
+    </div>
+    <div class="beneficios-card">
+      <div class="beneficios-titulo">O que muda no dia a dia da clínica</div>
+      <ul>
+        <li><span class="ic">🕐</span> Resposta imediata — paciente não vai embora</li>
+        <li><span class="ic">📅</span> Agenda preenchida automaticamente</li>
+        <li><span class="ic">🔔</span> Lembrete automático reduz no-show em até 30%</li>
+        <li><span class="ic">💬</span> Dúvidas respondidas sem ocupar a equipe</li>
+        <li><span class="ic">📈</span> Mais consultas realizadas, menos cadeira parada</li>
+        <li><span class="ic">📞</span> Suporte direto com o especialista</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="cta">
+    <div class="cta-texto">
+      <strong>Próximo passo: 15 minutos de demo ao vivo</strong>
+      Mostro o sistema funcionando com o número e os serviços da Allegra — sem compromisso.
+    </div>
+    <div class="cta-contato">
+      <strong>(19) 97126-6736</strong>
+      Allan Rodrigues<br/>
+      <span>● WhatsApp disponível</span>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span>Kronos Intelligence — Automação com IA para clínicas e consultórios</span>
+    <span class="rodape-site">kronosintelligence.com.br</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PÁGINA 5 — Carlos Dentista (Sto. Antônio de Posse)
+══════════════════════════════════════════════════ -->
+<div class="pagina">
+  <div class="topo">
+    <div class="topo-logo">
+      <img src="../07_Recursos/identidade_visual/kronos_icone_transparente.png" alt=""/>
+      <div class="topo-nome">KRONOS<span> Intelligence</span></div>
+    </div>
+    <div class="topo-tagline">
+      <strong>Automação com IA para clínicas</strong>
+      kronosintelligence.com.br &nbsp;·&nbsp; (19) 97126-6736
+    </div>
+  </div>
+
+  <div class="destinatario">
+    <div>
+      <div class="dest-para">Ao Dr. Carlos</div>
+      <div class="dest-sub">Consultório Odontológico — Santo Antônio de Posse/SP</div>
+    </div>
+    <div class="dest-data">Sto. Antônio de Posse/SP<br/>Junho de 2026</div>
+  </div>
+
+  <div class="carta">
+    <p>Dr. Carlos,</p>
+    <p>Para um consultório solo, cada minuto conta. Responder WhatsApp entre consultas, lembrar pacientes de retorno e tentar fidelizar quem já foi atendido — tudo isso consome tempo que deveria estar na cadeira gerando receita. E cada mensagem sem resposta rápida é um paciente que vai para a concorrência.</p>
+    <p>A <strong>Kronos Intelligence</strong> faz esse trabalho por você: um agente de IA que atende seu WhatsApp <strong>24 horas</strong>, agenda, confirma, manda lembrete e cuida do pós-atendimento — enquanto você foca nos pacientes. Sem contratar mais ninguém.</p>
+    <p>Veja como ficaria o atendimento automatizado do <strong>seu consultório</strong>:</p>
+  </div>
+
+  <div class="demo-wrap">
+    <div class="demo-label">📱 Demonstração — Dr. Carlos — Santo Antônio de Posse/SP</div>
+    <img src="demo_carlos.jpg" alt="Demo WhatsApp Carlos Dentista"/>
+  </div>
+
+  <div class="roi-bar">
+    💸 <strong>Consultórios sem automação perdem em média R$ 2.300/mês</strong> — R$ 1.600 em faltas/no-shows, R$ 1.200 em leads sem resposta rápida e R$ 528 em horas gastas no WhatsApp repetitivo. O sistema custa uma fração disso e <strong>se paga na primeira semana</strong>.
+  </div>
+
+  <div class="diferencial">
+    <span class="ic">🧠</span>
+    <span><strong>Isso não é um chatbot genérico.</strong> É um agente com inteligência emocional — ele percebe quando o paciente está ansioso, insatisfeito ou num momento delicado, e responde com acolhimento e sensibilidade, não com scripts engessados. A diferença entre "robô de cardápio" e atendimento humano de verdade.</span>
+  </div>
+  <div class="info-grid">
+    <div class="plano-card destaque">
+      <div class="plano-tag">⭐ Ideal para consultório solo</div>
+      <div class="plano-nome">Plano Essencial</div>
+      <div class="plano-publico">Dentista individual</div>
+      <div class="plano-preco">R$ 397<small> /mês</small></div>
+      <div style="font-size:0.7rem;color:#a0aec0;margin-bottom:6px">+ R$ 2.000 implantação</div>
+      <ul>
+        <li>Atendimento WhatsApp 24h</li>
+        <li>Agendamento automático</li>
+        <li>Integração Google Calendar</li>
+        <li>Lembrete 24h (reduz faltas)</li>
+        <li>Respostas sobre serviços e preços</li>
+      </ul>
+    </div>
+    <div class="beneficios-card">
+      <div class="beneficios-titulo">O que muda no seu dia a dia</div>
+      <ul>
+        <li><span class="ic">🕐</span> Paciente recebe resposta em segundos, não horas</li>
+        <li><span class="ic">📅</span> Agenda preenchida sem você tocar no celular</li>
+        <li><span class="ic">🔔</span> Lembrete automático reduz no-show em até 30%</li>
+        <li><span class="ic">😌</span> Você foca nos pacientes, não no WhatsApp</li>
+        <li><span class="ic">📈</span> Mais consultas realizadas, mais receita</li>
+        <li><span class="ic">📞</span> Suporte direto com o especialista</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="cta">
+    <div class="cta-texto">
+      <strong>Próximo passo: 15 minutos de demo ao vivo</strong>
+      Mostro o sistema funcionando com o número e os serviços do seu consultório — sem compromisso.
+    </div>
+    <div class="cta-contato">
+      <strong>(19) 97126-6736</strong>
+      Allan Rodrigues<br/>
+      <span>● WhatsApp disponível</span>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span>Kronos Intelligence — Automação com IA para clínicas e consultórios</span>
+    <span class="rodape-site">kronosintelligence.com.br</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PÁGINA 6 — Montoni e Romero
+══════════════════════════════════════════════════ -->
+<div class="pagina">
+  <div class="topo">
+    <div class="topo-logo">
+      <img src="../07_Recursos/identidade_visual/kronos_icone_transparente.png" alt=""/>
+      <div class="topo-nome">KRONOS<span> Intelligence</span></div>
+    </div>
+    <div class="topo-tagline">
+      <strong>Automação com IA para clínicas</strong>
+      kronosintelligence.com.br &nbsp;·&nbsp; (19) 97126-6736
+    </div>
+  </div>
+
+  <div class="destinatario">
+    <div>
+      <div class="dest-para">À Direção da Clínica Montoni e Romero</div>
+      <div class="dest-sub">R. XV de Novembro, 409 — Pedreira/SP</div>
+    </div>
+    <div class="dest-data">Pedreira/SP<br/>Junho de 2026</div>
+  </div>
+
+  <div class="carta">
+    <p>Prezada direção,</p>
+    <p>Em cidades como Pedreira, o diferencial que fideliza o paciente e enche a agenda muitas vezes não é só o procedimento — é a <strong>experiência de atendimento antes mesmo de entrar no consultório</strong>. Quem responde primeiro, agenda primeiro.</p>
+    <p>A <strong>Kronos Intelligence</strong> transforma o WhatsApp da sua clínica num atendente inteligente disponível <strong>24 horas</strong>: agenda consultas por profissional, responde dúvidas, reduz faltas com lembretes automáticos e mantém o relacionamento com o paciente após o atendimento — sem aumentar sua equipe.</p>
+    <p>Clínicas que implantaram relatam redução de <strong>30% nas faltas</strong> e aumento de <strong>25% na taxa de retorno</strong> em 60 dias.</p>
+  </div>
+
+  <div class="demo-wrap">
+    <div class="demo-label">📱 Como funciona na prática — WhatsApp da sua clínica</div>
+    <img src="demo_odontovita.jpg" alt="Demo WhatsApp"/>
+  </div>
+
+  <div class="roi-bar">
+    💸 <strong>Clínicas sem automação perdem em média R$ 2.300/mês</strong> — R$ 1.600 em faltas/no-shows, R$ 1.200 em leads sem resposta rápida e R$ 528 em horas gastas no WhatsApp repetitivo. O sistema custa uma fração disso e <strong>se paga na primeira semana</strong>.
+  </div>
+
+  <div class="diferencial">
+    <span class="ic">🧠</span>
+    <span><strong>Isso não é um chatbot genérico.</strong> É um agente com inteligência emocional — ele percebe quando o paciente está ansioso, insatisfeito ou num momento delicado, e responde com acolhimento e sensibilidade, não com scripts engessados. A diferença entre "robô de cardápio" e atendimento humano de verdade.</span>
+  </div>
+  <div class="info-grid">
+    <div class="plano-card destaque">
+      <div class="plano-tag">⭐ Recomendado para vocês</div>
+      <div class="plano-nome">Plano Profissional</div>
+      <div class="plano-publico">Clínica com 2 a 5 profissionais</div>
+      <div class="plano-preco">R$ 697<small> /mês</small></div>
+      <div style="font-size:0.7rem;color:#a0aec0;margin-bottom:6px">+ R$ 2.000 implantação</div>
+      <ul>
+        <li>Atendimento WhatsApp 24h</li>
+        <li>Agendamento por profissional</li>
+        <li>Pós-venda e fidelização</li>
+        <li>Reativação de pacientes inativos</li>
+        <li>Relatório mensal de desempenho</li>
+      </ul>
+    </div>
+    <div class="beneficios-card">
+      <div class="beneficios-titulo">O que muda no dia a dia da clínica</div>
+      <ul>
+        <li><span class="ic">🕐</span> Resposta imediata — paciente não vai embora</li>
+        <li><span class="ic">📅</span> Agenda de cada profissional preenchida sozinha</li>
+        <li><span class="ic">🔔</span> Lembrete automático reduz no-show em até 30%</li>
+        <li><span class="ic">🔁</span> Pós-venda reativa pacientes que somem</li>
+        <li><span class="ic">📊</span> Relatório mensal mostra resultados reais</li>
+        <li><span class="ic">📞</span> Suporte direto com o especialista</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="cta">
+    <div class="cta-texto">
+      <strong>Próximo passo: 15 minutos de demo ao vivo</strong>
+      Mostro o sistema funcionando com o número e os profissionais da sua clínica — sem compromisso.
+    </div>
+    <div class="cta-contato">
+      <strong>(19) 97126-6736</strong>
+      Allan Rodrigues<br/>
+      <span>● WhatsApp disponível</span>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span>Kronos Intelligence — Automação com IA para clínicas e consultórios</span>
+    <span class="rodape-site">kronosintelligence.com.br</span>
+  </div>
+</div>
+
+</body>
+</html>
