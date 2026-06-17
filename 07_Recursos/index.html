@@ -519,6 +519,9 @@
       .contato-grid { grid-template-columns: 1fr; gap: 48px; }
       footer { flex-direction: column; gap: 12px; text-align: center; }
       .roi-box { padding: 28px 20px; }
+      /* iOS Safari: desativa filtro de blur nas elipses (principal causa do crash) */
+      .hero-bg svg filter { display: none; }
+      .hero-bg svg ellipse { filter: none !important; }
     }
   </style>
 </head>
@@ -625,36 +628,47 @@
 
 <!-- SERVIÇOS -->
 <section id="servicos">
-  <div class="section-label">O que fazemos</div>
-  <h2 class="section-title">Soluções de automação<br/>com agentes de IA</h2>
-  <p class="section-sub">Implantamos agentes inteligentes que trabalham 24 horas por dia, 7 dias por semana — sem pausas, sem erros, sem custo de equipe.</p>
+  <div class="section-label">O que a Kronos faz</div>
+  <h2 class="section-title">Uma agência de IA.<br/>Seis serviços que trabalham por você.</h2>
+  <p class="section-sub">Cada serviço é um agente de IA rodando 24/7 no WhatsApp. Comece pelo atendimento e vá somando módulos conforme o seu negócio cresce — sem pausas, sem erros, sem custo de equipe.</p>
   <p style="color:var(--cinza);font-size:0.85rem;margin-top:-44px;margin-bottom:52px">Atendemos clínicas, consultórios, escritórios de advocacia e empresas de serviços.</p>
 
   <div class="cards">
     <div class="card">
       <div class="card-icon" style="background:rgba(74,14,144,0.25)">💬</div>
-      <h3>Atendimento Automatizado via WhatsApp</h3>
-      <p>Agente de IA responde, qualifica e agenda seus clientes automaticamente, 24 horas por dia, sem intervenção humana.</p>
+      <div style="font-size:0.66rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9878e8;margin-bottom:8px">Atendimento</div>
+      <h3>Chatbot de Atendimento</h3>
+      <p>Responde, qualifica e agenda seus clientes 24 horas por dia, no WhatsApp, sem intervenção humana.</p>
     </div>
     <div class="card">
-      <div class="card-icon" style="background:rgba(48,96,200,0.25)">📅</div>
-      <h3>Agendamento Inteligente</h3>
-      <p>Integração com sua agenda e confirmações automáticas. Zero falhas de comunicação, zero esquecimentos.</p>
+      <div class="card-icon" style="background:rgba(48,96,200,0.25)">🎙️</div>
+      <div style="font-size:0.66rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4894d8;margin-bottom:8px">Inteligência</div>
+      <h3>Resumo de Áudio</h3>
+      <p>Transcreve e resume os áudios do WhatsApp em segundos. Nunca mais ouça um áudio de 5 minutos.</p>
     </div>
     <div class="card">
-      <div class="card-icon" style="background:rgba(24,144,192,0.25)">🔁</div>
-      <h3>Pós-venda e Fidelização</h3>
-      <p>Follow-up automático após cada atendimento. Mantenha o cliente engajado e aumente o retorno sem esforço.</p>
+      <div class="card-icon" style="background:rgba(24,144,192,0.25)">📊</div>
+      <div style="font-size:0.66rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#18b89c;margin-bottom:8px">Crescimento</div>
+      <h3>Relatório Automático</h3>
+      <p>Toda semana, um resumo do seu negócio no Zap: faturamento, serviços que mais saem, horário de pico e dicas práticas.</p>
     </div>
     <div class="card">
-      <div class="card-icon" style="background:rgba(74,14,144,0.25)">🔔</div>
-      <h3>Lembretes e Notificações</h3>
-      <p>Reduza faltas e no-shows com lembretes automáticos personalizados por WhatsApp antes de cada compromisso.</p>
+      <div class="card-icon" style="background:rgba(24,144,192,0.25)">✍️</div>
+      <div style="font-size:0.66rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#18b89c;margin-bottom:8px">Crescimento</div>
+      <h3>Conteúdo Recorrente</h3>
+      <p>Um pacote de posts prontos para as suas redes — legenda, hashtags e ganchos do momento. É só copiar e postar.</p>
     </div>
     <div class="card">
-      <div class="card-icon" style="background:rgba(48,96,200,0.25)">📊</div>
-      <h3>Relatórios e Métricas</h3>
-      <p>Painel com dados de atendimento em tempo real. Tome decisões baseadas em números, não em suposições.</p>
+      <div class="card-icon" style="background:rgba(48,96,200,0.25)">📧</div>
+      <div style="font-size:0.66rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4894d8;margin-bottom:8px">Inteligência</div>
+      <h3>Triagem de E-mail</h3>
+      <p>Lê a sua caixa de entrada, separa o urgente do que pode esperar e já escreve a resposta do mais importante.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(74,14,144,0.25)">📄</div>
+      <div style="font-size:0.66rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9878e8;margin-bottom:8px">Inteligência</div>
+      <h3>Leitura de Documentos / PDF</h3>
+      <p>Lê contratos, processos e documentos e extrai o que importa em segundos. Ideal para advocacia.</p>
     </div>
   </div>
 </section>
@@ -749,14 +763,15 @@
       <div class="plano-preco"><span>R$ 397</span><small> /mês</small></div>
       <div style="font-size:0.75rem;color:var(--cinza);margin-bottom:10px">+ R$ 2.000 implantação</div>
       <ul>
-        <li>Atendimento WhatsApp 24h</li>
-        <li>Agendamento automático</li>
+        <li>Chatbot de atendimento 24h</li>
+        <li>Agendamento + lembretes automáticos</li>
         <li>Integração Google Calendar</li>
-        <li>Lembrete 24h antes (reduz faltas)</li>
-        <li class="off">Pós-venda e fidelização</li>
-        <li class="off">Relatórios de desempenho</li>
+        <li class="off">Resumo de áudio</li>
+        <li class="off">Relatório automático</li>
+        <li class="off">Conteúdo · triagem · PDF</li>
       </ul>
       <a href="https://wa.me/5519971266736?text=Olá!%20Tenho%20interesse%20no%20plano%20Essencial%20da%20Kronos%20Intelligence." target="_blank" class="btn-secondary">Quero o Essencial</a>
+      <a href="https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=0f75c5b3e74e4dabb81ddf80f3d9107d" target="_blank" style="display:block;text-align:center;margin-top:12px;font-size:0.82rem;color:var(--cinza);text-decoration:underline;text-underline-offset:3px;">ou assinar agora →</a>
     </div>
 
     <div class="plano plano-destaque">
@@ -767,32 +782,35 @@
       <div style="font-size:0.75rem;color:rgba(160,160,200,0.7);margin-bottom:10px">+ R$ 2.000 implantação</div>
       <ul>
         <li>Tudo do Essencial</li>
-        <li>Pós-venda e fidelização</li>
-        <li>Reativação de clientes inativos</li>
-        <li>Relatório mensal de desempenho</li>
-        <li>Personalização avançada do agente</li>
+        <li>Resumo de áudio do WhatsApp</li>
+        <li>Relatório automático semanal</li>
+        <li>Pós-venda e reativação de clientes</li>
         <li>Suporte prioritário</li>
+        <li class="off">Conteúdo · triagem · PDF</li>
       </ul>
       <a href="https://wa.me/5519971266736?text=Olá!%20Tenho%20interesse%20no%20plano%20Profissional%20da%20Kronos%20Intelligence." target="_blank" class="btn-primary">Quero o Profissional</a>
+      <a href="https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=b803632733db46259904d3706b46a742" target="_blank" style="display:block;text-align:center;margin-top:12px;font-size:0.82rem;color:rgba(160,130,220,0.8);text-decoration:underline;text-underline-offset:3px;">ou assinar agora →</a>
     </div>
 
     <div class="plano">
-      <div class="plano-nome">Premium</div>
-      <div class="plano-publico">Clínica grande, rede ou multi-unidade</div>
+      <div class="plano-nome">Completo</div>
+      <div class="plano-publico">Operação completa — clínicas, advocacia e serviços</div>
       <div class="plano-preco"><span>R$ 1.197</span><small> /mês</small></div>
       <div style="font-size:0.75rem;color:var(--cinza);margin-bottom:10px">+ R$ 2.000 implantação</div>
       <ul>
         <li>Tudo do Profissional</li>
-        <li>Multi-unidade / multi-profissional</li>
-        <li>Relatórios semanais</li>
-        <li>Personalização total (voz da marca)</li>
-        <li>Suporte dedicado</li>
+        <li>Conteúdo recorrente para redes</li>
+        <li>Triagem de e-mail</li>
+        <li>Leitura de documentos / PDF</li>
+        <li>Personalização total + suporte dedicado</li>
       </ul>
-      <a href="https://wa.me/5519971266736?text=Olá!%20Tenho%20interesse%20no%20plano%20Premium%20da%20Kronos%20Intelligence." target="_blank" class="btn-secondary">Quero o Premium</a>
+      <a href="https://wa.me/5519971266736?text=Olá!%20Tenho%20interesse%20no%20plano%20Completo%20da%20Kronos%20Intelligence." target="_blank" class="btn-secondary">Quero o Completo</a>
+      <a href="https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=ff4b40b71c074a7f8313b999c0c1b6f0" target="_blank" style="display:block;text-align:center;margin-top:12px;font-size:0.82rem;color:var(--cinza);text-decoration:underline;text-underline-offset:3px;">ou assinar agora →</a>
     </div>
   </div>
 
-  <p class="planos-nota">✅ Sem fidelidade &nbsp;·&nbsp; 💬 Diagnóstico gratuito &nbsp;·&nbsp; 👉 Respondemos em até 1 hora útil</p>
+  <p class="planos-nota" style="color:#b090f0;font-weight:500;margin-top:28px;margin-bottom:0">🎁 Vagas de fundador — os primeiros clientes pagam metade da implantação em troca de um depoimento.</p>
+  <p class="planos-nota" style="margin-top:12px">✅ Sem fidelidade &nbsp;·&nbsp; 💬 Diagnóstico gratuito &nbsp;·&nbsp; 👉 Respondemos em até 1 hora útil</p>
 </section>
 
 <!-- CONTATO -->
