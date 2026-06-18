@@ -6,7 +6,22 @@
       "PowerShell(git -C * status *)",
       "PowerShell(git -C * ls-files *)",
       "PowerShell(git -C * remote *)",
-      "mcp__ccd_session_mgmt__search_session_transcripts"
+      "mcp__ccd_session_mgmt__search_session_transcripts",
+      "mcp__n8n__n8n_executions",
+      "mcp__n8n__n8n_get_workflow",
+      "mcp__n8n__n8n_validate_workflow",
+      "mcp__n8n__n8n_health_check",
+      "mcp__n8n__tools_documentation",
+      "mcp__n8n__n8n_list_workflows",
+      "mcp__n8n__get_node",
+      "mcp__Claude_Preview__preview_screenshot",
+      "mcp__Claude_Preview__preview_list",
+      "mcp__computer-use__screenshot",
+      "Bash(nslookup *)",
+      "mcp__visualize__read_me",
+      "mcp__google-sheets__get_sheet_data",
+      "mcp__Claude_Preview__preview_console_logs",
+      "mcp__45deb467-c4e5-48e5-bb64-0cd7af2bf26b__search_threads"
     ]
   }
 }

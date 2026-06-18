@@ -1,0 +1,86 @@
+name: Deploy Kronos VPS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "07_Recursos/index.html"
+      - "07_Recursos/onboard-cliente.py"
+      - "07_Recursos/test_harness/**"
+      - ".github/workflows/deploy.yml"
+
+jobs:
+  deploy-site:
+    name: Deploy site landing page
+    runs-on: ubuntu-latest
+    if: contains(github.event.commits[0].modified, '07_Recursos/index.html') || contains(github.event.commits[0].added, '07_Recursos/index.html')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy index.html para VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "07_Recursos/index.html"
+          target: "/opt/kronos-site/"
+          strip_components: 1
+
+      - name: Smoke test do site
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            HTTP=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://kronosintelligence.com.br/)
+            echo "Site HTTP: $HTTP"
+            [ "$HTTP" = "200" ] || exit 1
+
+  deploy-scripts:
+    name: Sincronizar scripts no VPS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Copiar scripts para /docker/
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "07_Recursos/onboard-cliente.py,07_Recursos/test_harness/"
+          target: "/docker/"
+          strip_components: 1
+
+      - name: Renomear e validar no VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            chmod +x /docker/onboard-cliente.py
+            python3 /docker/onboard-cliente.py --help > /dev/null && echo "✓ onboard-cliente.py OK"
+
+  notify:
+    name: Notificar deploy
+    runs-on: ubuntu-latest
+    needs: [deploy-site, deploy-scripts]
+    if: always()
+
+    steps:
+      - name: Enviar status via webhook n8n
+        run: |
+          STATUS="${{ (needs.deploy-site.result == 'success' || needs.deploy-site.result == 'skipped') && (needs.deploy-scripts.result == 'success') && 'PASS' || 'FAIL' }}"
+          COMMIT="${{ github.event.commits[0].message }}"
+          AUTHOR="${{ github.event.commits[0].author.name }}"
+          curl -s -X POST "https://n8n.kronosintelligence.com.br/webhook/deploy-notify" \
+            -H "Content-Type: application/json" \
+            -d "{\"status\":\"$STATUS\",\"commit\":\"$COMMIT\",\"author\":\"$AUTHOR\",\"ref\":\"${{ github.ref_name }}\"}" \
+            || true

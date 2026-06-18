@@ -49,6 +49,12 @@ Cada workflow tem um `_guide.md` e um `_montagem_manual.md` correspondentes.
 
 ---
 
+## Environment
+
+- **Ambiente local é Windows** — evitar paths bash `/tmp`; cuidado com escape de barra invertida em `.claude.json` e arquivos de config (conferir backslashes escapados). Usar caminhos Windows-compatíveis ou `$env:TEMP` para operações locais.
+- **IP de datacenter Hostinger é bloqueado pelo WhatsApp** — conexões da Evolution API exigem proxy residencial se a instância cair.
+- **n8n roda em Docker atrás do Traefik** — antes de escrever qualquer `docker-compose`, confirmar o nome real da rede com `docker network ls` (nunca assumir `traefik` ou `web`).
+
 ## Environment & Stack
 
 - **VPS Hostinger** — IP `2.24.101.180`, SSH root, chave `~/.ssh/kronos_vps` (sem senha).
@@ -71,12 +77,21 @@ GOOGLE_SHEETS_CRM_ID
 
 ---
 
-## n8n Workflow Editing
+## n8n Workflows
 
-- Sempre editar a versão **publicada/ativa** (`workflow_history`), não o rascunho (`workflow_entity`).
-- Após qualquer mudança de config/env, **reiniciar o container n8n** — unpublish/publish via UI não aplica sem restart.
+- Sempre editar a versão **publicada/ativa** (`workflow_history`), não o rascunho (`workflow_entity`). Editar só o `workflow_entity` (draft) **não tem efeito**.
+- Após editar, **reiniciar o n8n para aplicar** (deactivate/reactivate ou restart do container) — unpublish/publish via UI não aplica sem restart.
+- **n8n auto-traduz o texto da UI** (especialmente via tradução do Chrome), o que corrompe nomes de variáveis e referências `$env`. Sempre desativar a tradução do navegador no n8n e conferir que nomes de variável/env não foram traduzidos **antes** de debugar falhas de auth da API.
 - **Execute Workflow exige sub-workflow publicado** — ao reativar um orquestrador, publicar também os subs que ele chama.
 - Referências a nodes pelo nome (`$('Montar Prompt Haiku')`) quebram se o node for renomeado.
+
+## API Key Debugging (n8n)
+
+Quando Claude Haiku/Anthropic retorna 401 no n8n, verificar nessa ordem:
+
+1. A API key está válida e não revogada
+2. `$env.ANTHROPIC_API_KEY` resolve corretamente dentro do nó (testar com nó Set antes)
+3. **Auto-tradução do Chrome não corrompeu** nomes de variáveis ou chaves JSON — conferir a config crua (não a UI traduzida); desativar auto-translate no editor do n8n
 
 ### Convenção de nomes no n8n
 
@@ -91,6 +106,15 @@ Ex: [WhatsApp] - Orquestrador principal (v1.2)
 Todo workflow deve ter **Error Trigger** que: (1) loga na planilha de monitoramento, (2) envia alerta no Telegram do implementador, (3) em falha de IA → escala para humano no WhatsApp.
 
 ---
+
+## WhatsApp / Evolution API
+
+Para problemas de conexão WhatsApp/Evolution API, checar **antes** de resetar DB/Redis:
+
+1. Compatibilidade de versão Evolution API / Baileys (versão obsoleta do Baileys empacotado é rejeitada pelo WhatsApp).
+2. Se o IP de datacenter do VPS está bloqueado pelo WhatsApp — usar proxy residencial se for o caso.
+
+Só depois disso tentar DB delete / Redis clear / downgrade.
 
 ## Debugging
 
@@ -125,8 +149,37 @@ curl -X POST https://SEU-N8N/webhook/whatsapp \
 
 ---
 
+## File Paths
+
+Usar tratamento de caminhos cross-platform — não assumir que `/tmp` funciona igual em bash (VPS) vs PowerShell (Windows local). Operações no VPS: bash paths. Operações locais de empacotamento (plugins/skills): usar caminhos relativos ou `$env:TEMP`.
+
 ## Deploy / Infra
 
 - Use **bash paths** (não PowerShell `/tmp`) para operações de arquivo no VPS.
 - Site (`07_Recursos/index.html`) roda no VPS via container `kronos-site-*` + Traefik (não na shared hosting).
 - Skills disponíveis: `/kronos-deploy` (infra VPS), `/kronos-workflow` (editar n8n), `/n8n-debug` (diagnóstico de bot), `/kronos-agente` (criar/adaptar agente para novo nicho).
+
+## n8n Workflow Editing
+
+- Sempre editar a versão **publicada/ativa** (`workflow_history`), não o rascunho (`workflow_entity`). Editar só o draft **não tem efeito**.
+- Após atualizar, verificar se é a versão ativa e reiniciar o n8n se necessário (deactivate/reactivate ou restart do container).
+
+## Environment & Variable Hygiene
+
+Ao debugar auth da API Anthropic/Claude Haiku no n8n, checar nessa ordem:
+
+1. API key válida e não revogada (401)
+2. `$env.ANTHROPIC_API_KEY` resolve corretamente no nó
+3. **Auto-tradução do Chrome não corrompeu** nomes de variáveis — sempre desativar tradução do navegador no editor do n8n e verificar o nome cru da variável antes de debugar
+
+## VPS / WhatsApp Deployment Notes
+
+- **IP de datacenter Hostinger é bloqueado pelo WhatsApp** — planejar proxy residencial para vincular chip de cliente novo.
+- Verificar se a versão da Evolution API suporta o endpoint chamado (ex: `pairing-code`).
+- Atenção a versões obsoletas do Baileys empacotado — causam crash loops rejeitados pelo WhatsApp.
+
+## Path & Shell Conventions
+
+- Ambiente local é **Windows** — evitar backslash escaping em `.claude.json` e arquivos de config.
+- Cuidado com divergência de paths `/tmp` entre bash (VPS) e PowerShell (local) ao empacotar plugins ou copiar arquivos.
+- Operações no VPS: bash paths. Operações locais: caminhos relativos ou `$env:TEMP`.

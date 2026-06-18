@@ -64,6 +64,28 @@ Update exige `Column to match on` + nomes de campos IGUAIS às colunas. Se o Cod
 ={{ { number: $json.telefone, text: ($json.sessao_update && $json.sessao_update.Status === "encerrado") ? ($json.mensagem + String.fromCharCode(10,10) + "Foi um prazer te atender! A <CLINICA> agradece o contato 💙 Estou sempre por aqui quando precisar.") : $json.mensagem } }}
 ```
 
+## 9. Error Trigger centralizado — padrão monitor (obrigatório em todo workflow)
+
+Nunca adicionar Error Trigger individualmente em cada workflow. O padrão Kronos usa **um workflow centralizador** apontado via `settings.errorWorkflow`.
+
+**Workflow:** `kronos-error-handler` (ID: `X29vC9p5WB38iZFI`) — ativo em produção.
+**Monitor:** `kronos-monitor-selfhealing` (ID: `ADmfpDIilh48WwV3`) — cron 30min, lê `Log_Monitoramento` e envia digest WA.
+
+**Ao criar ou clonar qualquer workflow** — aplicar imediatamente:
+```js
+// via MCP n8n_update_partial_workflow:
+{ type: "updateSettings", settings: { errorWorkflow: "X29vC9p5WB38iZFI" } }
+```
+
+**O error-handler faz automaticamente:**
+1. Formata o erro com diagnóstico de tipo: `AUTH_401 | SHEETS | TIMEOUT | WHATSAPP | LLM | GERAL`
+2. Loga em `Log_Monitoramento` (CRM `1ZlDFYkgx6aXUM0ayj1e1_K6uX0cruo7VuCcmg1_w5ps`)
+3. Envia alerta WA para `$env.EVO_TEAM_NUMBER`
+
+**Aba `Log_Monitoramento` colunas:** `Timestamp | Workflow | Ultimo_No | Tipo_Erro | Mensagem | Exec_ID | Status`
+
+**Gotcha:** workflows com nó `Call '03-bia-ref'` (jNvIB83x2sWWbkW1 — arquivado) bloqueiam republish. Remover o nó antes de qualquer update de settings: `{ type: "removeNode", name: "Call '03-bia-ref'" }`.
+
 ## 8. Checklist novo cliente (resumo operacional)
 1. Instância Evolution própria + planilha própria (regra-mãe: blindar a base).
 2. Clonar workflows; conferir TODOS os pontos 1–7 acima no clone.

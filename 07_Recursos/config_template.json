@@ -1,0 +1,23 @@
+{
+  "_instrucoes": "Preencha os campos abaixo e passe para onboard-cliente.py. Este campo _instrucoes é ignorado pelo script.",
+
+  "slug":         "clinica02",
+  "nome":         "Clínica Dra. Carla Estética",
+  "nicho":        "estetica",
+
+  "persona_nome": "Ana",
+
+  "numero_wa":    "5519999999999",
+
+  "sheets_id":    "1XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+
+  "webhook_path": "clinica02-wa",
+
+  "_notas": {
+    "nicho":        "estetica | odonto | advocacia",
+    "slug":         "lowercase, sem espaços, sem acento (ex: clinica02, dra_carla)",
+    "sheets_id":    "ID da planilha Google Sheets do cliente (criar antes de rodar)",
+    "webhook_path": "Parte do URL após /webhook/ — deve ser único por cliente",
+    "numero_wa":    "Número com código do país, sem + ou espaços (ex: 5519999999999)"
+  }
+}
