@@ -626,14 +626,39 @@
   </div>
   <div class="hero-content">
     <div class="hero-badge">IA aplicada para negócios</div>
-    <h1>Automação<br/><span>inteligente</span><br/>para o seu negócio</h1>
-    <p class="hero-slogan">Inteligência que automatiza. Resultado que transforma.</p>
+    <h1 id="hero-h1">Automação<br/><span>inteligente</span><br/>para o seu negócio</h1>
+    <p class="hero-slogan" id="hero-slogan">Inteligência que automatiza. Resultado que transforma.</p>
     <div class="hero-btns">
-      <a href="#contato" class="btn-primary">Quero automatizar agora</a>
+      <a href="https://wa.me/5519971266736?text=Quero%20automatizar%20o%20atendimento%20do%20meu%20negócio" target="_blank" class="btn-primary" onclick="gtag('event','conversion',{'send_to':'AW-XXXXXXXXX/YYYYYYY'});">Quero automatizar agora</a>
       <a href="#servicos" class="btn-secondary">Ver serviços</a>
     </div>
   </div>
 </section>
+
+<script>
+  // Message match: ajusta o headline do hero conforme o grupo de anúncio (?ag=chatbot|atendimento|agendamento)
+  (function () {
+    var variantes = {
+      chatbot: {
+        h1: 'Chatbot WhatsApp<br/><span>para o seu</span><br/>negócio',
+        sub: 'Atende, qualifica e agenda seus clientes 24h — sem intervenção humana.'
+      },
+      atendimento: {
+        h1: 'Automação de<br/><span>Atendimento</span><br/>via WhatsApp',
+        sub: 'Seu WhatsApp respondendo sozinho: agenda, tira dúvidas e reduz faltas.'
+      },
+      agendamento: {
+        h1: 'Agendamento<br/><span>Automático</span><br/>pelo WhatsApp',
+        sub: 'Paciente agenda, confirma e recebe lembrete — tudo automático, 24h.'
+      }
+    };
+    var ag = new URLSearchParams(window.location.search).get('ag');
+    if (ag && variantes[ag]) {
+      document.getElementById('hero-h1').innerHTML = variantes[ag].h1;
+      document.getElementById('hero-slogan').textContent = variantes[ag].sub;
+    }
+  })();
+</script>
 
 <!-- SERVIÇOS -->
 <section id="servicos">
