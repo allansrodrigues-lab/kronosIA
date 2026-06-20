@@ -107,9 +107,9 @@ ELIPSE_OPAC  = [0.80,0.80,0.80,0.80,0.76,0.76,0.76,0.76,0.72,0.72,0.72,0.72,0.68
 
 def draw_elipses(canvas):
     sx = W / 1920
-    rcx = 1380 * sx; rcy = H * 0.50; off = (1580 - 1380) * sx
+    rcx = W / 2; rcy = H * 0.50; off = 0
     erx = 560 * sx; ery = 220 * sx
-    for i, ang in enumerate(range(0, 154, 3)):
+    for i, ang in enumerate(range(0, 180, 3)):
         cor = colors.HexColor(ELIPSE_CORES[i % 8])
         op  = ELIPSE_OPAC[i] if i < len(ELIPSE_OPAC) else 0.14
         canvas.saveState(); canvas.translate(rcx, rcy); canvas.rotate(ang)
@@ -125,7 +125,7 @@ def fundo(canvas, doc):
     canvas.saveState()
     canvas.setFillColor(AZUL_MARINHO); canvas.rect(0, 0, W, H, fill=1, stroke=0)
     draw_elipses(canvas)
-    canvas.setFillColor(colors.Color(0.008, 0.047, 0.165, alpha=0.62))
+    canvas.setFillColor(colors.Color(0.008, 0.047, 0.165, alpha=0.66))
     canvas.rect(0, 0, W, H, fill=1, stroke=0)
     if os.path.exists(LOGO):
         lw = 5.5*cm
