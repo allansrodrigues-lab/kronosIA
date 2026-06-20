@@ -90,7 +90,7 @@ NOTA_TRANSPARENCIA = (
 # ══════════════════════════════════════════════════════════════════
 
 OUTPUT = r'C:\Users\Usuario\OneDrive\Documentos\Claude\Projects\teste Automação\13_Servico_AnaliseCientifica\parecer_exemplo.pdf'
-LOGO   = r'C:\Users\Usuario\OneDrive\Documentos\Claude\Projects\teste Automação\07_Recursos\identidade_visual\kronos_logoC_azul_marinho.png'
+LOGO   = r'C:\Users\Usuario\OneDrive\Documentos\Claude\Projects\teste Automação\07_Recursos\identidade_visual\kronos_logo_oficial.jpg'
 
 AZUL_MARINHO = colors.HexColor('#020c2a')
 VIOLETA      = colors.HexColor('#4a0e90')
