@@ -25,13 +25,12 @@ jobs:
           chmod 600 ~/.ssh/kronos_vps
           ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
 
-      - name: Deploy index.html (se mudou)
-        if: contains(toJson(github.event.commits.*.modified), '07_Recursos/index.html') || contains(toJson(github.event.commits.*.added), '07_Recursos/index.html')
+      - name: Deploy index.html
         run: |
           scp -i ~/.ssh/kronos_vps -o StrictHostKeyChecking=no \
             07_Recursos/index.html \
             ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/opt/kronos-site/index.html
-          echo "✓ index.html deployado"
+          echo "✓ index.html deployado (bytes: $(wc -c < 07_Recursos/index.html))"
 
       - name: Sincronizar scripts no VPS
         run: |
