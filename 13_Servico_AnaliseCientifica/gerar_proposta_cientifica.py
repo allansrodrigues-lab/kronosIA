@@ -82,7 +82,7 @@ ROI_TEXTO = (
 # ══════════════════════════════════════════════════════════════════
 
 OUTPUT = r'C:\Users\Usuario\OneDrive\Documentos\Claude\Projects\teste Automação\13_Servico_AnaliseCientifica\proposta_cientifica.pdf'
-LOGO   = r'C:\Users\Usuario\OneDrive\Documentos\Claude\Projects\teste Automação\07_Recursos\identidade_visual\kronos_logo_transparente.png'
+LOGO   = r'C:\Users\Usuario\OneDrive\Documentos\Claude\Projects\teste Automação\07_Recursos\identidade_visual\kronos_logo_oficial_transparente.png'
 
 # Paleta Kronos
 AZUL_MARINHO = colors.HexColor('#020c2a')
