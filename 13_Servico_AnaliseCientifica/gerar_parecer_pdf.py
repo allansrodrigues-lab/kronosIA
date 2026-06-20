@@ -90,7 +90,7 @@ NOTA_TRANSPARENCIA = (
 # ══════════════════════════════════════════════════════════════════
 
 OUTPUT = r'C:\Users\Usuario\OneDrive\Documentos\Claude\Projects\teste Automação\13_Servico_AnaliseCientifica\parecer_exemplo.pdf'
-LOGO   = r'C:\Users\Usuario\OneDrive\Documentos\Claude\Projects\teste Automação\07_Recursos\identidade_visual\kronos_logo_transparente.png'
+LOGO   = r'C:\Users\Usuario\OneDrive\Documentos\Claude\Projects\teste Automação\07_Recursos\identidade_visual\kronos_logoC_azul_marinho.png'
 
 AZUL_MARINHO = colors.HexColor('#020c2a')
 VIOLETA      = colors.HexColor('#4a0e90')
@@ -99,7 +99,7 @@ CINZA_CLARO  = colors.HexColor('#8898bb')
 LILAS        = colors.HexColor('#a080ff')
 W, H = A4
 
-ELIPSE_CORES = ['#9060e0','#3060c8','#5040d8','#1890c0','#7848c8','#2048a8','#3830b0','#1070a0']
+ELIPSE_CORES = ['#f0f4ff','#f0f4ff','#f0f4ff','#f0f4ff','#f0f4ff','#f0f4ff','#f0f4ff','#f0f4ff']
 ELIPSE_OPAC  = [0.80,0.80,0.80,0.80,0.76,0.76,0.76,0.76,0.72,0.72,0.72,0.72,0.68,0.68,0.68,0.68,
                 0.64,0.64,0.64,0.64,0.60,0.60,0.60,0.60,0.55,0.55,0.55,0.55,0.50,0.50,0.50,0.50,
                 0.44,0.44,0.44,0.44,0.38,0.38,0.38,0.38,0.30,0.30,0.30,0.30,0.22,0.22,0.22,0.22,
@@ -125,13 +125,8 @@ def fundo(canvas, doc):
     canvas.saveState()
     canvas.setFillColor(AZUL_MARINHO); canvas.rect(0, 0, W, H, fill=1, stroke=0)
     draw_elipses(canvas)
-    canvas.setFillColor(colors.Color(0.008, 0.047, 0.165, alpha=0.92))
-    canvas.rect(0, 0, W * 0.55, H, fill=1, stroke=0)
-    steps = 12; strip_w = W * 0.45 / steps
-    for i in range(steps):
-        alpha = 0.92 * (1 - i / steps)
-        canvas.setFillColor(colors.Color(0.008, 0.047, 0.165, alpha=alpha))
-        canvas.rect(W * 0.55 + i * strip_w, 0, strip_w + 1, H, fill=1, stroke=0)
+    canvas.setFillColor(colors.Color(0.008, 0.047, 0.165, alpha=0.62))
+    canvas.rect(0, 0, W, H, fill=1, stroke=0)
     if os.path.exists(LOGO):
         lw = 5.5*cm
         canvas.drawImage(LOGO, (W - lw)/2, H - LOGO_TOP - LOGO_H, width=lw, height=LOGO_H,
@@ -169,6 +164,7 @@ story.append(Paragraph(f'Área: {AREA}  ·  Tipo: {TIPO}  ·  {DATA}', sub))
 story.append(Spacer(1, 0.15*cm))
 _lw = doc.width * 0.35
 ln = Table([['']], colWidths=[_lw])
+ln.hAlign = 'CENTER'
 ln.setStyle(TableStyle([('LINEBELOW', (0,0), (-1,-1), 1.0, VIOLETA),
                         ('TOPPADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,0), (-1,-1), 0)]))
 story.append(ln); story.append(Spacer(1, 0.3*cm))
@@ -187,28 +183,28 @@ def caixa(label, valor, cor):
                             ('BOTTOMPADDING', (0,0), (-1,-1), 8)]))
     story.append(tb); story.append(Spacer(1, 0.2*cm))
 
-bloco('📌 Pergunta analisada')
+bloco('Pergunta analisada')
 story.append(Paragraph(PERGUNTA, corpo))
 
-bloco('✅ Resposta direta')
+bloco('Resposta direta')
 story.append(Paragraph(RESPOSTA, destaque))
 story.append(Spacer(1, 0.15*cm))
 caixa('Nível de evidência:', f'{NIVEL}', LILAS)
 story.append(Paragraph(NIVEL_JUST, corpo))
 
-bloco('🧪 Fundamentação')
+bloco('Fundamentação')
 for t, txt in FUNDAMENTACAO:
     story.append(Paragraph(t, subt))
     story.append(Paragraph(txt, corpo))
 
-bloco('🔍 Método')
+bloco('Método')
 story.append(Paragraph(METODO, corpo))
 
-bloco('⚠️ Ressalvas')
+bloco('Ressalvas')
 for r in RESSALVAS:
     story.append(Paragraph(f'<font color="#a080ff">•</font>  {r}', bullet))
 
-bloco('📚 Fontes')
+bloco('Fontes')
 for f in FONTES:
     story.append(Paragraph(f'<font color="#a080ff">•</font>  {f}', bullet))
 story.append(Paragraph(NOTA_TRANSPARENCIA, nota))
