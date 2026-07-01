@@ -174,8 +174,8 @@ historico.push({ role: 'user', content: texto });
 ```
 
 **Saída `anthropicBody`:**
-- `model`: `claude-sonnet-4-6`
-- `max_tokens`: 500
+- `model`: `claude-sonnet-5`
+- `max_tokens`: 2048
 - `temperature`: 0.5 (ligeiramente mais calorosa que a Clara)
 - `system`: prompt com 4 etapas + cuidados por procedimento
 
@@ -207,7 +207,7 @@ Configure **"Continue On Fail"** ativo.
 Extrai os campos do JSON retornado pela Diana:
 
 ```javascript
-const rawText = input.content?.[0]?.text ?? '{}';
+const rawText = input.content?.find(b => b.type === 'text')?.text ?? '{}';
 // parsed contém:
 // mensagem, acao, etapa, nota_feedback, comentario_feedback,
 // interesse_reagendamento, encerrar_sessao

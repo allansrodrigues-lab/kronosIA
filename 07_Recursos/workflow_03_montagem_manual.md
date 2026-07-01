@@ -173,9 +173,8 @@ return [{
     sessao_id: sessao?.ID ?? null,
     sessao_fase: sessao?.Fase ?? 'novo',
     anthropicBody: {
-      model: 'claude-sonnet-4-6',
-      max_tokens: 500,
-      temperature: 0.4,
+      model: 'claude-sonnet-5',
+      max_tokens: 2048,
       system: systemPrompt,
       messages: historico
     }
@@ -243,7 +242,7 @@ if (input.error || !input.content) {
   }];
 }
 
-const rawText = input.content?.[0]?.text ?? '{}';
+const rawText = input.content?.find(b => b.type === 'text')?.text ?? '{}';
 
 let parsed;
 try {

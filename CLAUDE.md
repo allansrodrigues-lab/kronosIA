@@ -61,7 +61,7 @@ Cada workflow tem um `_guide.md` e um `_montagem_manual.md` correspondentes.
 - **Containers Docker:** `n8n-xve0-n8n-1`, `evolution-api`, `evolution-postgres`, `evolution-redis`, `kronos-site-*`, `traefik-*`.
 - **n8n usa SQLite** (`/home/node/.n8n/database.sqlite`). Para consultar via script: rodar `node` de dentro de `/usr/local/lib/node_modules/n8n` com `require('sqlite3')`. Campo `execution_data.data` usa formato **flatted** (`require('flatted')` para decodificar).
 - **Evolution API v2.3.7** — instâncias: `kronosdemo` (Odonto `5519997237404`, webhook `/webhook/whatsapp-odonto`) e `clinica01` (Aurora `5519971514971`, webhook `/webhook/whatsapp`).
-- **LLM:** Claude Haiku (`claude-haiku-4-5-20251001`) para classificação de intent; Claude Sonnet para respostas dos agentes especialistas.
+- **LLM:** Claude Haiku (`claude-haiku-4-5-20251001`) para classificação de intent; Claude Sonnet 5 (`claude-sonnet-5`) para respostas dos agentes especialistas (thinking adaptativo — padrão do Sonnet 5; sem `temperature`, que retorna 400 nesse modelo).
 - **Regra-mãe:** cada cliente novo nasce isolado — instância Evolution própria + planilha CRM própria. Nunca compartilhar base entre clientes.
 
 ### Variáveis de ambiente no n8n (Settings → Variables)

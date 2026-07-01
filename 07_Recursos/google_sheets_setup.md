@@ -215,7 +215,7 @@ Cole exatamente assim (coluna A = chave, coluna B = valor):
 | pagamento_pix_desconto | 5% |
 | pagamento_parcelamento | Até 3x sem juros |
 | anthropic_model_classificador | claude-haiku-4-5-20251001 |
-| anthropic_model_agentes | claude-sonnet-4-6 |
+| anthropic_model_agentes | claude-sonnet-5 |
 
 ---
 
