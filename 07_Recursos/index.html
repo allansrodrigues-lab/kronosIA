@@ -727,6 +727,42 @@
 
   <!-- CLÍNICA -->
   <div id="seg-clinica" class="seg-conteudo">
+
+    <!-- ▶ DEMO EM VÍDEO: conversa real (alterna Estética / Odonto) -->
+    <div class="wa-demo">
+      <div>
+        <div class="wa-toggle">
+          <button class="wa-tg wa-tg-on" onclick="waCliSwitch('estetica',this)">🌸 Estética</button>
+          <button class="wa-tg" onclick="waCliSwitch('odonto',this)">🦷 Odonto</button>
+        </div>
+        <div class="wa-phone">
+          <div class="wa-sb"><span>21:04</span><span class="wa-sb-r"></span></div>
+          <div class="wa-bar">
+            <span class="wa-back">‹</span>
+            <div class="wa-av" id="wa-cli-av">🌸</div>
+            <div class="wa-peer"><strong id="wa-cli-name">Clínica Aurora</strong><em id="wa-cli-st">online</em></div>
+            <span class="wa-hd">📞&nbsp;&nbsp;⋮</span>
+          </div>
+          <div class="wa-chat" id="wa-chat-cli"></div>
+          <div class="wa-input"><span>Mensagem</span><span class="wa-mic">🎤</span></div>
+        </div>
+        <div class="wa-caption cli"><span id="wa-cap-cli"></span></div>
+      </div>
+      <div class="wa-side">
+        <div class="section-label" style="color:#a679ff;margin-bottom:10px">Veja em ação</div>
+        <h3 style="font-size:1.35rem;font-weight:600;margin-bottom:12px;line-height:1.3">Da primeira dúvida ao retorno — <span style="color:#a679ff">no automático, 24h</span>.</h3>
+        <p style="color:var(--cinza);font-size:0.9rem;margin-bottom:22px">O assistente atende, tira dúvidas com base científica, passa o orçamento, agenda com a profissional certa, lembra na véspera e ainda faz o pós. Alterne entre <b>estética</b> e <b>odonto</b> 👆</p>
+        <ul class="wa-caps">
+          <li><span>🎧</span> Entende e responde em <b>áudio</b></li>
+          <li><span>🔬</span> Tira dúvidas com <b>base científica</b></li>
+          <li><span>💰</span> Passa o <b>orçamento</b> na hora</li>
+          <li><span>📅</span> <b>Agenda</b> com a profissional certa</li>
+          <li><span>🔔</span> <b>Lembra</b> o paciente (D-1)</li>
+          <li><span>💛</span> Faz <b>pós-atendimento</b> e recompra</li>
+        </ul>
+      </div>
+    </div>
+
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
       <div>
         <h3 style="font-size:1.2rem;font-weight:600;margin-bottom:16px">Como funciona para clínicas</h3>
@@ -778,6 +814,38 @@
 
   <!-- ADVOCACIA -->
   <div id="seg-advocacia" class="seg-conteudo" style="display:none">
+
+    <!-- ▶ DEMO EM VÍDEO: conversa real da Léa (assistente do escritório) -->
+    <div class="wa-demo">
+      <div class="wa-col">
+      <div class="wa-phone">
+        <div class="wa-sb"><span>21:04</span><span class="wa-sb-r"></span></div>
+        <div class="wa-bar">
+          <span class="wa-back">‹</span>
+          <div class="wa-av">⚖️</div>
+          <div class="wa-peer"><strong>Ferraz &amp; Nogueira</strong><em id="wa-st">online</em></div>
+          <span class="wa-hd">📞&nbsp;&nbsp;⋮</span>
+        </div>
+        <div class="wa-chat" id="wa-chat"></div>
+        <div class="wa-input"><span>Mensagem</span><span class="wa-mic">🎤</span></div>
+      </div>
+      <div class="wa-caption adv"><span id="wa-cap-adv"></span></div>
+      </div>
+      <div class="wa-side">
+        <div class="section-label" style="color:#5f8bff;margin-bottom:10px">Veja a Léa em ação</div>
+        <h3 style="font-size:1.35rem;font-weight:600;margin-bottom:12px;line-height:1.3">Do primeiro “oi” à consulta marcada — <span style="color:#5f8bff">sozinha, 24h</span>.</h3>
+        <p style="color:var(--cinza);font-size:0.9rem;margin-bottom:22px">Uma conversa real do assistente do escritório: entende áudio, lê o processo em PDF, agenda com o advogado certo e ainda lembra o cliente na véspera.</p>
+        <ul class="wa-caps">
+          <li><span>🎧</span> Entende e responde em <b>áudio</b></li>
+          <li><span>📄</span> Lê o <b>PDF</b> e extrai partes, prazos e valores</li>
+          <li><span>⚖️</span> Direciona ao <b>advogado da área</b></li>
+          <li><span>📅</span> <b>Agenda</b> a consulta inicial</li>
+          <li><span>💰</span> Estima <b>honorários</b> na hora</li>
+          <li><span>🔔</span> <b>Lembra</b> o cliente no dia anterior</li>
+        </ul>
+      </div>
+    </div>
+
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
       <div>
         <h3 style="font-size:1.2rem;font-weight:600;margin-bottom:16px">Como funciona para escritórios de advocacia</h3>
@@ -880,6 +948,62 @@
 </section>
 
 <style>
+/* ── DEMO WHATSAPP (aba advocacia) ── */
+.wa-demo{display:grid;grid-template-columns:330px 1fr;gap:52px;align-items:center;margin-bottom:52px}
+.wa-phone{width:330px;height:600px;background:#0b141a;border-radius:38px;box-shadow:0 30px 80px rgba(0,0,0,0.55),0 0 0 8px #05070a,0 0 0 9px rgba(120,72,200,0.35);overflow:hidden;position:relative;display:flex;flex-direction:column}
+.wa-sb{background:#202c33;color:#e9edef;display:flex;justify-content:space-between;align-items:center;padding:8px 20px 2px;font-size:0.7rem;font-weight:600;flex-shrink:0}
+.wa-sb-r{width:42px;height:9px;border-radius:3px;background:repeating-linear-gradient(90deg,#e9edef 0 3px,transparent 3px 6px);opacity:.55}
+.wa-bar{display:flex;align-items:center;gap:10px;background:#202c33;padding:6px 14px 12px;color:#e9edef;flex-shrink:0}
+.wa-back{font-size:1.4rem;color:#8fa6b2;line-height:1}
+.wa-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#3060c8,#1890c0);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.wa-peer{display:flex;flex-direction:column;line-height:1.2;flex:1;min-width:0}
+.wa-peer strong{font-size:0.9rem;font-weight:600}
+.wa-peer em{font-size:0.68rem;color:#8fa6b2;font-style:normal;min-height:0.9em}
+.wa-hd{color:#8fa6b2;font-size:0.8rem;letter-spacing:1px}
+.wa-chat{flex:1;overflow:hidden;padding:14px 12px;display:flex;flex-direction:column;gap:7px;background:#0b141a;background-image:radial-gradient(rgba(120,72,200,0.06) 1px,transparent 0);background-size:22px 22px}
+.wa-input{display:flex;align-items:center;justify-content:space-between;background:#202c33;margin:0 8px 10px;padding:9px 14px;border-radius:22px;color:#66808f;font-size:0.8rem;flex-shrink:0}
+.wa-input .wa-mic{color:#0b141a;background:#00a884;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:-6px}
+.wa-msg{max-width:82%;padding:7px 10px 6px;border-radius:9px;font-size:0.8rem;line-height:1.34;color:#e9edef;position:relative;animation:waPop .28s ease-out both;overflow-wrap:break-word}
+.wa-msg.in{align-self:flex-start;background:#202c33;border-top-left-radius:2px}
+.wa-msg.out{align-self:flex-end;background:#005c4b;border-top-right-radius:2px}
+.wa-msg b{font-weight:600}
+.wa-time{display:block;text-align:right;font-size:0.58rem;color:rgba(233,237,239,0.45);margin-top:2px}
+.wa-msg.out .wa-time::after{content:" ✓✓";color:#53bdeb}
+@keyframes waPop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.wa-cap{align-self:flex-end;font-size:0.6rem;color:#8fb4ff;background:rgba(48,96,200,0.16);border:1px solid rgba(95,139,255,0.35);padding:2px 9px;border-radius:20px;margin:-1px 2px 3px 0;animation:waPop .28s ease-out both}
+.wa-typing{align-self:flex-start;background:#202c33;border-radius:9px;border-top-left-radius:2px;padding:11px 12px;display:flex;gap:4px}
+.wa-typing i{width:6px;height:6px;border-radius:50%;background:#8fa6b2;animation:waDot 1s infinite}
+.wa-typing i:nth-child(2){animation-delay:.2s}.wa-typing i:nth-child(3){animation-delay:.4s}
+@keyframes waDot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.wa-audio{display:flex;align-items:center;gap:8px;min-width:155px}
+.wa-audio .wa-play{width:24px;height:24px;border-radius:50%;background:#00a884;color:#0b141a;display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0}
+.wa-wave{flex:1;height:18px;background:repeating-linear-gradient(90deg,currentColor 0 2px,transparent 2px 4px);opacity:.4;border-radius:2px}
+.wa-audio .wa-dur{font-size:0.62rem;opacity:.7}
+.wa-file{display:flex;align-items:center;gap:10px;min-width:190px}
+.wa-file .wa-ic{width:34px;height:40px;background:#c0392b;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:0.55rem;font-weight:700;color:#fff;flex-shrink:0}
+.wa-file .wa-fn{font-size:0.74rem;line-height:1.25;display:block}
+.wa-file .wa-fm{font-size:0.62rem;opacity:.6;display:block}
+.wa-an{font-size:0.76rem;line-height:1.4}
+.wa-an .wa-anh{font-weight:600;margin-bottom:4px;display:block;color:#fff}
+.wa-an ul{list-style:none;margin:5px 0 0;padding:0}
+.wa-an li{padding:1px 0}
+.wa-msg.rem{background:#0a3d2e;border:1px solid rgba(0,168,132,0.45)}
+.wa-caps{list-style:none;display:flex;flex-direction:column;gap:13px;margin-top:4px}
+.wa-caps li{display:flex;align-items:center;gap:13px;color:var(--branco);font-size:0.92rem;font-weight:400}
+.wa-caps li b{font-weight:600}
+.wa-caps li>span{width:34px;height:34px;flex-shrink:0;background:rgba(48,96,200,0.18);border:1px solid rgba(48,96,200,0.35);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.wa-col{display:flex;flex-direction:column;align-items:center}
+.wa-caption{min-height:38px;margin-top:18px;display:flex;justify-content:center;align-items:center;width:100%;max-width:330px;text-align:center}
+.wa-caption span{opacity:0;transform:translateY(6px);transition:all .35s;font-size:0.82rem;font-weight:600;padding:7px 15px;border-radius:30px;line-height:1.25}
+.wa-caption.show span{opacity:1;transform:none}
+.wa-caption.adv span{color:#cfe0ff;background:rgba(48,96,200,0.2);border:1px solid rgba(95,139,255,0.45)}
+.wa-caption.cli span{color:#e9dcff;background:rgba(120,72,200,0.22);border:1px solid rgba(166,121,255,0.5)}
+.wa-toggle{display:flex;gap:8px;margin-bottom:14px;justify-content:center}
+.wa-tg{background:rgba(255,255,255,0.04);border:1px solid rgba(120,72,200,0.3);color:var(--cinza);border-radius:30px;padding:7px 16px;font:500 0.82rem 'Inter',sans-serif;cursor:pointer;transition:all .2s}
+.wa-tg:hover{color:var(--branco)}
+.wa-tg-on{background:linear-gradient(135deg,rgba(74,14,144,0.5),rgba(120,72,200,0.35));border-color:rgba(120,72,200,0.7);color:var(--branco)}
+@media (max-width:768px){.wa-demo{grid-template-columns:1fr;justify-items:center;gap:34px}.wa-side{max-width:330px}}
+
 .seg-tab {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(120,72,200,0.25);
@@ -908,7 +1032,162 @@ function abrirSeg(id, btn) {
   document.querySelectorAll('.seg-tab').forEach(function(el){ el.classList.remove('seg-ativo'); });
   document.getElementById('seg-'+id).style.display='block';
   btn.classList.add('seg-ativo');
+  if (id === 'advocacia' && window.__waStart) window.__waStart();
 }
+</script>
+
+<!-- Motor da conversa animada da Léa (aba advocacia) -->
+<script>
+(function(){
+  var chat = document.getElementById('wa-chat');
+  var st = document.getElementById('wa-st');
+  var capEl = document.getElementById('wa-cap-adv');
+  if (!chat) return;
+  function showCap(t){ if (capEl){ capEl.textContent = t; capEl.parentNode.classList.add('show'); } }
+  function hideCap(){ if (capEl) capEl.parentNode.classList.remove('show'); }
+  var R = [
+    {s:'in', x:{type:'text', html:'Boa noite, fui demitido sem justa causa e queria entender meus direitos'}, t:'19:58'},
+    {s:'out', x:{type:'text', html:'Boa noite! Bem-vindo ao <b>Ferraz &amp; Nogueira Advogados</b>. Sou a <b>Léa</b>. Sua questão é de <b>Direito Trabalhista</b> — área do Dr. Eduardo Ferraz, nosso sócio-fundador. Pode me contar o que aconteceu?'}, t:'19:58'},
+    {s:'in', x:{type:'audio', dur:'0:12'}, t:'19:59'},
+    {s:'out', x:{type:'audio', dur:'0:09'}, t:'19:59', cap:'🎧 responde em áudio'},
+    {s:'in', x:{type:'file', fn:'reclamacao_trabalhista.pdf', fm:'PDF · 3 páginas'}, t:'20:00'},
+    {s:'out', x:{type:'an'}, t:'20:00', cap:'📄 leu e analisou o PDF'},
+    {s:'in', x:{type:'text', html:'Perfeito! Quero marcar uma consulta com o Dr. Ferraz'}, t:'20:01'},
+    {s:'out', x:{type:'text', html:'Com prazer. Poderia confirmar seu <b>nome completo</b>, o <b>melhor horário</b> e se prefere <b>presencial ou online</b>?'}, t:'20:01'},
+    {s:'in', x:{type:'text', html:'José Antônio Ferreira, quinta 9h, presencial'}, t:'20:02'},
+    {s:'out', x:{type:'text', html:'Consulta confirmada, Sr. José: <b>quinta, 9h</b>, presencial, no Cambuí. O Dr. Ferraz o receberá. 🤝'}, t:'20:02', cap:'📅 agendou a consulta'},
+    {s:'in', x:{type:'text', html:'Quanto fica de honorários numa causa de R$ 85.000?'}, t:'20:03'},
+    {s:'out', x:{type:'text', html:'Estimativa inicial: honorários na faixa da <b>Tabela OAB-SP</b> + eventual êxito e custas (~1%). O valor exato é definido pelo Dr. Ferraz na consulta.'}, t:'20:03', cap:'💰 estimou honorários'},
+    {s:'out', x:{type:'text', rem:true, html:'🔔 <b>Lembrete:</b> sua consulta com o Dr. Ferraz é <b>amanhã às 9h</b>, no Cambuí. Posso confirmar sua presença?'}, t:'08:00', cap:'🔔 lembrou sozinha (véspera)'}
+  ];
+  var sleep = function(ms){ return new Promise(function(r){ setTimeout(r, ms); }); };
+  var scroll = function(){ chat.scrollTop = chat.scrollHeight; };
+  function inner(x){
+    if (x.type === 'text') return x.html;
+    if (x.type === 'audio') return '<div class="wa-audio"><span class="wa-play">▶</span><span class="wa-wave"></span><span class="wa-dur">'+x.dur+'</span></div>';
+    if (x.type === 'file') return '<div class="wa-file"><span class="wa-ic">PDF</span><span><span class="wa-fn">'+x.fn+'</span><span class="wa-fm">'+x.fm+'</span></span></div>';
+    if (x.type === 'an') return '<div class="wa-an"><span class="wa-anh">📄 Análise do documento</span><b>Tipo:</b> Reclamação Trabalhista<ul><li>👥 José A. Ferreira × Metalúrgica Horizonte</li><li>📅 Audiência: <b>18/08/2026</b></li><li>💰 Valor da causa: <b>R$ 85.000</b></li><li>⚠️ Horas extras · FGTS + multa 40%</li></ul></div>';
+    return '';
+  }
+  var running = false;
+  async function run(){
+    while (true) {
+      chat.innerHTML = ''; hideCap();
+      for (var i = 0; i < R.length; i++) {
+        var m = R[i];
+        if (m.s === 'out') {
+          if (st) st.textContent = (m.x.type === 'audio') ? 'gravando áudio…' : 'digitando…';
+          var typ = document.createElement('div');
+          typ.className = 'wa-typing'; typ.innerHTML = '<i></i><i></i><i></i>';
+          chat.appendChild(typ); scroll();
+          await sleep(m.x.type === 'an' ? 1500 : 1000);
+          typ.remove(); if (st) st.textContent = 'online';
+        }
+        var b = document.createElement('div');
+        b.className = 'wa-msg ' + m.s + (m.x.rem ? ' rem' : '');
+        b.innerHTML = inner(m.x) + '<span class="wa-time">' + m.t + '</span>';
+        chat.appendChild(b); scroll();
+        if (m.cap) showCap(m.cap);
+        await sleep(m.s === 'in' ? 950 : 1350);
+      }
+      await sleep(3800);
+    }
+  }
+  window.__waStart = function(){ if (running) return; running = true; run(); };
+})();
+</script>
+
+<!-- Motor da conversa animada (aba clínicas — Estética / Odonto) -->
+<script>
+(function(){
+  var chat = document.getElementById('wa-chat-cli');
+  var st = document.getElementById('wa-cli-st');
+  var nameEl = document.getElementById('wa-cli-name');
+  var avEl = document.getElementById('wa-cli-av');
+  var capEl = document.getElementById('wa-cap-cli');
+  if (!chat) return;
+  function showCap(t){ if (capEl){ capEl.textContent = t; capEl.parentNode.classList.add('show'); } }
+  function hideCap(){ if (capEl) capEl.parentNode.classList.remove('show'); }
+  var DATA = {
+    estetica: { name:'Clínica Aurora', av:'🌸', msgs:[
+      {s:'in', x:{type:'text', html:'Oi! Vi vocês no Instagram, queria saber sobre botox 💉'}, t:'14:32'},
+      {s:'out', x:{type:'text', html:'Oi! Que bom te ver por aqui 💛 Sou a <b>Aurora</b>, da Clínica Aurora. Posso te explicar tudinho sobre o <b>botox</b> e já deixar sua avaliação com a Dra. Marina reservada. Já fez antes ou seria a primeira vez?'}, t:'14:32'},
+      {s:'in', x:{type:'audio', dur:'0:11'}, t:'14:33'},
+      {s:'out', x:{type:'audio', dur:'0:08'}, t:'14:33', cap:'🎧 responde em áudio'},
+      {s:'in', x:{type:'text', html:'e funciona mesmo? tenho medo de ficar artificial'}, t:'14:34'},
+      {s:'out', x:{type:'text', html:'Entendo total 🌿 O botox é um dos procedimentos com <b>mais respaldo científico</b> na estética — relaxa o músculo e suaviza as linhas <b>sem travar a expressão</b> quando bem dosado. A Dra. Marina preza pela naturalidade.'}, t:'14:34', cap:'🔬 base científica'},
+      {s:'in', x:{type:'text', html:'quanto fica botox na testa + uma limpeza de pele?'}, t:'14:35'},
+      {s:'out', x:{type:'text', html:'Botox 3 áreas (testa, glabela e pés-de-galinha): <b>R$ 1.500</b><br>Limpeza de pele profunda: <b>R$ 220</b><br>Total <b>R$ 1.720</b> — dá pra parcelar 😉'}, t:'14:35', cap:'💰 orçamento na hora'},
+      {s:'in', x:{type:'text', html:'adorei! consigo agendar essa semana?'}, t:'14:36'},
+      {s:'out', x:{type:'text', html:'Consigo sim! Com a <b>Dra. Marina</b>:<br>1️⃣ ter 14h · 2️⃣ qua 10h · 3️⃣ sex 16h<br>Qual prefere?'}, t:'14:36', cap:'📅 agenda com a especialista'},
+      {s:'in', x:{type:'text', html:'quarta 10h'}, t:'14:37'},
+      {s:'out', x:{type:'text', html:'Fechado, Ju! <b>Quarta, 10h</b> com a Dra. Marina 💫 A avaliação é gratuita antes do procedimento. Te espero!'}, t:'14:37'},
+      {s:'out', x:{type:'text', rem:true, html:'🔔 Oi, Ju! Passando pra lembrar: sua avaliação é <b>amanhã às 10h</b> com a Dra. Marina. Confirma pra mim? 💛'}, t:'09:00', cap:'🔔 lembra na véspera'},
+      {s:'out', x:{type:'text', html:'Oi Ju, como está a pele depois da limpeza? 💛 Manter com uma sessão mensal potencializa o resultado — quer que eu já reserve a próxima?'}, t:'10:15', cap:'💛 pós-atendimento'}
+    ]},
+    odonto: { name:'Clínica OdontoVita', av:'🦷', msgs:[
+      {s:'in', x:{type:'text', html:'Boa tarde, queria fazer clareamento nos dentes'}, t:'16:10'},
+      {s:'out', x:{type:'text', html:'Boa tarde! 😄 Sou a <b>Sofia</b>, da <b>Clínica OdontoVita</b>. Ótima escolha! Temos clareamento caseiro e a laser — posso explicar a diferença e já marcar sua <b>avaliação gratuita</b> com a Dra. Camila. Já fez clareamento antes?'}, t:'16:10'},
+      {s:'in', x:{type:'audio', dur:'0:10'}, t:'16:11'},
+      {s:'out', x:{type:'audio', dur:'0:08'}, t:'16:11', cap:'🎧 responde em áudio'},
+      {s:'in', x:{type:'text', html:'o laser é melhor que o caseiro?'}, t:'16:12'},
+      {s:'out', x:{type:'text', html:'Os dois clareiam bem 😊 O <b>a laser</b> é no consultório, resultado rápido (1-2 sessões). O <b>caseiro</b> usa moldeiras, em casa e mais gradual. A Dra. Camila indica o ideal pro seu esmalte na avaliação.'}, t:'16:12', cap:'🔬 explica sem diagnóstico'},
+      {s:'in', x:{type:'text', html:'quanto fica o a laser?'}, t:'16:13'},
+      {s:'out', x:{type:'text', html:'Clareamento a laser: <b>R$ 1.200</b> 💎<br>Temos o pacote <b>Sorriso Branco</b> (limpeza + clareamento a laser) por <b>R$ 1.290</b> — vale super a pena!'}, t:'16:13', cap:'💰 orçamento na hora'},
+      {s:'in', x:{type:'text', html:'fechou, quero agendar a avaliação'}, t:'16:14'},
+      {s:'out', x:{type:'text', html:'Perfeito! Avaliação <b>gratuita</b> com a Dra. Camila:<br>1️⃣ seg 9h · 2️⃣ qua 15h · 3️⃣ sex 11h<br>Qual fica melhor?'}, t:'16:14', cap:'📅 agenda avaliação'},
+      {s:'in', x:{type:'text', html:'quarta 15h'}, t:'16:15'},
+      {s:'out', x:{type:'text', html:'Agendado, Rafael! <b>Quarta, 15h</b> com a Dra. Camila 🦷 Chega uns 10 min antes, tá? Até lá!'}, t:'16:15'},
+      {s:'out', x:{type:'text', rem:true, html:'🔔 Oi, Rafael! Lembrete: sua avaliação é <b>amanhã às 15h</b> na OdontoVita. Posso confirmar? Responda <b>SIM</b> 😊'}, t:'09:00', cap:'🔔 lembra na véspera'},
+      {s:'out', x:{type:'text', html:'E pra cuidar do sorriso o ano todo: o plano <b>Sorriso Essencial</b> (R$ 59/mês) inclui 2 limpezas, raio-x e 10% off nos tratamentos 💙'}, t:'16:16', cap:'💙 plano recorrente'}
+    ]}
+  };
+  var cur = 'estetica', gen = 0;
+  var sleep = function(ms){ return new Promise(function(r){ setTimeout(r, ms); }); };
+  var scroll = function(){ chat.scrollTop = chat.scrollHeight; };
+  function inner(x){
+    if (x.type === 'text') return x.html;
+    if (x.type === 'audio') return '<div class="wa-audio"><span class="wa-play">▶</span><span class="wa-wave"></span><span class="wa-dur">'+x.dur+'</span></div>';
+    return '';
+  }
+  async function run(myGen){
+    var R = DATA[cur].msgs;
+    while (myGen === gen) {
+      chat.innerHTML = ''; hideCap();
+      for (var i = 0; i < R.length && myGen === gen; i++) {
+        var m = R[i];
+        if (m.s === 'out') {
+          if (st) st.textContent = (m.x.type === 'audio') ? 'gravando áudio…' : 'digitando…';
+          var typ = document.createElement('div');
+          typ.className = 'wa-typing'; typ.innerHTML = '<i></i><i></i><i></i>';
+          chat.appendChild(typ); scroll();
+          await sleep(1000); if (myGen !== gen) return;
+          typ.remove(); if (st) st.textContent = 'online';
+        }
+        var b = document.createElement('div');
+        b.className = 'wa-msg ' + m.s + (m.x.rem ? ' rem' : '');
+        b.innerHTML = inner(m.x) + '<span class="wa-time">' + m.t + '</span>';
+        chat.appendChild(b); scroll();
+        if (m.cap) showCap(m.cap);
+        await sleep(m.s === 'in' ? 950 : 1300); if (myGen !== gen) return;
+      }
+      await sleep(3600);
+    }
+  }
+  function start(nicho){
+    cur = nicho; gen++;
+    if (nameEl) nameEl.textContent = DATA[nicho].name;
+    if (avEl) avEl.textContent = DATA[nicho].av;
+    run(gen);
+  }
+  window.waCliSwitch = function(nicho, btn){
+    var tgs = document.querySelectorAll('.wa-tg');
+    for (var i = 0; i < tgs.length; i++) tgs[i].classList.remove('wa-tg-on');
+    if (btn) btn.classList.add('wa-tg-on');
+    start(nicho);
+  };
+  start('estetica');
+})();
 </script>
 
 <!-- COMO FUNCIONA -->
@@ -939,6 +1218,51 @@ function abrirSeg(id, btn) {
       <p>Seu agente entra em operação. Monitoramos e ajustamos continuamente.</p>
     </div>
   </div>
+</section>
+
+
+<!-- POR QUE A KRONOS -->
+<section id="por-que" style="border-top:1px solid rgba(120,72,200,0.12)">
+  <div class="section-label">Por que a Kronos</div>
+  <h2 class="section-title">Não é um chatbot.<br/>É um atendente de IA montado pro seu negócio.</h2>
+  <p class="section-sub">A maioria das ferramentas te entrega um construtor e te deixa montar sozinho. A Kronos faz o contrário: a gente monta, personaliza e cuida — você só colhe o resultado.</p>
+
+  <div style="max-width:760px;margin:34px auto 0;overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:0.95rem;line-height:1.4">
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:14px 16px;color:var(--cinza);font-weight:500;border-bottom:1px solid rgba(255,255,255,0.08)">Plataforma “faça você mesmo”</th>
+          <th style="text-align:left;padding:14px 16px;color:#fff;font-weight:600;background:rgba(120,72,200,0.16);border-bottom:1px solid rgba(120,72,200,0.4)">Kronos — feito pra você</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:13px 16px;color:var(--cinza);border-bottom:1px solid rgba(255,255,255,0.06)">Você monta os fluxos sozinho</td>
+          <td style="padding:13px 16px;color:#e9ddff;background:rgba(120,72,200,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">A gente monta tudo sob medida</td>
+        </tr>
+        <tr>
+          <td style="padding:13px 16px;color:var(--cinza);border-bottom:1px solid rgba(255,255,255,0.06)">Robô de menu (“aperte 1, aperte 2”)</td>
+          <td style="padding:13px 16px;color:#e9ddff;background:rgba(120,72,200,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">IA que conversa como gente e lê documento</td>
+        </tr>
+        <tr>
+          <td style="padding:13px 16px;color:var(--cinza);border-bottom:1px solid rgba(255,255,255,0.06)">Genérico pra qualquer empresa</td>
+          <td style="padding:13px 16px;color:#e9ddff;background:rgba(120,72,200,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">Feito pro <strong>seu</strong> negócio (serviços, tom, horários)</td>
+        </tr>
+        <tr>
+          <td style="padding:13px 16px;color:var(--cinza);border-bottom:1px solid rgba(255,255,255,0.06)">Você mantém e atualiza</td>
+          <td style="padding:13px 16px;color:#e9ddff;background:rgba(120,72,200,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">A gente acompanha e ajusta</td>
+        </tr>
+        <tr>
+          <td style="padding:13px 16px;color:var(--cinza)">Suporte por ticket</td>
+          <td style="padding:13px 16px;color:#e9ddff;background:rgba(120,72,200,0.06)">Parceria de verdade — gente que te atende</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="text-align:center;max-width:640px;margin:30px auto 0;font-size:1.08rem;font-weight:600;color:#fff;line-height:1.5">
+    Software você compra e monta sozinho.<br/>Serviço a gente entrega pronto e funcionando.
+  </p>
 </section>
 
 
