@@ -722,6 +722,7 @@
   <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px">
     <button class="seg-tab seg-ativo" onclick="abrirSeg('clinica',this)">🏥 Clínicas &amp; Consultórios</button>
     <button class="seg-tab" onclick="abrirSeg('advocacia',this)">⚖️ Advocacia</button>
+    <button class="seg-tab" onclick="abrirSeg('imobiliaria',this)">🏠 Imobiliária</button>
     <button class="seg-tab" onclick="abrirSeg('servicos',this)">🏪 Empresas de Serviços</button>
   </div>
 
@@ -895,6 +896,89 @@
     </div>
   </div>
 
+  <!-- IMOBILIÁRIA -->
+  <div id="seg-imobiliaria" class="seg-conteudo" style="display:none">
+
+    <!-- ▶ DEMO EM VÍDEO: conversa real da Sofia (assistente da imobiliária) -->
+    <div class="wa-demo">
+      <div class="wa-col">
+      <div class="wa-phone">
+        <div class="wa-sb"><span>21:04</span><span class="wa-sb-r"></span></div>
+        <div class="wa-bar">
+          <span class="wa-back">‹</span>
+          <div class="wa-av">🏠</div>
+          <div class="wa-peer"><strong>Schalletti Imóveis</strong><em id="wa-st-imob">online</em></div>
+          <span class="wa-hd">📞&nbsp;&nbsp;⋮</span>
+        </div>
+        <div class="wa-chat" id="wa-chat-imob"></div>
+        <div class="wa-input"><span>Mensagem</span><span class="wa-mic">🎤</span></div>
+      </div>
+      <div class="wa-caption imob"><span id="wa-cap-imob"></span></div>
+      </div>
+      <div class="wa-side">
+        <div class="section-label" style="color:#3ec8b4;margin-bottom:10px">Veja a Sofia em ação</div>
+        <h3 style="font-size:1.35rem;font-weight:600;margin-bottom:12px;line-height:1.3">Da busca às chaves — <span style="color:#3ec8b4">sem perder o lead, 24h</span>.</h3>
+        <p style="color:var(--cinza);font-size:0.9rem;margin-bottom:22px">Uma conversa real da assistente da imobiliária: qualifica o cliente, cruza com a carteira, simula o financiamento na hora, agenda a visita e ainda faz o follow-up depois.</p>
+        <ul class="wa-caps">
+          <li><span>🎧</span> Entende e responde em <b>áudio</b></li>
+          <li><span>🏡</span> Faz o <b>match</b> com os imóveis certos</li>
+          <li><span>🧮</span> Simula o <b>financiamento</b> na hora</li>
+          <li><span>📅</span> <b>Agenda a visita</b> com o corretor</li>
+          <li><span>💬</span> Faz o <b>follow-up</b> pós-visita</li>
+          <li><span>🔔</span> Responde <b>na hora</b>, dia e noite</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
+      <div>
+        <h3 style="font-size:1.2rem;font-weight:600;margin-bottom:16px">Como funciona para imobiliárias e corretores</h3>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(24,192,160,0.22);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">💬</div>
+            <div><strong style="display:block;margin-bottom:4px">Lead chega e o bot já qualifica</strong><span style="color:var(--cinza);font-size:0.87rem">Comprar ou alugar? Região, faixa de preço, nº de quartos — o agente pergunta o certo e nenhum lead do ZAP/OLX fica sem resposta.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(24,192,160,0.22);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">🏡</div>
+            <div><strong style="display:block;margin-bottom:4px">Match automático com a carteira</strong><span style="color:var(--cinza);font-size:0.87rem">Cruza o perfil do cliente com os imóveis disponíveis e envia as 2-3 opções mais aderentes — com foto e ficha direto do seu CRM.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(24,192,160,0.22);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">🧮</div>
+            <div><strong style="display:block;margin-bottom:4px">Simulação de financiamento</strong><span style="color:var(--cinza);font-size:0.87rem">Calcula entrada, parcela e prazo (tabela Price/SAC) na conversa — o cliente já sai sabendo se cabe no bolso.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(24,192,160,0.22);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">📅</div>
+            <div><strong style="display:block;margin-bottom:4px">Agendamento e follow-up de visita</strong><span style="color:var(--cinza);font-size:0.87rem">Marca a visita na agenda do corretor, lembra na véspera e depois pergunta o que o cliente achou — sem deixar o interesse esfriar.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(24,192,160,0.1);border:1px solid rgba(24,192,160,0.35);border-radius:10px;padding:12px 14px">
+            <div style="background:rgba(24,192,160,0.22);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">📄</div>
+            <div><strong style="display:block;margin-bottom:4px">Análise de ficha e contrato <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.08em;background:#0f9b84;color:#fff;padding:2px 7px;border-radius:6px;vertical-align:middle;margin-left:4px">NOVO</span></strong><span style="color:var(--cinza);font-size:0.87rem">Cliente manda a ficha cadastral ou o contrato em PDF — o agente lê, extrai os pontos-chave e sinaliza o que precisa de atenção em segundos.</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(120,72,200,0.2);border-radius:16px;padding:28px">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7848c8;margin-bottom:16px">O que a imobiliária ganha</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Tempo de resposta ao lead</span><strong style="color:#18c0a0">&lt; 30s</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Conversão lead → visita</span><strong style="color:#18c0a0">3% → 8%</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Atendimento fora do horário</span><strong style="color:#18c0a0">24/7</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="color:var(--cinza);font-size:0.88rem">Leads perdidos por demora</span><strong style="color:#18c0a0">zero</strong>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(120,72,200,0.15)">
+          <div style="font-size:0.78rem;color:var(--cinza)">Funciona para: venda, locação, lançamentos e corretores autônomos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- SERVIÇOS -->
   <div id="seg-servicos" class="seg-conteudo" style="display:none">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
@@ -998,6 +1082,7 @@
 .wa-caption.show span{opacity:1;transform:none}
 .wa-caption.adv span{color:#cfe0ff;background:rgba(48,96,200,0.2);border:1px solid rgba(95,139,255,0.45)}
 .wa-caption.cli span{color:#e9dcff;background:rgba(120,72,200,0.22);border:1px solid rgba(166,121,255,0.5)}
+.wa-caption.imob span{color:#c9f5ec;background:rgba(24,192,160,0.18);border:1px solid rgba(62,200,180,0.5)}
 .wa-toggle{display:flex;gap:8px;margin-bottom:14px;justify-content:center}
 .wa-tg{background:rgba(255,255,255,0.04);border:1px solid rgba(120,72,200,0.3);color:var(--cinza);border-radius:30px;padding:7px 16px;font:500 0.82rem 'Inter',sans-serif;cursor:pointer;transition:all .2s}
 .wa-tg:hover{color:var(--branco)}
@@ -1033,6 +1118,7 @@ function abrirSeg(id, btn) {
   document.getElementById('seg-'+id).style.display='block';
   btn.classList.add('seg-ativo');
   if (id === 'advocacia' && window.__waStart) window.__waStart();
+  if (id === 'imobiliaria' && window.__waStartImob) window.__waStartImob();
 }
 </script>
 
@@ -1187,6 +1273,64 @@ function abrirSeg(id, btn) {
     start(nicho);
   };
   start('estetica');
+})();
+</script>
+
+<!-- Motor da conversa animada da Sofia (aba imobiliária) -->
+<script>
+(function(){
+  var chat = document.getElementById('wa-chat-imob');
+  var st = document.getElementById('wa-st-imob');
+  var capEl = document.getElementById('wa-cap-imob');
+  if (!chat) return;
+  function showCap(t){ if (capEl){ capEl.textContent = t; capEl.parentNode.classList.add('show'); } }
+  function hideCap(){ if (capEl) capEl.parentNode.classList.remove('show'); }
+  var R = [
+    {s:'in', x:{type:'text', html:'Oi! Vi um anúncio de vocês, tô procurando um apê pra comprar em Campinas 🏡'}, t:'19:40'},
+    {s:'out', x:{type:'text', html:'Oi! Que bom te ver por aqui 😊 Sou a <b>Sofia</b>, da <b>Schalletti Imóveis</b>. Vou te ajudar a achar o imóvel certo. Pra começar: é pra <b>morar ou investir</b>, e tem uma <b>região</b> e <b>faixa de preço</b> em mente?'}, t:'19:40'},
+    {s:'in', x:{type:'audio', dur:'0:13'}, t:'19:41'},
+    {s:'out', x:{type:'audio', dur:'0:10'}, t:'19:41', cap:'🎧 responde em áudio'},
+    {s:'in', x:{type:'text', html:'2 quartos no Cambuí, até uns 700 mil'}, t:'19:42'},
+    {s:'out', x:{type:'text', html:'Perfeito! Encontrei uma opção que combina com você:<br><b>🏢 SCH-001 — Cambuí</b><br>2 quartos · 74m² · 1 vaga · varanda gourmet<br><b>R$ 690.000</b><br>Quer que eu envie as fotos e a ficha completa?'}, t:'19:42', cap:'🏡 achou o imóvel ideal (matching)'},
+    {s:'in', x:{type:'text', html:'gostei! dá pra financiar? quanto ficaria a parcela?'}, t:'19:43'},
+    {s:'out', x:{type:'text', html:'Dá sim! Simulando com <b>20% de entrada</b> (R$ 138.000) e <b>30 anos</b>:<br>Parcela inicial ~ <b>R$ 4.850/mês</b> (tabela Price)<br>Quer que eu simule com outra entrada ou prazo?'}, t:'19:43', cap:'🧮 simula financiamento na hora'},
+    {s:'in', x:{type:'text', html:'ficou ótimo! queria conhecer pessoalmente, pode ser sábado de manhã?'}, t:'19:44'},
+    {s:'out', x:{type:'text', html:'Combinado! Visita agendada no <b>SCH-001</b> pra <b>sábado, 10h</b>, com a corretora <b>Beatriz</b>. Te mando um lembrete na véspera. 🔑'}, t:'19:44', cap:'📅 agendou a visita'},
+    {s:'out', x:{type:'text', rem:true, html:'🔔 Oi! Passando pra lembrar: sua visita ao apê do Cambuí é <b>amanhã às 10h</b> com a Beatriz. Confirma pra mim? 😊'}, t:'09:00', cap:'🔔 lembra na véspera'},
+    {s:'out', x:{type:'text', html:'Oi! E aí, o que achou do apê depois da visita? Se quiser, já separo outras 2 opções parecidas na mesma região 🏡'}, t:'11:30', cap:'💬 follow-up sem deixar esfriar'}
+  ];
+  var sleep = function(ms){ return new Promise(function(r){ setTimeout(r, ms); }); };
+  var scroll = function(){ chat.scrollTop = chat.scrollHeight; };
+  function inner(x){
+    if (x.type === 'text') return x.html;
+    if (x.type === 'audio') return '<div class="wa-audio"><span class="wa-play">▶</span><span class="wa-wave"></span><span class="wa-dur">'+x.dur+'</span></div>';
+    return '';
+  }
+  var running = false;
+  async function run(){
+    while (true) {
+      chat.innerHTML = ''; hideCap();
+      for (var i = 0; i < R.length; i++) {
+        var m = R[i];
+        if (m.s === 'out') {
+          if (st) st.textContent = (m.x.type === 'audio') ? 'gravando áudio…' : 'digitando…';
+          var typ = document.createElement('div');
+          typ.className = 'wa-typing'; typ.innerHTML = '<i></i><i></i><i></i>';
+          chat.appendChild(typ); scroll();
+          await sleep(1000);
+          typ.remove(); if (st) st.textContent = 'online';
+        }
+        var b = document.createElement('div');
+        b.className = 'wa-msg ' + m.s + (m.x.rem ? ' rem' : '');
+        b.innerHTML = inner(m.x) + '<span class="wa-time">' + m.t + '</span>';
+        chat.appendChild(b); scroll();
+        if (m.cap) showCap(m.cap);
+        await sleep(m.s === 'in' ? 950 : 1350);
+      }
+      await sleep(3800);
+    }
+  }
+  window.__waStartImob = function(){ if (running) return; running = true; run(); };
 })();
 </script>
 
