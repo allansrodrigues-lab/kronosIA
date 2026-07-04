@@ -6,6 +6,18 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["serve", ".", "-p", "3456", "--no-clipboard"],
       "port": 3456
+    },
+    {
+      "name": "mapa",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8137", "--directory", "C:/Users/Usuario/OneDrive/Documentos/Claude/Projects/teste Automação/07_Recursos"],
+      "port": 8137
+    },
+    {
+      "name": "saas",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/Usuario/OneDrive/Documentos/Claude/Projects/teste Automação/14_Kronos_SaaS/app/dist/server.js"],
+      "port": 4600
     }
   ]
 }

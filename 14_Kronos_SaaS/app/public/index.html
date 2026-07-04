@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kronos — Painel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.31.0/tabler-icons.min.css">
+<style>
+:root{
+  --s0:#020c2a; --s1:#0a1738; --s2:#122150;
+  --tp:#eef1fb; --ts:#9aa6c8; --tm:#6b779c;
+  --bd:rgba(120,140,200,0.18); --bds:rgba(120,140,200,0.4);
+  --ac:#a679ff; --acbg:rgba(120,72,200,0.22);
+  --ok:#3ed6bd; --okbg:rgba(24,192,160,0.18);
+  --warn:#f0b45c; --warnbg:rgba(234,159,39,0.18);
+  --bad:#f08a89; --badbg:rgba(226,75,74,0.18);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--s0);color:var(--tp);font-family:'Inter',-apple-system,'Segoe UI',sans-serif;line-height:1.5;padding:22px 16px 60px}
+.wrap{max-width:720px;margin:0 auto}
+h1{font-size:17px;font-weight:600;margin:0}
+.sub{font-size:12px;color:var(--tm)}
+.card{background:var(--s1);border-radius:12px;padding:18px;margin-bottom:16px}
+.kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0 0}
+.kpi{background:var(--s2);border-radius:8px;padding:12px 14px}
+.kpi p{margin:0;font-size:12px;color:var(--ts)}
+.kpi b{display:block;font-size:22px;font-weight:600;margin-top:2px}
+.row{display:flex;align-items:center;gap:10px;padding:11px 0;border-top:0.5px solid var(--bd);cursor:pointer}
+.row:hover{background:rgba(255,255,255,0.02)}
+.badge{font-size:11px;padding:3px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.b-ok{background:var(--okbg);color:var(--ok)}
+.b-warn{background:var(--warnbg);color:var(--warn)}
+.b-bad{background:var(--badbg);color:var(--bad)}
+.sw{display:inline-block;width:36px;height:20px;border-radius:20px;background:var(--bds);position:relative;flex-shrink:0;transition:background .15s;cursor:pointer}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--s2);transition:left .15s}
+.sw.on{background:var(--ac)}
+.sw.on::after{left:18px}
+.av{width:38px;height:38px;border-radius:50%;background:var(--acbg);display:flex;align-items:center;justify-content:center;color:var(--ac);flex-shrink:0}
+.muted{color:var(--tm);font-size:12px}
+.feed{border-top:0.5px solid var(--bd);padding:9px 0;font-size:13px}
+.feed .muted{font-size:11px}
+button{font-family:inherit;background:transparent;border:0.5px solid var(--bds);color:var(--tp);border-radius:8px;padding:7px 12px;font-size:12px;cursor:pointer}
+button:hover{background:var(--s2)}
+.err{background:var(--badbg);color:var(--bad);border-radius:8px;padding:12px 14px;font-size:13px;display:none}
+.hl{color:var(--ok)}
+#cliente{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+    <div class="av" style="font-weight:600;font-size:14px">iK</div>
+    <div style="flex:1">
+      <h1>Kronos — cockpit</h1>
+      <span class="sub" id="upd">carregando…</span>
+    </div>
+    <button onclick="load(true)"><i class="ti ti-refresh"></i> Atualizar</button>
+  </div>
+
+  <div class="err" id="err"></div>
+
+  <div class="card">
+    <span class="muted" style="letter-spacing:.08em">VISÃO KRONOS — TODOS OS CLIENTES</span>
+    <div class="kgrid" id="totais"></div>
+    <div id="lista" style="margin-top:14px"></div>
+    <p class="muted" style="margin:12px 0 0;display:flex;gap:6px;align-items:center"><i class="ti ti-bolt"></i>Pagou → ativa sozinho. Falhou → suspende sozinho. (automação de billing = próxima fatia)</p>
+  </div>
+
+  <div class="card" id="cliente"></div>
+
+  <p class="muted" style="text-align:center">Kronos Intelligence · dados reais do CRM (Google Sheets) · fatia 2 do SaaS</p>
+</div>
+
+<script>
+var DATA = null, SEL = null;
+
+function money(v){ return 'R$ ' + v.toLocaleString('pt-BR'); }
+function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+function badge(st){
+  if(st==='ativo') return '<span class="badge b-ok"><i class="ti ti-circle-check"></i>Ativo</span>';
+  if(st==='pgto_falhou') return '<span class="badge b-warn">Pgto falhou</span>';
+  return '<span class="badge b-bad">Suspenso</span>';
+}
+
+function render(){
+  var t = DATA.totals;
+  document.getElementById('upd').textContent = 'atualizado às ' + DATA.atualizadoEm + ' · dados reais do CRM';
+  document.getElementById('totais').innerHTML =
+    '<div class="kpi"><p>Receita mensal (MRR)</p><b>'+money(t.mrr)+'</b></div>'+
+    '<div class="kpi"><p>Clientes ativos</p><b>'+t.ativos+'</b></div>'+
+    '<div class="kpi"><p>Atendimentos (30d)</p><b>'+t.atendimentos30d+'</b></div>'+
+    '<div class="kpi"><p>Agendamentos/visitas</p><b>'+t.agendamentos+'</b></div>';
+
+  var h = '<div class="row" style="cursor:default;border-top:none;padding-bottom:4px">'+
+    '<span class="muted" style="flex:1">Cliente</span><span class="muted" style="width:82px">Nicho</span>'+
+    '<span class="muted" style="width:70px;text-align:right">Atend. 30d</span>'+
+    '<span class="muted" style="width:56px;text-align:right">MRR</span>'+
+    '<span class="muted" style="width:92px;text-align:right">Status</span></div>';
+  DATA.clients.forEach(function(c){
+    h += '<div class="row" onclick="openClient(\''+c.id+'\')">'+
+      '<span style="flex:1;font-size:14px">'+esc(c.name)+'</span>'+
+      '<span class="muted" style="width:82px">'+esc(c.niche)+'</span>'+
+      '<span style="width:70px;text-align:right;font-size:13px">'+c.kpis.atendimentos30d+'</span>'+
+      '<span style="width:56px;text-align:right;font-size:13px">'+(c.monthlyFee/1000).toFixed(1).replace('.',',')+'k</span>'+
+      '<span style="width:92px;text-align:right">'+badge(c.status)+'</span></div>';
+  });
+  document.getElementById('lista').innerHTML = h;
+  openClient(SEL || DATA.clients[0].id);
+}
+
+function openClient(id){
+  SEL = id;
+  var c = DATA.clients.find(function(x){return x.id===id;});
+  if(!c) return;
+  var k = c.kpis;
+  var h = '<span class="muted" style="letter-spacing:.08em">VISÃO DO CLIENTE</span>'+
+    '<div style="display:flex;align-items:center;gap:12px;margin:12px 0 4px">'+
+      '<div class="av"><i class="ti ti-'+c.icon+'" style="font-size:19px"></i></div>'+
+      '<div style="flex:1"><p style="margin:0;font-size:15px;font-weight:600">'+esc(c.name)+'</p>'+
+      '<p style="margin:0" class="muted">Plano '+esc(c.plan)+' · última atividade: '+esc(k.ultimaAtividade)+'</p></div>'+
+      badge(c.status)+'</div>'+
+    '<div class="kgrid">'+
+      '<div class="kpi"><p>Atendimentos (30 dias)</p><b>'+k.atendimentos30d+'</b><p>'+k.atendimentos+' no total</p></div>'+
+      '<div class="kpi"><p>Contatos únicos</p><b>'+k.contatosUnicos+'</b></div>'+
+      '<div class="kpi"><p>Agendamentos/visitas</p><b>'+k.agendamentos+'</b></div>'+
+      '<div class="kpi"><p>Sessões ativas agora</p><b>'+k.sessoes+'</b></div>'+
+      '<div class="kpi"><p>Escalações p/ humano</p><b>'+k.escalacoes+'</b></div>'+
+      '<div class="kpi"><p>O bot já se pagou*</p><b class="hl">'+String(k.roiEstimado).replace('.',',')+'×</b></div>'+
+    '</div>'+
+    '<p class="muted" style="margin:8px 0 0">*estimativa: agendamentos × '+esc(c.avgTicketLabel)+' ÷ mensalidade</p>'+
+    '<p style="margin:16px 0 2px;font-size:13px;font-weight:500;color:var(--ts)">Serviços do plano</p>';
+  c.services.forEach(function(s){
+    h += '<div class="row" style="cursor:default">'+
+      '<span style="flex:1;font-size:13px">'+esc(s.label)+'</span>'+
+      '<span class="sw'+(s.on?' on':'')+'" onclick="this.classList.toggle(\'on\')"></span></div>';
+  });
+  h += '<p style="margin:16px 0 2px;font-size:13px;font-weight:500;color:var(--ts)">Últimas interações do bot</p>';
+  if(k.recentes.length===0) h += '<p class="muted">Sem interações registradas ainda.</p>';
+  k.recentes.forEach(function(r){
+    h += '<div class="feed"><span class="muted">'+esc(r.data)+(r.nome?' · '+esc(r.nome):'')+'</span><br>'+esc(r.mensagem)+'…</div>';
+  });
+  var el = document.getElementById('cliente');
+  el.innerHTML = h; el.style.display = 'block';
+}
+
+function load(force){
+  document.getElementById('upd').textContent = 'carregando…';
+  fetch('/api/overview').then(function(r){return r.json();}).then(function(d){
+    if(d.error) throw new Error(d.error);
+    DATA = d; document.getElementById('err').style.display='none'; render();
+  }).catch(function(e){
+    var el = document.getElementById('err');
+    el.textContent = 'Erro ao ler o CRM: ' + e.message;
+    el.style.display = 'block';
+    document.getElementById('upd').textContent = 'erro ao carregar';
+  });
+}
+load();
+</script>
+</body>
+</html>

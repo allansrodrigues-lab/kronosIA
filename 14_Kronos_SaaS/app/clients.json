@@ -1,0 +1,68 @@
+{
+  "comment": "Configuração dos clientes do painel. Cada cliente aponta pras abas do CRM dele (regra-mãe: base isolada por cliente). monthlyFee/avgTicket alimentam a estimativa de ROI — ajustar por contrato real.",
+  "clients": [
+    {
+      "id": "aurora",
+      "name": "Clínica Aurora",
+      "niche": "Estética",
+      "icon": "flower",
+      "plan": "Completo",
+      "monthlyFee": 2500,
+      "avgTicket": 350,
+      "avgTicketLabel": "procedimento médio",
+      "status": "ativo",
+      "spreadsheetId": "1ZlDFYkgx6aXUM0ayj1e1_K6uX0cruo7VuCcmg1_w5ps",
+      "tabs": { "log": "Log_Interacoes", "bookings": "Agendamentos", "sessions": "Sessoes_Ativas" },
+      "services": [
+        { "id": "atendimento", "label": "Atendimento 24h (Aurora)", "on": true },
+        { "id": "agendamento", "label": "Agendamento (Bia)", "on": true },
+        { "id": "lembrete", "label": "Lembrete véspera (D-1)", "on": false },
+        { "id": "audio", "label": "Entende e responde áudio", "on": true },
+        { "id": "parecer", "label": "Parecer científico", "on": true },
+        { "id": "posvenda", "label": "Pós-atendimento (Diana)", "on": true }
+      ]
+    },
+    {
+      "id": "ferraz",
+      "name": "Ferraz & Nogueira",
+      "niche": "Advocacia",
+      "icon": "scale",
+      "plan": "Completo",
+      "monthlyFee": 2500,
+      "avgTicket": 1500,
+      "avgTicketLabel": "honorário inicial médio",
+      "status": "ativo",
+      "spreadsheetId": "1ZlDFYkgx6aXUM0ayj1e1_K6uX0cruo7VuCcmg1_w5ps",
+      "tabs": { "log": "Log_Advocacia", "bookings": "Agendamentos_Advocacia", "sessions": "Sessoes_Advocacia" },
+      "services": [
+        { "id": "atendimento", "label": "Triagem 24h (Léa)", "on": true },
+        { "id": "pdf", "label": "Leitura de PDF (prazos e partes)", "on": true },
+        { "id": "agendamento", "label": "Agendamento de consulta", "on": true },
+        { "id": "audio", "label": "Entende e responde áudio", "on": true },
+        { "id": "pericia", "label": "Parecer p/ perícia", "on": true },
+        { "id": "lembrete", "label": "Lembrete véspera (D-1)", "on": false }
+      ]
+    },
+    {
+      "id": "schalletti",
+      "name": "Schalletti Imóveis",
+      "niche": "Imobiliária",
+      "icon": "home",
+      "plan": "Profissional",
+      "monthlyFee": 1500,
+      "avgTicket": 4000,
+      "avgTicketLabel": "comissão média por fechamento",
+      "status": "ativo",
+      "spreadsheetId": "1bXnGkPZBNeDm_Uicr-sAVPY5ZMw1eHiM6h2ziaPwTWM",
+      "tabs": { "log": "Log_Interacoes", "bookings": "Visitas", "sessions": "Sessoes_Imobiliaria", "leads": "Leads_Imobiliaria" },
+      "services": [
+        { "id": "atendimento", "label": "Qualificação 24h (Sofia)", "on": true },
+        { "id": "matching", "label": "Matching com a carteira", "on": true },
+        { "id": "financiamento", "label": "Calculadora de financiamento", "on": true },
+        { "id": "visita", "label": "Agendamento de visita", "on": true },
+        { "id": "audio", "label": "Entende e responde áudio", "on": true },
+        { "id": "followup", "label": "Follow-up pós-visita", "on": true }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-mode="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kronos SaaS — Mockup do painel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.31.0/tabler-icons.min.css">
+<style>
+:root{
+  --surface-0:#020c2a; --surface-1:#0a1738; --surface-2:#122150;
+  --text-primary:#eef1fb; --text-secondary:#9aa6c8; --text-muted:#6b779c;
+  --border:rgba(120,140,200,0.18); --border-strong:rgba(120,140,200,0.4);
+  --radius:8px;
+  --bg-accent:rgba(120,72,200,0.22); --text-accent:#a679ff;
+  --bg-pro:rgba(120,72,200,0.22); --text-pro:#c3a5ff;
+  --bg-success:rgba(24,192,160,0.18); --text-success:#3ed6bd;
+  --bg-warning:rgba(234,159,39,0.18); --text-warning:#f0b45c;
+  --bg-danger:rgba(226,75,74,0.18); --text-danger:#f08a89;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:'Inter',-apple-system,Segoe UI,sans-serif;line-height:1.5;padding:24px}
+.wrap{max-width:680px;margin:0 auto}
+button{font-family:inherit;background:transparent;border:0.5px solid var(--border-strong);color:var(--text-primary);border-radius:var(--radius);padding:9px 14px;font-size:13px;cursor:pointer}
+button:hover{background:var(--surface-1)}
+.sw{display:inline-block;width:38px;height:22px;border-radius:22px;background:var(--border-strong);position:relative;cursor:pointer;flex-shrink:0;transition:background .15s}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--surface-2);transition:left .15s}
+.sw.on{background:var(--text-accent)}
+.sw.on::after{left:18px}
+.krow{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:0.5px solid var(--border)}
+.kpi{background:var(--surface-1);border-radius:var(--radius);padding:14px 16px}
+.badge{font-size:12px;padding:3px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+  <span style="font-size:12px;letter-spacing:.08em;color:var(--text-muted)">VISÃO 1 — PAINEL DO CLIENTE</span>
+  <span style="flex:1;height:0.5px;background:var(--border)"></span>
+</div>
+
+<div style="background:var(--surface-1);border-radius:12px;padding:1.25rem">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+    <div style="width:40px;height:40px;border-radius:50%;background:var(--bg-accent);display:flex;align-items:center;justify-content:center;color:var(--text-accent)"><i class="ti ti-flower" style="font-size:20px"></i></div>
+    <div style="flex:1">
+      <p style="margin:0;font-size:15px;font-weight:500">Clínica Aurora</p>
+      <p style="margin:0;font-size:13px;color:var(--text-secondary)">Plano Completo</p>
+    </div>
+    <span class="badge" style="background:var(--bg-success);color:var(--text-success)"><i class="ti ti-circle-check"></i>Ativo</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:18px">
+    <div class="kpi"><p style="margin:0;font-size:13px;color:var(--text-secondary)">Atendimentos no mês</p><p style="margin:4px 0 0;font-size:24px;font-weight:500">342</p></div>
+    <div class="kpi"><p style="margin:0;font-size:13px;color:var(--text-secondary)">Viraram agendamento</p><p style="margin:4px 0 0;font-size:24px;font-weight:500">47</p></div>
+    <div class="kpi"><p style="margin:0;font-size:13px;color:var(--text-secondary)">Resposta média</p><p style="margin:4px 0 0;font-size:24px;font-weight:500">18s</p></div>
+    <div class="kpi"><p style="margin:0;font-size:13px;color:var(--text-secondary)">O bot já se pagou</p><p style="margin:4px 0 0;font-size:24px;font-weight:500;color:var(--text-success)">3,2×</p></div>
+  </div>
+
+  <p style="margin:0 0 4px;font-size:13px;font-weight:500;color:var(--text-secondary)">Serviços — ligue ou desligue quando quiser</p>
+  <div id="svc">
+    <div class="krow"><i class="ti ti-bolt" style="font-size:18px;color:var(--text-secondary)"></i><span style="flex:1;font-size:14px">Atendimento 24h (Aurora)</span><span class="sw on" role="switch"></span></div>
+    <div class="krow"><i class="ti ti-calendar" style="font-size:18px;color:var(--text-secondary)"></i><span style="flex:1;font-size:14px">Agendamento (Bia)</span><span class="sw on" role="switch"></span></div>
+    <div class="krow"><i class="ti ti-bell" style="font-size:18px;color:var(--text-secondary)"></i><span style="flex:1;font-size:14px">Lembrete véspera (D-1)</span><span class="sw on" role="switch"></span></div>
+    <div class="krow"><i class="ti ti-microphone" style="font-size:18px;color:var(--text-secondary)"></i><span style="flex:1;font-size:14px">Entende e responde áudio</span><span class="sw on" role="switch"></span></div>
+    <div class="krow"><i class="ti ti-flask" style="font-size:18px;color:var(--text-secondary)"></i><span style="flex:1;font-size:14px">Parecer científico</span><span class="sw on" role="switch"></span></div>
+    <div class="krow"><i class="ti ti-heart" style="font-size:18px;color:var(--text-secondary)"></i><span style="flex:1;font-size:14px">Pós-atendimento (Diana)</span><span class="sw" role="switch"></span></div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:12px;margin-top:16px;padding-top:14px;border-top:0.5px solid var(--border)">
+    <i class="ti ti-credit-card" style="font-size:18px;color:var(--text-secondary)"></i>
+    <div style="flex:1"><p style="margin:0;font-size:14px">Próxima cobrança <span style="color:var(--text-secondary)">— 04/08, cartão •••• 4471</span></p></div>
+    <span style="font-size:15px;font-weight:500">R$ 2.500</span>
+  </div>
+</div>
+
+<div style="display:flex;align-items:center;gap:8px;margin:26px 0 10px">
+  <span style="font-size:12px;letter-spacing:.08em;color:var(--text-muted)">VISÃO 2 — PAINEL INTERNO DA KRONOS</span>
+  <span style="flex:1;height:0.5px;background:var(--border)"></span>
+</div>
+
+<div style="background:var(--surface-1);border-radius:12px;padding:1.25rem">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+    <div style="width:40px;height:40px;border-radius:50%;background:var(--bg-pro);display:flex;align-items:center;justify-content:center;color:var(--text-pro);font-weight:500;font-size:15px">iK</div>
+    <div style="flex:1"><p style="margin:0;font-size:15px;font-weight:500">Kronos — cockpit</p><p style="margin:0;font-size:13px;color:var(--text-secondary)">Todos os clientes</p></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:18px">
+    <div class="kpi"><p style="margin:0;font-size:13px;color:var(--text-secondary)">Receita mensal (MRR)</p><p style="margin:4px 0 0;font-size:24px;font-weight:500">R$ 14.700</p></div>
+    <div class="kpi"><p style="margin:0;font-size:13px;color:var(--text-secondary)">Clientes ativos</p><p style="margin:4px 0 0;font-size:24px;font-weight:500">7</p></div>
+    <div class="kpi"><p style="margin:0;font-size:13px;color:var(--text-secondary)">Inadimplentes</p><p style="margin:4px 0 0;font-size:24px;font-weight:500;color:var(--text-warning)">1</p></div>
+    <div class="kpi"><p style="margin:0;font-size:13px;color:var(--text-secondary)">Suspensos</p><p style="margin:4px 0 0;font-size:24px;font-weight:500;color:var(--text-danger)">1</p></div>
+  </div>
+
+  <div class="krow" style="border-top:none;color:var(--text-secondary);font-size:12px;padding-bottom:4px">
+    <span style="flex:1">Cliente</span><span style="width:90px">Nicho</span><span style="width:64px;text-align:right">MRR</span><span style="width:104px;text-align:right">Status</span>
+  </div>
+  <div class="krow"><span style="flex:1;font-size:14px">Clínica Aurora</span><span style="width:90px;font-size:13px;color:var(--text-secondary)">Estética</span><span style="width:64px;text-align:right;font-size:13px">2.500</span><span style="width:104px;text-align:right"><span class="badge" style="background:var(--bg-success);color:var(--text-success)">Ativo</span></span></div>
+  <div class="krow"><span style="flex:1;font-size:14px">Ferraz &amp; Nogueira</span><span style="width:90px;font-size:13px;color:var(--text-secondary)">Advocacia</span><span style="width:64px;text-align:right;font-size:13px">2.500</span><span style="width:104px;text-align:right"><span class="badge" style="background:var(--bg-success);color:var(--text-success)">Ativo</span></span></div>
+  <div class="krow"><span style="flex:1;font-size:14px">Schalletti Imóveis</span><span style="width:90px;font-size:13px;color:var(--text-secondary)">Imobiliária</span><span style="width:64px;text-align:right;font-size:13px">1.500</span><span style="width:104px;text-align:right"><span class="badge" style="background:var(--bg-success);color:var(--text-success)">Ativo</span></span></div>
+  <div class="krow"><span style="flex:1;font-size:14px">Bella Massa</span><span style="width:90px;font-size:13px;color:var(--text-secondary)">Pizzaria</span><span style="width:64px;text-align:right;font-size:13px">800</span><span style="width:104px;text-align:right"><span class="badge" style="background:var(--bg-warning);color:var(--text-warning)">Pgto falhou</span></span></div>
+  <div class="krow"><span style="flex:1;font-size:14px">Studio Lumen</span><span style="width:90px;font-size:13px;color:var(--text-secondary)">Estética</span><span style="width:64px;text-align:right;font-size:13px">1.500</span><span style="width:104px;text-align:right"><span class="badge" style="background:var(--bg-danger);color:var(--text-danger)">Suspenso</span></span></div>
+
+  <p style="margin:14px 0 0;font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:6px"><i class="ti ti-bolt"></i>Pagou → ativa sozinho. Falhou → suspende sozinho. Sem burocracia.</p>
+</div>
+
+</div>
+<script>
+document.querySelectorAll('#svc .sw').forEach(function(s){s.addEventListener('click',function(){s.classList.toggle('on')})});
+</script>
+</body>
+</html>

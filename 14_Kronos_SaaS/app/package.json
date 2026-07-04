@@ -1,0 +1,20 @@
+{
+  "name": "kronos-saas-painel",
+  "version": "0.1.0",
+  "description": "Painel SaaS da Kronos — fatia 2: tela real lendo KPIs do Google Sheets",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "tsc && node dist/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "google-auth-library": "^9.15.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.6.0"
+  }
+}
