@@ -1,0 +1,9 @@
+{
+  "comment": "Modelo do users.json (que fica FORA do git — repo é público). Gere salt+hash com: node dist/hashpass.js <senha>. role admin = vê o cockpit inteiro; role client = vê só o clientId dele.",
+  "users": [
+    { "user": "admin", "name": "Allan (Kronos)", "role": "admin", "salt": "GERAR", "hash": "GERAR" },
+    { "user": "aurora", "name": "Clínica Aurora", "role": "client", "clientId": "aurora", "salt": "GERAR", "hash": "GERAR" },
+    { "user": "ferraz", "name": "Ferraz & Nogueira", "role": "client", "clientId": "ferraz", "salt": "GERAR", "hash": "GERAR" },
+    { "user": "schalletti", "name": "Schalletti Imóveis", "role": "client", "clientId": "schalletti", "salt": "GERAR", "hash": "GERAR" }
+  ]
+}

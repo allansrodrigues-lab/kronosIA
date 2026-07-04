@@ -52,15 +52,16 @@ button:hover{background:var(--s2)}
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
     <img src="/kronos_icone.png" alt="Kronos" style="width:40px;height:40px;object-fit:contain">
     <div style="flex:1">
-      <h1>Kronos — cockpit</h1>
+      <h1 id="titulo">Painel Kronos</h1>
       <span class="sub" id="upd">carregando…</span>
     </div>
     <button onclick="load(true)"><i class="ti ti-refresh"></i> Atualizar</button>
+    <button onclick="sair()"><i class="ti ti-logout"></i> Sair</button>
   </div>
 
   <div class="err" id="err"></div>
 
-  <div class="card">
+  <div class="card" id="cockpit">
     <span class="muted" style="letter-spacing:.08em">VISÃO KRONOS — TODOS OS CLIENTES</span>
     <div class="kgrid" id="totais"></div>
     <div id="lista" style="margin-top:14px"></div>
@@ -87,6 +88,15 @@ function badge(st){
 function render(){
   var t = DATA.totals;
   document.getElementById('upd').textContent = 'atualizado às ' + DATA.atualizadoEm + ' · dados reais do CRM';
+  if(!t){
+    // Papel cliente: sem cockpit da Kronos — só o painel do próprio negócio.
+    document.getElementById('cockpit').style.display = 'none';
+    document.getElementById('titulo').textContent = DATA.clients[0] ? DATA.clients[0].name : 'Painel';
+    openClient(DATA.clients[0].id);
+    return;
+  }
+  document.getElementById('cockpit').style.display = 'block';
+  document.getElementById('titulo').textContent = 'Kronos — cockpit';
   document.getElementById('totais').innerHTML =
     '<div class="kpi"><p>Receita mensal (MRR)</p><b>'+money(t.mrr)+'</b></div>'+
     '<div class="kpi"><p>Clientes ativos</p><b>'+t.ativos+'</b></div>'+
@@ -145,12 +155,20 @@ function openClient(id){
   el.innerHTML = h; el.style.display = 'block';
 }
 
+function sair(){
+  fetch('/api/logout',{method:'POST'}).then(function(){ window.location.href='/login.html'; });
+}
+
 function load(force){
   document.getElementById('upd').textContent = 'carregando…';
-  fetch('/api/overview').then(function(r){return r.json();}).then(function(d){
+  fetch('/api/overview').then(function(r){
+    if(r.status===401){ window.location.href='/login.html'; throw new Error('login'); }
+    return r.json();
+  }).then(function(d){
     if(d.error) throw new Error(d.error);
     DATA = d; document.getElementById('err').style.display='none'; render();
   }).catch(function(e){
+    if(e.message==='login') return;
     var el = document.getElementById('err');
     el.textContent = 'Erro ao ler o CRM: ' + e.message;
     el.style.display = 'block';

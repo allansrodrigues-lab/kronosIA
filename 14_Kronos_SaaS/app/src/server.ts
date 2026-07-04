@@ -5,6 +5,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { batchGet } from './sheets';
 import { ClientCfg, Kpis, computeKpis } from './kpis';
+import {
+  Session,
+  loadUsers,
+  parseCookies,
+  signSession,
+  verifyPassword,
+  verifySessionToken,
+} from './auth';
 
 const ROOT = path.join(__dirname, '..');
 const cfg: { clients: ClientCfg[] } = JSON.parse(
@@ -111,14 +119,58 @@ async function buildOverview(): Promise<Overview> {
 }
 
 const app = express();
+app.use(express.json());
 app.use(express.static(path.join(ROOT, 'public')));
 
-app.get('/api/overview', async (_req, res) => {
+const COOKIE = 'ksess';
+const SESSION_MS = 7 * 24 * 60 * 60 * 1000; // 7 dias
+
+function getSession(req: express.Request): Session | null {
+  return verifySessionToken(parseCookies(req.headers.cookie)[COOKIE]);
+}
+
+app.post('/api/login', (req, res) => {
+  const { user, pass } = (req.body ?? {}) as { user?: string; pass?: string };
+  const u = loadUsers().find((x) => x.user === (user || '').trim().toLowerCase());
+  if (!u || !pass || !verifyPassword(pass, u.salt, u.hash)) {
+    return res.status(401).json({ error: 'Usuário ou senha inválidos' });
+  }
+  const sess: Session = {
+    u: u.user,
+    name: u.name,
+    role: u.role,
+    clientId: u.clientId,
+    exp: Date.now() + SESSION_MS,
+  };
+  res.setHeader(
+    'Set-Cookie',
+    `${COOKIE}=${signSession(sess)}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${SESSION_MS / 1000}`
+  );
+  res.json({ ok: true, role: u.role, name: u.name });
+});
+
+app.post('/api/logout', (_req, res) => {
+  res.setHeader('Set-Cookie', `${COOKIE}=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0`);
+  res.json({ ok: true });
+});
+
+app.get('/api/me', (req, res) => {
+  const s = getSession(req);
+  if (!s) return res.status(401).json({ error: 'não autenticado' });
+  res.json({ user: s.u, name: s.name, role: s.role, clientId: s.clientId });
+});
+
+app.get('/api/overview', async (req, res) => {
+  const s = getSession(req);
+  if (!s) return res.status(401).json({ error: 'não autenticado' });
   try {
     if (!cache || Date.now() - cache.at > CACHE_MS) {
       cache = { at: Date.now(), data: await buildOverview() };
     }
-    res.json(cache.data);
+    if (s.role === 'admin') return res.json(cache.data);
+    // Cliente: só o próprio painel — sem MRR nem lista dos outros (base blindada por cliente).
+    const mine = cache.data.clients.filter((c) => c.id === s.clientId);
+    res.json({ atualizadoEm: cache.data.atualizadoEm, totals: null, clients: mine });
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
     res.status(500).json({ error: msg });

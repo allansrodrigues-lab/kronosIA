@@ -3,3 +3,5 @@ dist/
 credentials/
 .env
 *.log
+users.json
+.secret

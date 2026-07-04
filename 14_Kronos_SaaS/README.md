@@ -30,8 +30,12 @@ Transforma o bot de *gasto* em *investimento provado* → argumento de renovaç�
    lendo os 2 CRMs reais via service account e servindo o painel em `http://localhost:4600`.
    Validado com dados reais: Aurora 298 atendimentos · Schalletti com as interações do teste ao vivo ·
    Ferraz 3 agendamentos. Como rodar/evoluir: skill **`kronos-saas`**.
-3. ⏭️ **Login** (auth).
-4. **Multi-cliente formal** — a config `app/clients.json` já é multi-tenant (1 entrada por cliente, CRM isolado).
+3. ✅ **Login + visão por papel** (04/07) — senha scrypt + sessão em cookie HMAC (zero dependência nova,
+   `src/auth.ts`). **Admin** (Allan) vê o cockpit inteiro; **cada cliente** loga e vê SÓ o painel dele
+   (sem MRR, sem os outros — a blindagem por cliente vale também na tela). Usuários em `app/users.json`
+   (FORA do git; modelo em `users.example.json`; gerar hash: `node dist/hashpass.js <senha>`).
+   Testado: 401 sem login/senha errada, filtro por papel, logout. Telas: `/login.html` + redirect automático.
+4. ⏭️ **Multi-cliente formal** — a config `app/clients.json` já é multi-tenant (1 entrada por cliente, CRM isolado).
 5. **Billing** (Mercado Pago assinatura → pagou/ativa, falhou/suspende sozinho) + deploy no VPS.
 
 ## Stack (decidida na fatia 2)

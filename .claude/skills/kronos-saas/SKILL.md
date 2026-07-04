@@ -43,8 +43,15 @@ e `services` (o que aparece com liga/desliga). Não precisa mexer em código; re
 - Preview do Claude pode reusar servidor errado (ver acima).
 - Erros do front aparecem no banner "Erro ao ler o CRM: ..." — mensagem vem direto do server (500 JSON).
 
+## Login (fatia 3 — 04/07)
+- `src/auth.ts`: senha **scrypt** (salt+hash) + sessão em **cookie HMAC** (`ksess`, 7 dias, HttpOnly). Zero dependência nova; segredo auto-gerado em `.secret` (gitignored).
+- Papéis: `admin` (cockpit completo) vs `client` (só o próprio painel — `/api/overview` filtra no SERVIDOR, não no front).
+- Usuários em `users.json` (**gitignored** — repo público!); modelo `users.example.json`. Gerar hash de senha nova: `node dist/hashpass.js <senha>` → colar salt+hash no users.json.
+- Rotas: `POST /api/login` `{user,pass}` · `POST /api/logout` · `GET /api/me`. Front redireciona pra `/login.html` em 401.
+- Trocar senha = gerar novo hash e editar users.json (reinicia o server). Logins de demo criados em 04/07 — perguntar ao Allan antes de recriar.
+
 ## Fatias (roadmap — cada uma demonstrável sozinha)
-1. ✅ Mockup (04/07) · 2. ✅ **Tela real com KPIs do Sheets (04/07)** · 3. ⏭️ Login ·
-4. Multi-cliente formal (a config já é multi-tenant) · 5. Billing (Mercado Pago assinatura → ativa/suspende sozinho).
+1. ✅ Mockup (04/07) · 2. ✅ **Tela real com KPIs do Sheets (04/07)** · 3. ✅ **Login + visão por papel (04/07)** ·
+4. ⏭️ Multi-cliente formal (a config já é multi-tenant) · 5. Billing (Mercado Pago assinatura → ativa/suspende sozinho) + deploy VPS.
 
 Relacionado: memória `kronos-dashboard-saas` (visão/decisões), `14_Kronos_SaaS/README.md` (planta), skill `kronos-mcp` (ler o CRM via MCP pra conferir os números).
