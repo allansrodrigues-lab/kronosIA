@@ -16,8 +16,9 @@ rm -f /tmp/vk
 ## Passo 2 — no VPS (Browser Terminal da Hostinger, ou no mesmo ssh): rodar o deploy
 
 ```bash
-curl -s https://raw.githubusercontent.com/allansrodrigues-lab/kronosIA/main/14_Kronos_SaaS/deploy/deploy.sh | bash
+curl -s https://raw.githubusercontent.com/allansrodrigues-lab/kronosIA/main/14_Kronos_SaaS/deploy/deploy.sh | tr -d '\r' | bash
 ```
+(o `tr -d '\r'` blinda contra quebra de linha do Windows, mesmo se o git escorregar)
 
 Ao final: `DEPLOY_PAINEL_OK`. O painel fica em **http://2.24.101.180:4600** (com a tela de login).
 
