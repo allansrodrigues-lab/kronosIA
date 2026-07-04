@@ -103,6 +103,13 @@
       font-weight: 600 !important;
     }
 
+    .nav-login {
+      border: 1px solid rgba(120,72,200,0.4);
+      border-radius: 6px;
+      padding: 9px 18px !important;
+    }
+    .nav-login:hover { border-color: rgba(120,72,200,0.8); }
+
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
@@ -158,7 +165,7 @@
       font-size: clamp(2.4rem, 4vw, 3.6rem);
       font-weight: 700;
       line-height: 1.15;
-      margin-bottom: 12px;
+      margin-bottom: 4px;
       letter-spacing: -0.02em;
     }
 
@@ -172,8 +179,8 @@
       font-size: 1.15rem;
       color: var(--cinza);
       font-weight: 400;
-      margin-bottom: 40px;
-      line-height: 1.6;
+      margin-bottom: 28px;
+      line-height: 1.4;
     }
 
     .hero-btns {
@@ -544,8 +551,9 @@
   </a>
   <ul>
     <li><a href="#servicos">Serviços</a></li>
-    <li><a href="#como-funciona">Como funciona</a></li>
+    <li><a href="#segmentos">Como funciona</a></li>
     <li><a href="#planos">Planos</a></li>
+    <li><a href="/painel" class="nav-login">Área do Cliente</a></li>
     <li><a href="#contato" class="nav-cta">Falar com especialista</a></li>
   </ul>
 </nav>
@@ -1333,37 +1341,6 @@ function abrirSeg(id, btn) {
   window.__waStartImob = function(){ if (running) return; running = true; run(); };
 })();
 </script>
-
-<!-- COMO FUNCIONA -->
-<section id="como-funciona">
-  <div class="section-label">Processo</div>
-  <h2 class="section-title">Como funciona</h2>
-  <p class="section-sub">Implantação rápida, sem complicação técnica para você.</p>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h3>Diagnóstico</h3>
-      <p>Entendemos o seu negócio, fluxos de atendimento e pontos de melhoria.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h3>Configuração</h3>
-      <p>Configuramos os agentes de IA com a identidade e regras do seu negócio.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h3>Integração</h3>
-      <p>Conectamos com WhatsApp, agenda e sistemas que você já usa.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <h3>Ativação</h3>
-      <p>Seu agente entra em operação. Monitoramos e ajustamos continuamente.</p>
-    </div>
-  </div>
-</section>
-
 
 <!-- POR QUE A KRONOS -->
 <section id="por-que" style="border-top:1px solid rgba(120,72,200,0.12)">
