@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/painel/">
 <title>Kronos — Entrar</title>
 <style>
 :root{--s0:#020c2a;--s1:#0a1738;--s2:#122150;--tp:#eef1fb;--ts:#9aa6c8;--tm:#6b779c;--bd:rgba(120,140,200,0.18);--bds:rgba(120,140,200,0.4);--ac:#a679ff;--bad:#f08a89;--badbg:rgba(226,75,74,0.18)}
@@ -22,7 +23,7 @@ button:hover{opacity:.92}
 </head>
 <body>
 <form class="card" id="f">
-  <img src="/kronos_icone.png" alt="Kronos">
+  <img src="kronos_icone.png" alt="Kronos">
   <h1>Painel Kronos</h1>
   <div class="sub">Entre com o acesso do seu negócio</div>
   <div class="err" id="err"></div>
@@ -36,14 +37,14 @@ document.getElementById('f').addEventListener('submit', function(ev){
   ev.preventDefault();
   var err = document.getElementById('err');
   err.style.display = 'none';
-  fetch('/api/login', {
+  fetch('api/login', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({ user: document.getElementById('user').value, pass: document.getElementById('pass').value })
   }).then(function(r){ return r.json().then(function(d){ return {ok: r.ok, d: d}; }); })
     .then(function(res){
       if (!res.ok) throw new Error(res.d.error || 'Falha no login');
-      window.location.href = '/';
+      window.location.href = './';
     })
     .catch(function(e){ err.textContent = e.message; err.style.display = 'block'; });
 });

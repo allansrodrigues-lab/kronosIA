@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/painel/">
 <title>Kronos — Painel</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.31.0/tabler-icons.min.css">
 <style>
@@ -50,7 +51,7 @@ button:hover{background:var(--s2)}
 <div class="wrap">
 
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-    <img src="/kronos_icone.png" alt="Kronos" style="width:40px;height:40px;object-fit:contain">
+    <img src="kronos_icone.png" alt="Kronos" style="width:40px;height:40px;object-fit:contain">
     <div style="flex:1">
       <h1 id="titulo">Painel Kronos</h1>
       <span class="sub" id="upd">carregando…</span>
@@ -156,13 +157,13 @@ function openClient(id){
 }
 
 function sair(){
-  fetch('/api/logout',{method:'POST'}).then(function(){ window.location.href='/login.html'; });
+  fetch('api/logout',{method:'POST'}).then(function(){ window.location.href='login.html'; });
 }
 
 function load(force){
   document.getElementById('upd').textContent = 'carregando…';
-  fetch('/api/overview').then(function(r){
-    if(r.status===401){ window.location.href='/login.html'; throw new Error('login'); }
+  fetch('api/overview').then(function(r){
+    if(r.status===401){ window.location.href='login.html'; throw new Error('login'); }
     return r.json();
   }).then(function(d){
     if(d.error) throw new Error(d.error);
