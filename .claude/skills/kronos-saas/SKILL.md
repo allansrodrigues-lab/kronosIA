@@ -43,6 +43,9 @@ e `services` (o que aparece com liga/desliga). Não precisa mexer em código; re
 - Preview do Claude pode reusar servidor errado (ver acima).
 - Erros do front aparecem no banner "Erro ao ler o CRM: ..." — mensagem vem direto do server (500 JSON).
 
+## ⚠️ Bug real do login.html (04/07): navegador auto-capitalizava usuário/senha
+O Allan não conseguia logar (senha certa, mas dava "inválido"). Causa: os `<input>` de usuário/senha não tinham `autocapitalize="off"` — o navegador capitalizava a 1ª letra (`admin`→`Admin`, `kronos@2026`→`Kronos@2026`) SEM avisar. Diagnosticado com o botão de "olho" (mostrar senha) que foi adicionado por esse mesmo motivo. Fix: **todo input de login precisa de `autocapitalize="off" autocorrect="off" spellcheck="false"`**, não só o de senha — o de usuário sofre o mesmo problema.
+
 ## Login (fatia 3 — 04/07)
 - `src/auth.ts`: senha **scrypt** (salt+hash) + sessão em **cookie HMAC** (`ksess`, 7 dias, HttpOnly). Zero dependência nova; segredo auto-gerado em `.secret` (gitignored).
 - Papéis: `admin` (cockpit completo) vs `client` (só o próprio painel — `/api/overview` filtra no SERVIDOR, não no front).
