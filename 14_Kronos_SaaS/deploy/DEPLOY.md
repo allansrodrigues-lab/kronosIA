@@ -1,5 +1,9 @@
 # Deploy do painel no VPS — 2 blocos pra colar
 
+O painel fica em **https://kronosintelligence.com.br/painel** — no domínio real, com o
+mesmo certificado SSL do site principal, sem precisar de subdomínio/DNS novo (é um
+subcaminho roteado pelo Traefik que já existe no VPS).
+
 O deploy é em 2 passos porque os **segredos não estão no git** (repo público): a chave do
 service account e o `users.json` vão direto do PC do Allan pro VPS via scp.
 
@@ -13,22 +17,41 @@ scp -o IdentitiesOnly=yes -i /tmp/vk "C:/Users/Usuario/OneDrive/Documentos/Claud
 rm -f /tmp/vk
 ```
 
-## Passo 2 — no VPS (Browser Terminal da Hostinger, ou no mesmo ssh): rodar o deploy
+## Passo 2 — rodar/atualizar o deploy
+
+⚠️ **NÃO usar `curl raw.githubusercontent.com/.../deploy.sh | bash`** — esse domínio
+cacheia o arquivo por vários minutos mesmo depois de um `git push` novo (já causou 2
+bugs: um CRLF e um fix de prioridade do Traefik que "não pegava"). Sempre clonar o
+repo e rodar o script a partir do clone:
 
 ```bash
-curl -s https://raw.githubusercontent.com/allansrodrigues-lab/kronosIA/main/14_Kronos_SaaS/deploy/deploy.sh | tr -d '\r' | bash
+cp ~/.ssh/vps_key /tmp/vk && chmod 600 /tmp/vk
+ssh -o IdentitiesOnly=yes -i /tmp/vk root@2.24.101.180 'rm -rf /tmp/kd && git clone --depth 1 https://github.com/allansrodrigues-lab/kronosIA.git /tmp/kd && bash /tmp/kd/14_Kronos_SaaS/deploy/deploy.sh && rm -rf /tmp/kd'
+rm -f /tmp/vk
 ```
-(o `tr -d '\r'` blinda contra quebra de linha do Windows, mesmo se o git escorregar)
 
-Ao final: `DEPLOY_PAINEL_OK`. O painel fica em **http://2.24.101.180:4600** (com a tela de login).
+Ao final: `DEPLOY_PAINEL_OK`. Testar: **https://kronosintelligence.com.br/painel**
+
+## Como funciona por baixo (pra quando precisar debugar)
+- O container `kronos-painel` roda **sem porta publicada ao host** — só é alcançável
+  via Traefik, que já roteia o site principal. Ele entra na mesma rede docker
+  (`kronos-site_default`) e ganha labels de Traefik dizendo "responda por
+  `kronosintelligence.com.br/painel`, reaproveite o certificado SSL que já existe,
+  e me dê PRIORIDADE ALTA" (sem isso, o router do site principal — mais genérico —
+  ganha e devolve 404).
+- O middleware `stripprefix` tira o `/painel` antes de mandar pro container, então o
+  app dentro dele nem sabe que existe prefixo — ele serve tudo normal em `/`.
+- O front (`index.html`/`login.html`) usa `<base href="/painel/">` pra todos os links
+  e chamadas de API funcionarem certo atrás desse subcaminho.
 
 ## Atualizar depois (novas fatias)
 Só repetir o **Passo 2** — ele re-clona o repo, recompila e resobe o container.
 (Se mudar senha/usuário: regenerar `users.json` local e repetir o scp dele antes.)
 
 ## Notas
-- ⚠️ Se `http://IP:4600` não abrir, liberar a porta 4600 no firewall do painel da Hostinger (VPS → Firewall).
-- 🔒 Por enquanto é HTTP direto na porta (demo com login). Passo futuro (fatia 5): subdomínio
-  `painel.kronosintelligence.com.br` + SSL via Traefik (precisa criar o DNS e conferir o nome real
-  da rede Traefik com `docker network ls` — nunca assumir).
-- O container roda `node:20-alpine` com o código montado em volume — sem imagem própria pra manter simples.
+- Meu (Claude) SSH direto pra produção é bloqueado pelo classificador de segurança do
+  Claude Code **na maioria das vezes** — quando isso acontecer, é só o Allan colar o
+  mesmo bloco no próprio Git Bash.
+- Testar `localhost:4600` direto (sem passar pelo Traefik) vai dar tela em branco/404
+  de assets — isso é esperado, porque o front assume o prefixo `/painel`. Testar
+  sempre pela URL de produção, ou só a API via curl localmente.
