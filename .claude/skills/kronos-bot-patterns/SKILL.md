@@ -86,6 +86,17 @@ Nunca adicionar Error Trigger individualmente em cada workflow. O padrão Kronos
 
 **Gotcha:** workflows com nó `Call '03-bia-ref'` (jNvIB83x2sWWbkW1 — arquivado) bloqueiam republish. Remover o nó antes de qualquer update de settings: `{ type: "removeNode", name: "Call '03-bia-ref'" }`.
 
+## 10. Adicionar uma intent nova a um orquestrador existente (via MCP, sem restart)
+Padrão validado 03-04/07 (parecer científico plugado no Odonto replicando o que já existia na Aurora).
+Uma ÚNICA chamada `mcp__n8n__n8n_update_partial_workflow` com `operations` atômicas — não precisa reescrever o workflow, nem restart do container (a ativação via MCP registra a versão publicada na hora):
+1. **`patchNodeField`** no nó "Parsear Intent" (Code) — find/replace no array `validos` do jsCode pra incluir a intent nova.
+2. **`patchNodeField`** no nó "Montar Prompt Haiku" (Code) — find/replace no systemPrompt pra adicionar a definição da intent na lista `INTENÇÕES DISPONÍVEIS` (definição ESTREITA — dizer explicitamente o que NÃO é essa intent, senão o Haiku classifica errado por excesso de zelo).
+3. **`addNode`** dos nós novos: 1 IF (`Intent e <Nome>?`, condição `{{ $json.intent }}` equals `<INTENT>`) + os nós de ação (ex.: 2 httpRequest — avisa o cliente + dispara o serviço).
+4. **`rewireConnection`** — pegar a conexão FALSE de onde a rota cai hoje (ex.: `Intent e Agendar?` false → `Chamar Clara`) e apontar pro IF novo; dele, `branch:"true"` → ação, `branch:"false"` → o destino antigo (`Chamar Clara`).
+⚠️ **SEMPRE usar `branch:"true"/"false"`, nunca `sourceIndex`** — usar o mesmo `sourceIndex` em duas conexões de um IF manda as duas pro MESMO braço (quebra a lógica sem erro nenhum).
+**Antes de escrever as operations:** buscar `n8n_get_workflow(mode:"full")` de um workflow IRMÃO que já tem a intent (ex.: a Aurora tem parecer, a Advocacia tem outro padrão) — copiar a estrutura exata dos nós de lá em vez de inventar do zero.
+**Depois:** `n8n_validate_workflow` (esperar `errorCount:0`) e testar com um payload webhook simulado (`5500TEST*`) — checar via `n8n_executions` que a intent nova classificou certo E que a rota antiga (o "OUTRO"/fallback) não regrediu.
+
 ## 8. Checklist novo cliente (resumo operacional)
 1. Instância Evolution própria + planilha própria (regra-mãe: blindar a base).
 2. Clonar workflows; conferir TODOS os pontos 1–7 acima no clone.
