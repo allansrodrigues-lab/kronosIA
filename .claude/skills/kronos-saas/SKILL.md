@@ -50,8 +50,16 @@ e `services` (o que aparece com liga/desliga). Não precisa mexer em código; re
 - Rotas: `POST /api/login` `{user,pass}` · `POST /api/logout` · `GET /api/me`. Front redireciona pra `/login.html` em 401.
 - Trocar senha = gerar novo hash e editar users.json (reinicia o server). Logins de demo criados em 04/07 — perguntar ao Allan antes de recriar.
 
+## Deploy no VPS (NO AR desde 04/07) — http://2.24.101.180:4600
+- Container Docker `kronos-painel` (node:20-alpine, `--restart unless-stopped`, porta 4600 direta — Traefik/SSL fica pra fatia 5).
+- Código em `/opt/kronos-painel/app` · segredos em `/opt/kronos-painel/secrets/` (sa.json + users.json, montados read-only, enviados via scp — NUNCA pelo git).
+- **Atualizar o painel no ar** (o Allan cola no Git Bash; meu ssh de escrita em prod é bloqueado):
+  `ssh -o IdentitiesOnly=yes -i /tmp/vk root@2.24.101.180 "curl -s https://raw.githubusercontent.com/allansrodrigues-lab/kronosIA/main/14_Kronos_SaaS/deploy/deploy.sh | tr -d '\r' | bash"` (antes: `cp ~/.ssh/vps_key /tmp/vk && chmod 600 /tmp/vk`).
+- Guia completo: `14_Kronos_SaaS/deploy/DEPLOY.md`. ⚠️ CRLF quebrava o `| bash` → `.gitattributes` força LF em *.sh e o one-liner tem `tr -d '\r'`.
+- Logs no VPS: `docker logs kronos-painel` · derrubar/resubir: `docker rm -f kronos-painel` + rodar o deploy de novo.
+
 ## Fatias (roadmap — cada uma demonstrável sozinha)
-1. ✅ Mockup (04/07) · 2. ✅ **Tela real com KPIs do Sheets (04/07)** · 3. ✅ **Login + visão por papel (04/07)** ·
-4. ⏭️ Multi-cliente formal (a config já é multi-tenant) · 5. Billing (Mercado Pago assinatura → ativa/suspende sozinho) + deploy VPS.
+1. ✅ Mockup (04/07) · 2. ✅ **Tela real com KPIs do Sheets (04/07)** · 3. ✅ **Login + visão por papel (04/07)** · 3b. ✅ **DEPLOY NO VPS (04/07)** ·
+4. ⏭️ Multi-cliente formal (a config já é multi-tenant) · 5. Billing (Mercado Pago assinatura → ativa/suspende sozinho) + subdomínio painel.* com SSL via Traefik.
 
 Relacionado: memória `kronos-dashboard-saas` (visão/decisões), `14_Kronos_SaaS/README.md` (planta), skill `kronos-mcp` (ler o CRM via MCP pra conferir os números).
