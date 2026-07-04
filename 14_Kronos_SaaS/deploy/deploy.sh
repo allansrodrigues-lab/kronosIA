@@ -35,7 +35,7 @@ docker run -d --name kronos-painel --restart unless-stopped \
   --label "traefik.http.routers.kronos-painel.rule=Host(\`kronosintelligence.com.br\`) && PathPrefix(\`/painel\`)" \
   --label "traefik.http.routers.kronos-painel.entrypoints=websecure" \
   --label "traefik.http.routers.kronos-painel.tls.certresolver=letsencrypt" \
-  --label "traefik.http.routers.kronos-painel.priority=20" \
+  --label "traefik.http.routers.kronos-painel.priority=1000" \
   --label "traefik.http.routers.kronos-painel.middlewares=kronos-painel-strip" \
   --label "traefik.http.middlewares.kronos-painel-strip.stripprefix.prefixes=/painel" \
   --label "traefik.http.services.kronos-painel.loadbalancer.server.port=4600" \
