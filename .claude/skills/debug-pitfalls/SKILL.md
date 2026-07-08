@@ -147,3 +147,29 @@ docker restart n8n-xve0-n8n-1
 ```
 
 **Verificar:** Repetir o comando detect acima — todos os IDs críticos devem mostrar `✓`.
+
+---
+
+## 7. `[Errno 10054]` / connection reset — MCP google-sheets e SSH (não é bug seu)
+
+**O que acontece:** `mcp__google-sheets__*` ou `ssh` pro VPS retornam `[Errno 10054] Foi forçado o cancelamento de uma conexão existente pelo host remoto` (ou `client_loop: send disconnect: Connection reset by peer`) no meio de uma chamada que estava funcionando segundos antes.
+
+**Detectar:** o mesmo comando, repetido sem mudar nada, funciona na tentativa seguinte (1-2 retries). Se um spreadsheet/host novo nunca funcionou nenhuma vez, aí sim é permissão real (ver item abaixo), não instabilidade de rede.
+
+**Fix:** simplesmente tentar de novo (1-3x). Não é sinal de erro de lógica, config ou permissão — é instabilidade de rede local/transitória observada repetidamente em 05/07 em ambas as ferramentas.
+
+**Não confundir com 403 de permissão real:** planilha recém-criada sem compartilhamento com a service account (`kronos-n8n@kronos-ia-498605.iam.gserviceaccount.com`) dá `HttpError 403 "The caller does not have permission"` — isso NÃO se resolve com retry, precisa o Allan compartilhar (ver skill de setup do MCP / memória `mcp-n8n-sheets-setup`). Conferir quem tem acesso via `get_file_permissions` do conector do Drive antes de insistir tentando o MCP às cegas.
+
+---
+
+## 8. `patchNodeField` falha em nó com config incompleta/quebrada
+
+**O que acontece:** `n8n_update_partial_workflow` com `patchNodeField` em `parameters.documentId.value` retorna `"property does not exist on node"` — mesmo o nó sendo um Google Sheets normal.
+
+**Causa real:** o nó já estava com config incompleta ANTES da sua tentativa (ex: faltando `documentId`/`sheetName` inteiro, ou usando `sheetName` por `gid` numérico em vez de nome). `patchNodeField` só faz find/replace num campo que já existe — não cria campo novo.
+
+**Detectar:** `n8n_get_workflow` (mode `full`) no nó específico e olhar o `parameters` cru — se faltar `documentId`/`sheetName` ou algo estiver com valor estranho (número solto em vez de objeto `{__rl,value,mode}`), a config já estava quebrada antes de você mexer (achado real: `05-pos-venda-diana` tinha 3 nós assim, provavelmente quebrados desde a criação — ver memória `separacao-planilhas-nichos`).
+
+**Fix:** usar `updateNode` com `updates` em notação de ponto pra reconstruir o campo inteiro (ex: `{"parameters.documentId": {"__rl": true, "value": "...", "mode": "id"}, "parameters.sheetName": {"__rl": true, "value": "NomeDaAba", "mode": "name"}}`), usando `sheetName` por NOME (não gid — mais robusto e legível). Comparar com um nó irmão que já funciona (ex: outro "Buscar Sessão X" no mesmo workflow) pra saber o formato correto.
+
+**Verificar:** `n8n_validate_workflow` depois — `errorCount:0` (os avisos de `cachedResultName` ausente são cosméticos, não bloqueiam).

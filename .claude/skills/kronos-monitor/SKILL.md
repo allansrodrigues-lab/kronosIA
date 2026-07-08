@@ -33,7 +33,7 @@ Cron 30min
 
 ## Aba Log_Monitoramento
 
-Sheet ID: `1ZlDFYkgx6aXUM0ayj1e1_K6uX0cruo7VuCcmg1_w5ps`
+**Atualizado 05/07:** Sheet ID `1tOXVM8frTwxbhCR1Gmb2dyPFNks8INCNSKWeg9t1UK4` (CRM Interno — migrou da planilha compartilhada, ver skill de separação de planilhas / memória `separacao-planilhas-nichos`).
 Colunas: `Timestamp | Workflow | Ultimo_No | Tipo_Erro | Mensagem | Exec_ID | Status`
 
 Tipos de erro diagnosticados automaticamente:
@@ -93,9 +93,17 @@ Erros detectados: N
 Verifique o n8n.
 ```
 
-## Fase 2 (futura): auto-fix
+## Self-heal v2 (implementado 05/07) — teste horário + auto-fix limitado
 
-Quando um erro for do tipo `AUTH_401` detectado pelo monitor:
-1. Verificar se a API key no n8n ainda é válida (GET /api/v1/credentials)
-2. Se não for → escalar com instrução específica para o Allan
-Não implementar auto-fix de workflow (muito arriscado sem testes).
+Camada nova em cima da existente (não substitui, não duplica alerta):
+
+- **`selfheal.py`** no VPS (`/docker/test-harness/selfheal.py`, fonte `07_Recursos/test_harness/selfheal.py`), cron `0 * * * *`. Roda a suite de 13 testes (skill `test-harness`); se passar, não faz nada.
+- Se falhar, tenta **NO MÁXIMO 1 fix seguro** (nunca edita código de nó, nunca mexe fora dos 2 workflows monitorados):
+  - Container `n8n-xve0-n8n-1` parado → `docker restart`.
+  - Workflow monitorado (Aurora `Orq01RouterV2aa1` / Odonto `01-orquestrador-odonto`) desativado → reativa via API.
+  - Qualquer outra causa (401, cache, bug de prompt) → **não tenta corrigir sozinho**, só diagnostica.
+- Roda a suite de novo uma vez. Se voltou a passar → loga `Status=AUTO-CORRIGIDO` (silencioso, não alerta). Se continua falhando → loga `Status=ERRO` via o workflow **`kronos-selfheal-ingest`** (`gwISohwPawZPhPj5`, webhook `/webhook/selfheal-log`) na mesma planilha `Log_Monitoramento` — o `kronos-monitor-selfhealing` (30min, já existia) detecta e alerta sozinho, sem lógica de notificação nova.
+- Decisão deliberada de escopo (pedido original era "corrigir qualquer causa raiz até ficar verde"): reduzido pra só 2 fixes bem entendidos e reversíveis. Auto-editar workflow publicado sem revisão humana tem risco real de quebra silenciosa.
+- **Não testado no caminho de falha real** (só o caminho feliz, 13/13 verde). Se aparecer `Status=ERRO` do Test-Harness na planilha, conferir se o diagnóstico fez sentido antes de confiar cegamente.
+
+Detalhe completo: memória `monitor-pattern-kronos` (seção "Self-healing v2").
