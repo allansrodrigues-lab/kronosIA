@@ -10,3 +10,7 @@
 
 # Temporários
 .tmp_img/
+
+# Dependências Node/npm (recriáveis com `npm install` — nunca commitar)
+node_modules/
+**/node_modules/
