@@ -1,0 +1,27 @@
+{
+  "name": "13_aprendizado_ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "nodes": [
+      "dist/BuscarCep.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.1",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "n8n-workflow": "^2.16.0",
+    "undici": "^8.5.0"
+  }
+}
