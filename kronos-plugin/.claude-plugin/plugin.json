@@ -1,0 +1,6 @@
+{
+  "name": "kronos-intelligence",
+  "version": "1.0.0",
+  "description": "Skills da operação Kronos Intelligence: deploy VPS, edição/criação de workflows n8n, debug de bots WhatsApp, MCPs e padrões de agentes.",
+  "author": { "name": "Allan Rodrigues" }
+}
