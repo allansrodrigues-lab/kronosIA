@@ -1,18 +1,19 @@
-# Políticas e Informações Operacionais — Pizzaria Santa Ana
+# Políticas e Informações Operacionais — Pizzaria Bella Massa
 
 ## FUNCIONAMENTO
 
 - **Horário:** 18h00 às 23h55 — todos os dias
-- **Endereço:** Rua Sérgio Cozer, 260 — Jd. Marajoara, Pedreira/SP — CEP 13920-000
+- **Endereço:** Av. Itália, 1200 — Centro/SP — CEP 13000-000
 - **Telefone:** (19) 98289-4384 / (19) 98123-57 / (19) 97104-0664
 
 ---
 
 ## ENTREGA E RETIRADA
 
-- **Retirada no local:** sem taxa adicional
-- **Entrega:** confirmar área de entrega e taxa com o atendente humano (não definido no sistema ainda)
+- **Retirada no local:** sem taxa adicional — cliente busca na Av. Itália, 1200
+- **Entrega:** taxa fixa de **R$ 6,00**, somada ao total do pedido
 - **Tempo estimado:** informar ao cliente que o atendente confirmará o tempo ao finalizar o pedido
+- Ana deve sempre perguntar: **"É para entrega (taxa R$ 6) ou retirada no local?"**
 
 ---
 
@@ -44,7 +45,7 @@ Se o cliente mandar mensagem antes das 18h:
 
 Ana sempre finaliza coletando:
 1. Itens + sabores + bordas
-2. Entrega ou retirada (se entrega → endereço)
+2. Entrega (endereço + taxa R$ 6 no total) ou retirada no local
 3. Forma de pagamento (coletar preferência, humano confirma)
 4. Resumo completo com total
 

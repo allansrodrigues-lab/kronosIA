@@ -1,0 +1,262 @@
+{
+  "name": "01-orquestrador-santaana",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp-santaana",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "wh-sa-001",
+      "name": "Webhook WhatsApp",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [100, 300],
+      "webhookId": "whatsapp-santaana-main"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body ?? $input.first().json;\n\nif (body.data?.key?.fromMe === true) return [];\nif (body.event !== 'messages.upsert') return [];\n\nconst data = body.data;\nconst remoteJid = data.key?.remoteJid;\nif (!remoteJid) return [];\nif (remoteJid.endsWith('@g.us')) return [];\n\nconst telefone = remoteJid.replace('@s.whatsapp.net', '');\n\nlet texto = '';\nlet tipoMensagem = data.messageType ?? 'unknown';\n\nif (data.message?.conversation) {\n  texto = data.message.conversation;\n} else if (data.message?.extendedTextMessage?.text) {\n  texto = data.message.extendedTextMessage.text;\n} else if (data.message?.imageMessage?.caption) {\n  texto = data.message.imageMessage.caption;\n  tipoMensagem = 'imagem';\n} else if (data.message?.audioMessage) {\n  tipoMensagem = 'audio';\n  texto = '[áudio]';\n} else {\n  return [];\n}\n\nif (!texto.trim()) return [];\n\nreturn [{\n  json: {\n    telefone,\n    nome: data.pushName ?? 'Cliente',\n    texto: texto.trim(),\n    tipoMensagem,\n    messageId: data.key?.id ?? '',\n    timestamp: data.messageTimestamp ?? Math.floor(Date.now() / 1000),\n    instancia: body.instance ?? 'santaana',\n    remoteJid\n  }\n}];"
+      },
+      "id": "code-sa-001",
+      "name": "Normalizar Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [320, 300]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentId": { "mode": "expression", "value": "={{ $env.GOOGLE_SHEETS_CRM_ID_SANTAANA }}" },
+        "sheetName": { "mode": "name", "value": "Sessoes_Ativas" },
+        "filtersUI": {
+          "values": [{ "lookupColumn": "Telefone", "lookupValue": "={{ $json.telefone }}" }]
+        },
+        "options": { "returnFirstMatch": true }
+      },
+      "id": "sheets-sa-001",
+      "name": "Buscar Sessão Ativa",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [540, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const payload = $('Normalizar Payload').first().json;\nconst sessaoRow = $input.first().json;\n\n// Sessão ativa com Ana?\nconst temSessao = sessaoRow?.Telefone && sessaoRow?.Agente === 'ANA' && sessaoRow?.Status === 'ativa';\nconst carrinhoJson = sessaoRow?.Dado_Temp ?? '{}';\n\nreturn [{\n  json: {\n    ...payload,\n    temSessaoAna: temSessao,\n    carrinho: carrinhoJson,\n    historico: sessaoRow?.Historico ?? ''\n  }\n}];"
+      },
+      "id": "code-sa-002",
+      "name": "Decidir Rota",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [760, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": false, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{ "leftValue": "={{ $json.temSessaoAna }}", "rightValue": true, "operator": { "type": "boolean", "operation": "true" } }],
+          "combinator": "and"
+        }
+      },
+      "id": "if-sa-001",
+      "name": "Sessão Ana Ativa?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [980, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { telefone, nome, texto, tipoMensagem, remoteJid, instancia, timestamp, messageId } = $input.first().json;\n\nconst systemPrompt = `Você é um classificador de intenções para uma pizzaria.\nAnalise a mensagem do cliente e retorne APENAS um JSON com o intent.\n\nINTENTS DISPONÍVEIS:\n- FAZER_PEDIDO: cliente quer pedir, escolher sabor, montar pedido\n- VER_CARDAPIO: quer ver o cardápio, sabores disponíveis\n- VER_COMBO: pergunta sobre combos ou promoções\n- RASTREAR_PEDIDO: quer saber onde está o pedido, tempo de entrega\n- PRECO: pergunta de preço sem intenção clara de pedir ainda\n- HORARIO_ENTREGA: pergunta se está aberto, horário, endereço\n- RECLAMACAO: reclamação sobre pedido anterior, atendimento ou produto\n- OUTRO: qualquer coisa que não se encaixa acima\n\nMENSAGEM: \"${texto}\"\n\nResponda APENAS:\n{\"intent\": \"INTENT_AQUI\"}`;\n\nreturn [{\n  json: {\n    telefone, nome, texto, tipoMensagem, remoteJid, instancia, timestamp, messageId,\n    anthropicBody: {\n      model: 'claude-haiku-4-5-20251001',\n      max_tokens: 100,\n      messages: [{ role: 'user', content: systemPrompt }]\n    }\n  }\n}];"
+      },
+      "id": "code-sa-003",
+      "name": "Montar Prompt Haiku",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 420]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $env.ANTHROPIC_API_KEY }}" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.anthropicBody }}",
+        "options": { "timeout": 30000 }
+      },
+      "id": "http-sa-001",
+      "name": "Claude Haiku — Classificar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1420, 420],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst ctx = $('Montar Prompt Haiku').first().json;\n\nif (input.error || !input.content) {\n  return [{ json: { ...ctx, intent: 'OUTRO' } }];\n}\n\nconst rawText = input.content?.[0]?.text ?? '{}';\nlet parsed;\ntry {\n  parsed = JSON.parse(rawText.replace(/```json?/g, '').replace(/```/g, '').trim());\n} catch(e) {\n  parsed = { intent: 'OUTRO' };\n}\n\nconst validos = ['FAZER_PEDIDO','VER_CARDAPIO','VER_COMBO','RASTREAR_PEDIDO','PRECO','HORARIO_ENTREGA','RECLAMACAO','OUTRO'];\nif (!validos.includes(parsed.intent)) parsed.intent = 'OUTRO';\n\nreturn [{ json: { ...ctx, intent: parsed.intent } }];"
+      },
+      "id": "code-sa-004",
+      "name": "Parsear Intent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1640, 420]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": false },
+          "conditions": [
+            { "leftValue": "={{ $json.intent }}", "rightValue": "HORARIO_ENTREGA", "operator": { "type": "string", "operation": "equals" } }
+          ],
+          "combinator": "or"
+        }
+      },
+      "id": "if-sa-002",
+      "name": "É Horário/Endereço?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1860, 420]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": false },
+          "conditions": [
+            { "leftValue": "={{ $json.intent }}", "rightValue": "RECLAMACAO", "operator": { "type": "string", "operation": "equals" } },
+            { "leftValue": "={{ $json.intent }}", "rightValue": "RASTREAR_PEDIDO", "operator": { "type": "string", "operation": "equals" } }
+          ],
+          "combinator": "or"
+        }
+      },
+      "id": "if-sa-003",
+      "name": "Escalar?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1860, 600]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ctx = $input.first().json;\nreturn [{\n  json: {\n    ...ctx,\n    mensagemParaCliente: 'Estamos abertos das 18h às 23h55, todos os dias! 🍕\\nEndereço: Av. Itália, 1200 — Centro/SP\\n\\nPosso já anotar seu pedido?'\n  }\n}];"
+      },
+      "id": "code-sa-005",
+      "name": "Montar Resposta Horário",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2080, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ctx = $input.first().json;\nconst motivo = ctx.intent === 'RECLAMACAO' ? 'reclamação' : 'rastreamento de pedido';\nreturn [{\n  json: {\n    ...ctx,\n    mensagemParaCliente: `Vou acionar nossa equipe agora! Um momento. 🍕`,\n    mensagemEquipe: `⚠️ *${motivo.toUpperCase()}*\\nCliente: ${ctx.nome} (${ctx.telefone})\\nMensagem: ${ctx.texto}`\n  }\n}];"
+      },
+      "id": "code-sa-006",
+      "name": "Montar Escalação",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2080, 600]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE_SANTAANA }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [{ "name": "apikey", "value": "={{ $env.EVO_API_KEY }}" }]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number\": \"{{ $json.remoteJid }}\",\n  \"text\": \"{{ $json.mensagemParaCliente }}\"\n}",
+        "options": {}
+      },
+      "id": "http-sa-002",
+      "name": "Enviar WhatsApp Cliente",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2300, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE_SANTAANA }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [{ "name": "apikey", "value": "={{ $env.EVO_API_KEY }}" }]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number\": \"{{ $env.EVO_TEAM_NUMBER_SANTAANA }}\",\n  \"text\": \"{{ $json.mensagemEquipe }}\"\n}",
+        "options": {}
+      },
+      "id": "http-sa-003",
+      "name": "Alertar Equipe",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2300, 600]
+    },
+    {
+      "parameters": {
+        "workflowId": { "mode": "expression", "value": "02-agente-pedido-santaana" },
+        "options": {}
+      },
+      "id": "exec-sa-001",
+      "name": "Chamar Ana",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1,
+      "position": [1200, 180]
+    }
+  ],
+  "connections": {
+    "Webhook WhatsApp": { "main": [[{ "node": "Normalizar Payload", "type": "main", "index": 0 }]] },
+    "Normalizar Payload": { "main": [[{ "node": "Buscar Sessão Ativa", "type": "main", "index": 0 }]] },
+    "Buscar Sessão Ativa": { "main": [[{ "node": "Decidir Rota", "type": "main", "index": 0 }]] },
+    "Decidir Rota": { "main": [[{ "node": "Sessão Ana Ativa?", "type": "main", "index": 0 }]] },
+    "Sessão Ana Ativa?": {
+      "main": [
+        [{ "node": "Chamar Ana", "type": "main", "index": 0 }],
+        [{ "node": "Montar Prompt Haiku", "type": "main", "index": 0 }]
+      ]
+    },
+    "Montar Prompt Haiku": { "main": [[{ "node": "Claude Haiku — Classificar", "type": "main", "index": 0 }]] },
+    "Claude Haiku — Classificar": { "main": [[{ "node": "Parsear Intent", "type": "main", "index": 0 }]] },
+    "Parsear Intent": {
+      "main": [[
+        { "node": "É Horário/Endereço?", "type": "main", "index": 0 },
+        { "node": "Escalar?", "type": "main", "index": 0 }
+      ]]
+    },
+    "É Horário/Endereço?": {
+      "main": [
+        [{ "node": "Montar Resposta Horário", "type": "main", "index": 0 }],
+        [{ "node": "Chamar Ana", "type": "main", "index": 0 }]
+      ]
+    },
+    "Escalar?": {
+      "main": [
+        [{ "node": "Montar Escalação", "type": "main", "index": 0 }],
+        [{ "node": "Chamar Ana", "type": "main", "index": 0 }]
+      ]
+    },
+    "Montar Resposta Horário": { "main": [[{ "node": "Enviar WhatsApp Cliente", "type": "main", "index": 0 }]] },
+    "Montar Escalação": {
+      "main": [[
+        { "node": "Enviar WhatsApp Cliente", "type": "main", "index": 0 },
+        { "node": "Alertar Equipe", "type": "main", "index": 0 }
+      ]]
+    }
+  },
+  "pinData": {},
+  "settings": { "executionOrder": "v1" },
+  "staticData": null,
+  "tags": [{ "name": "santaana" }, { "name": "pizzaria" }],
+  "triggerCount": 1,
+  "updatedAt": "2026-06-14T00:00:00.000Z",
+  "versionId": "sa-orq-v1"
+}

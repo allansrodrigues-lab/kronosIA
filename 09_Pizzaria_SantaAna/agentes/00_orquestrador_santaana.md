@@ -1,4 +1,4 @@
-# Orquestrador — Pizzaria Santa Ana
+# Orquestrador — Pizzaria Bella Massa
 
 ## Modelo: Claude Haiku (claude-haiku-4-5-20251001)
 
@@ -49,7 +49,7 @@ Responda APENAS:
 
 ```
 Estamos abertos das 18h às 23h55, todos os dias! 🍕
-Endereço: Rua Sérgio Cozer, 260 — Jd. Marajoara, Pedreira/SP
+Endereço: Av. Itália, 1200 — Centro/SP
 Fone: (19) 98289-4384
 
 Posso já anotar seu pedido?
@@ -91,5 +91,5 @@ EVO_BASE_URL
 EVO_API_KEY
 EVO_INSTANCE         = instancia_santaana (criar quando tiver o número)
 EVO_TEAM_NUMBER      = número do grupo da equipe (para receber pedidos)
-GOOGLE_SHEETS_CRM_ID = planilha exclusiva da Santa Ana
+GOOGLE_SHEETS_CRM_ID = planilha exclusiva da Bella Massa
 ```

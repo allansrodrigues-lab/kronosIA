@@ -1,0 +1,38 @@
+<svg width="680" height="680" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+<style>@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Oswald:wght@500;600&display=swap');
+.nm{font-family:'Dancing Script',cursive;fill:#9c1d1d;font-weight:700;}
+.bn{font-family:'Oswald',sans-serif;fill:#f6edd9;font-weight:600;letter-spacing:3px;}
+.ct{font-family:'Oswald',sans-serif;fill:#7c1e1e;font-weight:500;letter-spacing:2px;}</style>
+<circle cx="340" cy="340" r="320" fill="#f6edd9" stroke="#7c1e1e" stroke-width="16"/>
+<circle cx="340" cy="340" r="300" fill="none" stroke="#7c1e1e" stroke-width="3"/>
+<path id="topArc3" d="M 160 196 A 226 226 0 0 1 520 196" fill="none"/>
+<text class="nm" font-size="70"><textPath href="#topArc3" startOffset="50%" text-anchor="middle">Bella Massa</textPath></text>
+<g transform="translate(340,342)">
+  <g fill="#f4b44e">
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(0)"/>
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(30)"/>
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(60)"/>
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(90)"/>
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(120)"/>
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(150)"/>
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(180)"/>
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(210)"/>
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(240)"/>
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(270)"/>
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(300)"/>
+    <polygon points="-9,-64 9,-64 0,-138" transform="rotate(330)"/>
+  </g>
+  <circle cx="0" cy="0" r="108" fill="#f8d98a"/>
+  <ellipse cx="44" cy="6" rx="18" ry="9" fill="#3c7d3a" transform="rotate(28 44 6)"/>
+  <ellipse cx="-46" cy="26" rx="18" ry="9" fill="#3c7d3a" transform="rotate(-22 -46 26)"/>
+  <path d="M -74 -48 L 74 -48 L 0 110 Z" fill="#f1c44d" stroke="#d98b41" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M -80 -52 Q 0 -82 80 -52" fill="none" stroke="#d98b41" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="-27" cy="-13" r="12" fill="#c33a2a"/>
+  <circle cx="27" cy="-5" r="12" fill="#c33a2a"/>
+  <circle cx="-4" cy="31" r="11" fill="#c33a2a"/>
+  <circle cx="14" cy="60" r="9" fill="#c33a2a"/>
+</g>
+<path d="M 176 500 L 504 500 L 486 536 L 504 572 L 176 572 L 194 536 Z" fill="#7c1e1e"/>
+<text x="340" y="547" class="bn" font-size="38" text-anchor="middle">DISK PIZZA</text>
+<text x="340" y="622" class="ct" font-size="25" text-anchor="middle">Pedreira-SP</text>
+</svg>

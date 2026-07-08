@@ -1,4 +1,4 @@
-# Combos e Promoções — Pizzaria Santa Ana
+# Combos e Promoções — Pizzaria Bella Massa
 
 ## COMBO PIZZAS (acompanha refrigerante 2L)
 

@@ -1,4 +1,4 @@
-# Cardápio Completo — Disk Pizza Santa Ana
+# Cardápio Completo — Pizzaria Bella Massa
 
 > Massa artesanal, leve e crocante. Assada no ponto certo. Ingredientes selecionados e de alta qualidade.
 
@@ -132,7 +132,7 @@
 | Provolombo | Mussarela, lombo, palmito, champignon e catupiry | R$54/62 |
 | Romanesca | Mussarela, presunto, champignon, cheddar, cebola e catupiry | R$55/60 |
 | Salame Italiano | Mussarela, salame italiano, parmesão | R$55/60 |
-| Santa Ana | Mussarela, presunto, palmito, mussarela, salame italiano, cebola, tomate e catupiry | R$57/62 |
+| Bella Massa | Mussarela, presunto, palmito, mussarela, salame italiano, cebola, tomate e catupiry | R$57/62 |
 | Troiana | Mussarela, lombo, tomate, cream cheese, cebola e bacon | R$60/68 |
 
 ### Queijos e Vegetarianas (sem carne)

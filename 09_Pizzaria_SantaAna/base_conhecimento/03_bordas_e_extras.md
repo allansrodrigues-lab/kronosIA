@@ -1,4 +1,4 @@
-# Bordas, Refrigerantes e Extras — Pizzaria Santa Ana
+# Bordas, Refrigerantes e Extras — Pizzaria Bella Massa
 
 ## BORDAS
 

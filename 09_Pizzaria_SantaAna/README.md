@@ -1,10 +1,10 @@
-# Pizzaria Santa Ana — Bot de Pedidos WhatsApp
+# Pizzaria Bella Massa — Bot de Pedidos WhatsApp
 
-**Cliente:** Disk Pizza Santa Ana
-**Endereço:** Rua Sérgio Cozer, 260 — Jd. Marajoara, Pedreira/SP — CEP 13920-000
+**Cliente:** Pizzaria Bella Massa
+**Endereço:** Av. Itália, 1200 — Centro/SP — CEP 13000-000
 **WhatsApp:** (19) 98289-4384
 **Horário:** 18h00 – 23h55 (todos os dias)
-**Facebook:** Disk Pizza Santa Ana (3.082 curtidas)
+**Facebook:** Pizzaria Bella Massa (3.082 curtidas)
 
 ---
 

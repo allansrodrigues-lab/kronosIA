@@ -1,0 +1,357 @@
+{
+ "name": "02-agente-pedido-santaana",
+ "nodes": [
+  {
+   "parameters": {},
+   "id": "trigger-sa-001",
+   "name": "Trigger (sub-workflow)",
+   "type": "n8n-nodes-base.executeWorkflowTrigger",
+   "typeVersion": 1,
+   "position": [
+    100,
+    300
+   ]
+  },
+  {
+   "parameters": {
+    "jsCode": "const { telefone, nome, texto, tipoMensagem, remoteJid, instancia, carrinho, historico } = $input.first().json;\n\n// Monta o prompt da Ana com carrinho atual e histórico\nconst carrinhoFormatado = carrinho && carrinho !== '{}' ? carrinho : JSON.stringify({\n  etapa: 'identificando',\n  itens: [],\n  total: 0,\n  tipo_entrega: null,\n  endereco: null,\n  pagamento: null\n});\n\nconst systemPrompt = `Você é Ana, atendente virtual da Pizzaria Bella Massa, Centro/SP.\nHorário de funcionamento: 18h00 às 23h55, todos os dias.\nEndereço: Av. Itália, 1200 — Centro/SP.\n\nSUA MISSÃO: Receber o pedido do cliente, montar o carrinho completo (itens, bordas, extras, endereço, pagamento) e ao final passar para o atendente humano confirmar.\n\n════════════════════════════════════\nCARRINHO ATUAL (JSON da sessão):\n${carrinhoFormatado}\n════════════════════════════════════\n\nHISTÓRICO DA CONVERSA:\n${historico || '(sem histórico anterior)'}\n\n════════════════════════════════════\nCARDÁPIO RESUMIDO\n════════════════════════════════════\n\nPIZZAS PROMOCIONAIS (~R$40-45): Calabresa, Mussarela, 2 Queijos, Alho e Óleo, Milho Verde, Napolitana, Presunto, Hot Dog Catupiry, Escarola, Toscana, Brigadeiro, Toscana Catupiry\n→ Esfiha: ~R$40-45 | Mini Calzone: ~R$15-17\n\nPIZZAS EXCLUSIVAS (~R$47-60): Portuguesa, Frango c/ Catupiry, 4 Queijos, 5 Queijos, Baiana, Caipira, Bacon, Vegetariana, Maravilhosa, Xuxa, Peito de Peru, Alagoana, Calamussa, e +20 sabores\n→ Esfiha: a partir de R$40 | Mini Calzone: a partir de R$15\n\nPIZZAS ESPECIAIS (~R$55-90): Costela (R$80), Picanha (R$85), Cupim Bovino (R$77), Carne Seca Suprema, Pernil, Frango Cremosa, Texana, Calabresa Suprema, Pepperoni Especial, e +40 sabores\n\nPIZZAS PREMIUM (~R$65-90): Big Burguer, Temaki, Carne Seca Suprema, Contra Filé (R$90), Linguiça Toscana, Costela Suprema, Queijo Crocante, CBO, Kinder Bueno, Moranguete e mais\n→ Esfiha: R$16-20 | Calzone: R$21-25\n\nPIZZAS DOCES (~R$45-75): Banana, Nutella, Romeu e Julieta, Brigadeiro, Bem Casado, Ninho dos Deuses, Cheesecake, Oreo, e +15 sabores\n\nCOMBOS PIZZA (com Refri 2L): 1 pizza R$68 | 2 pizzas R$118 | 3 pizzas R$168 | 4 pizzas R$230\nSabores do combo: 3 Queijos, 4 Queijos, Calamussa, Hot Dog, Bacon, Lombo, Peito de Peru, Milho Catupiry, À Moda da Casa, Americana, Mussarela, Baiana, Frango Catupiry, Frango c/ Cheddar, Frango Mussarela, Xuxa, Brócolis, Brigadeiro\n\nCOMBOS ESFIHA: 2+lata R$30 | 4+600ml R$54 | 6+2L R$84 | 10+2L R$125\n\nBORDAS: Requeijão GRÁTIS ⭐ | Sem borda GRÁTIS | Catupiry Original R$15 | Cheddar R$10 | Cream Cheese R$10 | Mussarela R$20 | Frango c/ Catupiry R$20 | Doce de Leite R$15 | Chocolate R$20 | Nutella R$25\n\nREFRIGERANTE (avulso): Lata R$5 aprox | 600ml | 2L — Sabores: Coca, Fanta Laranja, Fanta Uva, Guaraná, Sprite\n\n════════════════════════════════════\nREGRAS OBRIGATÓRIAS\n════════════════════════════════════\n1. NUNCA mande o cardápio inteiro de uma vez — guie por categoria\n2. Pizza MEIA A MEIA: aceito, cobra-se o MAIOR preço entre os dois sabores\n3. Borda de REQUEIJÃO é GRÁTIS — mencione sempre que perguntar a borda\n4. CALZONE FECHADO: qualquer sabor salgado, exceto camarão\n5. LA MIA PIZZA: cliente escolhe até 5 ingredientes (R$60/65)\n6. FORA DO HORÁRIO (antes das 18h): avise e ofereça anotar para quando abrir\n7. NUNCA prometa tempo de entrega — o atendente confirma\n8. NUNCA confirme formas de pagamento — o atendente confirma\n9. Sugira combos quando cliente pedir 1 pizza + refri — é mais barato\n10. Sempre confirme o pedido completo ANTES de finalizar\n\n════════════════════════════════════\nRESPONDA SEMPRE EM JSON VÁLIDO:\n════════════════════════════════════\n{\n  \"mensagem\": \"texto para o cliente (frases curtas, máx 350 chars, 1 emoji)\",\n  \"acao\": \"responder | finalizar_pedido | escalar_humano | encerrar\",\n  \"carrinho\": {\n    \"etapa\": \"identificando | escolhendo_sabor | escolhendo_borda | adicionando_mais | coletando_entrega | coletando_pagamento | confirmando | finalizado\",\n    \"itens\": [{\"tipo\":\"pizza\",\"sabor\":\"nome\",\"metade2\":null,\"borda\":\"requeijao\",\"qtd\":1,\"preco\":0.00}],\n    \"total\": 0.00,\n    \"tipo_entrega\": null,\n    \"endereco\": null,\n    \"pagamento\": null\n  },\n  \"encerrar_sessao\": false\n}`;\n\nreturn [{\n  json: {\n    telefone, nome, texto, tipoMensagem, remoteJid, instancia,\n    carrinhoAtual: carrinhoFormatado,\n    historico: historico ?? '',\n    anthropicBody: {\n      model: 'claude-sonnet-4-6',\n      max_tokens: 1024,\n      messages: [\n        { role: 'user', content: systemPrompt + '\\n\\nMensagem atual do cliente: ' + texto }\n      ]\n    }\n  }\n}];"
+   },
+   "id": "code-sa-010",
+   "name": "Montar Prompt Ana",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    320,
+    300
+   ]
+  },
+  {
+   "parameters": {
+    "method": "POST",
+    "url": "https://api.anthropic.com/v1/messages",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      {
+       "name": "x-api-key",
+       "value": "={{ $env.ANTHROPIC_API_KEY }}"
+      },
+      {
+       "name": "anthropic-version",
+       "value": "2023-06-01"
+      },
+      {
+       "name": "Content-Type",
+       "value": "application/json"
+      }
+     ]
+    },
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ $json.anthropicBody }}",
+    "options": {
+     "timeout": 45000
+    }
+   },
+   "id": "http-sa-010",
+   "name": "Claude Sonnet — Ana",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    540,
+    300
+   ],
+   "onError": "continueRegularOutput"
+  },
+  {
+   "parameters": {
+    "jsCode": "const input = $input.first().json;\nconst ctx = $('Montar Prompt Ana').first().json;\n\nif (input.error || !input.content) {\n  return [{\n    json: {\n      ...ctx,\n      mensagem: 'Oi! Tive uma instabilidade aqui. Pode repetir seu pedido? 🍕',\n      acao: 'responder',\n      carrinho: JSON.parse(ctx.carrinhoAtual ?? '{}'),\n      encerrar_sessao: false\n    }\n  }];\n}\n\nconst rawText = input.content?.[0]?.text ?? '{}';\nlet parsed;\ntry {\n  const cleaned = rawText.replace(/```json?/g, '').replace(/```/g, '').trim();\n  parsed = JSON.parse(cleaned);\n} catch(e) {\n  parsed = {\n    mensagem: 'Desculpe, tive um probleminha! Pode repetir? 🍕',\n    acao: 'responder',\n    carrinho: JSON.parse(ctx.carrinhoAtual ?? '{}'),\n    encerrar_sessao: false\n  };\n}\n\nconst acoesValidas = ['responder','finalizar_pedido','escalar_humano','encerrar'];\nif (!acoesValidas.includes(parsed.acao)) parsed.acao = 'responder';\n\nreturn [{\n  json: {\n    ...ctx,\n    mensagem: parsed.mensagem,\n    acao: parsed.acao,\n    carrinho: parsed.carrinho ?? JSON.parse(ctx.carrinhoAtual ?? '{}'),\n    encerrar_sessao: parsed.encerrar_sessao ?? false\n  }\n}];"
+   },
+   "id": "code-sa-011",
+   "name": "Parsear Resposta Ana",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    760,
+    300
+   ]
+  },
+  {
+   "parameters": {
+    "method": "POST",
+    "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE_SANTAANA }}",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      {
+       "name": "apikey",
+       "value": "={{ $env.EVO_API_KEY }}"
+      }
+     ]
+    },
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={\n  \"number\": \"{{ $json.remoteJid }}\",\n  \"text\": \"{{ $json.mensagem }}\"\n}",
+    "options": {}
+   },
+   "id": "http-sa-011",
+   "name": "Responder Cliente",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    980,
+    300
+   ]
+  },
+  {
+   "parameters": {
+    "jsCode": "const { telefone, nome, carrinho, historico, texto, mensagem, acao, encerrar_sessao } = $input.first().json;\n\nconst novoHistorico = (historico + `\\nCliente: ${texto}\\nAna: ${mensagem}`).slice(-3000);\nconst status = (acao === 'encerrar' || encerrar_sessao) ? 'encerrada' : 'ativa';\n\nreturn [{\n  json: {\n    telefone, nome, acao, encerrar_sessao,\n    status,\n    novoHistorico,\n    carrinhoJson: JSON.stringify(carrinho),\n    resumoPedido: acao === 'finalizar_pedido' ? montarResumoPedido(carrinho, nome, telefone) : ''\n  }\n}];\n\nfunction montarResumoPedido(c, nome, tel) {\n  if (!c || !c.itens || c.itens.length === 0) return `🍕 Pedido de ${nome} (${tel}) — carrinho vazio`;\n  const linhas = c.itens.map(i => {\n    const meia = i.metade2 ? ` / ${i.metade2}` : '';\n    const borda = i.borda ? ` | Borda: ${i.borda}` : '';\n    return `• ${i.qtd}x ${i.sabor}${meia}${borda} — R$${i.preco?.toFixed(2) ?? '?'}`;\n  }).join('\\n');\n  const entrega = c.tipo_entrega === 'entrega' ? `🛵 Entrega: ${c.endereco}` : '🏠 Retirada no local';\n  const pgto = c.pagamento ? `💳 Pagamento: ${c.pagamento}` : '💳 Pagamento: a confirmar';\n  return `🍕 *PEDIDO NOVO*\\nCliente: ${nome} (${tel})\\n\\n${linhas}\\n\\n${entrega}\\n${pgto}\\n💰 Total estimado: R$${(c.total ?? 0).toFixed(2)}`;\n}"
+   },
+   "id": "code-sa-012",
+   "name": "Preparar Atualização Sessão",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    1200,
+    300
+   ]
+  },
+  {
+   "parameters": {
+    "resource": "row",
+    "operation": "upsert",
+    "dataTableId": {
+     "__rl": true,
+     "mode": "id",
+     "value": "k10iXpiDZ8FNY6Gf"
+    },
+    "matchType": "allConditions",
+    "filters": {
+     "conditions": [
+      {
+       "keyName": "telefone",
+       "condition": "eq",
+       "keyValue": "={{ $json.telefone }}"
+      }
+     ]
+    },
+    "columns": {
+     "mappingMode": "defineBelow",
+     "matchingColumns": [
+      "telefone"
+     ],
+     "schema": [
+      {
+       "id": "telefone",
+       "displayName": "telefone",
+       "type": "string",
+       "canBeUsedToMatch": true,
+       "display": true,
+       "required": false
+      },
+      {
+       "id": "fase",
+       "displayName": "fase",
+       "type": "string",
+       "canBeUsedToMatch": true,
+       "display": true,
+       "required": false
+      },
+      {
+       "id": "historico",
+       "displayName": "historico",
+       "type": "string",
+       "canBeUsedToMatch": true,
+       "display": true,
+       "required": false
+      },
+      {
+       "id": "carrinho",
+       "displayName": "carrinho",
+       "type": "string",
+       "canBeUsedToMatch": true,
+       "display": true,
+       "required": false
+      },
+      {
+       "id": "atualizado_em",
+       "displayName": "atualizado_em",
+       "type": "string",
+       "canBeUsedToMatch": true,
+       "display": true,
+       "required": false
+      }
+     ],
+     "value": {
+      "telefone": "={{ $json.telefone }}",
+      "fase": "={{ $json.status }}",
+      "historico": "={{ $json.novoHistorico }}",
+      "carrinho": "={{ $json.carrinhoJson }}",
+      "atualizado_em": "={{ new Date().toISOString() }}"
+     }
+    },
+    "options": {}
+   },
+   "id": "sheets-sa-010",
+   "name": "Atualizar Sessão",
+   "type": "n8n-nodes-base.dataTable",
+   "typeVersion": 1.1,
+   "position": [
+    1420,
+    180
+   ]
+  },
+  {
+   "parameters": {
+    "conditions": {
+     "conditions": [
+      {
+       "leftValue": "={{ $json.acao }}",
+       "rightValue": "finalizar_pedido",
+       "operator": {
+        "type": "string",
+        "operation": "equals"
+       }
+      }
+     ]
+    }
+   },
+   "id": "if-sa-010",
+   "name": "Finalizar Pedido?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2,
+   "position": [
+    1640,
+    300
+   ]
+  },
+  {
+   "parameters": {
+    "method": "POST",
+    "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE_SANTAANA }}",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      {
+       "name": "apikey",
+       "value": "={{ $env.EVO_API_KEY }}"
+      }
+     ]
+    },
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={\n  \"number\": \"{{ $env.EVO_TEAM_NUMBER_SANTAANA }}\",\n  \"text\": \"{{ $json.resumoPedido }}\"\n}",
+    "options": {}
+   },
+   "id": "http-sa-012",
+   "name": "Enviar Pedido para Equipe",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    1860,
+    180
+   ]
+  }
+ ],
+ "connections": {
+  "Trigger (sub-workflow)": {
+   "main": [
+    [
+     {
+      "node": "Montar Prompt Ana",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Montar Prompt Ana": {
+   "main": [
+    [
+     {
+      "node": "Claude Sonnet — Ana",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Claude Sonnet — Ana": {
+   "main": [
+    [
+     {
+      "node": "Parsear Resposta Ana",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Parsear Resposta Ana": {
+   "main": [
+    [
+     {
+      "node": "Responder Cliente",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Responder Cliente": {
+   "main": [
+    [
+     {
+      "node": "Preparar Atualização Sessão",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Preparar Atualização Sessão": {
+   "main": [
+    [
+     {
+      "node": "Atualizar Sessão",
+      "type": "main",
+      "index": 0
+     },
+     {
+      "node": "Finalizar Pedido?",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Finalizar Pedido?": {
+   "main": [
+    [
+     {
+      "node": "Enviar Pedido para Equipe",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    []
+   ]
+  }
+ },
+ "pinData": {},
+ "settings": {
+  "executionOrder": "v1"
+ },
+ "staticData": null,
+ "tags": [
+  {
+   "name": "santaana"
+  },
+  {
+   "name": "pizzaria"
+  }
+ ],
+ "triggerCount": 0,
+ "updatedAt": "2026-06-14T00:00:00.000Z",
+ "versionId": "sa-ana-v1"
+}

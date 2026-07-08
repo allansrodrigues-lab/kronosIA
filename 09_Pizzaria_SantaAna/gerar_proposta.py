@@ -17,9 +17,9 @@ import os, math
 # ══════════════════════════════════════════════════════════════════
 # DADOS DO CLIENTE — alterar para cada nova proposta
 # ══════════════════════════════════════════════════════════════════
-CLIENTE_NOME        = "Pizzaria Santa Ana"
+CLIENTE_NOME        = "Pizzaria Bella Massa"
 CLIENTE_PROPRIETARIO = "Lucas"
-CLIENTE_ENDERECO    = "Rua Sergio Cozer, 260 — Jd. Marajoara, Pedreira/SP"
+CLIENTE_ENDERECO    = "Av. Itália, 1200 — Centro/SP"
 IMPLANTACAO_VALOR   = "R$ 1.760,00"
 MENSALIDADE_VALOR   = "R$ 697,00/mes"
 IMPLANTACAO_DESC    = "Configuracao completa, cardapio, testes e go-live\n(pagamento unico)"
@@ -67,7 +67,7 @@ INCLUSO_MENS = [
     "Manutencao e estabilidade do sistema",
 ]
 ROI_TEXTO = (
-    "Nos horarios de pico, uma pizzaria do porte da Santa Ana pode perder facilmente "
+    "Nos horarios de pico, uma pizzaria do porte da Bella Massa pode perder facilmente "
     "5 a 10 pedidos por noite por demora no atendimento. Considerando um ticket medio "
     "de R$ 65,00, isso representa ate R$ 2.600,00/mes em receita perdida. "
     "O sistema se paga no primeiro mes."
