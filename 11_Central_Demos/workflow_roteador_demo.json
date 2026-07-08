@@ -1,0 +1,89 @@
+{
+ "name": "kronos-roteador-demo",
+ "nodes": [
+  {
+   "parameters": {
+    "httpMethod": "POST",
+    "path": "whatsapp-demo",
+    "responseMode": "onReceived",
+    "options": {}
+   },
+   "id": "wh-rt-001",
+   "name": "Webhook Demo",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 2,
+   "position": [100, 300],
+   "webhookId": "whatsapp-demo-main"
+  },
+  {
+   "parameters": {
+    "jsCode": "const input = $input.first().json;\nconst body = input.body ?? input;\n\nif (body.data?.key?.fromMe === true) return [];\nif (body.event && body.event !== 'messages.upsert') return [];\nconst data = body.data || {};\nconst remoteJid = data.key?.remoteJid;\nif (!remoteJid) return [];\nif (remoteJid.endsWith('@g.us')) return [];\n\nconst telefone = (remoteJid.split('@')[0] || '').replace(/\\D/g, '');\n\nlet texto = '';\nif (data.message?.conversation) texto = data.message.conversation;\nelse if (data.message?.extendedTextMessage?.text) texto = data.message.extendedTextMessage.text;\nelse if (data.message?.imageMessage?.caption) texto = data.message.imageMessage.caption;\ntexto = (texto || '').trim();\n\nconst sd = $getWorkflowStaticData('global');\nlet modo = sd.modo || 'pizzaria';\n\nconst ownerRaw = ($env.DEMO_OWNER_NUMBER || '').replace(/\\D/g, '');\nconst isOwner = ownerRaw ? telefone.endsWith(ownerRaw.slice(-8)) : true;\n\nconst base = 'https://n8n.kronosintelligence.com.br';\nconst nomeModo = { pizzaria: 'Pizzaria Bella Massa 🍕', aurora: 'Clínica Aurora 💆', resumo: 'Resumo de Áudio 🎙️' };\n\nif (isOwner && texto.startsWith('/')) {\n  const cmd = texto.toLowerCase().split(/\\s+/)[0];\n  if (cmd === '/pizzaria' || cmd === '/aurora' || cmd === '/resumo') {\n    modo = cmd.slice(1);\n    sd.modo = modo;\n    return [{ json: { acao: 'cmd', remoteJid, resposta: `✅ Chavinha trocada!\\nAgora a demo é: *${nomeModo[modo]}*\\n\\nPode mandar mensagem que eu respondo nesse modo.` } }];\n  }\n  if (cmd === '/status') {\n    return [{ json: { acao: 'cmd', remoteJid, resposta: `📍 Modo atual: *${nomeModo[modo]}*\\n\\nComandos: /pizzaria · /aurora · /resumo` } }];\n  }\n  return [{ json: { acao: 'cmd', remoteJid, resposta: `🎛️ *Central de Demos Kronos*\\nComandos:\\n/pizzaria — Bella Massa\\n/aurora — Clínica Aurora\\n/resumo — Resumo de áudio\\n/status — ver modo atual` } }];\n}\n\nif (modo === 'aurora') {\n  return [{ json: { acao: 'cmd', remoteJid, resposta: '🔧 A demo da Aurora entra na próxima atualização. Por enquanto, manda */pizzaria* ou */resumo* 🙂' } }];\n}\n\nconst urls = { pizzaria: base + '/webhook/whatsapp-santaana', resumo: base + '/webhook/whatsapp-resumo' };\nreturn [{ json: { acao: 'forward', modo, remoteJid, forwardUrl: urls[modo], body } }];"
+   },
+   "id": "code-rt-001",
+   "name": "Roteia",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [340, 300]
+  },
+  {
+   "parameters": {
+    "conditions": {
+     "options": { "caseSensitive": false, "typeValidation": "strict" },
+     "conditions": [
+      { "leftValue": "={{ $json.acao }}", "rightValue": "cmd", "operator": { "type": "string", "operation": "equals" } }
+     ],
+     "combinator": "and"
+    }
+   },
+   "id": "if-rt-001",
+   "name": "É Comando?",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2,
+   "position": [580, 300]
+  },
+  {
+   "parameters": {
+    "method": "POST",
+    "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE_DEMO }}",
+    "sendHeaders": true,
+    "headerParameters": { "parameters": [ { "name": "apikey", "value": "={{ $env.EVO_API_KEY }}" } ] },
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ { \"number\": $json.remoteJid, \"text\": $json.resposta } }}",
+    "options": {}
+   },
+   "id": "http-rt-001",
+   "name": "Responder Dono",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [820, 200],
+   "onError": "continueRegularOutput"
+  },
+  {
+   "parameters": {
+    "method": "POST",
+    "url": "={{ $json.forwardUrl }}",
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ $json.body }}",
+    "options": { "timeout": 20000 }
+   },
+   "id": "http-rt-002",
+   "name": "Encaminhar p/ Demo",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [820, 400],
+   "onError": "continueRegularOutput"
+  }
+ ],
+ "connections": {
+  "Webhook Demo": { "main": [[{ "node": "Roteia", "type": "main", "index": 0 }]] },
+  "Roteia": { "main": [[{ "node": "É Comando?", "type": "main", "index": 0 }]] },
+  "É Comando?": { "main": [[{ "node": "Responder Dono", "type": "main", "index": 0 }], [{ "node": "Encaminhar p/ Demo", "type": "main", "index": 0 }]] }
+ },
+ "pinData": {},
+ "settings": { "executionOrder": "v1" },
+ "tags": [{ "name": "kronos" }, { "name": "central-demos" }],
+ "triggerCount": 1,
+ "versionId": "rt-v1"
+}

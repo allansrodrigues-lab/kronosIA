@@ -1,0 +1,172 @@
+{
+ "name": "kronos-resumo-audio",
+ "nodes": [
+  {
+   "parameters": {
+    "httpMethod": "POST",
+    "path": "whatsapp-resumo",
+    "responseMode": "onReceived",
+    "options": {}
+   },
+   "id": "wh-ra-001",
+   "name": "Webhook WhatsApp",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 2,
+   "position": [100, 300],
+   "webhookId": "whatsapp-resumo-main"
+  },
+  {
+   "parameters": {
+    "jsCode": "const body = $input.first().json.body ?? $input.first().json;\n\n// Só processa mensagens recebidas (não as enviadas pelo próprio bot)\nif (body.data?.key?.fromMe === true) return [];\nif (body.event !== 'messages.upsert') return [];\n\nconst data = body.data;\nconst remoteJid = data.key?.remoteJid;\nif (!remoteJid) return [];\nif (remoteJid.endsWith('@g.us')) return []; // ignora grupos\n\n// SÓ áudio interessa pra esse serviço\nif (!data.message?.audioMessage) return [];\n\nconst telefone = remoteJid.replace('@s.whatsapp.net', '');\n\nreturn [{\n  json: {\n    telefone,\n    nome: data.pushName ?? 'Cliente',\n    remoteJid,\n    instancia: body.instance ?? 'resumo',\n    // chave da mensagem — usada pra baixar o áudio na Evolution\n    msgKey: {\n      remoteJid,\n      fromMe: false,\n      id: data.key?.id ?? ''\n    },\n    duracao: data.message.audioMessage?.seconds ?? 0\n  }\n}];"
+   },
+   "id": "code-ra-001",
+   "name": "Normalizar Payload",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [320, 300]
+  },
+  {
+   "parameters": {
+    "method": "POST",
+    "url": "={{ $env.EVO_BASE_URL }}/chat/getBase64FromMediaMessage/{{ $env.EVO_INSTANCE_DEMO }}",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      { "name": "apikey", "value": "={{ $env.EVO_API_KEY }}" },
+      { "name": "Content-Type", "value": "application/json" }
+     ]
+    },
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ { \"message\": { \"key\": $json.msgKey }, \"convertToMp4\": false } }}",
+    "options": { "timeout": 30000 }
+   },
+   "id": "http-ra-001",
+   "name": "Baixar Áudio (Evolution)",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [540, 300]
+  },
+  {
+   "parameters": {
+    "jsCode": "const ctx = $('Normalizar Payload').first().json;\nconst resp = $input.first().json;\n\nconst base64 = resp.base64 ?? resp.media ?? null;\nif (!base64) {\n  return [{ json: { ...ctx, erroDownload: true } }];\n}\n\nlet mime = resp.mimetype ?? 'audio/ogg';\nmime = mime.split(';')[0].trim();\n\nreturn [{\n  json: { ...ctx, erroDownload: false },\n  binary: {\n    audio: {\n      data: base64,\n      mimeType: mime,\n      fileName: 'audio.ogg'\n    }\n  }\n}];"
+   },
+   "id": "code-ra-002",
+   "name": "Base64 → Arquivo",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [760, 300]
+  },
+  {
+   "parameters": {
+    "method": "POST",
+    "url": "https://api.groq.com/openai/v1/audio/transcriptions",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      { "name": "Authorization", "value": "=Bearer {{ $env.GROQ_API_KEY }}" }
+     ]
+    },
+    "sendBody": true,
+    "contentType": "multipart-form-data",
+    "bodyParameters": {
+     "parameters": [
+      { "parameterType": "formBinaryData", "name": "file", "inputDataFieldName": "audio" },
+      { "name": "model", "value": "whisper-large-v3" },
+      { "name": "language", "value": "pt" },
+      { "name": "response_format", "value": "json" }
+     ]
+    },
+    "options": { "timeout": 60000 }
+   },
+   "id": "http-ra-002",
+   "name": "Transcrever (Groq Whisper)",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [980, 300],
+   "onError": "continueRegularOutput"
+  },
+  {
+   "parameters": {
+    "jsCode": "const ctx = $('Base64 → Arquivo').first().json;\nconst resp = $input.first().json;\n\nconst transcricao = (resp.text ?? '').trim();\n\nif (!transcricao) {\n  return [{ json: { ...ctx, transcricao: '', falhou: true } }];\n}\n\nconst systemPrompt = `Você recebe a transcrição de um áudio de WhatsApp. Organize em um resumo claro e objetivo em português.\n\nTRANSCRIÇÃO:\n\"${transcricao}\"\n\nResponda APENAS com um JSON neste formato:\n{\n  \"assunto\": \"frase curta com o tema do áudio\",\n  \"pontos\": [\"ponto 1\", \"ponto 2\", \"ponto 3\"],\n  \"acao\": \"o que a pessoa precisa fazer/responder, ou 'Nenhuma ação' se for só informativo\",\n  \"urgencia\": \"Alta\" | \"Média\" | \"Baixa\"\n}`;\n\nreturn [{\n  json: {\n    ...ctx,\n    transcricao,\n    falhou: false,\n    anthropicBody: {\n      model: 'claude-haiku-4-5-20251001',\n      max_tokens: 600,\n      messages: [{ role: 'user', content: systemPrompt }]\n    }\n  }\n}];"
+   },
+   "id": "code-ra-003",
+   "name": "Montar Prompt Resumo",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [1200, 300]
+  },
+  {
+   "parameters": {
+    "method": "POST",
+    "url": "https://api.anthropic.com/v1/messages",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      { "name": "x-api-key", "value": "={{ $env.ANTHROPIC_API_KEY }}" },
+      { "name": "anthropic-version", "value": "2023-06-01" },
+      { "name": "Content-Type", "value": "application/json" }
+     ]
+    },
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ $json.anthropicBody }}",
+    "options": { "timeout": 30000 }
+   },
+   "id": "http-ra-003",
+   "name": "Claude Haiku — Resumir",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [1420, 300],
+   "onError": "continueRegularOutput"
+  },
+  {
+   "parameters": {
+    "jsCode": "const ctx = $('Montar Prompt Resumo').first().json;\nconst resp = $input.first().json;\n\n// Caso transcrição tenha falhado lá atrás\nif (ctx.falhou || ctx.erroDownload) {\n  return [{ json: { ...ctx, mensagemParaCliente: '🎙️ Não consegui processar esse áudio. Pode tentar reenviar?' } }];\n}\n\nlet parsed = null;\nconst rawText = resp.content?.[0]?.text ?? '';\ntry {\n  parsed = JSON.parse(rawText.replace(/```json?/g, '').replace(/```/g, '').trim());\n} catch (e) {\n  parsed = null;\n}\n\nlet msg;\nif (!parsed) {\n  // Fallback: manda só a transcrição\n  msg = `🎙️ *Transcrição do áudio*\\n\\n\"${ctx.transcricao}\"`;\n} else {\n  const pontos = (parsed.pontos ?? []).map(p => `• ${p}`).join('\\n');\n  const urg = parsed.urgencia ?? 'Baixa';\n  const emojiUrg = urg === 'Alta' ? '🔴' : urg === 'Média' ? '🟡' : '🟢';\n  msg = `🎙️ *Resumo do áudio*\\n\\n` +\n    `📌 *Assunto:* ${parsed.assunto ?? '-'}\\n\\n` +\n    `*Pontos principais:*\\n${pontos}\\n\\n` +\n    `✅ *O que precisa:* ${parsed.acao ?? 'Nenhuma ação'}\\n` +\n    `${emojiUrg} *Urgência:* ${urg}\\n\\n` +\n    `_Transcrição completa:_\\n\"${ctx.transcricao}\"`;\n}\n\nreturn [{ json: { ...ctx, mensagemParaCliente: msg } }];"
+   },
+   "id": "code-ra-004",
+   "name": "Formatar Resumo",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [1640, 300]
+  },
+  {
+   "parameters": {
+    "method": "POST",
+    "url": "={{ $env.EVO_BASE_URL }}/message/sendText/{{ $env.EVO_INSTANCE_DEMO }}",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      { "name": "apikey", "value": "={{ $env.EVO_API_KEY }}" }
+     ]
+    },
+    "sendBody": true,
+    "specifyBody": "json",
+    "jsonBody": "={{ { \"number\": $json.remoteJid, \"text\": $json.mensagemParaCliente } }}",
+    "options": {}
+   },
+   "id": "http-ra-004",
+   "name": "Enviar WhatsApp",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [1860, 300]
+  }
+ ],
+ "connections": {
+  "Webhook WhatsApp": { "main": [[{ "node": "Normalizar Payload", "type": "main", "index": 0 }]] },
+  "Normalizar Payload": { "main": [[{ "node": "Baixar Áudio (Evolution)", "type": "main", "index": 0 }]] },
+  "Baixar Áudio (Evolution)": { "main": [[{ "node": "Base64 → Arquivo", "type": "main", "index": 0 }]] },
+  "Base64 → Arquivo": { "main": [[{ "node": "Transcrever (Groq Whisper)", "type": "main", "index": 0 }]] },
+  "Transcrever (Groq Whisper)": { "main": [[{ "node": "Montar Prompt Resumo", "type": "main", "index": 0 }]] },
+  "Montar Prompt Resumo": { "main": [[{ "node": "Claude Haiku — Resumir", "type": "main", "index": 0 }]] },
+  "Claude Haiku — Resumir": { "main": [[{ "node": "Formatar Resumo", "type": "main", "index": 0 }]] },
+  "Formatar Resumo": { "main": [[{ "node": "Enviar WhatsApp", "type": "main", "index": 0 }]] }
+ },
+ "pinData": {},
+ "settings": { "executionOrder": "v1" },
+ "staticData": null,
+ "tags": [{ "name": "kronos" }, { "name": "resumo-audio" }],
+ "triggerCount": 1,
+ "updatedAt": "2026-06-16T00:00:00.000Z",
+ "versionId": "ra-v1"
+}
