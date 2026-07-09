@@ -63,9 +63,9 @@ workflows/
 - [x] Demo PNG — ✅ 09/07 `07_Recursos/demo_clinica_medica.png` (LGPD + não-opina + agendamento + urgência SAMU; notes encurtadas por causa do bug de corte do bold)
 - [x] Aba animada na landing — ✅ 09/07 `seg-medica` (accent verde #4cd97b, motor `__waStartMedica`, 11 mensagens), verificada no preview local (ciclo completo + console limpo)
 - [x] Skill `kronos-clinica-medica` dedicada — ✅ 09/07 (`.claude/skills/kronos-clinica-medica/SKILL.md`)
-- [ ] Deploy da landing (push + VPS)
+- [x] Deploy da landing — ✅ 09/07 push `52a0e11` + clone/copy no VPS, confirmado de fora (curl: `seg-medica` e "Cedro Saúde" no HTML público)
 
-**Falta só: logo (Canva), Voice Agent (ElevenLabs) e deploy da landing.**
+**Falta só: logo (Canva) e Voice Agent (ElevenLabs).**
 
 ## Nota sobre uso real (não esconder do cliente)
 
