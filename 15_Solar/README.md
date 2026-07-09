@@ -45,10 +45,18 @@ workflows/
 - [x] Planilha CRM própria — ✅ 09/07 "Kronos CRM — Zênite (Energia Solar)"
 - [x] Chavinha `/solar` na Central de Demos — ✅ 09/07
 - [x] Test harness (7 cenários S01-S07, incluindo fim-a-fim da calculadora) — ✅ 09/07, 7/7 verde
-- [ ] Voz (ElevenLabs)
-- [ ] Demo PNG + aba animada na landing
-- [ ] Skill `kronos-solar` dedicada
-- [ ] Proposta + deploy
+- [x] Voz (ElevenLabs) — ✅ 09/07 agente `agent_1801kx3zb2wtem6v923vgy8mwy5f`, testado por chat
+- [x] Demo PNG + aba animada na landing — ✅ 09/07, `demo_solar.png` + `#seg-solar` no ar
+- [x] Skill `kronos-solar` dedicada — ✅ 09/07
+- [x] Deploy — ✅ 09/07, publicado em kronosintelligence.com.br (fallback SSH, CI/CD não propagou)
+
+**Proposta comercial PDF: decisão consciente de NÃO criar.** A Imobiliária — nicho-irmão mais
+recente e referência direta desta montagem — também não tem `gerar_proposta.py` próprio (só
+Pizzaria, Advocacia e Parecer Científico têm, por razões históricas de prospecção). Criar um só
+pra Solar quebraria a paridade entre nichos. O catálogo de serviços (`07_Recursos/gerar_catalogo_servicos.py`)
+já cobre todos os nichos num documento só. Revisitar se/quando um cliente real pedir proposta formal.
+
+**NICHO 100% COMPLETO — sem pendências técnicas conhecidas.**
 
 ## Montagem n8n — o que foi construído (09/07/2026)
 
