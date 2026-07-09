@@ -791,6 +791,7 @@
     <button class="seg-tab" onclick="abrirSeg('advocacia',this)">⚖️ Advocacia</button>
     <button class="seg-tab" onclick="abrirSeg('imobiliaria',this)">🏠 Imobiliária</button>
     <button class="seg-tab" onclick="abrirSeg('solar',this)">☀️ Energia Solar</button>
+    <button class="seg-tab" onclick="abrirSeg('medica',this)">🩺 Clínica Médica</button>
     <button class="seg-tab" onclick="abrirSeg('servicos',this)">🏪 Empresas de Serviços</button>
   </div>
 
@@ -1130,6 +1131,89 @@
     </div>
   </div>
 
+  <!-- CLÍNICA MÉDICA -->
+  <div id="seg-medica" class="seg-conteudo" style="display:none">
+
+    <!-- ▶ DEMO EM VÍDEO: conversa da Vera (assistente da Cedro Saúde) -->
+    <div class="wa-demo">
+      <div class="wa-col">
+      <div class="wa-phone">
+        <div class="wa-sb"><span>21:43</span><span class="wa-sb-r"></span></div>
+        <div class="wa-bar">
+          <span class="wa-back">‹</span>
+          <div class="wa-av">🩺</div>
+          <div class="wa-peer"><strong>Cedro Saúde</strong><em id="wa-st-medica">online</em></div>
+          <span class="wa-hd">📞&nbsp;&nbsp;⋮</span>
+        </div>
+        <div class="wa-chat" id="wa-chat-medica"></div>
+        <div class="wa-input"><span>Mensagem</span><span class="wa-mic">🎤</span></div>
+      </div>
+      <div class="wa-caption med"><span id="wa-cap-medica"></span></div>
+      </div>
+      <div class="wa-side">
+        <div class="section-label" style="color:#4cd97b;margin-bottom:10px">Veja a Vera em ação</div>
+        <h3 style="font-size:1.35rem;font-weight:600;margin-bottom:12px;line-height:1.3">Recepção que atende em segundos — <span style="color:#4cd97b">com segurança clínica</span>.</h3>
+        <p style="color:var(--cinza);font-size:0.9rem;margin-bottom:22px">Uma conversa real da assistente da clínica: pede consentimento LGPD, agenda a consulta sem dar palpite sobre sintoma — e urgência vai direto pra equipe, sem depender da IA.</p>
+        <ul class="wa-caps">
+          <li><span>🔐</span> Consentimento <b>LGPD</b> antes de coletar dados</li>
+          <li><span>🩺</span> <b>Nunca opina</b> sobre sintoma — direciona ao médico</li>
+          <li><span>🚨</span> <b>Triagem de urgência</b> automática, sem IA</li>
+          <li><span>📅</span> <b>Agenda consultas</b> por convênio ou particular</li>
+          <li><span>🔔</span> Lembrete <b>na véspera</b> reduz falta</li>
+          <li><span>💬</span> Responde <b>na hora</b>, dia e noite</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
+      <div>
+        <h3 style="font-size:1.2rem;font-weight:600;margin-bottom:16px">Como funciona para clínicas médicas</h3>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(60,200,110,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">🔐</div>
+            <div><strong style="display:block;margin-bottom:4px">Acolhe com consentimento LGPD</strong><span style="color:var(--cinza);font-size:0.87rem">Dado de saúde é dado sensível: antes de coletar qualquer informação, a assistente pede o aceite — registrado na conversa, com data e hora.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(60,200,110,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">🚨</div>
+            <div><strong style="display:block;margin-bottom:4px">Triagem de urgência que não depende da IA</strong><span style="color:var(--cinza);font-size:0.87rem">Dor no peito, falta de ar, sinais de AVC: um filtro automático orienta o paciente (SAMU 192) e aciona a equipe na hora — antes de qualquer conversa com o robô.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(60,200,110,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">🩺</div>
+            <div><strong style="display:block;margin-bottom:4px">Zero diagnóstico pelo bot</strong><span style="color:var(--cinza);font-size:0.87rem">Dúvida sobre sintoma vira consulta agendada — nunca palpite. Alinhado à publicidade médica do CFM (Resolução 2.336/2023) e à teleconsulta regulamentada.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(60,200,110,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">📅</div>
+            <div><strong style="display:block;margin-bottom:4px">Agendamento, convênio e lembrete D-1</strong><span style="color:var(--cinza);font-size:0.87rem">Confere o convênio, marca por especialidade, registra no CRM e confirma na véspera — menos falta, agenda cheia.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(60,200,110,0.08);border:1px solid rgba(76,217,123,0.35);border-radius:10px;padding:12px 14px">
+            <div style="background:rgba(60,200,110,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">🎙️</div>
+            <div><strong style="display:block;margin-bottom:4px">Atende por ligação de voz <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.08em;background:#1f9d55;color:#fff;padding:2px 7px;border-radius:6px;vertical-align:middle;margin-left:4px">NOVO</span></strong><span style="color:var(--cinza);font-size:0.87rem">Paciente liga? A Vera atende por voz e agenda a consulta na mesma ligação — a recepção só entra quando precisa.</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(120,72,200,0.2);border-radius:16px;padding:28px">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7848c8;margin-bottom:16px">O que a clínica ganha</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Tempo de resposta ao paciente</span><strong style="color:#18c0a0">&lt; 30s</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Falta em consulta (com lembrete D-1)</span><strong style="color:#18c0a0">até −30%</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Atendimento fora do horário</span><strong style="color:#18c0a0">24/7</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="color:var(--cinza);font-size:0.88rem">Urgência sem resposta</span><strong style="color:#18c0a0">zero</strong>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(120,72,200,0.15)">
+          <div style="font-size:0.78rem;color:var(--cinza)">Funciona para: clínica geral e especialidades — dermatologia, cardiologia, ginecologia, pediatria, ortopedia e mais</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- SERVIÇOS -->
   <div id="seg-servicos" class="seg-conteudo" style="display:none">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
@@ -1235,6 +1319,7 @@
 .wa-caption.cli span{color:#e9dcff;background:rgba(120,72,200,0.22);border:1px solid rgba(166,121,255,0.5)}
 .wa-caption.imob span{color:#c9f5ec;background:rgba(24,192,160,0.18);border:1px solid rgba(62,200,180,0.5)}
 .wa-caption.solar span{color:#ffe9c4;background:rgba(245,166,35,0.18);border:1px solid rgba(245,166,35,0.5)}
+.wa-caption.med span{color:#d5f7e0;background:rgba(60,200,110,0.16);border:1px solid rgba(76,217,123,0.5)}
 .wa-toggle{display:flex;gap:8px;margin-bottom:14px;justify-content:center}
 .wa-tg{background:rgba(255,255,255,0.04);border:1px solid rgba(120,72,200,0.3);color:var(--cinza);border-radius:30px;padding:7px 16px;font:500 0.82rem 'Inter',sans-serif;cursor:pointer;transition:all .2s}
 .wa-tg:hover{color:var(--branco)}
@@ -1272,6 +1357,7 @@ function abrirSeg(id, btn) {
   if (id === 'advocacia' && window.__waStart) window.__waStart();
   if (id === 'imobiliaria' && window.__waStartImob) window.__waStartImob();
   if (id === 'solar' && window.__waStartSolar) window.__waStartSolar();
+  if (id === 'medica' && window.__waStartMedica) window.__waStartMedica();
 }
 </script>
 
@@ -1541,6 +1627,63 @@ function abrirSeg(id, btn) {
     }
   }
   window.__waStartSolar = function(){ if (running) return; running = true; run(); };
+})();
+</script>
+
+<!-- Motor da conversa animada da Vera (aba clínica médica) -->
+<script>
+(function(){
+  var chat = document.getElementById('wa-chat-medica');
+  var st = document.getElementById('wa-st-medica');
+  var capEl = document.getElementById('wa-cap-medica');
+  if (!chat) return;
+  function showCap(t){ if (capEl){ capEl.textContent = t; capEl.parentNode.classList.add('show'); } }
+  function hideCap(){ if (capEl) capEl.parentNode.classList.remove('show'); }
+  var R = [
+    {s:'in', x:{type:'text', html:'Boa noite, queria marcar uma consulta com dermatologista'}, t:'21:40'},
+    {s:'out', x:{type:'text', html:'Boa noite! Sou a <b>Vera</b>, da <b>Cedro Saúde</b> 🙂 Antes de começar: preciso registrar alguns dados (nome, contato), tratados com sigilo conforme a <b>LGPD</b>. Posso seguir?'}, t:'21:40', cap:'🔐 consentimento LGPD antes de tudo'},
+    {s:'in', x:{type:'text', html:'pode sim! é pra mim, Ana Souza'}, t:'21:41'},
+    {s:'out', x:{type:'text', html:'Obrigada, Ana! Vai ser pelo <b>convênio</b> ou <b>particular</b>?'}, t:'21:41', cap:'💬 uma pergunta por vez, 24h'},
+    {s:'in', x:{type:'text', html:'Vida Plena. aliás, tenho uma pinta escura que cresceu… será que é grave?'}, t:'21:42'},
+    {s:'out', x:{type:'text', html:'Isso é algo que o <b>Dr. Igor</b> avalia com segurança na consulta — e não vou te deixar com essa dúvida: tenho <b>quinta às 14h</b>. Confirmo?'}, t:'21:42', cap:'🩺 nunca opina sobre sintoma'},
+    {s:'in', x:{type:'text', html:'confirma sim, por favor'}, t:'21:43'},
+    {s:'out', x:{type:'text', html:'Consulta confirmada: <b>quinta, 14h</b>, Dermatologia 🗓️ Leve documento com foto e a carteirinha do convênio.'}, t:'21:43', cap:'📅 agenda e registra no CRM'},
+    {s:'out', x:{type:'text', rem:true, html:'🔔 Oi, Ana! Lembrete: sua consulta com o Dr. Igor é <b>amanhã às 14h</b>. Até lá!'}, t:'09:00', cap:'🔔 lembrete na véspera reduz falta'},
+    {s:'in', x:{type:'text', html:'socorro, meu marido tá com dor forte no peito'}, t:'07:12'},
+    {s:'out', x:{type:'text', html:'Isso pode precisar de atendimento <b>IMEDIATO</b>: ligue <b>192 (SAMU)</b> ou vá ao pronto-socorro agora. Já avisei nossa equipe pra te dar suporte. 🚨'}, t:'07:12', cap:'🚨 triagem de urgência: age na hora, sem IA'}
+  ];
+  var sleep = function(ms){ return new Promise(function(r){ setTimeout(r, ms); }); };
+  var scroll = function(){ chat.scrollTop = chat.scrollHeight; };
+  function inner(x){
+    if (x.type === 'text') return x.html;
+    if (x.type === 'audio') return '<div class="wa-audio"><span class="wa-play">▶</span><span class="wa-wave"></span><span class="wa-dur">'+x.dur+'</span></div>';
+    return '';
+  }
+  var running = false;
+  async function run(){
+    while (true) {
+      chat.innerHTML = ''; hideCap();
+      for (var i = 0; i < R.length; i++) {
+        var m = R[i];
+        if (m.s === 'out') {
+          if (st) st.textContent = (m.x.type === 'audio') ? 'gravando áudio…' : 'digitando…';
+          var typ = document.createElement('div');
+          typ.className = 'wa-typing'; typ.innerHTML = '<i></i><i></i><i></i>';
+          chat.appendChild(typ); scroll();
+          await sleep(1000);
+          typ.remove(); if (st) st.textContent = 'online';
+        }
+        var b = document.createElement('div');
+        b.className = 'wa-msg ' + m.s + (m.x.rem ? ' rem' : '');
+        b.innerHTML = inner(m.x) + '<span class="wa-time">' + m.t + '</span>';
+        chat.appendChild(b); scroll();
+        if (m.cap) showCap(m.cap);
+        await sleep(m.s === 'in' ? 950 : 1350);
+      }
+      await sleep(3800);
+    }
+  }
+  window.__waStartMedica = function(){ if (running) return; running = true; run(); };
 })();
 </script>
 

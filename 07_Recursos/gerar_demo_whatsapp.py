@@ -186,7 +186,23 @@ solar = [
     {"who": "out", "text": "Bom dia! Só confirmando: nosso engenheiro chega às 9h pra avaliar seu telhado. Até já!", "time": "08:00", "note": "Lembrete automático antes da visita"},
 ]
 
+medica = [
+    {"date": "ontem"},
+    {"who": "in", "text": "Boa noite, queria marcar uma consulta com dermatologista", "time": "21:40"},
+    {"who": "out", "text": "Boa noite! Sou a Vera, da Cedro Saúde. Antes de começar: preciso registrar alguns dados (nome, contato). Tudo com sigilo, conforme a LGPD. Posso seguir?", "time": "21:40", "note": "Pede aceite LGPD antes de coletar dados"},
+    {"who": "in", "text": "Pode sim. É pra mim, Ana Souza", "time": "21:41"},
+    {"who": "out", "text": "Obrigada, Ana! Vai ser pelo convênio ou particular?", "time": "21:41", "note": "Atende 24h, uma pergunta por vez"},
+    {"who": "in", "text": "Vida Plena. Aliás, tenho uma pinta escura que cresceu, será que é grave?", "time": "21:42"},
+    {"who": "out", "text": "Isso é algo que o Dr. Igor avalia com segurança na consulta — e não vou te deixar com essa dúvida: tenho quinta às 14h. Confirmo?", "time": "21:42", "note": "Não opina sobre sintoma — leva pro médico"},
+    {"who": "in", "text": "Confirma sim, por favor", "time": "21:43"},
+    {"who": "out", "text": "Consulta confirmada: quinta, 14h, Dermatologia. Leve documento com foto e a carteirinha do convênio.", "time": "21:43", "note": "Agenda e registra direto no CRM da clínica"},
+    {"date": "hoje"},
+    {"who": "in", "text": "socorro, meu marido tá com dor forte no peito", "time": "07:12"},
+    {"who": "out", "text": "Isso pode precisar de atendimento IMEDIATO: ligue 192 (SAMU) ou vá ao pronto-socorro agora. Já avisei nossa equipe pra te dar suporte também.", "time": "07:12", "note": "Triagem de urgência: age na hora, sem IA"},
+]
+
 gen("Clínica Aurora", "A", clinicas, "demo_clinicas.svg")
 gen("Martins Advocacia", "M", advocacia, "demo_advocacia.svg")
 gen("Schalletti Imóveis", "S", imobiliaria, "demo_imobiliaria.svg")
 gen("Zênite Energia Solar", "Z", solar, "demo_solar.svg")
+gen("Cedro Saúde", "C", medica, "demo_clinica_medica.svg")
