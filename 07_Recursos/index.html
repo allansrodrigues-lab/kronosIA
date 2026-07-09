@@ -790,6 +790,7 @@
     <button class="seg-tab seg-ativo" onclick="abrirSeg('clinica',this)">🏥 Clínicas &amp; Consultórios</button>
     <button class="seg-tab" onclick="abrirSeg('advocacia',this)">⚖️ Advocacia</button>
     <button class="seg-tab" onclick="abrirSeg('imobiliaria',this)">🏠 Imobiliária</button>
+    <button class="seg-tab" onclick="abrirSeg('solar',this)">☀️ Energia Solar</button>
     <button class="seg-tab" onclick="abrirSeg('servicos',this)">🏪 Empresas de Serviços</button>
   </div>
 
@@ -1046,6 +1047,89 @@
     </div>
   </div>
 
+  <!-- ENERGIA SOLAR -->
+  <div id="seg-solar" class="seg-conteudo" style="display:none">
+
+    <!-- ▶ DEMO EM VÍDEO: conversa da Helena (assistente da Zênite Energia Solar) -->
+    <div class="wa-demo">
+      <div class="wa-col">
+      <div class="wa-phone">
+        <div class="wa-sb"><span>19:24</span><span class="wa-sb-r"></span></div>
+        <div class="wa-bar">
+          <span class="wa-back">‹</span>
+          <div class="wa-av">☀️</div>
+          <div class="wa-peer"><strong>Zênite Energia Solar</strong><em id="wa-st-solar">online</em></div>
+          <span class="wa-hd">📞&nbsp;&nbsp;⋮</span>
+        </div>
+        <div class="wa-chat" id="wa-chat-solar"></div>
+        <div class="wa-input"><span>Mensagem</span><span class="wa-mic">🎤</span></div>
+      </div>
+      <div class="wa-caption solar"><span id="wa-cap-solar"></span></div>
+      </div>
+      <div class="wa-side">
+        <div class="section-label" style="color:#f5a623;margin-bottom:10px">Veja a Helena em ação</div>
+        <h3 style="font-size:1.35rem;font-weight:600;margin-bottom:12px;line-height:1.3">Quem responde primeiro com o <span style="color:#f5a623">número na mão</span> leva o cliente.</h3>
+        <p style="color:var(--cinza);font-size:0.9rem;margin-bottom:22px">Uma conversa real da assistente da instaladora: qualifica o lead, calcula a economia com energia solar na hora e agenda a visita técnica gratuita.</p>
+        <ul class="wa-caps">
+          <li><span>☀️</span> Calcula o <b>payback</b> na hora</li>
+          <li><span>🧮</span> Nunca <b>inventa número</b> — cálculo real</li>
+          <li><span>📸</span> Lê o valor da <b>foto da conta</b></li>
+          <li><span>📅</span> <b>Agenda a visita técnica</b> gratuita</li>
+          <li><span>🔔</span> Confirma a visita <b>na véspera</b></li>
+          <li><span>💬</span> Responde <b>na hora</b>, dia e noite</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
+      <div>
+        <h3 style="font-size:1.2rem;font-weight:600;margin-bottom:16px">Como funciona para instaladoras de energia solar</h3>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(245,166,35,0.22);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">💬</div>
+            <div><strong style="display:block;margin-bottom:4px">Lead chega e o bot já qualifica</strong><span style="color:var(--cinza);font-size:0.87rem">Valor da conta de luz, tipo de imóvel, fase da rede — o agente pergunta o certo e nenhum lead do site/anúncio fica sem resposta.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(245,166,35,0.22);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">☀️</div>
+            <div><strong style="display:block;margin-bottom:4px">Simulação de payback na hora</strong><span style="color:var(--cinza);font-size:0.87rem">Calcula número de placas, investimento e economia mensal na conversa — sem esperar dias pelo orçamento do concorrente.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(245,166,35,0.22);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">📸</div>
+            <div><strong style="display:block;margin-bottom:4px">Foto da conta de luz</strong><span style="color:var(--cinza);font-size:0.87rem">Cliente manda a foto e o agente já confirma o valor médio com ele, sem precisar digitar nada.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(245,166,35,0.22);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">📅</div>
+            <div><strong style="display:block;margin-bottom:4px">Agendamento da visita técnica</strong><span style="color:var(--cinza);font-size:0.87rem">Marca a visita gratuita na agenda da equipe, confirma na véspera — sem deixar o interesse esfriar.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.35);border-radius:10px;padding:12px 14px">
+            <div style="background:rgba(245,166,35,0.22);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">🎙️</div>
+            <div><strong style="display:block;margin-bottom:4px">Atende por ligação de voz <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.08em;background:#c47f10;color:#fff;padding:2px 7px;border-radius:6px;vertical-align:middle;margin-left:4px">NOVO</span></strong><span style="color:var(--cinza);font-size:0.87rem">Cliente liga? A Helena atende por voz, calcula a simulação e já agenda a visita técnica, tudo na mesma ligação.</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(120,72,200,0.2);border-radius:16px;padding:28px">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7848c8;margin-bottom:16px">O que a instaladora ganha</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Tempo de resposta ao lead</span><strong style="color:#18c0a0">&lt; 30s</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Conversão lead → visita técnica</span><strong style="color:#18c0a0">3% → 9%</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Atendimento fora do horário</span><strong style="color:#18c0a0">24/7</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="color:var(--cinza);font-size:0.88rem">Leads perdidos por demora</span><strong style="color:#18c0a0">zero</strong>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(120,72,200,0.15)">
+          <div style="font-size:0.78rem;color:var(--cinza)">Funciona para: instaladoras residenciais, comerciais e usinas de geração distribuída</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- SERVIÇOS -->
   <div id="seg-servicos" class="seg-conteudo" style="display:none">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
@@ -1150,6 +1234,7 @@
 .wa-caption.adv span{color:#cfe0ff;background:rgba(48,96,200,0.2);border:1px solid rgba(95,139,255,0.45)}
 .wa-caption.cli span{color:#e9dcff;background:rgba(120,72,200,0.22);border:1px solid rgba(166,121,255,0.5)}
 .wa-caption.imob span{color:#c9f5ec;background:rgba(24,192,160,0.18);border:1px solid rgba(62,200,180,0.5)}
+.wa-caption.solar span{color:#ffe9c4;background:rgba(245,166,35,0.18);border:1px solid rgba(245,166,35,0.5)}
 .wa-toggle{display:flex;gap:8px;margin-bottom:14px;justify-content:center}
 .wa-tg{background:rgba(255,255,255,0.04);border:1px solid rgba(120,72,200,0.3);color:var(--cinza);border-radius:30px;padding:7px 16px;font:500 0.82rem 'Inter',sans-serif;cursor:pointer;transition:all .2s}
 .wa-tg:hover{color:var(--branco)}
@@ -1186,6 +1271,7 @@ function abrirSeg(id, btn) {
   btn.classList.add('seg-ativo');
   if (id === 'advocacia' && window.__waStart) window.__waStart();
   if (id === 'imobiliaria' && window.__waStartImob) window.__waStartImob();
+  if (id === 'solar' && window.__waStartSolar) window.__waStartSolar();
 }
 </script>
 
@@ -1398,6 +1484,63 @@ function abrirSeg(id, btn) {
     }
   }
   window.__waStartImob = function(){ if (running) return; running = true; run(); };
+})();
+</script>
+
+<!-- Motor da conversa animada da Helena (aba energia solar) -->
+<script>
+(function(){
+  var chat = document.getElementById('wa-chat-solar');
+  var st = document.getElementById('wa-st-solar');
+  var capEl = document.getElementById('wa-cap-solar');
+  if (!chat) return;
+  function showCap(t){ if (capEl){ capEl.textContent = t; capEl.parentNode.classList.add('show'); } }
+  function hideCap(){ if (capEl) capEl.parentNode.classList.remove('show'); }
+  var R = [
+    {s:'in', x:{type:'text', html:'Oi, quanto custa colocar energia solar na minha casa?'}, t:'19:20'},
+    {s:'out', x:{type:'text', html:'Oi! Sou a <b>Helena</b>, da <b>Zênite Energia Solar</b> ☀️ Posso calcular sua economia agora mesmo — qual o valor médio da sua conta de luz?'}, t:'19:20', cap:'💬 responde na hora, 24h'},
+    {s:'in', x:{type:'text', html:'uns 850 reais por mês'}, t:'19:21'},
+    {s:'out', x:{type:'text', html:'Perfeito! É casa, empresa ou rural? E a rede é mono, bi ou trifásica?'}, t:'19:21'},
+    {s:'in', x:{type:'text', html:'casa, e é bifásico sim'}, t:'19:22'},
+    {s:'out', x:{type:'text', html:'Prontinho! Sistema de <b>11 placas</b> (6,0 kWp). Investimento estimado <b>R$ 18.000</b>, economia de <b>R$ 734/mês</b>. Se paga em <b>2 anos e 1 mês</b>!'}, t:'19:22', cap:'☀️ calcula o payback real (nunca chuta)'},
+    {s:'in', x:{type:'text', html:'nossa, e depois disso?'}, t:'19:23'},
+    {s:'out', x:{type:'text', html:'Depois é mais de 20 anos de energia quase de graça 🎉 Quer agendar a <b>visita técnica gratuita</b> pra confirmar os números?'}, t:'19:23', cap:'📅 convida pra visita sem pressão'},
+    {s:'in', x:{type:'text', html:'quero sim! pode ser sábado de manhã?'}, t:'19:24'},
+    {s:'out', x:{type:'text', html:'Combinado! Visita <b>sábado de manhã</b>, nosso engenheiro confirma com você em breve. 🔧'}, t:'19:24', cap:'📅 agenda a visita direto no CRM'},
+    {s:'out', x:{type:'text', rem:true, html:'🔔 Bom dia! Só confirmando: nosso engenheiro chega <b>hoje às 9h</b> pra avaliar seu telhado. Até já!'}, t:'08:00', cap:'🔔 confirma na véspera'}
+  ];
+  var sleep = function(ms){ return new Promise(function(r){ setTimeout(r, ms); }); };
+  var scroll = function(){ chat.scrollTop = chat.scrollHeight; };
+  function inner(x){
+    if (x.type === 'text') return x.html;
+    if (x.type === 'audio') return '<div class="wa-audio"><span class="wa-play">▶</span><span class="wa-wave"></span><span class="wa-dur">'+x.dur+'</span></div>';
+    return '';
+  }
+  var running = false;
+  async function run(){
+    while (true) {
+      chat.innerHTML = ''; hideCap();
+      for (var i = 0; i < R.length; i++) {
+        var m = R[i];
+        if (m.s === 'out') {
+          if (st) st.textContent = (m.x.type === 'audio') ? 'gravando áudio…' : 'digitando…';
+          var typ = document.createElement('div');
+          typ.className = 'wa-typing'; typ.innerHTML = '<i></i><i></i><i></i>';
+          chat.appendChild(typ); scroll();
+          await sleep(1000);
+          typ.remove(); if (st) st.textContent = 'online';
+        }
+        var b = document.createElement('div');
+        b.className = 'wa-msg ' + m.s + (m.x.rem ? ' rem' : '');
+        b.innerHTML = inner(m.x) + '<span class="wa-time">' + m.t + '</span>';
+        chat.appendChild(b); scroll();
+        if (m.cap) showCap(m.cap);
+        await sleep(m.s === 'in' ? 950 : 1350);
+      }
+      await sleep(3800);
+    }
+  }
+  window.__waStartSolar = function(){ if (running) return; running = true; run(); };
 })();
 </script>
 

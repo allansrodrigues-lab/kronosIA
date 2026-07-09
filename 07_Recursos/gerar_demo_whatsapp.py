@@ -171,6 +171,22 @@ imobiliaria = [
     {"who": "out", "text": "Oi! Passando pra saber: o que achou do apê depois da visita de sábado?", "time": "16:00", "note": "Follow-up pós-visita, sem deixar o lead esfriar"},
 ]
 
+solar = [
+    {"date": "ontem"},
+    {"who": "in", "text": "Oi, quanto custa colocar energia solar na minha casa?", "time": "19:20"},
+    {"who": "out", "text": "Oi! Sou a Helena, da Zênite Energia Solar. Posso calcular sua economia agora mesmo — qual o valor médio da sua conta de luz?", "time": "19:20", "note": "Atende 24h e qualifica o lead na hora"},
+    {"who": "in", "text": "Uns 850 reais por mês", "time": "19:21"},
+    {"who": "out", "text": "Perfeito! É casa, empresa ou rural? E a rede é mono, bi ou trifásica?", "time": "19:21"},
+    {"who": "in", "text": "Casa, e é bifásico sim", "time": "19:22"},
+    {"who": "out", "text": "Prontinho! Sistema de 11 placas (6,0 kWp). Investimento estimado R$ 18.000, economia de R$ 734/mês. Se paga em 2 anos e 1 mês!", "time": "19:22", "note": "Calcula payback real na hora (nunca chuta número)"},
+    {"who": "out", "text": "Depois disso é mais de 20 anos de energia quase de graça. Quer agendar a visita técnica gratuita?", "time": "19:23", "note": "Convida pra visita técnica sem pressão"},
+    {"who": "in", "text": "Quero sim! Pode ser sábado de manhã?", "time": "19:24"},
+    {"who": "out", "text": "Combinado! Visita sábado de manhã, nosso engenheiro confirma com você em breve.", "time": "19:24", "note": "Agenda a visita direto no CRM da equipe"},
+    {"date": "hoje"},
+    {"who": "out", "text": "Bom dia! Só confirmando: nosso engenheiro chega às 9h pra avaliar seu telhado. Até já!", "time": "08:00", "note": "Lembrete automático antes da visita"},
+]
+
 gen("Clínica Aurora", "A", clinicas, "demo_clinicas.svg")
 gen("Martins Advocacia", "M", advocacia, "demo_advocacia.svg")
 gen("Schalletti Imóveis", "S", imobiliaria, "demo_imobiliaria.svg")
+gen("Zênite Energia Solar", "Z", solar, "demo_solar.svg")
