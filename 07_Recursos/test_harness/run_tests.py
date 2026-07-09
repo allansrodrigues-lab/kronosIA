@@ -8,6 +8,7 @@ Uso:
     python3 run_tests.py            # roda todos os bots
     python3 run_tests.py aurora     # só Aurora
     python3 run_tests.py odonto     # só OdontoVita
+    python3 run_tests.py schalletti # só Schalletti (Imobiliária)
 
 Retorna exit code 0 se todos passarem, 1 se algum falhar.
 """
@@ -33,6 +34,11 @@ WORKFLOWS = {
     "odonto": {
         "id":       "01-orquestrador-odonto",
         "webhook":  "/webhook/whatsapp-odonto",
+        "instance": "clinica01",
+    },
+    "schalletti": {
+        "id":       "YA2jMHR27ez9duUx",
+        "webhook":  "/webhook/whatsapp-imobiliaria-demo",
         "instance": "clinica01",
     },
 }
@@ -82,6 +88,30 @@ SCENARIOS = {
         {"id": "O05", "name": "Agendamento ambíguo",
          "msg": "será que dá pra agendar ainda essa semana?",
          "expected": "AGENDAR"},
+    ],
+    "schalletti": [
+        {"id": "I01", "name": "COMPRAR claro",
+         "msg": "Quero comprar um apartamento de 2 quartos",
+         "expected": "COMPRAR"},
+        {"id": "I02", "name": "ALUGAR claro (inquilino)",
+         "msg": "Estou procurando um apartamento para alugar",
+         "expected": "ALUGAR"},
+        {"id": "I03", "name": "VISITA",
+         "msg": "Quero marcar uma visita ao imóvel SCH-002 no sábado",
+         "expected": "VISITA"},
+        {"id": "I04", "name": "FINANCIAMENTO",
+         "msg": "Quanto fica a parcela do financiamento do SCH-004?",
+         "expected": "FINANCIAMENTO"},
+        {"id": "I05", "name": "PROPRIETARIO (desempate vs ALUGAR)",
+         "msg": "Tenho um apê que quero colocar para alugar com vocês",
+         "expected": "PROPRIETARIO"},
+        {"id": "I06", "name": "RECLAMACAO",
+         "msg": "Estou muito insatisfeito, o corretor não retornou minhas ligações",
+         "expected": "RECLAMACAO"},
+        {"id": "I07", "name": "Mensagem picada (buffering)",
+         "msg": "__SPLIT__quero comprar um apartamento|de 2 quartos na zona sul",
+         "expected": "COMPRAR",
+         "note": "buffer deve agrupar as 2 msgs em 1 execução — juntas = COMPRAR claro"},
     ],
 }
 
@@ -195,9 +225,12 @@ def poll_for_execution(workflow_id, jid, since_ts, timeout=40):
 
 def run_scenario(bot, scenario, wf):
     s_id  = scenario["id"]
-    jid   = f"5500TEST{s_id}"
-    msg   = scenario["msg"]
     since = time.time()
+    # sufixo por execução: alguns bots (ex. Schalletti/Sofia) mantêm sessão ativa
+    # entre rodadas do mesmo JID, o que faria o roteador pular a classificação
+    # (intent NOT_FOUND numa re-execução). JID único por rodada = suite idempotente.
+    jid   = f"5500TEST{s_id}{int(since) % 100000}"
+    msg   = scenario["msg"]
 
     # Endereço picado: envia 2 msgs com 0.5s de intervalo (dentro do buffer de 2s)
     if msg.startswith("__SPLIT__"):
@@ -253,7 +286,7 @@ def main():
 
     for bot in bots:
         if bot not in WORKFLOWS:
-            print(f"Bot desconhecido: {bot} (use: aurora, odonto)")
+            print(f"Bot desconhecido: {bot} (use: aurora, odonto, schalletti)")
             continue
         wf        = WORKFLOWS[bot]
         scenarios = SCENARIOS.get(bot, [])
