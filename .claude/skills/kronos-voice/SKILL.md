@@ -51,9 +51,25 @@ Ferramenta webhook `agendar_avaliacao` → `POST https://n8n.kronosintelligence.
 
 ---
 
-## Padrão pra novo agente de voz (qualquer nicho)
-1. n8n: criar workflow webhook (Webhook `responseNode` + `onError:"continueRegularOutput"` → Respond to Webhook JSON). Ativar. Testar por curl.
-2. ElevenLabs: criar agente, idioma PT-BR, voz BR (filtro sotaque), LLM Claude, system prompt do `TOM_DE_VOZ_KRONOS.md` (temperar por nicho).
-3. Criar ferramenta webhook apontando pro n8n (nomes de parâmetro distintos entre corpo/consulta).
-4. Publicar. Testar por voz. Verificar execução no n8n.
+## Padrão pra novo agente de voz (qualquer nicho) — receita v2 (validada 08/07 com Sofia e Léa)
+1. **n8n:** criar workflow webhook (Webhook `responseNode` + `onError:"continueRegularOutput"` → Respond to Webhook JSON; settings `errorWorkflow: X29vC9p5WB38iZFI`). Ativar. Testar por curl (`-4` na rede do Allan).
+2. **ElevenLabs (via claude-in-chrome):** `/app/agents/new` → "Agente em Branco" → nome. Na aba Agente:
+   - **Prompt do sistema:** é DIV contenteditable (form_input FALHA) → clicar + Ctrl+A + `type`. ⚠️ Texto longo dá timeout CDP 30s **mas entra completo** — NÃO repetir; conferir por screenshot.
+   - **Primeira mensagem:** mesmo método (curta, sem timeout).
+   - **Idioma:** existe "Português (Brasil)" com bandeira BR — usar esse.
+   - **Voz:** aba "Minhas Vozes" já tem as BR salvas: Carla (Aurora), Ana Alice (Sofia), Elena Vinter (Léa), Roberta (livre). Sem precisar filtrar no Explorar.
+   - **LLM:** Claude Sonnet mais novo da lista (08/07 = Sonnet 4.6; painel já manda "não envie temperatura").
+3. **Ferramenta webhook — criar pelo modo "Editar como JSON" + clipboard (NUNCA digitar JSON nem usar o formulário):**
+   - Montar o JSON num arquivo UTF-8 → `Get-Content -Raw -Encoding UTF8 arq.json | Set-Clipboard` → no editor JSON: clicar, Ctrl+A, Ctrl+V (colar não dispara auto-close de brackets; digitar corrompe).
+   - Schema: template do modal + `name`, `description`, `api_schema.url`, `method: "POST"`, `query_params_schema` (array) e `request_body_schema` ({id:"body", type:"object", description, properties: [...]}).
+   - ⚠️ **TODO parâmetro (query, body-objeto e cada property) exige** `"value_type": "llm_prompt"`, `"dynamic_variable": ""`, `"constant_value": ""`, `"required": true`, `"enum": null` — faltar `dynamic_variable` dá `invalid_type`.
+   - Continua valendo: nomes distintos entre corpo e consulta (padrão: body=`nome`+específico do nicho; query=`dia`+`horario`).
+4. Publicar (Publicar → diff "Revisar alterações" → Publicar; botão fica cinza = publicado). Testar por voz (painel de teste). Verificar execução no n8n.
 5. Depois: ações reais (gravar Sheets/Calendar) + número real (trial p/ portfólio; custo por minuto só com cliente pagante).
+
+### Agentes existentes (Superfície B)
+| Agente | ID | Voz | Ferramenta → webhook n8n |
+|---|---|---|---|
+| Aurora - Kronos | `agent_1501kwfqpeszfkhr9wj4h0bn0xk9` | Carla | `agendar_avaliacao` → `/webhook/aurora-agendar` (`DHXZHNTOQdjOwMJz`) |
+| Sofia - Schalletti | `agent_6101kx1kmf3dfs9bkxzpx2rn6a5x` | Ana Alice | `agendar_visita` → `/webhook/sofia-visita` (`VLvrdcMi4NxKUMSK`) |
+| Léa - Ferraz & Nogueira | `agent_1901kx1mrywjer3rx653s0y6aa3t` | Elena Vinter | `agendar_consulta` → `/webhook/lea-consulta` (`OaalbpYTvNdypGiP`) |
