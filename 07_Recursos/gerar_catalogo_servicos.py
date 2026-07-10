@@ -315,9 +315,12 @@ para(MX, y,
 
 cols_h = ["Setor", "24h", "Áudio", "Voz", "Agenda", "Lembr.", "Pós", "PDF", "Orçam.", "Parecer", "NF-e"]
 rows = [
-    ("Estética", [1, 1, 1, 1, 1, 1, 0, 1, 2, 1]),
-    ("Odonto",   [1, 1, 1, 1, 1, 1, 1, 1, 0, 1]),
-    ("Advocacia",[1, 1, 1, 1, 1, 1, 2, 1, 1, 1]),
+    ("Estética",       [1, 1, 1, 1, 1, 1, 0, 1, 2, 1]),
+    ("Odonto",         [1, 1, 1, 1, 1, 1, 1, 1, 0, 1]),
+    ("Advocacia",      [1, 1, 1, 1, 1, 1, 2, 1, 1, 1]),
+    ("Imobiliária",    [1, 1, 0, 1, 1, 1, 1, 2, 0, 0]),
+    ("Energia Solar",  [1, 1, 1, 1, 1, 0, 0, 2, 0, 0]),
+    ("Clínica Médica", [1, 1, 1, 1, 1, 0, 0, 0, 0, 0]),
 ]
 tx = MX
 ty = y - 40
@@ -375,7 +378,7 @@ c.setFillColorRGB(*VIO_L)
 c.setFont(FONT_B, 10)
 c.drawString(MX + 16, ny - 22, "Novos setores sob demanda")
 para(MX + 16, ny - 38,
-     "Imobiliária, Nutrição, Fisioterapia, Psicologia e Laboratórios usam a mesma base — "
+     "Nutrição, Fisioterapia, Psicologia, Contábil e Laboratórios usam a mesma base — "
      "montamos o setor sob medida a partir do combo que ele precisa.",
      size=9, color=CREAM, width=tw - 32, leading=12)
 
@@ -384,7 +387,7 @@ c.showPage()
 
 
 # =====================================================================
-# PÁGINAS 5-7 — Nichos detalhados
+# PÁGINAS 5-10 — Nichos detalhados
 # =====================================================================
 def nicho_page(pagenum, kicker, title, marca, assistentes, carro, faz, exemplo):
     page_header(kicker, title)
@@ -519,8 +522,75 @@ nicho_page(
     ],
 )
 
+nicho_page(
+    8, "Setor 4 — Imobiliárias e corretores", "Imobiliária",
+    "Schalletti Imóveis — imobiliária de demonstração",
+    "Sofia",
+    ("Simulação de financiamento + match automático com a carteira",
+     "Calcula entrada, parcela e prazo (tabela Price/SAC) na conversa e cruza o perfil do "
+     "cliente com os imóveis disponíveis — acelera a conversão de lead pra visita."),
+    [
+        ("Qualifica o lead 24h", "Comprar ou alugar, região, faixa de preço e nº de quartos."),
+        ("Match com a carteira", "Envia as 2-3 opções mais aderentes, com foto e ficha."),
+        ("Simula financiamento", "Entrada, parcela e prazo (Price/SAC) na hora."),
+        ("Agenda e faz follow-up", "Marca a visita com o corretor e pergunta depois o que achou."),
+        ("Responde por voz", "Entende e responde áudio na conversa."),
+        ("Lê ficha e contrato (PDF)", "Extrai pontos-chave e sinaliza o que precisa de atenção."),
+    ],
+    [
+        ("cli", "Vi um apê de 2 quartos no Cambuí, ainda tá disponível?"),
+        ("bot", "Encontrei uma opção que combina com você: SCH-001 — Cambuí, 2 quartos, "
+                "74m², R$ 690.000. Quer que eu simule o financiamento ou já agende uma visita?"),
+    ],
+)
+
+nicho_page(
+    9, "Setor 5 — Instaladoras de energia solar", "Energia Solar",
+    "Zênite Energia Solar — instaladora de demonstração",
+    "Helena",
+    ("Cálculo de payback real, nunca chuta",
+     "Calcula número de placas, investimento e economia mensal na conversa a partir do valor "
+     "da conta de luz (ou foto dela) — sem esperar dias pelo orçamento do concorrente."),
+    [
+        ("Qualifica o lead 24h", "Valor da conta, tipo de imóvel e fase da rede."),
+        ("Calcula payback na hora", "Placas, investimento e economia mensal, com número real."),
+        ("Lê foto da conta de luz", "Confirma o valor médio sem precisar digitar nada."),
+        ("Agenda a visita técnica", "Marca grátis e confirma na véspera."),
+        ("Atende por ligação de voz", "Calcula a simulação e agenda tudo na mesma ligação."),
+        ("Responde na hora", "Dia e noite, sem esperar o vendedor humano."),
+    ],
+    [
+        ("cli", "Minha conta de luz vem uns R$ 480 por mês, vale a pena energia solar?"),
+        ("bot", "Prontinho! Sistema de 11 placas (6,0 kWp). Investimento estimado R$ 18.000, "
+                "economia de R$ 734/mês. Se paga em 2 anos e 1 mês!"),
+    ],
+)
+
+nicho_page(
+    10, "Setor 6 — Clínicas médicas", "Clínica Médica",
+    "Cedro Saúde — clínica de demonstração",
+    "Vera",
+    ("Triagem de urgência que não depende da IA",
+     "Um filtro determinístico (não é a IA que decide) identifica sinais de urgência — dor "
+     "no peito, falta de ar, sinais de AVC — orienta o SAMU 192 e aciona a equipe na hora, "
+     "antes de qualquer conversa com o robô."),
+    [
+        ("Consentimento LGPD antes de tudo", "Pede o aceite antes de coletar qualquer dado, com data/hora."),
+        ("Triagem de urgência automática", "Filtro determinístico escala pra equipe, sem depender da IA."),
+        ("Zero diagnóstico pelo bot", "Dúvida sobre sintoma vira consulta agendada, nunca palpite (CFM)."),
+        ("Agenda por convênio ou particular", "Confere o convênio, marca por especialidade e registra no CRM."),
+        ("Lembrete D-1 reduz falta", "Confirma a véspera — agenda mais cheia."),
+        ("Atende por ligação de voz", "Recepção só entra quando precisa de verdade."),
+    ],
+    [
+        ("cli", "Boa noite, queria marcar uma consulta com cardiologista"),
+        ("bot", "Boa noite! Antes de começar, preciso registrar alguns dados tratados com "
+                "sigilo conforme a LGPD. Posso seguir? Depois já vejo os horários disponíveis."),
+    ],
+)
+
 # =====================================================================
-# PÁGINA 8 — Planos e preços
+# PÁGINA 11 — Planos e preços
 # =====================================================================
 page_header("Investimento", "Planos e preços")
 y = H - 140
@@ -531,12 +601,12 @@ para(MX, y,
 
 y -= 30
 planos = [
-    ("Essencial", "397", "800",
+    ("Essencial", "397", "1.500",
      ["Atendimento 24h", "Entende áudio", "Agendamento", "Lembrete 24h", "1 número WhatsApp"], False),
-    ("Profissional", "697", "1.500",
+    ("Profissional", "697", "2.500",
      ["Tudo do Essencial", "Pós-venda ativo", "Orçamento / calculadora",
       "Emissão de NF-e", "Relatório semanal"], True),
-    ("Completo", "1.197", "2.500",
+    ("Completo", "1.497", "5.000",
      ["Tudo do Profissional", "Leitor de PDF/documentos", "Resposta por voz",
       "Conteúdo + triagem e-mail", "Prioridade no suporte"], False),
 ]
@@ -585,11 +655,11 @@ para(MX + 16, y - 38,
      "R$ 197 por parecer avulso  ou  R$ 490/mês (até 8 pareceres).",
      size=9.5, color=CREAM, width=W - 2 * MX - 32, leading=12)
 
-footer(8, "Catálogo de Serviços & Planos")
+footer(11, "Catálogo de Serviços & Planos")
 c.showPage()
 
 # =====================================================================
-# PÁGINA 9 — ROI + Contato (contracapa navy)
+# PÁGINA 12 — ROI + Contato (contracapa navy)
 # =====================================================================
 rect(0, 0, W, H, NAVY)
 rect(0, H - 5, W, 5, VIO)

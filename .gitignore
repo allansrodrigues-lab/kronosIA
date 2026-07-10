@@ -16,6 +16,7 @@ Kronos_Dossie_Estudo_*.pdf
 
 # Temporários
 .tmp_img/
+07_Recursos/_assets_cat/
 
 # Dependências Node/npm (recriáveis com `npm install` — nunca commitar)
 node_modules/
