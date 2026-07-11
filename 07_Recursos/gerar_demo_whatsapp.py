@@ -201,8 +201,23 @@ medica = [
     {"who": "out", "text": "Isso pode precisar de atendimento IMEDIATO: ligue 192 (SAMU) ou vá ao pronto-socorro agora. Já avisei nossa equipe pra te dar suporte também.", "time": "07:12", "note": "Triagem de urgência: age na hora, sem IA"},
 ]
 
+arquitetura = [
+    {"date": "ontem"},
+    {"who": "in", "text": "Oi! Comprei um terreno e quero construir. Quanto custa o projeto de uma casa de uns 150m2?", "time": "21:02"},
+    {"who": "out", "text": "Oi! Eu sou a Marina, do Estúdio Traço. Que projeto bom! Pra uma casa de 150 m², o investimento fica entre R$ 12.000 e R$ 22.500 — o valor exato sai na reunião de briefing, que é gratuita.", "time": "21:02", "note": "Estimativa por m² na hora — calculada, não inventada"},
+    {"who": "in", "text": "Posso tirar a parede da cozinha? Acho que é estrutural", "time": "21:03"},
+    {"who": "out", "text": "Essa é uma decisão técnica que precisa da arquiteta — palpite aqui seria arriscado pro seu imóvel. No briefing ela analisa isso com você direitinho.", "time": "21:03", "note": "Pergunta técnica vai pra arquiteta (Lei 12.378)"},
+    {"who": "in", "text": "Faz sentido! Como funciona esse briefing?", "time": "21:04"},
+    {"who": "out", "text": "São 30 minutos com a arquiteta, online ou no escritório, sem custo. Tenho quinta às 10h ou sexta às 15h — qual prefere?", "time": "21:04", "note": "Converte a conversa em reunião de briefing"},
+    {"who": "in", "text": "Sexta 15h, presencial!", "time": "21:05"},
+    {"who": "out", "text": "Confirmado: sexta, 15h, aqui no Estúdio. Leve fotos e referências que você curte — ajuda muito no briefing!", "time": "21:05", "note": "Agenda e registra a qualificação no CRM"},
+    {"date": "hoje"},
+    {"who": "out", "text": "Oi! Lembrete: seu briefing com a arquiteta é amanhã às 15h. Até lá!", "time": "09:00", "note": "Lembrete na véspera reduz falta"},
+]
+
 gen("Clínica Aurora", "A", clinicas, "demo_clinicas.svg")
 gen("Martins Advocacia", "M", advocacia, "demo_advocacia.svg")
 gen("Schalletti Imóveis", "S", imobiliaria, "demo_imobiliaria.svg")
 gen("Zênite Energia Solar", "Z", solar, "demo_solar.svg")
 gen("Cedro Saúde", "C", medica, "demo_clinica_medica.svg")
+gen("Estúdio Traço", "T", arquitetura, "demo_arquitetura.svg")

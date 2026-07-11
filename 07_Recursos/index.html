@@ -792,6 +792,7 @@
     <button class="seg-tab" onclick="abrirSeg('imobiliaria',this)">🏠 Imobiliária</button>
     <button class="seg-tab" onclick="abrirSeg('solar',this)">☀️ Energia Solar</button>
     <button class="seg-tab" onclick="abrirSeg('medica',this)">🩺 Clínica Médica</button>
+    <button class="seg-tab" onclick="abrirSeg('arquitetura',this)">📐 Arquitetura</button>
     <button class="seg-tab" onclick="abrirSeg('servicos',this)">🏪 Empresas de Serviços</button>
   </div>
 
@@ -1214,6 +1215,89 @@
     </div>
   </div>
 
+  <!-- ARQUITETURA -->
+  <div id="seg-arquitetura" class="seg-conteudo" style="display:none">
+
+    <!-- ▶ DEMO EM VÍDEO: conversa da Marina (assistente do Estúdio Traço) -->
+    <div class="wa-demo">
+      <div class="wa-col">
+      <div class="wa-phone">
+        <div class="wa-sb"><span>21:02</span><span class="wa-sb-r"></span></div>
+        <div class="wa-bar">
+          <span class="wa-back">‹</span>
+          <div class="wa-av">📐</div>
+          <div class="wa-peer"><strong>Estúdio Traço</strong><em id="wa-st-arquitetura">online</em></div>
+          <span class="wa-hd">📞&nbsp;&nbsp;⋮</span>
+        </div>
+        <div class="wa-chat" id="wa-chat-arquitetura"></div>
+        <div class="wa-input"><span>Mensagem</span><span class="wa-mic">🎤</span></div>
+      </div>
+      <div class="wa-caption arq"><span id="wa-cap-arquitetura"></span></div>
+      </div>
+      <div class="wa-side">
+        <div class="section-label" style="color:#c47a5a;margin-bottom:10px">Veja a Marina em ação</div>
+        <h3 style="font-size:1.35rem;font-weight:600;margin-bottom:12px;line-height:1.3">Lead de projeto qualificado — <span style="color:#c47a5a">com estimativa na hora</span>.</h3>
+        <p style="color:var(--cinza);font-size:0.9rem;margin-bottom:22px">Uma conversa real da assistente do escritório: dá a faixa de investimento por m² na hora, segura pergunta técnica pro arquiteto — e converte a conversa em reunião de briefing.</p>
+        <ul class="wa-caps">
+          <li><span>📐</span> <b>Estimativa por m²</b> na hora — calculada, nunca inventada</li>
+          <li><span>🚧</span> Pergunta técnica <b>vai pra arquiteta</b> (Lei 12.378)</li>
+          <li><span>🗂️</span> <b>Qualifica</b> tipo, área, fase e prazo no CRM</li>
+          <li><span>📅</span> <b>Agenda o briefing</b> gratuito com 2 opções</li>
+          <li><span>🔔</span> Lembrete <b>na véspera</b> reduz falta</li>
+          <li><span>💬</span> Responde <b>na hora</b>, dia e noite</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
+      <div>
+        <h3 style="font-size:1.2rem;font-weight:600;margin-bottom:16px">Como funciona para escritórios de arquitetura</h3>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(196,122,90,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">📐</div>
+            <div><strong style="display:block;margin-bottom:4px">Estimativa honesta na hora</strong><span style="color:var(--cinza);font-size:0.87rem">Calculadora por m² com as faixas do escritório: o lead recebe "entre X e Y" na hora — número calculado, nunca inventado pela IA. O valor exato fica pro briefing.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(196,122,90,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">🚧</div>
+            <div><strong style="display:block;margin-bottom:4px">Compliance automático</strong><span style="color:var(--cinza);font-size:0.87rem">"Posso tirar essa parede?" não vira palpite: um filtro automático segura toda pergunta técnica — ato privativo de arquiteto (Lei 12.378/2010) — e converte em reunião.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(196,122,90,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">🗂️</div>
+            <div><strong style="display:block;margin-bottom:4px">Qualificação completa no CRM</strong><span style="color:var(--cinza);font-size:0.87rem">Tipo de projeto, área, cidade, fase (terreno, planta, obra) e prazo — o arquiteto chega no briefing sabendo tudo.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(196,122,90,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">📅</div>
+            <div><strong style="display:block;margin-bottom:4px">Briefing marcado sem esforço</strong><span style="color:var(--cinza);font-size:0.87rem">Duas opções de horário, online ou presencial, confirmação registrada e lembrete na véspera — agenda cheia de conversa boa.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(196,122,90,0.08);border:1px solid rgba(196,122,90,0.35);border-radius:10px;padding:12px 14px">
+            <div style="background:rgba(196,122,90,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">🎙️</div>
+            <div><strong style="display:block;margin-bottom:4px">Atende por ligação de voz <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.08em;background:#c47a5a;color:#fff;padding:2px 7px;border-radius:6px;vertical-align:middle;margin-left:4px">NOVO</span></strong><span style="color:var(--cinza);font-size:0.87rem">Cliente liga? A Marina atende por voz e agenda o briefing na mesma ligação — o escritório só entra quando precisa.</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(120,72,200,0.2);border-radius:16px;padding:28px">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7848c8;margin-bottom:16px">O que o escritório ganha</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Tempo de resposta ao lead</span><strong style="color:#18c0a0">&lt; 30s</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Lead qualificado antes do briefing</span><strong style="color:#18c0a0">100%</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Falta em briefing (com lembrete)</span><strong style="color:#18c0a0">até −30%</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="color:var(--cinza);font-size:0.88rem">Atendimento fora do horário</span><strong style="color:#18c0a0">24/7</strong>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(120,72,200,0.15)">
+          <div style="font-size:0.78rem;color:var(--cinza)">Funciona para: arquitetura residencial e comercial, interiores, reforma, regularização e acompanhamento de obra</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- SERVIÇOS -->
   <div id="seg-servicos" class="seg-conteudo" style="display:none">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
@@ -1320,6 +1404,7 @@
 .wa-caption.imob span{color:#c9f5ec;background:rgba(24,192,160,0.18);border:1px solid rgba(62,200,180,0.5)}
 .wa-caption.solar span{color:#ffe9c4;background:rgba(245,166,35,0.18);border:1px solid rgba(245,166,35,0.5)}
 .wa-caption.med span{color:#d5f7e0;background:rgba(60,200,110,0.16);border:1px solid rgba(76,217,123,0.5)}
+.wa-caption.arq span{color:#ffe3d5;background:rgba(196,122,90,0.18);border:1px solid rgba(196,122,90,0.5)}
 .wa-toggle{display:flex;gap:8px;margin-bottom:14px;justify-content:center}
 .wa-tg{background:rgba(255,255,255,0.04);border:1px solid rgba(120,72,200,0.3);color:var(--cinza);border-radius:30px;padding:7px 16px;font:500 0.82rem 'Inter',sans-serif;cursor:pointer;transition:all .2s}
 .wa-tg:hover{color:var(--branco)}
@@ -1358,6 +1443,7 @@ function abrirSeg(id, btn) {
   if (id === 'imobiliaria' && window.__waStartImob) window.__waStartImob();
   if (id === 'solar' && window.__waStartSolar) window.__waStartSolar();
   if (id === 'medica' && window.__waStartMedica) window.__waStartMedica();
+  if (id === 'arquitetura' && window.__waStartArq) window.__waStartArq();
 }
 </script>
 
@@ -1684,6 +1770,63 @@ function abrirSeg(id, btn) {
     }
   }
   window.__waStartMedica = function(){ if (running) return; running = true; run(); };
+})();
+</script>
+
+<!-- Motor da conversa animada da Marina (aba arquitetura) -->
+<script>
+(function(){
+  var chat = document.getElementById('wa-chat-arquitetura');
+  var st = document.getElementById('wa-st-arquitetura');
+  var capEl = document.getElementById('wa-cap-arquitetura');
+  if (!chat) return;
+  function showCap(t){ if (capEl){ capEl.textContent = t; capEl.parentNode.classList.add('show'); } }
+  function hideCap(){ if (capEl) capEl.parentNode.classList.remove('show'); }
+  var R = [
+    {s:'in', x:{type:'text', html:'Oi! Comprei um terreno e quero construir. Quanto custa o projeto de uma casa de uns 150m2?'}, t:'21:02'},
+    {s:'out', x:{type:'text', html:'Oi! Eu sou a <b>Marina</b>, do <b>Estúdio Traço</b> ✨ Que projeto bom! Pra uma casa de <b>150 m²</b>, o investimento fica <b>entre R$ 12.000 e R$ 22.500</b> — o valor exato sai na reunião de briefing, que é gratuita.'}, t:'21:02', cap:'📐 estimativa por m² na hora — calculada, não chutada'},
+    {s:'in', x:{type:'text', html:'e vocês aprovam na prefeitura também?'}, t:'21:03'},
+    {s:'out', x:{type:'text', html:'Sim! O <b>projeto legal</b> e o protocolo na prefeitura fazem parte 🙂 E o <b>executivo</b> sai detalhado pra obra.'}, t:'21:03', cap:'🏛️ projeto legal + executivo inclusos'},
+    {s:'in', x:{type:'text', html:'aproveitando… posso tirar a parede da cozinha? acho que é estrutural'}, t:'21:04'},
+    {s:'out', x:{type:'text', html:'Essa é uma decisão técnica que precisa da <b>arquiteta</b> — palpite aqui seria arriscado pro seu imóvel. No briefing ela analisa isso com você direitinho 🏠'}, t:'21:04', cap:'🚧 pergunta técnica? só com a arquiteta (Lei 12.378)'},
+    {s:'in', x:{type:'text', html:'faz sentido! como funciona esse briefing?'}, t:'21:05'},
+    {s:'out', x:{type:'text', html:'São <b>30 minutos</b> com a arquiteta, online ou no escritório, <b>sem custo</b>. Tenho <b>quinta às 10h</b> ou <b>sexta às 15h</b> — qual prefere?'}, t:'21:05', cap:'📅 conduz pro briefing gratuito'},
+    {s:'in', x:{type:'text', html:'sexta 15h, presencial!'}, t:'21:06'},
+    {s:'out', x:{type:'text', html:'Confirmado: <b>sexta, 15h</b>, aqui no Estúdio 🗓️ Leve fotos e referências que você curte — ajuda muito no briefing!'}, t:'21:06', cap:'✅ briefing agendado e registrado no CRM'},
+    {s:'out', x:{type:'text', rem:true, html:'🔔 Oi! Lembrete: seu briefing com a arquiteta é <b>amanhã às 15h</b>. Até lá!'}, t:'09:00', cap:'🔔 lembrete na véspera reduz falta'}
+  ];
+  var sleep = function(ms){ return new Promise(function(r){ setTimeout(r, ms); }); };
+  var scroll = function(){ chat.scrollTop = chat.scrollHeight; };
+  function inner(x){
+    if (x.type === 'text') return x.html;
+    if (x.type === 'audio') return '<div class="wa-audio"><span class="wa-play">▶</span><span class="wa-wave"></span><span class="wa-dur">'+x.dur+'</span></div>';
+    return '';
+  }
+  var running = false;
+  async function run(){
+    while (true) {
+      chat.innerHTML = ''; hideCap();
+      for (var i = 0; i < R.length; i++) {
+        var m = R[i];
+        if (m.s === 'out') {
+          if (st) st.textContent = (m.x.type === 'audio') ? 'gravando áudio…' : 'digitando…';
+          var typ = document.createElement('div');
+          typ.className = 'wa-typing'; typ.innerHTML = '<i></i><i></i><i></i>';
+          chat.appendChild(typ); scroll();
+          await sleep(1000);
+          typ.remove(); if (st) st.textContent = 'online';
+        }
+        var b = document.createElement('div');
+        b.className = 'wa-msg ' + m.s + (m.x.rem ? ' rem' : '');
+        b.innerHTML = inner(m.x) + '<span class="wa-time">' + m.t + '</span>';
+        chat.appendChild(b); scroll();
+        if (m.cap) showCap(m.cap);
+        await sleep(m.s === 'in' ? 950 : 1350);
+      }
+      await sleep(3800);
+    }
+  }
+  window.__waStartArq = function(){ if (running) return; running = true; run(); };
 })();
 </script>
 
