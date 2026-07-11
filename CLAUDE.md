@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # Kronos Intelligence — automação de atendimento (n8n + WhatsApp)
 
-Produto SaaS de bots WhatsApp para clínicas (agendamento + atendimento) via n8n, Evolution API e Google Sheets, rodando num VPS Hostinger. Landing page em `07_Recursos/index.html`. Protótipos ativos: **Aurora** (estética, `clinica01`) e **OdontoVita** (odonto, `kronosdemo`).
+Produto SaaS de bots WhatsApp para clínicas (agendamento + atendimento) via n8n, Evolution API e Google Sheets, rodando num VPS Hostinger. Landing page em `07_Recursos/index.html`. Protótipos ativos: TODOS rodam na central de demos `clinica01` (chavinha) — Aurora, OdontoVita, Léa, Sofia, Helena, Vera. A instância `kronosdemo` foi desativada; seu antigo número virou o chip de prospecção (ver abaixo).
 
 ---
 
@@ -65,7 +65,7 @@ Cada workflow tem um `_guide.md` e um `_montagem_manual.md` correspondentes.
 - **n8n roda em Docker atrás do Traefik** — antes de escrever qualquer `docker-compose`, confirmar o nome real da rede com `docker network ls` (nunca assumir `traefik` ou `web`).
 - **Containers Docker:** `n8n-xve0-n8n-1`, `evolution-api`, `evolution-postgres`, `evolution-redis`, `kronos-site-*`, `traefik-*`.
 - **n8n usa SQLite** (`/home/node/.n8n/database.sqlite`). Para consultar via script: rodar `node` de dentro de `/usr/local/lib/node_modules/n8n` com `require('sqlite3')`. Campo `execution_data.data` usa formato **flatted** (`require('flatted')` para decodificar).
-- **Evolution API v2.3.7** — instâncias: `kronosdemo` (Odonto `5519997237404`, webhook `/webhook/whatsapp-odonto`) e `clinica01` (Aurora `5519971514971`, webhook `/webhook/whatsapp`).
+- **Evolution API v2.3.7** — instâncias: `clinica01` (`5519971514971`, central de demos/chavinha com TODOS os protótipos — 🔒 intocável, tem logins) e `prospeccao01` (`5519997237404`, chip **cobaia** da prospecção ativa — descartável, pode ser banido; webhook `/webhook/prospeccao-respostas`). Números que NUNCA entram em risco: `5519971266736` (Kronos) e `5519971514971` (protótipos).
 - **LLM:** Claude Haiku (`claude-haiku-4-5-20251001`) para classificação de intent; Claude Sonnet 5 (`claude-sonnet-5`) para respostas dos agentes especialistas (thinking adaptativo — padrão do Sonnet 5; sem `temperature`, que retorna 400 nesse modelo).
 - **Regra-mãe:** cada cliente novo nasce isolado — instância Evolution própria + planilha CRM própria. Nunca compartilhar base entre clientes.
 
@@ -85,7 +85,7 @@ GOOGLE_SHEETS_CRM_ID
 ## n8n Workflows
 
 - Sempre editar a versão **publicada/ativa** (`workflow_history`), **não** o rascunho (`workflow_entity`). Editar só o draft **não tem efeito**.
-- Após editar, **reiniciar o n8n para aplicar** (deactivate/reactivate ou restart do container) — unpublish/publish via UI não aplica sem restart. Verificar que a versão ativa carregou.
+- Após editar, **reiniciar o n8n para aplicar** (deactivate/reactivate ou restart do container) — unpublish/publish via UI não aplica sem restart. O deactivate+activate também **re-registra os webhooks**; se o deactivate não surtir efeito, reiniciar o container. Verificar que a versão ativa carregou.
 - **Execute Workflow exige sub-workflow publicado** — ao reativar um orquestrador, publicar também os subs que ele chama.
 - Referências a nodes pelo nome (`$('Montar Prompt Haiku')`) quebram se o node for renomeado.
 
@@ -144,9 +144,20 @@ curl -X POST https://SEU-N8N/webhook/whatsapp \
 
 ---
 
+## Branding
+
+- **Sempre usar o logo e os assets oficiais da Kronos — nunca desenhar ou improvisar logo/identidade à mão.** Logo se gera via Canva (MCP). Estilo da marca: minimalista navy, monograma "iK"; nada de dourado ou banco de imagens.
+
+## Localização (formatos brasileiros)
+
+- **Normalização de moeda/número brasileiro exige cuidado**: `R$ 50.000` = 50000 (ponto é separador de milhar, vírgula é decimal) — parser ingênuo lê como 50. Validar o parsing de valores em qualquer lógica de bot ou workflow que receba números do usuário.
+
+---
+
 ## Deploy / Infra
 
 - Operações de arquivo no VPS usam **bash paths**; empacotamento/local usa caminhos relativos ou `$env:TEMP` (não assumir que `/tmp` funciona igual em bash vs PowerShell).
 - Site (`07_Recursos/index.html`) roda no VPS via container `kronos-site-*` + Traefik (não na shared hosting).
-- **CI/CD (`.github/workflows/deploy.yml`) pode não fazer auto-deploy** — ter sempre o **fallback de `scp`** (clone+copy direto no VPS, ou colar o bloco no Browser Terminal). Confirmar o nome real da rede Traefik antes de qualquer `docker-compose up`.
+- **CI/CD (`.github/workflows/deploy.yml`) pode não fazer auto-deploy** — se o Action não propagar em tempo razoável, cair direto no **fallback de `scp`** (clone+copy direto no VPS, ou colar o bloco no Browser Terminal). Confirmar o nome real da rede Traefik antes de qualquer `docker-compose up`.
+- **Todo deploy termina confirmando que a mudança está no ar** — buscar a URL de produção real e citar o valor atualizado (não confiar em status do Action nem em cache/flag).
 - Skills disponíveis: `/kronos-deploy` (infra VPS), `/kronos-workflow` (editar n8n), `/n8n-debug` (diagnóstico de bot), `/kronos-agente` (criar/adaptar agente para novo nicho).

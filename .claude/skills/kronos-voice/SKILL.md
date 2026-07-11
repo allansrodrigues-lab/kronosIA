@@ -51,7 +51,13 @@ Ferramenta webhook `agendar_avaliacao` → `POST https://n8n.kronosintelligence.
 
 ---
 
-## Padrão pra novo agente de voz (qualquer nicho) — receita v2 (validada 08/07 com Sofia e Léa)
+⚠️ **Estado sujo TAMBÉM no diálogo de criação do agente (11/07, Marina):** o campo "Nome do Agente" do fluxo "Agente em Branco" veio pré-preenchido com o nome do ÚLTIMO agente criado ("Vera - Cedro Saúde"). Regra: **Ctrl+A antes de digitar em QUALQUER campo do ElevenLabs**, mesmo em fluxo "novo". Já o modal da 1ª ferramenta de um agente novo veio limpo — o bug entre ferramentas é do MESMO agente.
+
+💡 **Pegar voice_id TTS de uma voz salva (pro nó `Responder em Voz` do nicho):** Vozes → Minhas Vozes → ⋮ da voz → "Copiar ID de voz" → `Get-Clipboard` no PowerShell. A voz escolhida no AGENTE não vale como voice_id do TTS — configs separadas; sempre atualizar o nó do workflow com o id copiado (Marina/Amanda Kelly = `oi8rgjIfLgJRsQ6rbZh3`).
+
+💡 **Colar prompt longo por clipboard funciona (11/07):** em vez de `type` (timeout CDP), `Set-Clipboard` no PowerShell + clicar no campo + Ctrl+A + Ctrl+V — 2.000 chars entraram instantâneo, sem timeout.
+
+## Padrão pra novo agente de voz (qualquer nicho) — receita v2 (validada 08/07 com Sofia e Léa; re-validada 11/07 com Marina)
 1. **n8n:** criar workflow webhook (Webhook `responseNode` + `onError:"continueRegularOutput"` → Respond to Webhook JSON; settings `errorWorkflow: X29vC9p5WB38iZFI`). Ativar. Testar por curl (`-4` na rede do Allan).
 2. **ElevenLabs (via claude-in-chrome):** `/app/agents/new` → "Agente em Branco" → nome. Na aba Agente:
    - **Prompt do sistema:** é DIV contenteditable (form_input FALHA) → clicar + Ctrl+A + `type`. ⚠️ Texto longo dá timeout CDP 30s **mas entra completo** — NÃO repetir; conferir por screenshot.
@@ -76,3 +82,4 @@ Ferramenta webhook `agendar_avaliacao` → `POST https://n8n.kronosintelligence.
 | Léa - Ferraz & Nogueira | `agent_1901kx1mrywjer3rx653s0y6aa3t` | Elena Vinter | `agendar_consulta` → `/webhook/lea-consulta` (`OaalbpYTvNdypGiP`) |
 | Helena - Zênite Solar | `agent_1801kx3zb2wtem6v923vgy8mwy5f` | Roberta | `calcular_payback` → `/webhook/helena-payback` (`5IrRDmb7ViJOyPhU`) + `agendar_visita_tecnica` → `/webhook/helena-visita` (`l6mcqTExEPS9eZGJ`) — 1º agente com 2 ferramentas (calcular + agendar), confirma que dá pra plugar mais de uma sem problema além do bug de estado sujo acima |
 | Vera - Cedro Saúde | `agent_4901kx6pg7rmf94aysjhz7yd0jqa` | Luna (nova, BR — soft/calm/soothing) | `agendar_consulta` → `/webhook/vera-consulta` (`Ucn2jpnVQqJkWwQm`) — LGPD como portão de entrada no próprio prompt de voz; testado ponta a ponta (chat simulado → n8n → planilha Consultas) 10/07 |
+| Marina - Estúdio Traço | `agent_9701kx8jhnz1fvrtegsajhn8cegr` | Amanda Kelly (BR — sweet/warm/clear; TTS `oi8rgjIfLgJRsQ6rbZh3`) | `agendar_briefing` → `/webhook/marina-briefing` (`Vg23r2dgGs3utjEV`) — prompt de voz só cita R$/m², NUNCA multiplica (número calculado não sai do LLM); testado E2E 11/07 |

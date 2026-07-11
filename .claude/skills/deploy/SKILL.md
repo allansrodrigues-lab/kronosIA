@@ -1,6 +1,6 @@
 ---
-name: deploy-landing
-description: Faz deploy da landing page Kronos (07_Recursos/index.html) pro VPS, confirma que o CI/CD propagou e verifica SSL/Traefik. Se o GitHub Action não propagar, cai no fallback manual (scp/clone+copy direto no VPS). Use quando o usuário disser "deploy da landing", "sobe o site", "publica a landing", "/deploy-landing".
+name: deploy
+description: Faz deploy da landing page Kronos (07_Recursos/index.html) pro VPS, confirma que o CI/CD propagou e verifica SSL/Traefik. Se o GitHub Action não propagar, cai no fallback manual (scp/clone+copy direto no VPS). Use quando o usuário disser "deploy da landing", "sobe o site", "publica a landing", "/deploy", "/deploy-landing".
 ---
 
 # Deploy Landing Page
