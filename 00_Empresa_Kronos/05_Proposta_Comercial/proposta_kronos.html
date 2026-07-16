@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta Comercial — Kronos Intelligence</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1a1a2e;
+    background: #fff;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 794px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: #020c2a;
+    color: #fff;
+    padding: 40px 50px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-spirograph {
+    position: absolute;
+    right: -60px;
+    top: -40px;
+    width: 380px;
+    height: 220px;
+    opacity: 0.9;
+    pointer-events: none;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .logo-icon {
+    height: 42px;
+    width: auto;
+    display: block;
+  }
+  .brand-name {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .brand-name span {
+    font-weight: 300;
+    text-transform: none;
+    font-size: 15px;
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .header .subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+  }
+  .header-meta {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .meta-item label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 3px;
+  }
+  .meta-item span {
+    font-size: 13px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+  }
+
+  /* ── BODY ── */
+  .body { padding: 40px 50px; }
+
+  .section { margin-bottom: 36px; }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #0d1b3e;
+    border-bottom: 2px solid #0d1b3e;
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+  }
+
+  /* diagnóstico */
+  .diag-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .diag-item {
+    background: #f7f8fc;
+    border-left: 3px solid #0d1b3e;
+    padding: 12px 14px;
+    border-radius: 0 6px 6px 0;
+  }
+  .diag-item label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #888;
+    margin-bottom: 4px;
+  }
+  .diag-item span {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a2e;
+  }
+
+  /* custo */
+  .cost-box {
+    background: #fff4e6;
+    border: 1px solid #ffd08a;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 12px;
+  }
+  .cost-box p {
+    font-size: 12px;
+    color: #7a4a00;
+  }
+  .cost-box strong { color: #c85000; font-size: 14px; }
+
+  /* solução */
+  .feature-table { width: 100%; border-collapse: collapse; }
+  .feature-table th {
+    text-align: left;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #888;
+    padding: 0 0 8px;
+    border-bottom: 1px solid #eee;
+  }
+  .feature-table td {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+  }
+  .feature-table td:first-child {
+    width: 40%;
+    font-weight: 500;
+    color: #0d1b3e;
+  }
+  .icon { margin-right: 8px; }
+
+  /* planos */
+  .plans {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 4px;
+  }
+  .plan {
+    border: 1.5px solid #e0e4ef;
+    border-radius: 12px;
+    padding: 22px 20px;
+    position: relative;
+  }
+  .plan.featured {
+    border-color: #0d1b3e;
+    background: #f7f8fc;
+  }
+  .plan-badge {
+    position: absolute;
+    top: -11px;
+    left: 20px;
+    background: #0d1b3e;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .plan-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0d1b3e;
+    margin-bottom: 4px;
+  }
+  .plan-price {
+    font-size: 26px;
+    font-weight: 700;
+    color: #0d1b3e;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .plan-price span { font-size: 13px; font-weight: 400; color: #888; }
+  .plan-note {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 14px;
+  }
+  .plan ul { list-style: none; }
+  .plan ul li {
+    font-size: 12px;
+    color: #333;
+    padding: 4px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+  }
+  .plan ul li::before {
+    content: '✓';
+    color: #0d1b3e;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* investimento */
+  .invest-table { width: 100%; border-collapse: collapse; }
+  .invest-table th {
+    background: #0d1b3e;
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .invest-table th:first-child { border-radius: 8px 0 0 0; }
+  .invest-table th:last-child { border-radius: 0 8px 0 0; }
+  .invest-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #eee;
+    font-size: 12px;
+  }
+  .invest-table tr:last-child td { border-bottom: none; }
+  .invest-table tr:nth-child(even) td { background: #f7f8fc; }
+  .invest-table td:first-child { font-weight: 500; color: #555; }
+
+  .pix-note {
+    margin-top: 10px;
+    font-size: 11px;
+    color: #555;
+    background: #f0f4ff;
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+
+  /* implantação */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #0d1b3e;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-content { flex: 1; }
+  .step-label { font-weight: 600; font-size: 12px; color: #0d1b3e; }
+  .step-prazo { font-size: 11px; color: #888; margin-top: 1px; }
+
+  .highlight-box {
+    background: #0d1b3e;
+    color: #fff;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  /* próximos passos */
+  .next-steps ol { padding-left: 18px; }
+  .next-steps li {
+    padding: 6px 0;
+    font-size: 12px;
+    color: #333;
+  }
+
+  /* footer */
+  .footer {
+    background: #f7f8fc;
+    border-top: 2px solid #0d1b3e;
+    padding: 28px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-contact h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0d1b3e;
+    margin-bottom: 6px;
+  }
+  .footer-contact p {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.8;
+  }
+  .footer-validity {
+    text-align: right;
+    font-size: 11px;
+    color: #888;
+  }
+  .footer-validity strong { display: block; font-size: 22px; font-weight: 700; color: #0d1b3e; line-height: 1; margin-top: 4px; }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { max-width: 100%; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <!-- Spirograph background (igual ao site) -->
+    <svg class="header-spirograph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="p1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a0438"/><stop offset="50%" style="stop-color:#9060e0"/><stop offset="100%" style="stop-color:#0e0220"/></linearGradient>
+        <linearGradient id="p2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#020820"/><stop offset="50%" style="stop-color:#3060c8"/><stop offset="100%" style="stop-color:#020818"/></linearGradient>
+        <linearGradient id="p3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#080228"/><stop offset="50%" style="stop-color:#5040d8"/><stop offset="100%" style="stop-color:#060118"/></linearGradient>
+        <linearGradient id="p4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#010e20"/><stop offset="50%" style="stop-color:#1890c0"/><stop offset="100%" style="stop-color:#010a18"/></linearGradient>
+        <linearGradient id="p1b" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#0e0220"/><stop offset="50%" style="stop-color:#7848c8"/><stop offset="100%" style="stop-color:#1a0438"/></linearGradient>
+        <linearGradient id="p2b" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#020818"/><stop offset="50%" style="stop-color:#2048a8"/><stop offset="100%" style="stop-color:#020820"/></linearGradient>
+        <filter id="g2"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p1)"  stroke-width="1.5" opacity="0.90" transform="rotate(0   550 220)" filter="url(#g2)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p2)"  stroke-width="1.5" opacity="0.88" transform="rotate(6   550 220)" filter="url(#g2)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p3)"  stroke-width="1.5" opacity="0.84" transform="rotate(12  550 220)" filter="url(#g2)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p4)"  stroke-width="1.5" opacity="0.80" transform="rotate(18  550 220)" filter="url(#g2)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p1b)" stroke-width="1.5" opacity="0.76" transform="rotate(24  550 220)" filter="url(#g2)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p2b)" stroke-width="1.5" opacity="0.72" transform="rotate(30  550 220)" filter="url(#g2)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p1)"  stroke-width="1.5" opacity="0.66" transform="rotate(36  550 220)" filter="url(#g2)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p2)"  stroke-width="1.5" opacity="0.60" transform="rotate(42  550 220)" filter="url(#g2)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p3)"  stroke-width="1.5" opacity="0.54" transform="rotate(48  550 220)" filter="url(#g2)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p4)"  stroke-width="1.5" opacity="0.46" transform="rotate(54  550 220)" filter="url(#g2)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p1b)" stroke-width="1.5" opacity="0.38" transform="rotate(60  550 220)" filter="url(#g2)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p2b)" stroke-width="1.5" opacity="0.30" transform="rotate(66  550 220)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p1)"  stroke-width="1.5" opacity="0.20" transform="rotate(72  550 220)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p2)"  stroke-width="1.5" opacity="0.12" transform="rotate(78  550 220)"/>
+      <ellipse cx="620" cy="220" rx="280" ry="110" fill="none" stroke="url(#p3)"  stroke-width="1.5" opacity="0.06" transform="rotate(84  550 220)"/>
+    </svg>
+
+    <div class="logo-area">
+      <img src="../07_Recursos/identidade_visual/kronos_icone_transparente.png" alt="Kronos" class="logo-icon"/>
+      <div class="brand-name">KRONOS<br><span>Intelligence</span></div>
+    </div>
+    <h1>Proposta Comercial</h1>
+    <div class="subtitle">Automação de Atendimento com Inteligência Artificial</div>
+    <div class="header-meta">
+      <div class="meta-item">
+        <label>Para</label>
+        <span>[Nome do Responsável]</span>
+      </div>
+      <div class="meta-item">
+        <label>Clínica</label>
+        <span>[Nome da Clínica]</span>
+      </div>
+      <div class="meta-item">
+        <label>Data</label>
+        <span>[Data]</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- DIAGNÓSTICO -->
+    <div class="section">
+      <div class="section-title">O que identificamos na sua clínica</div>
+      <div class="diag-grid">
+        <div class="diag-item">
+          <label>Tempo médio de resposta no WhatsApp</label>
+          <span>[X horas / minutos]</span>
+        </div>
+        <div class="diag-item">
+          <label>Faltas e no-shows por mês</label>
+          <span>[X agendamentos]</span>
+        </div>
+        <div class="diag-item">
+          <label>Mensagens recebidas por dia</label>
+          <span>[X mensagens]</span>
+        </div>
+        <div class="diag-item">
+          <label>Responsável pelo atendimento</label>
+          <span>[Recepcionista / Proprietário]</span>
+        </div>
+      </div>
+      <div class="cost-box">
+        <p>Custo estimado desse cenário: cada falta representa em média R$ [valor] perdido. Com [X] faltas/mês, isso equivale a <strong>R$ [total]/mês</strong> em receita não realizada.</p>
+      </div>
+    </div>
+
+    <!-- SOLUÇÃO -->
+    <div class="section">
+      <div class="section-title">A solução Kronos</div>
+      <table class="feature-table">
+        <thead>
+          <tr>
+            <th>Função</th>
+            <th>O que faz</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="icon">💬</span>Atendimento 24h</td>
+            <td>Responde dúvidas, preços e disponibilidade automaticamente, a qualquer hora</td>
+          </tr>
+          <tr>
+            <td><span class="icon">📅</span>Agendamento inteligente</td>
+            <td>Agenda diretamente na sua agenda, sem intervenção humana</td>
+          </tr>
+          <tr>
+            <td><span class="icon">🔔</span>Lembrete automático</td>
+            <td>Envia confirmação 24h antes — reduz faltas em até 40%</td>
+          </tr>
+          <tr>
+            <td><span class="icon">🔁</span>Pós-venda</td>
+            <td>Follow-up automático após cada atendimento para fidelizar pacientes</td>
+          </tr>
+          <tr>
+            <td><span class="icon">📊</span>Relatórios</td>
+            <td>Painel com métricas de atendimento em tempo real</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PLANOS -->
+    <div class="section">
+      <div class="section-title">Planos</div>
+      <div class="plans">
+        <div class="plan">
+          <div class="plan-name">Plano Essencial</div>
+          <div class="plan-price">R$ 397<span>/mês</span></div>
+          <div class="plan-note">Sem fidelidade · Setup grátis no 1º mês</div>
+          <ul>
+            <li>Agente de atendimento WhatsApp 24h</li>
+            <li>Agendamento automático</li>
+            <li>Lembretes 24h antes da consulta</li>
+            <li>Integração Google Calendar</li>
+            <li>Suporte mensal</li>
+          </ul>
+        </div>
+        <div class="plan featured">
+          <div class="plan-badge">Recomendado</div>
+          <div class="plan-name">Plano Profissional</div>
+          <div class="plan-price">R$ 697<span>/mês</span></div>
+          <div class="plan-note">Sem fidelidade · Setup grátis no 1º mês</div>
+          <ul>
+            <li>Tudo do Essencial</li>
+            <li>Agente de pós-venda e fidelização</li>
+            <li>Campanhas de reativação de inativos</li>
+            <li>Relatório mensal de desempenho</li>
+            <li>Suporte prioritário</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVESTIMENTO -->
+    <div class="section">
+      <div class="section-title">Investimento e retorno</div>
+      <table class="invest-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Essencial</th>
+            <th>Profissional</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Mensalidade</td><td>R$ 397</td><td>R$ 697</td></tr>
+          <tr><td>Setup (1º mês)</td><td>Grátis</td><td>Grátis</td></tr>
+          <tr><td>Contrato mínimo</td><td>Mensal</td><td>Mensal</td></tr>
+          <tr><td>Cancelamento</td><td>A qualquer momento</td><td>A qualquer momento</td></tr>
+          <tr><td>Pagamento</td><td>PIX ou cartão</td><td>PIX ou cartão</td></tr>
+        </tbody>
+      </table>
+      <div class="pix-note">
+        💳 <strong>Pagamento via PIX ou cartão</strong> (Mercado Pago). No cartão, renova automaticamente. No PIX, você recebe o link de cobrança todo mês.
+      </div>
+    </div>
+
+    <!-- IMPLANTAÇÃO -->
+    <div class="section">
+      <div class="section-title">Como funciona a implantação</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <div class="step-label">Diagnóstico e configuração</div>
+            <div class="step-prazo">Dia 1–2</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <div class="step-label">Personalização do agente com identidade da clínica</div>
+            <div class="step-prazo">Dia 3–4</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <div class="step-label">Integração WhatsApp + Agenda</div>
+            <div class="step-prazo">Dia 5</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <div class="step-label">Testes e ajustes</div>
+            <div class="step-prazo">Dia 6–7</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">05</div>
+          <div class="step-content">
+            <div class="step-label">Ativação</div>
+            <div class="step-prazo">Dia 7</div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box">Em 7 dias seu atendimento está automatizado.</div>
+    </div>
+
+    <!-- PRÓXIMOS PASSOS -->
+    <div class="section next-steps">
+      <div class="section-title">Próximos passos</div>
+      <ol>
+        <li>Aprovação desta proposta</li>
+        <li>Envio do número WhatsApp da clínica</li>
+        <li>Acesso de leitura ao Google Calendar</li>
+        <li>Início da configuração — ativação em 7 dias</li>
+      </ol>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-contact">
+      <h3>Allan dos Santos Rodrigues</h3>
+      <p>
+        WhatsApp: +55 19 97126-6736<br>
+        allansrodrigues@gmail.com<br>
+        kronosintelligence.com.br
+      </p>
+    </div>
+    <div class="footer-validity">
+      Proposta válida por
+      <strong>15 dias</strong>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTÃO IMPRIMIR (só aparece na tela, não no PDF) -->
+<div class="no-print" style="text-align:center; padding: 24px; background: #f0f0f0;">
+  <p style="margin-bottom:12px; font-family:sans-serif; color:#555; font-size:13px;">
+    Para salvar como PDF: clique no botão abaixo ou use <strong>Ctrl+P → Salvar como PDF</strong><br>
+    <em>Dica: desative cabeçalhos/rodapés do navegador nas opções de impressão</em>
+  </p>
+  <button onclick="window.print()" style="background:#0d1b3e; color:#fff; border:none; padding:12px 28px; border-radius:8px; font-size:14px; cursor:pointer; font-family:sans-serif;">
+    🖨️ Salvar como PDF
+  </button>
+</div>
+
+</body>
+</html>

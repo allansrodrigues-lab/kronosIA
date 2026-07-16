@@ -35,7 +35,7 @@
     .num{width:22px;height:22px;border-radius:999px;color:#fff;font-size:.72rem;font-weight:600;
       display:flex;align-items:center;justify-content:center;flex:none;}
     .rname{flex:1;min-width:0;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .rname small{display:block;color:var(--cinza);font-size:.72rem;font-weight:400;}
+    .rname small{display:block;color:var(--cinza);font-size:.72rem;font-weight:400;white-space:normal;}
     .track{flex:none;width:70px;height:6px;border-radius:999px;background:rgba(255,255,255,0.1);overflow:hidden;}
     .fill{display:block;height:100%;border-radius:999px;}
     .cnt{flex:none;width:50px;text-align:right;font-size:.78rem;color:var(--cinza);}
@@ -81,8 +81,8 @@
     const COL = {go:'#1bb58a', next:'#e0a020', plan:'#5a6a90', done:'#2bbf6a'};
     const regions = [
       {n:1, name:'Campinas (RMC)',        wave:'Onda 1', st:'go',   c:173, x:249.8, y:150.8},
-      {n:2, name:'Capital + Grande SP',   wave:'Onda 2', st:'next', c:0,  x:266.2, y:177.2},
-      {n:3, name:'Vale do Paraíba',       wave:'Onda 3', st:'plan', c:0,  x:294.7, y:161.9},
+      {n:2, name:'Capital SP',         wave:'Onda 2 · áreas nobres: Itaim, Jardins, Pinheiros, Moema', st:'go', c:141, x:266.2, y:177.2},
+      {n:3, name:'Vale do Paraíba',       wave:'Onda 3', st:'next', c:0,  x:294.7, y:161.9},
       {n:4, name:'Baixada Santista',      wave:'Onda 4', st:'plan', c:0,  x:277.6, y:194.0},
       {n:5, name:'Ribeirão Preto',        wave:'Onda 5', st:'plan', c:0,  x:221.3, y:79.2},
       {n:6, name:'Sorocaba',              wave:'Onda 6', st:'plan', c:0,  x:234.6, y:175.1},

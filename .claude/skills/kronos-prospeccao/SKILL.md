@@ -10,14 +10,22 @@ Rotina **DIÁRIA** — token só queima em prospecção/conversa até entrar cli
 
 ⚠️ **Regra de ouro: contato REAL, nunca inventado.** Todo nome/telefone/e-mail vem de pesquisa web verificável. Se não achou contato, lança o nome com status "Sem contato (buscar)" — não chuta número.
 
+⚙️ **Regra de operação (Allan 12/07/2026): varredura → lança DIRETO, sem perguntar onde.** Toda vez que fizer a varredura (busca web OU processar uma base CNPJ que o Allan fornecer), já atualiza o CRM na hora — contatos na aba do nicho + mensagem na aba `Mensagens` (se for nicho ainda sem mensagem lá). **Não** parar pra perguntar layout, estrutura ou "onde jogar" — a estrutura abaixo já está decidida e é definitiva. Perguntar só escopo quando ambíguo (qual nicho/região/quantos), nunca a arrumação. Objetivo: o Allan não procurar nem reconfirmar nada — abre a aba do nicho → contato; abre `Mensagens` → texto.
+
 ## CRM (Google Sheets via MCP `mcp__google-sheets__*`)
 Spreadsheet: `1ZlDFYkgx6aXUM0ayj1e1_K6uX0cruo7VuCcmg1_w5ps`
 
 | Nicho | Aba | Início dos dados |
 |---|---|---|
-| Clínicas (odonto/estética/dermato) | `Prospeccao` | linha 3 (header na linha 2; linha 1 vazia) |
-| Parecer Científico | `Prospeccao_Parecer` | linha 2 (header na linha 1) |
-| Advocacia | `Prospeccao_Advocacia` | linha 2 (header na linha 1) |
+| Clínicas (odonto/estética/dermato) | `Prospeccao` | linha 3 (nota na linha 1; header na linha 2) |
+| Parecer Científico | `Prospeccao_Parecer` | linha 2 (header na linha 1; nota em N1) |
+| Advocacia | `Prospeccao_Advocacia` | linha 2 (header na linha 1; nota em N1) |
+| Imobiliária | `Prospeccao_Imobiliaria` | linha 3 (nota na linha 1; header na linha 2) |
+| Energia Solar | `Prospeccao_Solar` | linha 3 (nota na linha 1; header na linha 2) |
+| Arquitetura | `Prospeccao_Arquitetura` | linha 3 (nota na linha 1; header na linha 2) |
+| Clínica Médica | `Prospeccao_Clinica_Medica` | linha 3 (nota na linha 1; header na linha 2) |
+
+**Aba `Mensagens`** (central única, criada 12/07): mensagem de abordagem WhatsApp + e-mail de TODOS os 7 nichos + Universal. Colunas `Nicho | Persona/Bot | Canal | Assunto (e-mail) | Mensagem | Observacoes`. É de lá que sai o texto pra disparar — a nota no topo de cada aba de nicho aponta pra ela. Nicho novo sem mensagem lá → escrever no mesmo tom antes de abordar.
 
 **Colunas (12):** `Nome | Cidade | Segmento/Especialidade | WhatsApp | Email | Endereco | Teste_WhatsApp | Status | Data_Abordagem | Data_Followup | Proposta_Enviada | Observacoes`
 
@@ -38,6 +46,17 @@ Spreadsheet: `1ZlDFYkgx6aXUM0ayj1e1_K6uX0cruo7VuCcmg1_w5ps`
 3. **Lançar em lote** com `batch_update_cells` (range explícito, ex: `A33:L42`) — mais barato que add_rows um a um.
 4. **Gargalo conhecido:** WhatsApp sai fácil, **e-mail é o difícil**. Padrão validado 21/06: **advocacia/profissional com site institucional rende WhatsApp + e-mail juntos** (buscar `<nome> <cidade> whatsapp telefone contato <dominio>`); **clínica pequena/consultório quase nunca publica e-mail** (só WhatsApp/Instagram) — não gastar busca caçando e-mail deles, o canal é WhatsApp (que já serve ao chip/tráfego pago). E-mail de clínica só vale a pena nos renomados/médicos com site.
 5. **Meta por região:** 50 por nicho = 25 renomados + 25 pequenos. Aceitar desvio quando a realidade da cidade não permite (ex.: Campinas advocacia deu 18/34) — registrar, não forçar/inventar.
+
+## Base CNPJ que o Allan fornece (método rápido — Onda 2 em diante)
+O Allan pode entregar uma planilha "empresas" exportada da **base CNPJ da Receita** (ex: `1IhJdDojRpAdPt6hjFfwK7sYlG1WlEb6-FWFaf350FxA`), já filtrada por região/bairro, com CNPJ, Razão/Fantasia, Telefones, E-mail, endereço e **CNAE**. Fluxo: **ler → classificar por CNAE → distribuir nas abas + jogar direto no CRM** (sem perguntar). Mapa CNAE → nicho:
+- `6911701` Serviços advocatícios → `Prospeccao_Advocacia`
+- `8630504` Atividade odontológica → `Prospeccao` (clínicas)
+- `8630501/8630502/8630503` Atividade médica ambulatorial → `Prospeccao_Clinica_Medica` (cirurgia plástica/estética = ticket alto)
+- `7111100` Serviços de arquitetura → `Prospeccao_Arquitetura`
+- `6821801/6822600/6810201` imóveis → `Prospeccao_Imobiliaria`
+- Descartar fora de nicho: elétrica (`4321500`), geração de energia, limpeza, laboratório de outra praça, holdings patrimoniais, linhas com dados mascarados (`XXXX`).
+
+⚠️ **Armadilha da base CNPJ:** telefone/e-mail costuma ser do **contador que abriu a empresa**, não do negócio. Sinais: e-mail com `contabil`/`conta`/`societario`/`admjudicial`/Contabilizei, ou DDD de outro estado que não bate com a praça. Nesses casos, marcar `Contato: checar antes (contato do contador)` — nunca "confirmado". Telefone `999999999`/`988888888` = placeholder → WhatsApp vazio + "checar antes". Guardar o CNPJ na `Observacoes`. Telefone celular = 9 dígitos começando com 9 (o fixo tem 8). Ver [[dados-publicos-prospeccao-nicho]].
 
 ## Atualizar o mapa ("atualiza o mapa")
 `07_Recursos/mapa_prospeccao.html` — contorno real de SP, 9 ondas. Editar o array `regions` (campo `c` = contagem da região; `st`: `go` em andamento / `next` próxima / `plan` planejada / `done` concluída). Abre no celular; regenerável a qualquer momento.

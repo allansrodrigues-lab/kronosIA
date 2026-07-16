@@ -309,7 +309,7 @@ c.showPage()
 page_header("Por setor", "O que cada setor ativa")
 y = H - 138
 para(MX, y,
-     "Os três setores abaixo já estão prontos e testados. Cada linha mostra o combo de "
+     "Os sete setores abaixo já estão prontos e testados. Cada linha mostra o combo de "
      "serviços — e o círculo maior marca o carro-chefe daquele setor.",
      size=11, color=GRAY, leading=16)
 
@@ -321,6 +321,7 @@ rows = [
     ("Imobiliária",    [1, 1, 0, 1, 1, 1, 1, 2, 0, 0]),
     ("Energia Solar",  [1, 1, 1, 1, 1, 0, 0, 2, 0, 0]),
     ("Clínica Médica", [1, 1, 1, 1, 1, 0, 0, 0, 0, 0]),
+    ("Arquitetura",    [1, 1, 1, 1, 1, 1, 0, 2, 0, 1]),
 ]
 tx = MX
 ty = y - 40
@@ -589,8 +590,32 @@ nicho_page(
     ],
 )
 
+nicho_page(
+    11, "Setor 7 — Escritórios de arquitetura", "Arquitetura",
+    "Estúdio Traço — escritório de demonstração",
+    "Marina",
+    ("Estimativa por m² na hora + filtro de pedido técnico",
+     "Calculadora com as faixas do escritório dá o 'entre X e Y' na hora — número calculado, "
+     "nunca inventado — e um filtro determinístico segura pergunta técnica (Lei 12.378) "
+     "pra arquiteta responder, não a IA."),
+    [
+        ("Qualifica o projeto 24h", "Tipo de projeto, metragem e prazo — sem perder lead de madrugada."),
+        ("Estimativa por m² na hora", "Faixa calculada do escritório; o valor exato fica pro briefing."),
+        ("Filtro de pedido técnico", "Planta, estrutura, RRT? Escala pra arquiteta na hora — nunca palpite."),
+        ("Agenda o briefing", "30 min, online ou presencial, com lembrete na véspera."),
+        ("Atende por ligação de voz", "O escritório só entra quando precisa de verdade."),
+        ("Emite a nota (NFS-e)", "Nota dos honorários automática."),
+    ],
+    [
+        ("cli", "Quanto custa o projeto de uma casa de 150 m²?"),
+        ("bot", "Que projeto bom! Pra uma casa de 150 m², o investimento fica entre "
+                "R$ 12.000 e R$ 22.500 — o valor exato sai no briefing gratuito de 30 min. "
+                "Tenho quinta às 10h ou sexta às 15h, qual prefere?"),
+    ],
+)
+
 # =====================================================================
-# PÁGINA 11 — Planos e preços
+# PÁGINA 12 — Planos e preços
 # =====================================================================
 page_header("Investimento", "Planos e preços")
 y = H - 140
@@ -655,39 +680,39 @@ para(MX + 16, y - 38,
      "R$ 197 por parecer avulso  ou  R$ 490/mês (até 8 pareceres).",
      size=9.5, color=CREAM, width=W - 2 * MX - 32, leading=12)
 
-footer(11, "Catálogo de Serviços & Planos")
+footer(12, "Catálogo de Serviços & Planos")
 c.showPage()
 
 # =====================================================================
-# PÁGINA 12 — ROI + Contato (contracapa navy)
+# PÁGINA 13 — ROI + Contato (contracapa navy)
 # =====================================================================
 rect(0, 0, W, H, NAVY)
 rect(0, H - 5, W, 5, VIO)
 logo(LOGO_DARK, MX, H - 118, 58)
 c.setFillColorRGB(*WHITE); c.setFont(FONT_B, 24)
-c.drawString(MX, H - 170, "Quanto custa NÃO ter?")
-para(MX, H - 198, "Todo mês, um negócio sem atendimento automatizado deixa dinheiro na mesa:",
+c.drawString(MX, H - 170, "O que acontece sem um agente?")
+para(MX, H - 198, "Sem ninguém respondendo na hora, todo dia é a mesma história:",
      size=11, color=CREAM, leading=15)
 
-roi = [
-    ("R$ 1.600", "em faltas e no-shows (8 × R$ 200) que um lembrete evitaria"),
-    ("R$ 1.200", "em leads que chegam fora do horário e não são respondidos a tempo"),
-    ("R$ 528", "em horas da equipe gastas no WhatsApp repetitivo"),
+dores = [
+    ("Fora do horário", "O cliente que chama às 21h não espera até amanhã — vai pro concorrente que respondeu primeiro."),
+    ("Sem lembrete", "Consulta esquecida vira cadeira vazia — e horário perdido não volta."),
+    ("Equipe presa no repetitivo", "Horas por dia respondendo a mesma pergunta, em vez de cuidar de quem está na frente."),
 ]
 y = H - 238
-for val, desc in roi:
-    rect(MX, y - 52, W - 2 * MX, 46, NAVY_CARD, radius=10)
-    c.setFillColorRGB(*VIO_L); c.setFont(FONT_B, 20)
-    c.drawString(MX + 18, y - 36, val)
-    para(MX + 150, y - 26, desc, size=10, color=CREAM, width=W - 2 * MX - 170, leading=13)
-    y -= 60
+for titulo, desc in dores:
+    rect(MX, y - 56, W - 2 * MX, 52, NAVY_CARD, radius=10)
+    c.setFillColorRGB(*VIO_L); c.setFont(FONT_B, 12.5)
+    c.drawString(MX + 18, y - 20, titulo)
+    para(MX + 18, y - 38, desc, size=9.5, color=CREAM, width=W - 2 * MX - 36, leading=12)
+    y -= 66
 
 y -= 6
 rect(MX, y - 52, W - 2 * MX, 48, VIO, radius=10)
 c.setFillColorRGB(*WHITE); c.setFont(FONT_B, 13)
-c.drawString(MX + 18, y - 24, "≈ R$ 2.300 evaporam por mês")
+c.drawString(MX + 18, y - 24, "Veja funcionando antes de decidir")
 c.setFont(FONT, 10)
-c.drawString(MX + 18, y - 40, "A Kronos custa uma fração disso — e se paga na primeira semana.")
+c.drawString(MX + 18, y - 40, "Demonstração ao vivo e gratuita, no seu WhatsApp — o agente atendendo de verdade.")
 
 cy = 150
 c.setStrokeColorRGB(*NAVY_SOFT); c.setLineWidth(1); c.line(MX, cy + 30, W - MX, cy + 30)
