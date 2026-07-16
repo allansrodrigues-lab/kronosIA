@@ -21,3 +21,10 @@ Kronos_Dossie_Estudo_*.pdf
 # Dependências Node/npm (recriáveis com `npm install` — nunca commitar)
 node_modules/
 **/node_modules/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
