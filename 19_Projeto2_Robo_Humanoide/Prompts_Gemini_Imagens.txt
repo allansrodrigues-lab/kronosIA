@@ -1,0 +1,306 @@
+═══════════════════════════════════════════════════════════════════
+PROMPTS PARA GERAR AS IMAGENS DO FERRÃO NO GEMINI
+Projeto Ferrão — robô humanoide · 25/07/2026
+═══════════════════════════════════════════════════════════════════
+
+COMO USAR
+1. Anexe as fotos de referência ANTES de colar o prompt.
+2. Cole o prompt inteiro (ele já diz ao Gemini o papel de cada foto).
+3. Se o resultado vier estranho, use os "AJUSTES" no fim de cada prompt.
+
+FOTOS DE REFERÊNCIA (anexe nesta ordem sempre):
+  FOTO 1 = a mala rígida
+  FOTO 2 = a cadeira giratória de 5 pés
+  FOTO 3 = a necessaire (se tiver; se não tiver, o prompt já cobre)
+
+ATENÇÃO: as imagens do Gemini servem para VER como fica.
+Para FURAR E MONTAR, use as pranchas técnicas do documento —
+gerador de imagem inventa parafuso, furo e medida sem avisar.
+
+
+═══════════════════════════════════════════════════════════════════
+PROMPT 1 — RETRATO DO ROBÔ MONTADO (a imagem principal)
+═══════════════════════════════════════════════════════════════════
+
+Crie uma fotografia realista de um robô humanoide caseiro montado
+com objetos reutilizados. Use as imagens que anexei como referência
+obrigatória de forma, cor e textura:
+
+- FOTO 1 (mala rígida): é o TORSO do robô. Mantenha exatamente a
+  cor, a textura e os frisos/ranhuras dela. A mala fica em PÉ, na
+  vertical, com o lado maior virado para a frente, e o zíper
+  aparecendo como uma linha horizontal no meio do peito.
+- FOTO 2 (cadeira giratória): é a BASE do robô. Mantenha a estrela
+  de 5 pés com rodízios e a coluna central. O assento foi removido e
+  a mala está parafusada em cima da coluna.
+
+Complete o robô com estes elementos:
+- CABEÇA: uma necessaire rígida pequena, do mesmo material e cor da
+  mala, apoiada sobre um pescoço curto de metal escovado. Na frente
+  da cabeça, um visor retangular escuro (acrílico fumê) com DOIS
+  olhos circulares acesos em azul ciano brilhante, emitindo um leve
+  glow. Cantos arredondados.
+- OMBROS: nas laterais superiores da mala, dois motores elétricos
+  cilíndricos cinza-grafite (motores de limpador de para-brisa
+  automotivo), visíveis e bem fixados.
+- BRAÇOS: feitos de tubo QUADRADO de alumínio (não cano redondo),
+  pintados em azul-marinho fosco. Cotovelo articulado com um servo
+  motor preto embutido dentro do tubo. Braço esquerdo relaxado ao
+  lado do corpo; braço direito levantado num gesto de aceno.
+- MÃO: uma garra simples de dois dedos na ponta de cada braço.
+- PEITO: um pequeno painel retangular escuro no centro da mala, com
+  o monograma "iK" gravado em azul ciano.
+- Uma fina fita de LED azul ciano acesa na linha do zíper,
+  vazando luz suave.
+
+ESTILO: fotografia de produto, luz suave de estúdio, fundo neutro
+cinza-claro desfocado, sombra suave no chão. Ângulo frontal levemente
+de três quartos, altura do peito. Nitidez alta, aparência de objeto
+real e bem acabado — não de brinquedo, não de render de desenho
+animado. Proporção vertical (retrato).
+
+PALETA: azul-marinho escuro dominante, cinza-grafite nas juntas e
+motores, azul ciano apenas nos pontos de luz (olhos, LED, painel).
+
+NÃO INCLUA: pernas, rosto humano, boca, dedos humanos, texto
+inventado na tela, logotipos de marcas, fios soltos ou bagunçados.
+
+AJUSTES SE VIER ERRADO:
+- Se o robô sair com pernas: acrescente "o robô NÃO tem pernas, o
+  torso termina na base de rodinhas da cadeira".
+- Se a mala sair deitada: "a mala está na vertical, em pé, como um
+  peito humano".
+- Se sair infantil: "aparência de equipamento técnico profissional,
+  não de brinquedo".
+
+
+═══════════════════════════════════════════════════════════════════
+PROMPT 2 — INTERIOR OPERACIONAL (a mala aberta por dentro)
+═══════════════════════════════════════════════════════════════════
+
+Crie uma fotografia realista mostrando o INTERIOR de um robô
+caseiro, com o torso aberto para manutenção.
+
+Use a FOTO 1 (mala rígida) como referência do torso: ela está aberta
+pelo zíper, mostrando o compartimento interno organizado como o
+"peito" eletrônico de um robô. Use a FOTO 2 (cadeira) como base
+embaixo.
+
+Dentro da mala, arrumados de forma limpa e profissional:
+- Uma fonte de alimentação de computador (fonte ATX prateada,
+  retangular, com ventoinha visível) fixada na parte de baixo.
+- Acima dela, uma bandeja de madeira clara com placas eletrônicas
+  pequenas parafusadas: uma placa microcontroladora azul (ESP32),
+  uma placa de driver de servo e duas placas de driver de motor com
+  dissipadores.
+- Um quadro estrutural de madeira compensada por dentro da mala,
+  formando um esqueleto que sustenta os motores dos ombros.
+- Fiação organizada em chicote, com espiral organizadora preta,
+  presa por abraçadeiras — nada de fios soltos ou emaranhados.
+- Um pequeno LED verde aceso indicando energia.
+
+ESTILO: fotografia técnica realista, luz difusa, foco nítido no
+interior, leve profundidade de campo. Aparência de equipamento bem
+construído e caprichado, como um painel de manutenção de máquina
+profissional.
+
+NÃO INCLUA: fios bagunçados, gambiarra com fita, componentes soltos,
+faíscas, fumaça.
+
+
+═══════════════════════════════════════════════════════════════════
+PROMPT 3 — DETALHE DO OMBRO (close do mecanismo)
+═══════════════════════════════════════════════════════════════════
+
+Crie uma fotografia realista em close-up (macro) do OMBRO DIREITO de
+um robô caseiro.
+
+O que deve aparecer, em detalhe nítido:
+- A lateral de uma mala rígida azul-marinho (use a FOTO 1 como
+  referência de cor e textura), com um furo circular limpo por onde
+  passa um eixo.
+- Um motor de limpador de para-brisa automotivo, cinza-grafite,
+  parafusado na lateral por três parafusos hexagonais com arruelas
+  largas. O corpo cilíndrico do motor e a caixa de redução
+  retangular bem visíveis.
+- Do eixo do motor sai um braço de tubo QUADRADO de alumínio pintado
+  de azul-marinho fosco, preso por uma braçadeira metálica.
+- Uma pequena chave fim-de-curso (microswitch) preta montada logo
+  acima, presa por uma chapinha metálica.
+- Parafusos e arruelas visíveis e bem alinhados.
+
+ESTILO: fotografia macro técnica, iluminação lateral que revela a
+textura do metal e do plástico, fundo desfocado, foco preciso nos
+parafusos e no encaixe. Aparência de peça montada com capricho.
+
+NÃO INCLUA: cola quente, fita isolante à mostra, peças tortas,
+ferrugem, fios soltos.
+
+
+═══════════════════════════════════════════════════════════════════
+PROMPT 4 — CENA EM USO (para motivação / apresentação)
+═══════════════════════════════════════════════════════════════════
+
+Crie uma fotografia realista de ambiente mostrando o robô humanoide
+caseiro (torso de mala rígida azul-marinho sobre base de cadeira
+giratória de 5 pés, cabeça com dois olhos ciano acesos, braços de
+alumínio) posicionado no canto de um escritório caseiro moderno.
+
+O robô está com a cabeça levemente virada para a esquerda, como se
+tivesse notado alguém entrando, e o braço direito erguido num aceno.
+Os olhos ciano brilham no ambiente com pouca luz, refletindo
+suavemente no piso.
+
+ESTILO: fotografia ambiente, luz de fim de tarde entrando pela
+janela, tons quentes contrastando com o azul frio dos LEDs do robô.
+Profundidade de campo cinematográfica. Sensação de máquina viva e
+presente no espaço.
+
+NÃO INCLUA: pessoas, rostos, texto, marcas, pernas no robô.
+
+
+═══════════════════════════════════════════════════════════════════
+DICA GERAL
+═══════════════════════════════════════════════════════════════════
+Se o Gemini "esquecer" a mala real e inventar outra, mande esta
+correção curta:
+
+  "Refaça mantendo EXATAMENTE a mala da primeira imagem que anexei —
+   mesma cor, mesma textura, mesmos frisos e mesmo formato. Não
+   substitua por outra mala."
+
+Se quiser variações, peça: "gere 3 variações mudando apenas o ângulo
+da câmera, mantendo o mesmo robô".
+
+
+═══════════════════════════════════════════════════════════════════
+PROMPT 5 — VERSÃO REALISTA COM TODOS OS COMPONENTES VISÍVEIS
+(anexe: FOTO do robô que o Gemini já gerou + a ilustração
+ "Ferrao_Mapa_Componentes" que o Claude fez)
+═══════════════════════════════════════════════════════════════════
+
+Recrie a fotografia do robô da PRIMEIRA imagem que anexei, mantendo
+exatamente o mesmo estilo, a mesma cor preta, o mesmo enquadramento
+e a mesma iluminação de estúdio.
+
+A SEGUNDA imagem é um diagrama técnico de referência: use apenas para
+saber QUAIS componentes o robô deve ter e ONDE cada um fica. Não copie
+o estilo do diagrama, não copie os números nem os textos dele.
+
+Adicione ao robô, de forma realista e bem integrada ao corpo:
+
+NA CABEÇA
+- Dois anéis de LED azul ciano acesos como olhos (anéis, não círculos
+  cheios), com brilho suave.
+- Entre os dois olhos, uma pequena lente de câmera escura e circular,
+  com um leve reflexo de vidro.
+- Nas laterais da cabeça (nas "têmporas"), dois sensores cilíndricos
+  pretos pequenos, embutidos e discretos.
+- Abaixo do visor, uma grelha fina de alto-falante.
+- No topo da cabeça, um furo minúsculo de microfone.
+
+NOS OMBROS  ← ESTA PARTE É OBRIGATÓRIA
+- Dois motores elétricos cilíndricos cinza-grafite, visíveis nas
+  laterais superiores do torso, de onde os braços realmente saem.
+  Cada motor tem uma caixa de redução retangular e parafusos
+  hexagonais aparentes. Os braços NÃO saem direto da mala — eles
+  nascem do eixo desses motores.
+- Um botão de emergência vermelho arredondado no alto do torso.
+
+NO TORSO
+- Uma faixa fina de LED azul ciano acesa na linha horizontal do meio.
+- Um painel retangular escuro no peito.
+- Mais abaixo, uma fresta horizontal de impressora térmica, com um
+  cupom de papel branco saindo pela metade e um QR code impresso nele.
+
+ESTILO: fotografia de produto realista, fundo cinza escuro de estúdio,
+luz suave lateral, alto nível de detalhe nos parafusos e nas texturas.
+
+MUITO IMPORTANTE — NÃO INCLUA NENHUM TEXTO: nada de números, setas,
+etiquetas, legendas, nomes de peças ou palavras escritas em qualquer
+lugar da imagem. Apenas o robô fotografado.
+
+AJUSTE SE VIER ERRADO:
+- Se os motores dos ombros sumirem: "os dois motores cilíndricos nos
+  ombros precisam aparecer claramente, são a peça mais visível do robô".
+- Se aparecer texto: "remova todas as palavras e números da imagem".
+
+
+═══════════════════════════════════════════════════════════════════
+PROMPT 6 — INFOGRÁFICO COM NUMERAÇÃO LEGÍVEL
+(refazer quando o texto sair miúdo demais)
+═══════════════════════════════════════════════════════════════════
+
+Crie um infográfico técnico em FORMATO HORIZONTAL (paisagem, 16:9)
+apresentando o robô da imagem anexada.
+
+LAYOUT OBRIGATÓRIO
+- Metade ESQUERDA: o robô inteiro, de corpo inteiro, centralizado,
+  sobre fundo cinza escuro liso.
+- Metade DIREITA: um painel vertical de fundo preto sólido, contendo
+  a lista de legendas em texto grande e nítido.
+- Uma linha fina azul ciano ligando cada número do robô ao seu item
+  correspondente na lista da direita.
+
+MARCADORES SOBRE O ROBÔ
+Círculos azul ciano preenchidos, com o número em preto dentro,
+GRANDES e bem visíveis (cada círculo do tamanho aproximado de um olho
+do robô). Numere estes 16 pontos:
+
+1  no topo da cabeça
+2  nos olhos
+3  na lente central entre os olhos
+4  na lateral da cabeça
+5  na grelha abaixo do visor
+6  no pescoço
+7  no ombro esquerdo
+8  no botão vermelho do torso
+9  no painel do peito
+10 na lateral do torso
+11 na faixa de luz horizontal
+12 na fresta da impressora
+13 no centro do torso
+14 na base do torso
+15 no cotovelo direito
+16 na garra esquerda
+
+TEXTO DO PAINEL DA DIREITA
+Escreva exatamente esta lista, em português, letras grandes e
+maiúsculas, uma linha por item, com bastante espaço entre elas:
+
+1  MICROFONE
+2  OLHOS DE LED
+3  CAMERA
+4  SENSOR DE DISTANCIA
+5  ALTO-FALANTE
+6  SERVO DO PESCOCO
+7  MOTOR DO OMBRO
+8  BOTAO DE EMERGENCIA
+9  PAINEL DO PEITO
+10 ALTO-FALANTE GRAVE
+11 FITA DE LED
+12 IMPRESSORA
+13 ELETRONICA
+14 FONTE DE ENERGIA
+15 SERVO DO COTOVELO
+16 GARRA
+
+REGRAS DE TIPOGRAFIA (as mais importantes)
+- Fonte sem serifa, grossa, branca sobre o fundo preto.
+- Texto GRANDE: cada linha deve ocupar boa altura do painel e ser
+  legível mesmo com a imagem reduzida pela metade.
+- Não escreva NENHUMA outra palavra na imagem além dessa lista e do
+  título. Nada de textos decorativos, marcas d'água ou descrições.
+- Título no topo, grande: FERRAO - COMPONENTES
+
+ESTILO
+Infográfico técnico moderno, limpo, alto contraste, poucos elementos.
+Estética de manual de produto profissional.
+
+AJUSTES SE VIER ERRADO
+- Se o texto sair pequeno: "aumente MUITO o tamanho das letras da
+  lista, reduza o robô se precisar de espaço".
+- Se as palavras saírem erradas ou embaralhadas: "reescreva a lista
+  exatamente como eu digitei, sem alterar nenhuma palavra".
+- Se ficar poluído: "menos elementos, mais espaço vazio, apenas o
+  robô, os números e a lista".

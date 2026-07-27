@@ -22,12 +22,22 @@ gh run list --workflow=deploy.yml --limit 1
 gh run watch <run-id>
 ```
 3. Aguardar o job "Deploy no VPS" terminar (steps: scp do index.html, sync de scripts, smoke test).
+4. **Teto de ~3 minutos.** Se o Action não ficar verde nesse tempo, **ir direto pro Passo 4** (fallback manual) — já foi necessário em 3+ sessões, não vale ficar esperando. O Action pode terminar depois; o `scp` é idempotente.
 
 ## Passo 3 — Verificar se propagou de verdade
+
+Duas checagens, nessa ordem:
+
 ```bash
 curl -sI https://kronosintelligence.com.br | grep -Ei "http|content-length|last-modified"
 ```
-Comparar `Content-Length` com `wc -c 07_Recursos/index.html` local. Se bater, propagou. Se não bater (ou o Action falhou/ficou pendente), ir pro fallback.
+Comparar `Content-Length` com `wc -c 07_Recursos/index.html` local.
+
+**E confirmar o conteúdo, não só o tamanho** — buscar no ar a string que mudou nesse deploy (preço novo, título novo, seção nova) e **citar o valor encontrado** no relatório:
+```bash
+curl -s https://kronosintelligence.com.br | grep -o "TRECHO_QUE_MUDOU"
+```
+Se o tamanho bater mas a string não aparecer, é cache/CDN ou deploy parcial — tratar como não propagado. Se não bater (ou o Action falhou/ficou pendente), ir pro fallback.
 
 ## Passo 4 — Fallback manual (Action não propagou)
 Usar a chave `~/.ssh/kronos_vps` (root@2.24.101.180). Rodar o clone+copy direto no servidor (evita depender do runner do GitHub):
@@ -56,5 +66,14 @@ ssh -i ~/.ssh/kronos_vps root@2.24.101.180 'docker ps --filter name=traefik --fo
 - Confirmar que o container Traefik está `Up` (nome real pode variar — nunca assumir `traefik`/`web`; conferir com `docker network ls` se for mexer em rede).
 - Se o certificado estiver expirado ou o Traefik down, é um problema de infra separado — não tentar corrigir dentro desse fluxo de deploy sem avisar o usuário primeiro (ação de risco maior).
 
+## Passo 6 — Registrar no PROGRESS.md
+Anexar **uma linha** em `PROGRESS.md` na raiz do projeto (criar se não existir):
+
+```
+2026-07-26 — deploy landing via CI (ou fallback scp) — <o que mudou> — verificado no ar: "<string encontrada>"
+```
+
+Serve de histórico rápido de "o que subiu e quando", sem precisar garimpar `git log`.
+
 ## Relatar ao final
-Resumir pro usuário: se o deploy foi via CI ou fallback manual, o `Content-Length`/hash confirmando propagação, e o status do SSL/Traefik. Se algo não bateu, apontar o passo exato onde travou (não adivinhar causa-raiz sem checar o estado real, ver skill `debug-pitfalls`).
+Resumir pro usuário: se o deploy foi via CI ou fallback manual, o `Content-Length`/hash **e a string encontrada no ar** confirmando propagação, e o status do SSL/Traefik. Se algo não bateu, apontar o passo exato onde travou (não adivinhar causa-raiz sem checar o estado real, ver skill `debug-pitfalls`).

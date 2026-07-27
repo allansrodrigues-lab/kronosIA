@@ -13,13 +13,15 @@ Rotina **DIÁRIA** — token só queima em prospecção/conversa até entrar cli
 ⚙️ **Regra de operação (Allan 12/07/2026): varredura → lança DIRETO, sem perguntar onde.** Toda vez que fizer a varredura (busca web OU processar uma base CNPJ que o Allan fornecer), já atualiza o CRM na hora — contatos na aba do nicho + mensagem na aba `Mensagens` (se for nicho ainda sem mensagem lá). **Não** parar pra perguntar layout, estrutura ou "onde jogar" — a estrutura abaixo já está decidida e é definitiva. Perguntar só escopo quando ambíguo (qual nicho/região/quantos), nunca a arrumação. Objetivo: o Allan não procurar nem reconfirmar nada — abre a aba do nicho → contato; abre `Mensagens` → texto.
 
 ## CRM (Google Sheets via MCP `mcp__google-sheets__*`)
-Spreadsheet: `1ZlDFYkgx6aXUM0ayj1e1_K6uX0cruo7VuCcmg1_w5ps`
+Spreadsheet: `1tOXVM8frTwxbhCR1Gmb2dyPFNks8INCNSKWeg9t1UK4` ("Kronos CRM — Interno")
+
+⚠️ **20/07/2026: migrou.** A planilha antiga (`1ZlDFYkgx6aXUM0ayj1e1_K6uX0cruo7VuCcmg1_w5ps`, " Kronos CRM") virou backup morto — não usar, não escrever nela. Tudo foi mesclado pra "Interno" sem duplicar (ver memória `bastidores-prospeccao-centralizado`). Antes de lançar qualquer contato novo, **conferir duplicata na aba do nicho** (nome ou WhatsApp) — a mescla não tem trava automática contra reintroduzir o que já saiu da antiga.
 
 | Nicho | Aba | Início dos dados |
 |---|---|---|
-| Clínicas (odonto/estética/dermato) | `Prospeccao` | linha 3 (nota na linha 1; header na linha 2) |
-| Parecer Científico | `Prospeccao_Parecer` | linha 2 (header na linha 1; nota em N1) |
-| Advocacia | `Prospeccao_Advocacia` | linha 2 (header na linha 1; nota em N1) |
+| Clínicas (odonto/estética/dermato) | `Prospeccao` | linha 2 (header na linha 1, sem nota-ponte) |
+| Parecer Científico | `Prospeccao_Parecer` | linha 2 (header na linha 1) |
+| Advocacia | `Prospeccao_Advocacia` | linha 2 (header na linha 1) |
 | Imobiliária | `Prospeccao_Imobiliaria` | linha 3 (nota na linha 1; header na linha 2) |
 | Energia Solar | `Prospeccao_Solar` | linha 3 (nota na linha 1; header na linha 2) |
 | Arquitetura | `Prospeccao_Arquitetura` | linha 3 (nota na linha 1; header na linha 2) |

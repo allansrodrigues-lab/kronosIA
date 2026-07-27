@@ -1,0 +1,187 @@
+═══════════════════════════════════════════════════════════════
+FERRÃO — FASE A · LISTA DE COMPRA (Mercado Livre)
+Pesquisado em 26/07/2026 · compra prevista: dia 7
+═══════════════════════════════════════════════════════════════
+
+COMO USAR ESTA LISTA
+Os links abaixo abrem a BUSCA já pronta (testados, funcionam).
+Dentro dela, procure o produto pelo NOME e confira o PREÇO.
+O código MLB serve para confirmar que é o mesmo anúncio —
+ele aparece no fim da URL quando você abre o produto.
+
+⚠️ Não usei links diretos de produto de propósito: o formato
+   de URL do ML muda e quebra fácil. Busca não quebra.
+
+Dica: coloque TUDO no mesmo carrinho — frete grátis acima de
+R$ 79, e você paga um frete só.
+
+
+───────────────────────────────────────────────────────────────
+1) ESP32 DEVKIT 38 PINOS                            R$ 49,50
+───────────────────────────────────────────────────────────────
+https://lista.mercadolivre.com.br/esp32-devkit-v1-38-pinos
+
+  PROCURE POR:
+  "Placa Esp32d Esp32 32d Wroom Devkitc V4 38 Pinos Soldados"
+  · R$ 49,50 · 4.8 estrelas · +5 mil vendidos · frete grátis
+  · código MLB2048573048
+
+  ALTERNATIVA:
+  "Placa Desenvolvimento Esp32 Doit Devkitc V4 Esp32 Wroom 32d"
+  · R$ 49,87 · +1000 vendidos · MLB2039477290
+
+  ⚠️ Tem que ser 38 PINOS. O de 30 pinos não tem as entradas
+     analógicas que os potenciômetros usam na Fase D.
+
+
+───────────────────────────────────────────────────────────────
+2) PCA9685 — DRIVER DE SERVO                        R$ 39,00
+───────────────────────────────────────────────────────────────
+https://lista.mercadolivre.com.br/pca9685-16-canais-servo-driver-i2c
+
+  PROCURE POR:
+  "Módulo Driver Servo Motor 16 Canais Pca9685 Lu9685 I2c"
+  · R$ 39 · +100 vendidos · MLB4615275322
+
+  ALTERNATIVA:
+  "Pca9685 Modulo Driver Controlador De Servos 16 Canais I2c"
+  · R$ 44 · MLB7079550368
+
+  ⚠️ Confirme na descrição que o chip é PCA9685.
+
+
+───────────────────────────────────────────────────────────────
+3) SERVO MG996R — ATENÇÃO AO 180°                   R$ 50,00
+───────────────────────────────────────────────────────────────
+https://lista.mercadolivre.com.br/servo-motor-mg996r-metal-15kg
+
+  ⚠️⚠️ O ERRO MAIS CARO DESTA LISTA ⚠️⚠️
+
+  Existem duas versões do MG996R, com a MESMA aparência:
+    · 180 graus  = servo de POSIÇÃO   → é o que você precisa
+    · 360 graus  = rotação CONTÍNUA   → gira sem parar, NÃO serve
+
+  O MG996R de fábrica é 180°. As versões 360° são modificadas —
+  e no Mercado Livre elas são MAIORIA, porque vendem para carrinho
+  de brinquedo. Por isso não dá para confiar no nome "MG996R" sozinho.
+
+  ── COMO ACERTAR (3 opções, da melhor para a pior) ──
+
+  OPÇÃO A — o que tem 180 escrito no título:
+    "Servo Motor Tower Pro Mg996 180 Graus"
+    · R$ 53 · +25 vendidos · MLB3507456595
+    Tower Pro é o fabricante original. Mais seguro.
+
+  OPÇÃO B — o mais vendido, sem menção a 360:
+    "Servo Digital Mg996r 15kg Alto Torque Metal Para Arduino"
+    · R$ 50 · +5 mil vendidos · MLB27412972
+    ⚠️ ANTES DE COMPRAR, mande esta pergunta ao vendedor:
+
+        "Boa tarde! Este servo é de posição 180 graus
+         ou é de rotação contínua 360 graus?"
+
+    Se responder 180 → compre. Se responder 360 → não serve.
+
+  OPÇÃO C — comprar em loja de eletrônica:
+    Curto Circuito tem "Servo Motor MG996R Digital 180°" por
+    R$ 45, com o ângulo no próprio nome do produto.
+    curtocircuito.com.br → buscar "MG996R"
+    Mais caro que o ML? Não: é R$ 45 contra R$ 50, e sem risco.
+    ⭐ Se for comprar tudo lá, resolve de uma vez.
+
+  ── COMO SABER SE VEIO ERRADO ──
+  Ligue o servo e mande ir para 0° e depois 180°.
+    · Se ele PARA nas duas posições  → 180°, correto
+    · Se ele GIRA SEM PARAR          → 360°, peça devolução
+  Faça esse teste no primeiro dia, dentro do prazo de troca.
+
+
+───────────────────────────────────────────────────────────────
+4) SENSOR ULTRASSÔNICO HC-SR04             R$ 19 (ou 25 o par)
+───────────────────────────────────────────────────────────────
+https://lista.mercadolivre.com.br/sensor-ultrassonico-hc-sr04
+
+  PROCURE POR:
+  "Sensor Ultrassônico HC-SR04 com Módulo 5V da DIP MECATRÔNICA"
+  · R$ 19 · +5 mil vendidos · MLB46876142
+
+  MELHOR: leve o par por R$ 25
+  "2x Sensor Ultrassonico De Distância Hc-sr04"
+  · R$ 25 · +100 vendidos · MLB2043575349
+  (o segundo é usado na Fase B — sai mais barato junto)
+
+
+───────────────────────────────────────────────────────────────
+5) PROTOBOARD + JUMPERS + REGULADOR                 R$ 37,00
+───────────────────────────────────────────────────────────────
+https://lista.mercadolivre.com.br/protoboard-830-furos-kit-jumper
+
+  PROCURE POR:
+  "Kit Protoboard 830 + Regulador Tensão + 65 Jumpers"
+  · R$ 37 · +5 mil vendidos · MLB37233619
+
+  ⭐ MELHOR ITEM DA LISTA. O regulador de tensão (plaquinha
+  MB102) é a fonte separada que o servo precisa na bancada,
+  para não puxar corrente do ESP32 e resetar a placa.
+
+  Mais barato sem o regulador (R$ 31, MLB1017295831) — mas aí
+  você vai precisar arrumar outra fonte 5V.
+
+
+───────────────────────────────────────────────────────────────
+6) KIT DE RESISTORES                                R$ 25,00
+───────────────────────────────────────────────────────────────
+https://lista.mercadolivre.com.br/kit-resistores-1-4w-sortido-valores
+
+  PROCURE POR:
+  "400 Resistores Valores Variados - 1/4w - Cr25"
+  · R$ 25 · +1000 vendidos · MLB3126214008
+
+  Você precisa de 1kΩ e 2,2kΩ (divisor de tensão do sensor).
+  O kit cobre o projeto inteiro.
+
+
+───────────────────────────────────────────────────────────────
+7) ÓCULOS DE PROTEÇÃO                            ~R$ 12 a 20
+───────────────────────────────────────────────────────────────
+Compre em LOJA FÍSICA (material de construção, agropecuária).
+Você experimenta e vê se fica confortável — óculos que incomoda
+acaba não sendo usado, e aí não protege nada.
+
+  Peça: "óculos de proteção incolor com CA"
+
+
+═══════════════════════════════════════════════════════════════
+TOTAL DO CARRINHO
+═══════════════════════════════════════════════════════════════
+  ESP32 38 pinos ................ R$  49,50
+  PCA9685 ....................... R$  39,00
+  Servo MG996R 180° ............. R$  50,00  (ou 53 o Tower Pro)
+  HC-SR04 — par ................. R$  25,00
+  Protoboard + regulador ........ R$  37,00
+  Kit resistores ................ R$  25,00
+                                  ─────────
+  TOTAL ......................... R$ 225,50
+  Óculos (loja física) .......... R$  15,00
+                                  ─────────
+  GERAL ......................... R$ 240,50
+
+Versão econômica (~R$ 187):
+  1 sensor só (19) + protoboard sem regulador (31)
+  → mas precisa arrumar fonte 5V separada para o servo.
+
+
+═══════════════════════════════════════════════════════════════
+CHECKLIST ANTES DE FINALIZAR
+═══════════════════════════════════════════════════════════════
+  ☐ O servo é 180°?  ← perguntou ao vendedor?
+  ☐ O ESP32 é o de 38 pinos?
+  ☐ Tudo no mesmo carrinho (um frete só)?
+  ☐ Vendedor com reputação verde?
+  ☐ Tenho cabo USB de DADOS em casa?
+    (cabo só de carga não grava o programa e você vai achar
+     que a placa veio com defeito — erro clássico)
+
+QUANDO CHEGAR: o passo a passo está em
+FASE_A_Lista_de_Compra.md e Guia_Sistema_Eletronica.md
+═══════════════════════════════════════════════════════════════

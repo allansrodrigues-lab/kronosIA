@@ -1,0 +1,147 @@
+<svg viewBox="0 0 900 1170" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="900" height="1170" fill="#f8f9fb"/>
+
+  <!-- Título -->
+  <text x="450" y="42" text-anchor="middle" font-size="21" font-weight="bold" fill="#1e2a4a">FERRÃO — vista lateral (perfil do ombro, o coração do projeto)</text>
+  <text x="450" y="66" text-anchor="middle" font-size="13" fill="#64748b">Visto do lado esquerdo do robô · a frente é pra direita →</text>
+
+  <!-- seta de frente -->
+  <g stroke="#94a3b8" stroke-width="2" fill="#94a3b8">
+    <line x1="700" y1="120" x2="780" y2="120"/>
+    <polygon points="780,114 794,120 780,126"/>
+  </g>
+  <text x="740" y="108" text-anchor="middle" font-size="12" fill="#64748b">frente</text>
+
+  <!-- chão -->
+  <line x1="80" y1="1090" x2="820" y2="1090" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- ===== BASE (perfil) ===== -->
+  <g stroke="#374151" stroke-width="14" stroke-linecap="round">
+    <line x1="450" y1="1005" x2="330" y2="1055"/>
+    <line x1="450" y1="1005" x2="570" y2="1055"/>
+  </g>
+  <g fill="#4b5563" stroke="#1e2a4a" stroke-width="2">
+    <circle cx="330" cy="1068" r="11"/>
+    <circle cx="570" cy="1068" r="11"/>
+  </g>
+  <rect x="344" y="1074" width="26" height="14" fill="#d9b98c" stroke="#1e2a4a" stroke-width="1.5"/>
+  <rect x="530" y="1074" width="26" height="14" fill="#d9b98c" stroke="#1e2a4a" stroke-width="1.5"/>
+  <ellipse cx="450" cy="1052" rx="48" ry="18" fill="#6b7280" stroke="#1e2a4a" stroke-width="2"/>
+  <text x="450" y="1057" text-anchor="middle" font-size="11" fill="#f8f9fb">lastro</text>
+
+  <!-- coluna a gás -->
+  <rect x="428" y="880" width="44" height="125" rx="6" fill="#9ca3af" stroke="#1e2a4a" stroke-width="2"/>
+  <rect x="436" y="778" width="28" height="106" rx="4" fill="#b6bcc6" stroke="#1e2a4a" stroke-width="2"/>
+
+  <!-- disco MDF -->
+  <rect x="330" y="758" width="240" height="18" rx="6" fill="#d9b98c" stroke="#1e2a4a" stroke-width="2"/>
+
+  <!-- ===== TORSO (lateral MDF vista de face) ===== -->
+  <rect x="390" y="452" width="120" height="306" fill="#d9b98c" stroke="#1e2a4a" stroke-width="2"/>
+  <rect x="382" y="432" width="136" height="22" rx="4" fill="#d9b98c" stroke="#1e2a4a" stroke-width="2"/>
+
+  <!-- eletrônica escondida atrás (tracejado) -->
+  <rect x="402" y="640" width="96" height="52" rx="5" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="450" y="662" text-anchor="middle" font-size="10" fill="#94a3b8">eletrônica</text>
+  <text x="450" y="676" text-anchor="middle" font-size="10" fill="#94a3b8">(atrás)</text>
+
+  <!-- ===== CABEÇA (perfil) ===== -->
+  <rect x="400" y="325" width="100" height="105" rx="22" fill="#e2e8f0" stroke="#1e2a4a" stroke-width="2.5"/>
+  <!-- sensor apontando pra frente -->
+  <rect x="496" y="360" width="26" height="18" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <circle cx="522" cy="369" r="8" fill="#f8f9fb" stroke="#1e2a4a" stroke-width="2"/>
+  <!-- servo tilt -->
+  <rect x="436" y="430" width="28" height="20" rx="4" fill="#3b82f6" stroke="#1e2a4a" stroke-width="2"/>
+  <!-- arco do tilt -->
+  <path d="M 530 330 q 22 30 8 62" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 5"/>
+
+  <!-- ===== ARCO DE TRABALHO DO BRAÇO (atrás do braço) ===== -->
+  <path d="M 414 697 A 210 210 0 0 0 647 418" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-dasharray="7 6" opacity="0.65"/>
+  <polygon points="640,408 654,414 645,426" fill="#3b82f6" opacity="0.65"/>
+  <polygon points="406,690 412,706 422,694" fill="#3b82f6" opacity="0.65"/>
+
+  <!-- ===== OMBRO: motor de perfil ===== -->
+  <!-- caixa da redução sem-fim -->
+  <rect x="380" y="462" width="56" height="42" rx="8" fill="#4b5563" stroke="#1e2a4a" stroke-width="2"/>
+  <!-- corpo do motor -->
+  <rect x="404" y="450" width="92" height="80" rx="14" fill="#4b5563" stroke="#1e2a4a" stroke-width="2"/>
+  <!-- pot coaxial (na face interna — tracejado) -->
+  <circle cx="450" cy="490" r="28" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 4"/>
+  <!-- eixo/hub apontando pro observador -->
+  <circle cx="450" cy="490" r="18" fill="#374151" stroke="#1e2a4a" stroke-width="2"/>
+  <circle cx="450" cy="490" r="7" fill="#e5e7eb" stroke="#1e2a4a" stroke-width="1.5"/>
+
+  <!-- ===== BRAÇO (35° pra frente) ===== -->
+  <line x1="450" y1="490" x2="547" y2="629" stroke="#1e2a4a" stroke-width="30" stroke-linecap="round"/>
+  <line x1="450" y1="490" x2="547" y2="629" stroke="#cfd6dd" stroke-width="22" stroke-linecap="round"/>
+  <circle cx="547" cy="629" r="16" fill="#3b82f6" stroke="#1e2a4a" stroke-width="2"/>
+  <line x1="547" y1="629" x2="640" y2="722" stroke="#1e2a4a" stroke-width="26" stroke-linecap="round"/>
+  <line x1="547" y1="629" x2="640" y2="722" stroke="#cfd6dd" stroke-width="18" stroke-linecap="round"/>
+  <!-- garra -->
+  <path d="M 644 728 C 660 738 668 752 662 768" fill="none" stroke="#1e2a4a" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 632 738 C 636 754 646 764 660 768" fill="none" stroke="#1e2a4a" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- ===== FINS-DE-CURSO ===== -->
+  <rect x="424" y="602" width="14" height="14" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="504" y="446" width="14" height="14" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+
+  <!-- ===== CALLOUTS ===== -->
+  <g stroke="#94a3b8" stroke-width="1.5">
+    <!-- esquerda -->
+    <line x1="230" y1="352" x2="400" y2="360"/>
+    <line x1="235" y1="452" x2="386" y2="472"/>
+    <line x1="250" y1="497" x2="424" y2="494"/>
+    <line x1="230" y1="562" x2="428" y2="530"/>
+    <line x1="215" y1="609" x2="422" y2="609"/>
+    <line x1="225" y1="712" x2="392" y2="705"/>
+    <line x1="230" y1="900" x2="428" y2="900"/>
+    <!-- direita -->
+    <line x1="655" y1="368" x2="532" y2="369"/>
+    <line x1="662" y1="440" x2="520" y2="452"/>
+    <line x1="668" y1="490" x2="470" y2="490"/>
+    <line x1="690" y1="586" x2="614" y2="560"/>
+    <line x1="658" y1="630" x2="565" y2="629"/>
+    <line x1="700" y1="756" x2="662" y2="762"/>
+  </g>
+  <g fill="#94a3b8">
+    <circle cx="400" cy="360" r="3"/><circle cx="386" cy="472" r="3"/><circle cx="424" cy="494" r="3"/>
+    <circle cx="428" cy="530" r="3"/><circle cx="422" cy="609" r="3"/><circle cx="392" cy="705" r="3"/>
+    <circle cx="428" cy="900" r="3"/>
+    <circle cx="532" cy="369" r="3"/><circle cx="520" cy="452" r="3"/><circle cx="470" cy="490" r="3"/>
+    <circle cx="614" cy="560" r="3"/><circle cx="565" cy="629" r="3"/><circle cx="662" cy="762" r="3"/>
+  </g>
+  <g font-size="13" fill="#334155">
+    <!-- esquerda -->
+    <text x="225" y="349" text-anchor="end">Crânio de perfil</text>
+    <text x="230" y="449" text-anchor="end">Redução sem-fim do motor</text>
+    <text x="230" y="463" text-anchor="end" font-size="11" fill="#64748b">(autotravante: segura o braço desligado)</text>
+    <text x="245" y="494" text-anchor="end">Corpo do motor de limpador</text>
+    <text x="225" y="559" text-anchor="end">Pot de feedback coaxial</text>
+    <text x="225" y="573" text-anchor="end" font-size="11" fill="#64748b">(tracejado: fica na face interna)</text>
+    <text x="210" y="606" text-anchor="end">Fim-de-curso inferior</text>
+    <text x="220" y="709" text-anchor="end">Lateral MDF do torso</text>
+    <text x="225" y="897" text-anchor="end">Coluna da cadeira</text>
+    <!-- direita -->
+    <text x="660" y="365" text-anchor="start">Olho aponta pra frente</text>
+    <text x="667" y="437" text-anchor="start">Fim-de-curso superior</text>
+    <text x="667" y="451" text-anchor="start" font-size="11" fill="#64748b">(tocou → software corta o motor)</text>
+    <text x="673" y="487" text-anchor="start">Eixo do ombro = eixo do motor</text>
+    <text x="673" y="501" text-anchor="start" font-size="11" fill="#64748b">(rolamento 608 de apoio do outro lado)</text>
+    <text x="695" y="583" text-anchor="start">Arco de trabalho ≈ 120°</text>
+    <text x="695" y="597" text-anchor="start" font-size="11" fill="#64748b">(limitado por software + switches)</text>
+    <text x="663" y="627" text-anchor="start">Cotovelo MG996R</text>
+    <text x="705" y="753" text-anchor="start">Garra por tendão</text>
+  </g>
+
+  <!-- legenda -->
+  <g font-size="12" fill="#334155">
+    <rect x="150" y="1118" width="18" height="14" fill="#d9b98c" stroke="#1e2a4a" stroke-width="1.5"/>
+    <text x="175" y="1130">MDF (sucata)</text>
+    <rect x="300" y="1118" width="18" height="14" fill="#4b5563" stroke="#1e2a4a" stroke-width="1.5"/>
+    <text x="325" y="1130">Metal (sucata)</text>
+    <rect x="450" y="1118" width="18" height="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="475" y="1130">Comprado</text>
+    <line x1="600" y1="1125" x2="640" y2="1125" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 4"/>
+    <text x="650" y="1130">Oculto / movimento</text>
+  </g>
+</svg>

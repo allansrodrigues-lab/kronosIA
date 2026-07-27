@@ -7,6 +7,22 @@
           {
             "type": "command",
             "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/validate_json.py\""
+          },
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/fix_line_endings.py\"",
+            "statusMessage": "Normalizando line endings"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && date >> PROGRESS.md && git add PROGRESS.md && git add -u && git commit -m 'wip: session snapshot' || true",
+            "timeout": 30
           }
         ]
       }

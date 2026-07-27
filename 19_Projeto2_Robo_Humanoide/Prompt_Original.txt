@@ -1,0 +1,14 @@
+Quero um projeto detalhado de um robô humanoide construído com peças de sucata/ferro-velho e itens do dia a dia (nada industrial, nada que precise de fábrica). Não precisa desenhar imagem — quero um documento técnico completo.
+
+Contexto: sou iniciante em hardware, tenho ferramentas básicas de casa (furadeira, chave de fenda/Philips, alicate, talvez um Dremel), acesso a ferro-velho/sucata local (motores de limpador de para-brisa, correntes de bike, canos de PVC, rolamentos de skate, sucata eletrônica) e consigo comprar itens baratos online (Arduino/ESP32, servo motor, driver de motor, parafusos específicos) se o projeto pedir.
+
+Antes de tudo: me diga honestamente qual o nível de ambição realista pra um projeto assim — um humanoide andando é viável ou devo mirar em algo mais estático (base fixa/rodas, tronco e braços articulados, cabeça com sensor)? Escolha o nível mais ambicioso que ainda seja realmente construível por uma pessoa sozinha, sem oficina profissional, e justifique a escolha.
+
+Depois disso, monte:
+1. Lista de peças — pra cada parte do robô (junta, estrutura, atuador), qual peça de sucata/dia a dia serve e por quê (ex: motor de limpador de para-brisa → atuador do ombro).
+2. Detalhamento de montagem — onde cada peça encaixa, que tipo e tamanho de parafuso/porca usar em cada junção, e como fixar sem quebrar a peça reciclada.
+3. Arquitetura de controle — microcontrolador recomendado, driver de motor, sensores (o que der pra usar barato: ultrassônico, câmera simples), fonte de energia, e como tudo se conecta (posso pedir um diagrama de fiação em texto/ASCII se ajudar).
+4. Ordem de construção passo a passo, dos mais fáceis pros mais difíceis, com o que testar em cada etapa antes de seguir pra próxima.
+5. Riscos e cuidados de segurança (voltagem, ponto de pinça, peça afiada).
+
+Seja específico e realista — prefiro um projeto menor que eu realmente consiga terminar do que algo grandioso que trave na metade.

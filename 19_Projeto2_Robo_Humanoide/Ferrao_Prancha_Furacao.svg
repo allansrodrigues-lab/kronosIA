@@ -1,0 +1,211 @@
+<svg viewBox="0 0 1020 1560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="1020" height="1560" fill="#ffffff"/>
+
+  <text x="510" y="46" text-anchor="middle" font-size="27" font-weight="bold" fill="#16213d">PRANCHA DE FURAÇÃO</text>
+  <text x="510" y="74" text-anchor="middle" font-size="15" fill="#475569">Onde abrir cada furo na mala e na necessaire · marque tudo ANTES de furar o primeiro</text>
+  <line x1="50" y1="92" x2="970" y2="92" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- ══════════ AVISO ══════════ -->
+  <rect x="50" y="108" width="920" height="66" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="70" y="134" font-size="16" font-weight="bold" fill="#b91c1c">REGRA DE OURO: furo grande em plástico é SERRA-COPO, nunca broca</text>
+  <text x="70" y="158" font-size="14" fill="#7f1d1d">Broca acima de 10 mm agarra e TRINCA a casca. Cole fita crepe na área antes de furar: a broca não escorrega e a borda não lasca.</text>
+
+  <!-- ══════════ PAINEL A — CABEÇA FRONTAL ══════════ -->
+  <rect x="50" y="196" width="440" height="34" fill="#2563eb"/>
+  <text x="66" y="220" font-size="17" font-weight="bold" fill="#ffffff">A · CABEÇA (necessaire) — frente</text>
+
+  <!-- contorno da cabeca -->
+  <rect x="120" y="262" width="300" height="230" rx="34" fill="#f1f5f9" stroke="#334155" stroke-width="3"/>
+
+  <!-- visor: recorte unico -->
+  <rect x="152" y="300" width="236" height="96" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="7 4"/>
+  <text x="270" y="336" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">RECORTE DO VISOR</text>
+  <text x="270" y="356" text-anchor="middle" font-size="12" fill="#1e40af">236 × 96 mm</text>
+  <text x="270" y="376" text-anchor="middle" font-size="11" fill="#64748b">(acrílico fumê por cima)</text>
+
+  <!-- oculos atras do visor (referencia) -->
+  <circle cx="205" cy="348" r="24" fill="none" stroke="#22d3ee" stroke-width="3"/>
+  <circle cx="335" cy="348" r="24" fill="none" stroke="#22d3ee" stroke-width="3"/>
+  <circle cx="270" cy="348" r="10" fill="#334155"/>
+  <circle cx="270" cy="348" r="4" fill="#93c5fd"/>
+
+  <!-- ultrassonicos nas temporas -->
+  <circle cx="142" cy="432" r="10" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+  <circle cx="170" cy="432" r="10" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+  <circle cx="370" cy="432" r="10" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+  <circle cx="398" cy="432" r="10" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+
+  <!-- grelha do alto-falante (boca) -->
+  <g fill="#fde68a" stroke="#b45309" stroke-width="1.2">
+    <circle cx="228" cy="450" r="3"/><circle cx="242" cy="450" r="3"/><circle cx="256" cy="450" r="3"/>
+    <circle cx="270" cy="450" r="3"/><circle cx="284" cy="450" r="3"/><circle cx="298" cy="450" r="3"/>
+    <circle cx="312" cy="450" r="3"/>
+    <circle cx="235" cy="462" r="3"/><circle cx="249" cy="462" r="3"/><circle cx="263" cy="462" r="3"/>
+    <circle cx="277" cy="462" r="3"/><circle cx="291" cy="462" r="3"/><circle cx="305" cy="462" r="3"/>
+    <circle cx="242" cy="474" r="3"/><circle cx="256" cy="474" r="3"/><circle cx="270" cy="474" r="3"/>
+    <circle cx="284" cy="474" r="3"/><circle cx="298" cy="474" r="3"/>
+  </g>
+
+  <!-- microfone no topo -->
+  <circle cx="270" cy="272" r="4" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+
+  <!-- chamadas painel A -->
+  <g stroke="#64748b" stroke-width="1.3">
+    <line x1="270" y1="268" x2="330" y2="234"/>
+    <line x1="205" y1="348" x2="80" y2="300"/>
+    <line x1="270" y1="348" x2="470" y2="286"/>
+    <line x1="142" y1="440" x2="70" y2="470"/>
+    <line x1="398" y1="440" x2="470" y2="452"/>
+    <line x1="270" y1="474" x2="330" y2="524"/>
+  </g>
+  <g font-size="13" fill="#1e293b">
+    <text x="336" y="230" font-weight="bold">Ø 4 mm · microfone</text>
+    <text x="76" y="292" text-anchor="end" font-weight="bold">Anéis de LED</text>
+    <text x="76" y="308" text-anchor="end" font-size="11.5" fill="#475569">ficam ATRÁS do acrílico</text>
+    <text x="476" y="282" font-weight="bold">Ø 10 mm</text>
+    <text x="476" y="298" font-size="11.5" fill="#475569">lente da câmera</text>
+    <text x="66" y="466" text-anchor="end" font-weight="bold">4× Ø 16 mm</text>
+    <text x="66" y="482" text-anchor="end" font-size="11.5" fill="#475569">ultrassônicos (26 mm</text>
+    <text x="66" y="497" text-anchor="end" font-size="11.5" fill="#475569">entre centros do par)</text>
+    <text x="476" y="448" font-weight="bold">têmporas</text>
+    <text x="476" y="464" font-size="11.5" fill="#475569">um sensor de cada lado</text>
+    <text x="336" y="528" font-weight="bold">19× Ø 3 mm · alto-falante</text>
+    <text x="336" y="544" font-size="11.5" fill="#475569">grelha, não um furo só</text>
+  </g>
+
+  <!-- ══════════ PAINEL B — CABEÇA LATERAL ══════════ -->
+  <rect x="530" y="196" width="440" height="34" fill="#2563eb"/>
+  <text x="546" y="220" font-size="17" font-weight="bold" fill="#ffffff">B · CABEÇA — perfil</text>
+
+  <rect x="620" y="262" width="200" height="230" rx="30" fill="#f1f5f9" stroke="#334155" stroke-width="3"/>
+  <!-- ziper -->
+  <line x1="620" y1="404" x2="820" y2="404" stroke="#334155" stroke-width="2.5" stroke-dasharray="6 4"/>
+  <text x="720" y="424" text-anchor="middle" font-size="11.5" fill="#475569">zíper original — acesso interno</text>
+  <!-- mic topo -->
+  <circle cx="700" cy="264" r="4" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <!-- furo do pescoco embaixo -->
+  <circle cx="720" cy="492" r="14" fill="#ede9fe" stroke="#6d28d9" stroke-width="2.5"/>
+  <!-- passagem de cabo -->
+  <circle cx="770" cy="492" r="7" fill="#ffedd5" stroke="#c2410c" stroke-width="2.5"/>
+
+  <g stroke="#64748b" stroke-width="1.3">
+    <line x1="700" y1="260" x2="612" y2="258"/>
+    <line x1="720" y1="506" x2="640" y2="546"/>
+    <line x1="774" y1="498" x2="850" y2="546"/>
+  </g>
+  <g font-size="13" fill="#1e293b">
+    <text x="606" y="262" text-anchor="end" font-weight="bold">microfone no TOPO</text>
+    <text x="636" y="550" text-anchor="end" font-weight="bold">Ø 28 mm · pescoço</text>
+    <text x="636" y="566" text-anchor="end" font-size="11.5" fill="#475569">horn do servo passa aqui</text>
+    <text x="856" y="550" font-weight="bold">Ø 14 mm</text>
+    <text x="856" y="566" font-size="11.5" fill="#475569">passagem dos cabos</text>
+  </g>
+
+  <!-- nota do microfone -->
+  <rect x="530" y="590" width="440" height="72" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="1.8"/>
+  <text x="548" y="614" font-size="14" font-weight="bold" fill="#15803d">POR QUE O MICROFONE FICA NO TOPO</text>
+  <text x="548" y="636" font-size="12.5" fill="#166534">O mais longe possível do alto-falante. Perto, o robô escuta a</text>
+  <text x="548" y="654" font-size="12.5" fill="#166534">própria voz, acha que é pergunta nova e entra em looping.</text>
+
+  <line x1="50" y1="690" x2="970" y2="690" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- ══════════ PAINEL C — TORSO FRONTAL ══════════ -->
+  <rect x="50" y="712" width="920" height="34" fill="#2563eb"/>
+  <text x="66" y="736" font-size="17" font-weight="bold" fill="#ffffff">C · TORSO (mala) — frente</text>
+
+  <rect x="330" y="780" width="360" height="560" rx="34" fill="#f1f5f9" stroke="#334155" stroke-width="3"/>
+  <!-- ziper -->
+  <line x1="330" y1="1080" x2="690" y2="1080" stroke="#334155" stroke-width="3" stroke-dasharray="7 5"/>
+
+  <!-- furos do eixo do ombro -->
+  <circle cx="330" cy="836" r="17" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+  <circle cx="690" cy="836" r="17" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+  <!-- furos M6 do motor (3 por lado) -->
+  <g fill="#fecaca" stroke="#b91c1c" stroke-width="2">
+    <circle cx="330" cy="796" r="5"/><circle cx="330" cy="876" r="5"/><circle cx="356" cy="812" r="5"/>
+    <circle cx="690" cy="796" r="5"/><circle cx="690" cy="876" r="5"/><circle cx="664" cy="812" r="5"/>
+  </g>
+
+  <!-- painel do peito -->
+  <rect x="440" y="880" width="140" height="104" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="7 4"/>
+  <text x="510" y="924" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1d4ed8">PAINEL</text>
+  <text x="510" y="944" text-anchor="middle" font-size="11.5" fill="#1e40af">140 × 104 mm</text>
+  <text x="510" y="962" text-anchor="middle" font-size="10.5" fill="#64748b">só se usar display</text>
+
+  <!-- grelha alto-falante grave (lateral esq) -->
+  <g fill="#fde68a" stroke="#b45309" stroke-width="1.1">
+    <circle cx="372" cy="900" r="3.2"/><circle cx="386" cy="900" r="3.2"/><circle cx="400" cy="900" r="3.2"/>
+    <circle cx="372" cy="914" r="3.2"/><circle cx="386" cy="914" r="3.2"/><circle cx="400" cy="914" r="3.2"/>
+    <circle cx="372" cy="928" r="3.2"/><circle cx="386" cy="928" r="3.2"/><circle cx="400" cy="928" r="3.2"/>
+    <circle cx="372" cy="942" r="3.2"/><circle cx="386" cy="942" r="3.2"/><circle cx="400" cy="942" r="3.2"/>
+  </g>
+  <!-- ventilacao da fonte (lateral dir) -->
+  <g fill="#e0e7ff" stroke="#4338ca" stroke-width="1.1">
+    <circle cx="620" cy="900" r="3.2"/><circle cx="634" cy="900" r="3.2"/><circle cx="648" cy="900" r="3.2"/>
+    <circle cx="620" cy="914" r="3.2"/><circle cx="634" cy="914" r="3.2"/><circle cx="648" cy="914" r="3.2"/>
+    <circle cx="620" cy="928" r="3.2"/><circle cx="634" cy="928" r="3.2"/><circle cx="648" cy="928" r="3.2"/>
+    <circle cx="620" cy="942" r="3.2"/><circle cx="634" cy="942" r="3.2"/><circle cx="648" cy="942" r="3.2"/>
+  </g>
+
+  <!-- slot da impressora -->
+  <rect x="452" y="1120" width="116" height="14" rx="4" fill="#ffedd5" stroke="#c2410c" stroke-width="2.5"/>
+
+  <!-- botao de emergencia -->
+  <circle cx="640" cy="1180" r="12" fill="#fecaca" stroke="#b91c1c" stroke-width="3"/>
+  <!-- chave geral -->
+  <rect x="368" y="1170" width="26" height="18" rx="3" fill="#f3e8ff" stroke="#7e22ce" stroke-width="2.5"/>
+  <!-- furo do pescoco no topo -->
+  <circle cx="510" cy="780" r="15" fill="#ede9fe" stroke="#6d28d9" stroke-width="3"/>
+  <!-- entrada de energia -->
+  <circle cx="510" cy="1300" r="9" fill="#dcfce7" stroke="#15803d" stroke-width="2.5"/>
+
+  <!-- chamadas painel C -->
+  <g stroke="#64748b" stroke-width="1.3">
+    <line x1="313" y1="836" x2="180" y2="820"/>
+    <line x1="330" y1="876" x2="190" y2="906"/>
+    <line x1="510" y1="765" x2="620" y2="742"/>
+    <line x1="404" y1="920" x2="200" y2="984"/>
+    <line x1="656" y1="920" x2="812" y2="900"/>
+    <line x1="580" y1="930" x2="812" y2="972"/>
+    <line x1="568" y1="1127" x2="812" y2="1114"/>
+    <line x1="652" y1="1180" x2="812" y2="1196"/>
+    <line x1="368" y1="1180" x2="200" y2="1196"/>
+    <line x1="510" y1="1310" x2="380" y2="1352"/>
+    <line x1="690" y1="1080" x2="812" y2="1050"/>
+  </g>
+  <g font-size="13" fill="#1e293b">
+    <text x="176" y="816" text-anchor="end" font-weight="bold">2× Ø 30 mm — SERRA-COPO</text>
+    <text x="176" y="832" text-anchor="end" font-size="11.5" fill="#b91c1c">eixo do ombro · folga de 3-5 mm</text>
+    <text x="186" y="902" text-anchor="end" font-weight="bold">6× Ø 6,5 mm</text>
+    <text x="186" y="918" text-anchor="end" font-size="11.5" fill="#475569">fixação do motor (3 por lado)</text>
+    <text x="626" y="738" font-weight="bold">Ø 30 mm · pescoço</text>
+    <text x="196" y="980" text-anchor="end" font-weight="bold">12× Ø 3 mm</text>
+    <text x="196" y="996" text-anchor="end" font-size="11.5" fill="#475569">alto-falante grave</text>
+    <text x="818" y="896" font-weight="bold">12× Ø 3 mm</text>
+    <text x="818" y="912" font-size="11.5" fill="#4338ca">VENTILAÇÃO DA FONTE</text>
+    <text x="818" y="968" font-weight="bold">recorte 140 × 104 mm</text>
+    <text x="818" y="984" font-size="11.5" fill="#475569">painel do peito (opcional)</text>
+    <text x="818" y="1110" font-weight="bold">rasgo 116 × 14 mm</text>
+    <text x="818" y="1126" font-size="11.5" fill="#475569">saída do papel da impressora</text>
+    <text x="818" y="1192" font-weight="bold">Ø 22 mm</text>
+    <text x="818" y="1208" font-size="11.5" fill="#b91c1c">botão de emergência</text>
+    <text x="196" y="1192" text-anchor="end" font-weight="bold">retângulo 26 × 18 mm</text>
+    <text x="196" y="1208" text-anchor="end" font-size="11.5" fill="#475569">chave geral</text>
+    <text x="374" y="1348" text-anchor="end" font-weight="bold">Ø 16 mm · cabo de energia</text>
+    <text x="818" y="1046" font-weight="bold">zíper: NÃO furar</text>
+    <text x="818" y="1062" font-size="11.5" fill="#475569">a fita de LED vai na fresta</text>
+  </g>
+
+  <!-- ══════════ TABELA RESUMO ══════════ -->
+  <rect x="50" y="1372" width="920" height="34" fill="#16213d"/>
+  <text x="66" y="1396" font-size="16" font-weight="bold" fill="#ffffff">RESUMO — 10 furos, do maior para o menor</text>
+
+  <g font-size="12.5" fill="#1e293b">
+    <text x="62" y="1428" font-weight="bold">Ø 30 mm</text><text x="150" y="1428">2× eixo do ombro + 1× pescoço no torso + 1× pescoço na cabeça</text><text x="800" y="1428" fill="#b91c1c" font-weight="bold">serra-copo</text>
+    <text x="62" y="1450" font-weight="bold">Ø 22 mm</text><text x="150" y="1450">botão de emergência</text><text x="800" y="1450" fill="#b91c1c" font-weight="bold">serra-copo</text>
+    <text x="62" y="1472" font-weight="bold">Ø 16 mm</text><text x="150" y="1472">4× ultrassônico (cabeça) + 1× cabo de energia</text><text x="800" y="1472" fill="#b45309" font-weight="bold">serra-copo ou broca escalonada</text>
+    <text x="62" y="1494" font-weight="bold">Ø 10 mm</text><text x="150" y="1494">lente da câmera</text><text x="800" y="1494">broca</text>
+    <text x="62" y="1516" font-weight="bold">Ø 6,5 mm</text><text x="150" y="1516">6× fixação dos motores</text><text x="800" y="1516">broca</text>
+    <text x="62" y="1538" font-weight="bold">Ø 3-4 mm</text><text x="150" y="1538">grelhas de som (31 furinhos), ventilação (12) e microfone (1)</text><text x="800" y="1538">broca</text>
+  </g>
+</svg>

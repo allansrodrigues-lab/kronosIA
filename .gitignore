@@ -21,3 +21,12 @@ Kronos_Dossie_Estudo_*.pdf
 # Dependências Node/npm (recriáveis com `npm install` — nunca commitar)
 node_modules/
 **/node_modules/
+
+# Contatos e listas com telefone de terceiros — repo é PÚBLICO, LGPD
+*contatos*.csv
+*contatos*.vcf
+.github/contatos_*.csv
+
+# Logs de ferramenta
+qphotorec.log
+*.log

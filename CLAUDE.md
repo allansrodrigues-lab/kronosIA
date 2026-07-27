@@ -17,6 +17,30 @@ Produto SaaS de bots WhatsApp para clínicas (agendamento + atendimento) via n8n
 
 ---
 
+## Regras de automação de navegador
+
+> **Antes de qualquer tarefa de navegador, ler [`BROWSER_PLAYBOOK.md`](BROWSER_PLAYBOOK.md).**
+> Ele traz o catálogo completo de modos de falha já vividos (clique por coordenada que driva,
+> campo BRL mascarado, editor de código que corrompe JSON, muros de moderação) e o formato de
+> resultado estruturado. Para delegar a tarefa inteira, usar o subagente `web-operator`, que já
+> segue o playbook. O resumo abaixo é o mínimo que vale mesmo sem abrir o playbook.
+
+Ferramenta mais usada do projeto — essas regras vêm de fricção real, não de teoria.
+
+- **SEMPRE reaproveitar a aba já aberta** em vez de re-navegar para a URL (principalmente `web.whatsapp.com`). Re-navegar causa reconexão lenta e derruba a sessão — já custou mensagem reenviada.
+- **Antes de assumir que o site pede login, checar a aba/sessão existente.** LinkedIn, Catho, Gupy e WhatsApp normalmente já estão autenticados; assumir login derrubou uma varredura inteira.
+- **NUNCA recarregar ou sair de uma página onde o Allan digitou dado à mão** (proposta, formulário, valor de honorário). Confirmar com ele antes — reload já apagou proposta preenchida manualmente.
+- **Screenshot travou ou navegação deu timeout duas vezes → parar de tentar.** Cair para `get_page_text` / avaliação por JS, ou trocar de superfície (Browser pane ↔ Claude in Chrome). Nunca insistir no mesmo caminho pela terceira vez.
+- **Preferir chamadas em lote e leitura de texto:** `browser_batch` para sequência de interações, `get_page_text` para verificação. Screenshot só quando o layout em si importa.
+
+## Verificação antes de afirmar "pronto"
+
+- **Depois de qualquer save/submit no navegador** (instruções de Project, candidatura de vaga, edição de perfil): **recarregar a página e reler o valor** antes de dizer que salvou. Já aconteceu de reportar sucesso duas vezes e o reload mostrar que a edição nunca persistiu.
+- **Depois de deploy:** `curl` ou abrir a URL de produção e confirmar que o valor mudado aparece — citar a string encontrada. Status verde do Action não é prova.
+- **Nunca reportar tarefa concluída só por inspeção de código.** Rodar o código, bater no endpoint ou reler a página. Se não der para verificar, dizer explicitamente o que ficou não verificado.
+
+---
+
 ## Arquitetura geral
 
 ```
@@ -65,7 +89,8 @@ Cada workflow tem um `_guide.md` e um `_montagem_manual.md` correspondentes.
 - **n8n roda em Docker atrás do Traefik** — antes de escrever qualquer `docker-compose`, confirmar o nome real da rede com `docker network ls` (nunca assumir `traefik` ou `web`).
 - **Containers Docker:** `n8n-xve0-n8n-1`, `evolution-api`, `evolution-postgres`, `evolution-redis`, `kronos-site-*`, `traefik-*`.
 - **n8n usa SQLite** (`/home/node/.n8n/database.sqlite`). Para consultar via script: rodar `node` de dentro de `/usr/local/lib/node_modules/n8n` com `require('sqlite3')`. Campo `execution_data.data` usa formato **flatted** (`require('flatted')` para decodificar).
-- **Evolution API v2.3.7** — instâncias: `clinica01` (`5519971514971`, central de demos/chavinha com TODOS os protótipos — 🔒 intocável, tem logins) e `prospeccao01` (`5519997237404`, chip **cobaia** da prospecção ativa — descartável, pode ser banido; webhook `/webhook/prospeccao-respostas`). Números que NUNCA entram em risco: `5519971266736` (Kronos) e `5519971514971` (protótipos).
+- **Evolution API v2.3.7** — instâncias: `clinica01` (`5519971514971`, central de demos/chavinha com TODOS os protótipos) e `prospeccao01` (`5519997237404`, chip **cobaia** da prospecção ativa — descartável, pode ser banido; webhook `/webhook/prospeccao-respostas`).
+- **Prospecção fria em 3 chips (decisão 24/07):** `5519971514971` (Kronos Protótipo, ~10 anos), `5519971266736` (Kronos Comercial, ~6 anos) e `5519997237404` (cobaia/pessoal novo, ~3 meses) entram no rodízio de disparo, **cap de ~10 msgs/dia por chip**. Risco aceito conscientemente pelo Allan: suspensão de 24h (não ban permanente) — se algum chip levar restrição, **parar de disparar por ele imediatamente** e repensar a abordagem, não insistir. Protótipo e Comercial continuam sendo os números que sustentam demo ao vivo e teste de bot sem loop respectivamente — cautela redobrada neles por isso, não por risco técnico do WhatsApp em si.
 - **LLM:** Claude Haiku (`claude-haiku-4-5-20251001`) para classificação de intent; Claude Sonnet 5 (`claude-sonnet-5`) para respostas dos agentes especialistas (thinking adaptativo — padrão do Sonnet 5; sem `temperature`, que retorna 400 nesse modelo).
 - **Regra-mãe:** cada cliente novo nasce isolado — instância Evolution própria + planilha CRM própria. Nunca compartilhar base entre clientes.
 
@@ -154,10 +179,46 @@ curl -X POST https://SEU-N8N/webhook/whatsapp \
 
 ---
 
+## Protocolo de build de nicho (Kronos)
+
+Nicho novo segue **esta ordem exata** — é a sequência que já entregou Solar, Advocacia, Clínica Médica, Imobiliária, Arquitetura e Odonto:
+
+1. Pesquisa de mercado + decisão do nicho
+2. Base de conhecimento (`04_Agentes_IA/base_conhecimento/`)
+3. Planilha CRM própria (regra-mãe: nunca compartilhar base entre clientes)
+4. Workflows n8n
+5. Prompts do voice agent
+6. Roteiro de demo
+7. Aba do nicho na landing (`/kronos-nicho-landing-demo`)
+8. Deploy + verificação no ar
+9. Salvar estado na memória antes de limpar a sessão
+
+- **Desativar cron/workflow agendado que não estiver em uso ativo** — schedule parado ligado só queima crédito.
+- A pesquisa da etapa 1 come muito contexto: delegar a um subagente e pedir só o resumo, deixando o contexto principal livre para CRM, workflows e deploy.
+
+---
+
 ## Deploy / Infra
 
 - Operações de arquivo no VPS usam **bash paths**; empacotamento/local usa caminhos relativos ou `$env:TEMP` (não assumir que `/tmp` funciona igual em bash vs PowerShell).
 - Site (`07_Recursos/index.html`) roda no VPS via container `kronos-site-*` + Traefik (não na shared hosting).
-- **CI/CD (`.github/workflows/deploy.yml`) pode não fazer auto-deploy** — se o Action não propagar em tempo razoável, cair direto no **fallback de `scp`** (clone+copy direto no VPS, ou colar o bloco no Browser Terminal). Confirmar o nome real da rede Traefik antes de qualquer `docker-compose up`.
-- **Todo deploy termina confirmando que a mudança está no ar** — buscar a URL de produção real e citar o valor atualizado (não confiar em status do Action nem em cache/flag).
-- Skills disponíveis: `/kronos-deploy` (infra VPS), `/kronos-workflow` (editar n8n), `/n8n-debug` (diagnóstico de bot), `/kronos-agente` (criar/adaptar agente para novo nicho).
+- **Deploy padrão:** commitar e dar push na `main` → o Action `.github/workflows/deploy.yml` faz `scp` do `index.html` para `/opt/kronos-site/index.html`.
+- **Se o CI/CD travar por mais de ~3 min, cair no fallback manual na hora** (já foi necessário em 3+ sessões — não ficar esperando):
+
+```bash
+scp -i ~/.ssh/kronos_vps -o StrictHostKeyChecking=no \
+  "07_Recursos/index.html" root@2.24.101.180:/opt/kronos-site/index.html
+```
+
+- **Commitar o que estiver pendente ANTES de começar edição de preço/config**, para o diff do deploy sair limpo.
+- **Todo deploy termina confirmando que a mudança está no ar** — buscar a URL de produção real (`https://kronosintelligence.com.br/`) e citar o valor atualizado (não confiar em status do Action nem em cache/flag).
+- Confirmar o nome real da rede Traefik antes de qualquer `docker-compose up`.
+- Skills disponíveis: `/kronos-deploy` (infra VPS), `/kronos-workflow` (editar n8n), `/n8n-debug` (diagnóstico de bot), `/kronos-agente` (criar/adaptar agente para novo nicho), `/radar` (varredura diária de vagas e freelas).
+
+---
+
+## Segurança e dados sensíveis
+
+- **Nunca disparar mensagem de um número que o Allan não tenha declarado liberado.** Hoje os liberados são os 3 chips do rodízio de prospecção (ver *Stack & Ambiente*), com cap de ~10 msgs/dia cada. Qualquer número de cliente real ou fora dessa lista é **proibido** — na dúvida, perguntar antes, não depois.
+- **Deixar campos de identidade e dinheiro para o Allan preencher à mão** em candidatura de vaga ou proposta: pretensão salarial, CPF, dados bancários, documentos pessoais. Eu preencho o resto e paro nesses.
+- Repositório é **público** — conferir PDFs e pastas pessoais antes de commitar.
