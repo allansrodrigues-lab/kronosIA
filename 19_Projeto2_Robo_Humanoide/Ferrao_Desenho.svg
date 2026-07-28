@@ -3,158 +3,206 @@
 
   <!-- Título -->
   <text x="450" y="42" text-anchor="middle" font-size="21" font-weight="bold" fill="#1e2a4a">FERRÃO — como fica montado (vista frontal)</text>
-  <text x="450" y="66" text-anchor="middle" font-size="13" fill="#64748b">Nível 1: torso humanoide em base fixa · altura total ≈ 1,35 m</text>
+  <text x="450" y="66" text-anchor="middle" font-size="13" fill="#64748b">Torso de mala rígida sobre base de cadeira · altura total ≈ 1,35 m</text>
+  <text x="450" y="86" text-anchor="middle" font-size="12" fill="#94a3b8">O que está DENTRO da mala aparece em transparência, com contorno tracejado</text>
 
   <!-- chão -->
   <line x1="80" y1="1090" x2="820" y2="1090" stroke="#94a3b8" stroke-width="2"/>
 
   <!-- ===== BASE: cadeira de escritório ===== -->
-  <!-- patas -->
   <g stroke="#374151" stroke-width="14" stroke-linecap="round">
     <line x1="450" y1="1005" x2="272" y2="1050"/>
     <line x1="450" y1="1005" x2="628" y2="1050"/>
     <line x1="450" y1="1005" x2="362" y2="1072"/>
     <line x1="450" y1="1005" x2="538" y2="1072"/>
   </g>
-  <!-- rodízios -->
   <g fill="#4b5563" stroke="#1e2a4a" stroke-width="2">
     <circle cx="272" cy="1068" r="11"/>
     <circle cx="628" cy="1068" r="11"/>
     <circle cx="362" cy="1080" r="9"/>
     <circle cx="538" cy="1080" r="9"/>
   </g>
-  <!-- calços -->
   <rect x="286" y="1074" width="26" height="14" fill="#d9b98c" stroke="#1e2a4a" stroke-width="1.5"/>
   <rect x="588" y="1074" width="26" height="14" fill="#d9b98c" stroke="#1e2a4a" stroke-width="1.5"/>
-  <!-- lastro -->
   <ellipse cx="450" cy="1052" rx="52" ry="20" fill="#6b7280" stroke="#1e2a4a" stroke-width="2"/>
   <text x="450" y="1057" text-anchor="middle" font-size="11" fill="#f8f9fb">lastro</text>
 
   <!-- coluna a gás -->
-  <rect x="428" y="880" width="44" height="125" rx="6" fill="#9ca3af" stroke="#1e2a4a" stroke-width="2"/>
-  <rect x="436" y="778" width="28" height="106" rx="4" fill="#b6bcc6" stroke="#1e2a4a" stroke-width="2"/>
+  <rect x="428" y="878" width="44" height="127" rx="6" fill="#9ca3af" stroke="#1e2a4a" stroke-width="2"/>
+  <rect x="436" y="772" width="28" height="110" rx="4" fill="#b6bcc6" stroke="#1e2a4a" stroke-width="2"/>
 
   <!-- disco MDF (flange) -->
-  <rect x="300" y="758" width="300" height="18" rx="6" fill="#d9b98c" stroke="#1e2a4a" stroke-width="2"/>
+  <rect x="300" y="750" width="300" height="18" rx="6" fill="#d9b98c" stroke="#1e2a4a" stroke-width="2"/>
 
-  <!-- ===== TORSO: quadro em H de MDF ===== -->
-  <rect x="329" y="470" width="22" height="290" fill="#d9b98c" stroke="#1e2a4a" stroke-width="2"/>
-  <rect x="549" y="470" width="22" height="290" fill="#d9b98c" stroke="#1e2a4a" stroke-width="2"/>
-  <rect x="310" y="450" width="280" height="22" rx="4" fill="#d9b98c" stroke="#1e2a4a" stroke-width="2"/>
+  <!-- ===== TORSO: MALA RÍGIDA (a casca) ===== -->
+  <rect x="320" y="440" width="260" height="312" rx="26" fill="#26314d" stroke="#1e2a4a" stroke-width="2.5"/>
+  <!-- frisos originais da mala -->
+  <g stroke="#33406a" stroke-width="3">
+    <line x1="362" y1="462" x2="362" y2="730"/>
+    <line x1="404" y1="462" x2="404" y2="730"/>
+    <line x1="496" y1="462" x2="496" y2="730"/>
+    <line x1="538" y1="462" x2="538" y2="730"/>
+  </g>
+  <!-- zíper perimetral -->
+  <path d="M 340 470 L 340 722 Q 340 736 356 736 L 544 736 Q 560 736 560 722 L 560 470"
+        fill="none" stroke="#8b94a3" stroke-width="2" stroke-dasharray="6 5"/>
+  <circle cx="560" cy="500" r="6" fill="#8b94a3"/>
 
-  <!-- fonte ATX -->
-  <rect x="375" y="690" width="150" height="62" rx="6" fill="#6b7280" stroke="#1e2a4a" stroke-width="2"/>
-  <circle cx="420" cy="721" r="18" fill="none" stroke="#e5e7eb" stroke-width="3"/>
-  <circle cx="420" cy="721" r="4" fill="#e5e7eb"/>
-  <text x="482" y="726" text-anchor="middle" font-size="13" font-weight="bold" fill="#f8f9fb">ATX</text>
+  <!-- ===== INTERIOR (transparência) ===== -->
+  <g opacity="0.88">
+    <!-- quadro em H de MDF: o osso -->
+    <g fill="#d9b98c" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="5 4">
+      <rect x="348" y="468" width="16" height="280"/>
+      <rect x="536" y="468" width="16" height="280"/>
+      <rect x="348" y="468" width="204" height="16"/>
+    </g>
+    <!-- motores de limpador (ombros), parafusados na madeira -->
+    <g fill="#6b7280" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="5 4">
+      <rect x="364" y="472" width="58" height="54" rx="10"/>
+      <rect x="478" y="472" width="58" height="54" rx="10"/>
+    </g>
+    <!-- bandeja da eletrônica -->
+    <rect x="380" y="570" width="140" height="70" rx="6" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <rect x="388" y="583" width="44" height="30" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="410" y="602" text-anchor="middle" font-size="10" fill="#1e2a4a">ESP32</text>
+    <rect x="438" y="583" width="42" height="30" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="459" y="598" text-anchor="middle" font-size="9" fill="#1e2a4a">PCA</text>
+    <text x="459" y="609" text-anchor="middle" font-size="9" fill="#1e2a4a">9685</text>
+    <rect x="486" y="583" width="30" height="30" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="501" y="598" text-anchor="middle" font-size="9" fill="#1e2a4a">2×</text>
+    <text x="501" y="609" text-anchor="middle" font-size="9" fill="#1e2a4a">BTS</text>
+    <!-- fonte ATX -->
+    <rect x="382" y="660" width="140" height="60" rx="6" fill="#6b7280" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <circle cx="420" cy="690" r="17" fill="none" stroke="#e5e7eb" stroke-width="3"/>
+    <circle cx="420" cy="690" r="4" fill="#e5e7eb"/>
+    <text x="484" y="695" text-anchor="middle" font-size="13" font-weight="bold" fill="#f8f9fb">ATX</text>
+  </g>
 
-  <!-- bandeja da eletrônica -->
-  <rect x="365" y="598" width="170" height="72" rx="6" fill="#ffffff" stroke="#1e2a4a" stroke-width="2"/>
-  <rect x="374" y="612" width="52" height="34" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
-  <text x="400" y="633" text-anchor="middle" font-size="10" fill="#1e2a4a">ESP32</text>
-  <rect x="432" y="612" width="52" height="34" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
-  <text x="458" y="629" text-anchor="middle" font-size="9" fill="#1e2a4a">PCA</text>
-  <text x="458" y="640" text-anchor="middle" font-size="9" fill="#1e2a4a">9685</text>
-  <rect x="490" y="612" width="38" height="34" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
-  <text x="509" y="629" text-anchor="middle" font-size="9" fill="#1e2a4a">2×</text>
-  <text x="509" y="640" text-anchor="middle" font-size="9" fill="#1e2a4a">BTS</text>
+  <!-- painel de identidade no peito -->
+  <rect x="404" y="640" width="92" height="18" rx="4" fill="none" stroke="#22d3ee" stroke-width="1.5" opacity="0.8"/>
+  <text x="450" y="654" text-anchor="middle" font-size="11" fill="#22d3ee" letter-spacing="3">KRONOS</text>
 
-  <!-- ===== OMBROS: motores de limpador ===== -->
-  <rect x="300" y="455" width="62" height="60" rx="12" fill="#4b5563" stroke="#1e2a4a" stroke-width="2"/>
-  <rect x="538" y="455" width="62" height="60" rx="12" fill="#4b5563" stroke="#1e2a4a" stroke-width="2"/>
-  <circle cx="300" cy="485" r="16" fill="#374151" stroke="#1e2a4a" stroke-width="2"/>
-  <circle cx="300" cy="485" r="5" fill="#e5e7eb"/>
-  <circle cx="600" cy="485" r="16" fill="#374151" stroke="#1e2a4a" stroke-width="2"/>
-  <circle cx="600" cy="485" r="5" fill="#e5e7eb"/>
+  <!-- eixos dos ombros atravessando a casca -->
+  <rect x="306" y="491" width="52" height="12" rx="3" fill="#4b5563" stroke="#1e2a4a" stroke-width="1.5"/>
+  <rect x="542" y="491" width="52" height="12" rx="3" fill="#4b5563" stroke="#1e2a4a" stroke-width="1.5"/>
+  <circle cx="320" cy="497" r="13" fill="#374151" stroke="#1e2a4a" stroke-width="2"/>
+  <circle cx="320" cy="497" r="4" fill="#e5e7eb"/>
+  <circle cx="580" cy="497" r="13" fill="#374151" stroke="#1e2a4a" stroke-width="2"/>
+  <circle cx="580" cy="497" r="4" fill="#e5e7eb"/>
 
-  <!-- ===== BRAÇO ESQUERDO (do observador): caído, com garra ===== -->
-  <line x1="300" y1="485" x2="300" y2="648" stroke="#1e2a4a" stroke-width="30" stroke-linecap="round"/>
-  <line x1="300" y1="485" x2="300" y2="648" stroke="#cfd6dd" stroke-width="22" stroke-linecap="round"/>
-  <circle cx="300" cy="650" r="17" fill="#3b82f6" stroke="#1e2a4a" stroke-width="2"/>
-  <line x1="300" y1="652" x2="300" y2="782" stroke="#1e2a4a" stroke-width="26" stroke-linecap="round"/>
-  <line x1="300" y1="652" x2="300" y2="782" stroke="#cfd6dd" stroke-width="18" stroke-linecap="round"/>
+  <!-- ===== BRAÇO ESQUERDO (do observador): caído ===== -->
+  <rect x="293" y="490" width="26" height="168" rx="3" fill="#cbd5e1" stroke="#1e2a4a" stroke-width="2"/>
+  <line x1="300" y1="500" x2="300" y2="650" stroke="#eef2f6" stroke-width="3"/>
+  <rect x="288" y="654" width="36" height="30" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="296" y="684" width="20" height="112" rx="3" fill="#cbd5e1" stroke="#1e2a4a" stroke-width="2"/>
+  <line x1="302" y1="692" x2="302" y2="790" stroke="#eef2f6" stroke-width="2.5"/>
   <!-- garra -->
-  <path d="M 288 786 C 276 804 276 822 292 834" fill="none" stroke="#1e2a4a" stroke-width="6" stroke-linecap="round"/>
-  <path d="M 312 786 C 324 804 324 822 308 834" fill="none" stroke="#1e2a4a" stroke-width="6" stroke-linecap="round"/>
+  <rect x="292" y="796" width="28" height="10" rx="3" fill="#d9b98c" stroke="#1e2a4a" stroke-width="1.5"/>
+  <path d="M 294 806 C 282 824 282 842 298 854" fill="none" stroke="#1e2a4a" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 318 806 C 330 824 330 842 314 854" fill="none" stroke="#1e2a4a" stroke-width="6" stroke-linecap="round"/>
 
   <!-- ===== BRAÇO DIREITO: acenando ===== -->
-  <line x1="600" y1="485" x2="695" y2="398" stroke="#1e2a4a" stroke-width="30" stroke-linecap="round"/>
-  <line x1="600" y1="485" x2="695" y2="398" stroke="#cfd6dd" stroke-width="22" stroke-linecap="round"/>
-  <circle cx="695" cy="398" r="17" fill="#3b82f6" stroke="#1e2a4a" stroke-width="2"/>
-  <line x1="695" y1="398" x2="738" y2="292" stroke="#1e2a4a" stroke-width="26" stroke-linecap="round"/>
-  <line x1="695" y1="398" x2="738" y2="292" stroke="#cfd6dd" stroke-width="18" stroke-linecap="round"/>
-  <!-- mão aberta -->
-  <g stroke="#1e2a4a" stroke-width="5" stroke-linecap="round">
-    <line x1="738" y1="288" x2="726" y2="262"/>
-    <line x1="738" y1="288" x2="740" y2="258"/>
-    <line x1="738" y1="288" x2="753" y2="266"/>
+  <g transform="rotate(-145 594 497)">
+    <rect x="581" y="490" width="26" height="168" rx="3" fill="#cbd5e1" stroke="#1e2a4a" stroke-width="2"/>
+    <line x1="588" y1="500" x2="588" y2="650" stroke="#eef2f6" stroke-width="3"/>
+    <g transform="rotate(-25 594 655)">
+      <rect x="576" y="642" width="36" height="30" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+      <rect x="584" y="672" width="20" height="112" rx="3" fill="#cbd5e1" stroke="#1e2a4a" stroke-width="2"/>
+      <line x1="590" y1="680" x2="590" y2="778" stroke="#eef2f6" stroke-width="2.5"/>
+      <g stroke="#1e2a4a" stroke-width="5" stroke-linecap="round">
+        <line x1="594" y1="786" x2="580" y2="812"/>
+        <line x1="594" y1="786" x2="594" y2="816"/>
+        <line x1="594" y1="786" x2="610" y2="810"/>
+      </g>
+    </g>
   </g>
-  <!-- traço de movimento -->
-  <path d="M 762 330 q 20 -28 14 -62" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="5 6"/>
+  <!-- traço de movimento do aceno -->
+  <path d="M 742 250 q 26 -20 30 -52" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="5 6"/>
 
-  <!-- ===== PESCOÇO + CABEÇA ===== -->
-  <rect x="435" y="430" width="30" height="22" rx="4" fill="#3b82f6" stroke="#1e2a4a" stroke-width="2"/>
-  <rect x="385" y="325" width="130" height="108" rx="24" fill="#e2e8f0" stroke="#1e2a4a" stroke-width="2.5"/>
-  <!-- 2× HC-SR04 -->
-  <rect x="392" y="356" width="55" height="38" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
-  <rect x="453" y="356" width="55" height="38" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
-  <g fill="#f8f9fb" stroke="#1e2a4a" stroke-width="2">
-    <circle cx="406" cy="375" r="11"/>
-    <circle cx="433" cy="375" r="11"/>
-    <circle cx="467" cy="375" r="11"/>
-    <circle cx="494" cy="375" r="11"/>
+  <!-- ===== PESCOÇO + CABEÇA (necessaire) ===== -->
+  <rect x="435" y="412" width="30" height="30" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="378" y="292" width="144" height="122" rx="20" fill="#26314d" stroke="#1e2a4a" stroke-width="2.5"/>
+  <!-- zíper da necessaire -->
+  <path d="M 388 306 L 512 306" fill="none" stroke="#8b94a3" stroke-width="2" stroke-dasharray="6 5"/>
+  <circle cx="512" cy="306" r="5" fill="#8b94a3"/>
+  <!-- visor único em acrílico fumê -->
+  <rect x="390" y="322" width="120" height="54" rx="9" fill="#10151f" stroke="#0b1018" stroke-width="2"/>
+  <!-- HC-SR04 escondidos atrás do acrílico -->
+  <g fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3 3">
+    <circle cx="404" cy="349" r="9"/>
+    <circle cx="424" cy="349" r="9"/>
+    <circle cx="476" cy="349" r="9"/>
+    <circle cx="496" cy="349" r="9"/>
   </g>
-  <!-- boca -->
-  <g stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round">
-    <line x1="425" y1="410" x2="475" y2="410"/>
-    <line x1="432" y1="418" x2="468" y2="418"/>
+  <!-- TFT 2,4": o rosto -->
+  <rect x="428" y="330" width="44" height="38" rx="5" fill="#0f2436" stroke="#22d3ee" stroke-width="1.5"/>
+  <g fill="#22d3ee">
+    <rect x="436" y="342" width="10" height="14" rx="4"/>
+    <rect x="454" y="342" width="10" height="14" rx="4"/>
+  </g>
+  <!-- grelha da boca -->
+  <g stroke="#6b7280" stroke-width="2.5" stroke-linecap="round">
+    <line x1="428" y1="390" x2="472" y2="390"/>
+    <line x1="435" y1="399" x2="465" y2="399"/>
   </g>
 
   <!-- ===== CALLOUTS ===== -->
   <g stroke="#94a3b8" stroke-width="1.5">
     <!-- esquerda -->
-    <line x1="205" y1="336" x2="388" y2="348"/>
-    <line x1="215" y1="456" x2="302" y2="466"/>
-    <line x1="230" y1="524" x2="336" y2="502"/>
-    <line x1="185" y1="651" x2="281" y2="650"/>
-    <line x1="175" y1="806" x2="286" y2="806"/>
+    <line x1="252" y1="300" x2="376" y2="312"/>
+    <line x1="252" y1="349" x2="388" y2="349"/>
+    <line x1="252" y1="424" x2="433" y2="427"/>
+    <line x1="252" y1="486" x2="366" y2="492"/>
+    <line x1="230" y1="580" x2="291" y2="580"/>
+    <line x1="230" y1="668" x2="286" y2="668"/>
+    <line x1="215" y1="820" x2="290" y2="820"/>
     <line x1="205" y1="1042" x2="330" y2="1042"/>
     <!-- direita -->
-    <line x1="700" y1="300" x2="712" y2="382"/>
-    <line x1="672" y1="371" x2="512" y2="375"/>
-    <line x1="655" y1="441" x2="468" y2="441"/>
-    <line x1="680" y1="463" x2="592" y2="461"/>
-    <line x1="672" y1="632" x2="537" y2="632"/>
-    <line x1="660" y1="722" x2="527" y2="722"/>
-    <line x1="688" y1="767" x2="602" y2="767"/>
+    <line x1="742" y1="292" x2="716" y2="300"/>
+    <line x1="648" y1="452" x2="578" y2="462"/>
+    <line x1="648" y1="536" x2="552" y2="530"/>
+    <line x1="648" y1="600" x2="522" y2="600"/>
+    <line x1="648" y1="690" x2="524" y2="690"/>
+    <line x1="648" y1="736" x2="562" y2="736"/>
+    <line x1="668" y1="782" x2="600" y2="762"/>
     <line x1="640" y1="900" x2="474" y2="900"/>
     <line x1="700" y1="1062" x2="640" y2="1066"/>
   </g>
   <g fill="#94a3b8">
-    <circle cx="388" cy="348" r="3"/><circle cx="302" cy="466" r="3"/><circle cx="336" cy="502" r="3"/>
-    <circle cx="281" cy="650" r="3"/><circle cx="286" cy="806" r="3"/><circle cx="330" cy="1042" r="3"/>
-    <circle cx="712" cy="382" r="3"/><circle cx="512" cy="375" r="3"/><circle cx="468" cy="441" r="3"/>
-    <circle cx="592" cy="461" r="3"/><circle cx="537" cy="632" r="3"/><circle cx="527" cy="722" r="3"/>
-    <circle cx="602" cy="767" r="3"/><circle cx="474" cy="900" r="3"/><circle cx="640" cy="1066" r="3"/>
+    <circle cx="376" cy="312" r="3"/><circle cx="388" cy="349" r="3"/><circle cx="433" cy="427" r="3"/>
+    <circle cx="366" cy="492" r="3"/><circle cx="291" cy="580" r="3"/><circle cx="286" cy="668" r="3"/>
+    <circle cx="290" cy="820" r="3"/><circle cx="330" cy="1042" r="3"/>
+    <circle cx="716" cy="300" r="3"/><circle cx="578" cy="462" r="3"/><circle cx="552" cy="530" r="3"/>
+    <circle cx="522" cy="600" r="3"/><circle cx="524" cy="690" r="3"/><circle cx="562" cy="736" r="3"/>
+    <circle cx="600" cy="762" r="3"/><circle cx="474" cy="900" r="3"/><circle cx="640" cy="1066" r="3"/>
   </g>
   <g font-size="13" fill="#334155">
     <!-- esquerda -->
-    <text x="200" y="333" text-anchor="end">Crânio: pote plástico</text>
-    <text x="210" y="453" text-anchor="end">Motor de limpador = ombro</text>
-    <text x="225" y="528" text-anchor="end">Pot de feedback (atrás da lateral)</text>
-    <text x="180" y="655" text-anchor="end">Cotovelo: servo MG996R</text>
-    <text x="170" y="803" text-anchor="end">Garra por tendão</text>
-    <text x="170" y="817" text-anchor="end" font-size="11" fill="#64748b">(cabo fecha, elástico abre)</text>
+    <text x="247" y="297" text-anchor="end">Crânio: necessaire rígida</text>
+    <text x="247" y="311" text-anchor="end" font-size="11" fill="#64748b">(mesma linha da mala)</text>
+    <text x="247" y="346" text-anchor="end">Rosto: display TFT 2,4" SPI</text>
+    <text x="247" y="360" text-anchor="end" font-size="11" fill="#64748b">atrás de acrílico fumê; sensores somem</text>
+    <text x="247" y="421" text-anchor="end">Pescoço: pan MG996R + tilt MG90S</text>
+    <text x="247" y="483" text-anchor="end">Ombro: motor de limpador</text>
+    <text x="247" y="497" text-anchor="end" font-size="11" fill="#64748b">na madeira interna, nunca na casca</text>
+    <text x="225" y="577" text-anchor="end">Braço: tubo de alumínio 25×25</text>
+    <text x="225" y="591" text-anchor="end" font-size="11" fill="#64748b">face plana = servo assenta reto</text>
+    <text x="225" y="672" text-anchor="end">Cotovelo: servo MG996R</text>
+    <text x="210" y="817" text-anchor="end">Garra por tendão</text>
+    <text x="210" y="831" text-anchor="end" font-size="11" fill="#64748b">(cabo fecha, elástico abre)</text>
     <text x="200" y="1046" text-anchor="end">Base 5 patas + lastro 5–10 kg</text>
     <!-- direita -->
-    <text x="705" y="296" text-anchor="start">Braço: PVC 40 mm</text>
-    <text x="678" y="368" text-anchor="start">2× HC-SR04 (olhos)</text>
-    <text x="660" y="445" text-anchor="start">Pescoço: pan MG996R + tilt MG90S</text>
-    <text x="685" y="467" text-anchor="start">Placa dos ombros (MDF)</text>
-    <text x="678" y="629" text-anchor="start">Bandeja da eletrônica</text>
-    <text x="678" y="643" text-anchor="start" font-size="11" fill="#64748b">ESP32 + PCA9685 + 2× BTS7960</text>
-    <text x="665" y="726" text-anchor="start">Fonte ATX (sucata de PC)</text>
-    <text x="693" y="771" text-anchor="start">Disco MDF (flange)</text>
+    <text x="747" y="289" text-anchor="start">Antebraço: alumínio 20×20</text>
+    <text x="653" y="449" text-anchor="start">Torso: MALA RÍGIDA (a pele)</text>
+    <text x="653" y="463" text-anchor="start" font-size="11" fill="#64748b">casca pronta, dispensa encapar</text>
+    <text x="653" y="533" text-anchor="start">Quadro em H de MDF (o osso)</text>
+    <text x="653" y="547" text-anchor="start" font-size="11" fill="#64748b">tudo que faz força prende aqui</text>
+    <text x="653" y="597" text-anchor="start">Bandeja da eletrônica</text>
+    <text x="653" y="611" text-anchor="start" font-size="11" fill="#64748b">ESP32 + PCA9685 + 2× BTS7960</text>
+    <text x="653" y="694" text-anchor="start">Fonte ATX (sucata de PC)</text>
+    <text x="653" y="733" text-anchor="start">O zíper continua abrindo</text>
+    <text x="653" y="747" text-anchor="start" font-size="11" fill="#64748b">manutenção em 3 segundos</text>
+    <text x="673" y="786" text-anchor="start">Disco MDF (flange)</text>
     <text x="645" y="897" text-anchor="start">Coluna a gás da cadeira</text>
     <text x="705" y="1060" text-anchor="start">Rodízio travado com calço</text>
     <text x="705" y="1074" text-anchor="start" font-size="11" fill="#64748b">(Nível 2: vira tração)</text>
@@ -162,13 +210,15 @@
 
   <!-- ===== LEGENDA ===== -->
   <g font-size="12" fill="#334155">
-    <rect x="120" y="1118" width="18" height="14" fill="#d9b98c" stroke="#1e2a4a" stroke-width="1.5"/>
-    <text x="145" y="1130">MDF / madeira (sucata)</text>
-    <rect x="320" y="1118" width="18" height="14" fill="#cfd6dd" stroke="#1e2a4a" stroke-width="1.5"/>
-    <text x="345" y="1130">PVC / plástico (sucata)</text>
-    <rect x="510" y="1118" width="18" height="14" fill="#4b5563" stroke="#1e2a4a" stroke-width="1.5"/>
-    <text x="535" y="1130">Metal (sucata)</text>
-    <rect x="650" y="1118" width="18" height="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
-    <text x="675" y="1130">Comprado (eletrônica)</text>
+    <rect x="70" y="1118" width="18" height="14" fill="#26314d" stroke="#1e2a4a" stroke-width="1.5"/>
+    <text x="95" y="1130">Mala / necessaire (casca)</text>
+    <rect x="268" y="1118" width="18" height="14" fill="#d9b98c" stroke="#1e2a4a" stroke-width="1.5"/>
+    <text x="293" y="1130">MDF (osso interno)</text>
+    <rect x="430" y="1118" width="18" height="14" fill="#cbd5e1" stroke="#1e2a4a" stroke-width="1.5"/>
+    <text x="455" y="1130">Alumínio (comprado)</text>
+    <rect x="600" y="1118" width="18" height="14" fill="#6b7280" stroke="#1e2a4a" stroke-width="1.5"/>
+    <text x="625" y="1130">Metal (sucata)</text>
+    <rect x="730" y="1118" width="18" height="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="755" y="1130">Eletrônica</text>
   </g>
 </svg>

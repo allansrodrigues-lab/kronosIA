@@ -30,7 +30,7 @@ O motor de limpador de para-brisa é o oposto disso: fortíssimo, mas **lento** 
 - **Cada subsistema funciona sozinho** (cabeça, braço, garra). Você tem vitória concreta a cada 2-3 semanas em vez de um monstro que "quase funciona" por 6 meses.
 - **As rodas (Nível 2) reaproveitam tudo**: os mesmos 2 motores de limpador que você já vai saber controlar viram tração diferencial. Upgrade, não recomeço.
 
-**O robô-alvo:** torso de ~90 cm sobre base de cadeira de escritório, cabeça com "olhos" ultrassônicos (pan/tilt), 2 braços com ombro de motor de limpador + cotovelo de servo, 1 garra, controlado por ESP32 com painel via Wi-Fi no celular.
+**O robô-alvo:** torso de ~90 cm — **casca de mala rígida sobre quadro de madeira interno** — em cima de base de cadeira de escritório; cabeça de **necessaire rígida** com "olhos" ultrassônicos (pan/tilt) e **rosto em display TFT 2,4"**, 2 braços de **tubo quadrado de alumínio** com ombro de motor de limpador + cotovelo de servo, 1 garra, controlado por ESP32 com painel via Wi-Fi no celular.
 
 ### Como fica montado
 
@@ -51,7 +51,7 @@ O motor de limpador de para-brisa é o oposto disso: fortíssimo, mas **lento** 
 | Peça de sucata | Vira o quê no robô | Por quê essa peça |
 |---|---|---|
 | **Base de cadeira de escritório giratória** (estrela de 5 patas + coluna a gás) | Base + "coluna vertebral" | É literalmente um tronco pronto: base estável de aço, coluna vertical resistente, e a estrela já tem rodízios (útil no Nível 2). A junta do pistão a gás ainda dá amortecimento. Ferro-velho e caçamba têm aos montes. |
-| **2 motores de limpador de para-brisa 12V** | Atuadores dos ombros (1 por braço) | Torque absurdo (10-25 N·m) com redução por **rosca sem-fim**, que é **autotravante**: desligou, o braço fica onde está, como freio de mão. Servo não segura braço de PVC de 40 cm; esse motor levanta com folga. ⚠️ Peça pro ferro-velho **o braço do limpador junto** (a peça que prende a palheta) — o clamp dela encaixa perfeito no eixo estriado e vira sua fixação do braço do robô. |
+| **2 motores de limpador de para-brisa 12V** | Atuadores dos ombros (1 por braço) | Torque absurdo (10-25 N·m) com redução por **rosca sem-fim**, que é **autotravante**: desligou, o braço fica onde está, como freio de mão. Servo não segura braço de 40 cm; esse motor levanta com folga. ⚠️ Peça pro ferro-velho **o braço do limpador junto** (a peça que prende a palheta) — o clamp dela encaixa perfeito no eixo estriado e vira sua fixação do braço do robô. |
 | ~~Cano PVC~~ → **Tubo quadrado de alumínio** 25×25 e 20×20 mm *(comprado, ~R$80)* | Ossos: braço e antebraço | **Substituiu o PVC por decisão de 25/07.** A face plana é o que permite o servo do cotovelo assentar reto (no cano redondo ele balança), e o visual é de máquina, não de encanamento. Ver seção 2.4. O PVC que você já tem em casa fica de reserva pra gabarito e testes. |
 | **4+ rolamentos de skate (608: furo 8 mm)** | Mancais das juntas de ombro e pescoço | Junta que gira em rolamento não folga nem morde. O 608 tem furo de 8 mm → casa exato com **parafuso/barra roscada M8**, que se acha em qualquer loja de construção. |
 | **Fonte ATX de PC velho (torre descartada)** | Fonte de energia do robô inteiro | Entrega **12 V** (motores de limpador) **e 5 V** (servos e lógica) com amperagem de sobra (15 A+), com proteção contra curto embutida. É a peça de sucata mais valiosa do projeto — economiza ~R$110 em fontes novas. |
@@ -77,7 +77,7 @@ O motor de limpador de para-brisa é o oposto disso: fortíssimo, mas **lento** 
 | **Barra roscada M8 (1 m) + porcas + arruelas** | 1 | R$ 15 | Eixos das juntas (casa com rolamento 608). |
 | **Kit parafusos M3, M4, M5 + porcas com trava nylon (nylock) + arruelas** | 1 | R$ 40 | Ver tabela de junções na seção 2. Nylock não afrouxa com vibração — porca comum solta em 1 semana de robô mexendo. |
 | **Fita perfurada galvanizada (rolo)** | 1 | R$ 12 | "Meccano de loja de construção": chapinha furada que dobra com alicate — resolve 90% dos suportes de motor. |
-| **Abraçadeiras rosca sem-fim 1.½"–2"** | 8 | R$ 24 | Prender coisas em cano de PVC sem furar. |
+| **Abraçadeiras rosca sem-fim 1.½"–2"** | 8 | R$ 24 | Prender peça avulsa no tubo do braço ou na coluna sem furar. |
 | **Jumpers, protoboard 830, conector, termorretrátil** | kit | R$ 35 | Fiação de bancada antes de fixar definitivo. |
 | **Fusíveis lâmina 10 A + porta-fusível inline** | 2 | R$ 12 | Segurança da linha 12 V (seção 5). |
 | **Chave gangorra grande (botão de emergência)** | 1 | R$ 10 | Corta a força dos motores num tapa. |
@@ -91,7 +91,7 @@ O motor de limpador de para-brisa é o oposto disso: fortíssimo, mas **lento** 
 
 ### Regra de ouro pra não quebrar peça reciclada
 
-1. **PVC e plástico: sempre furo-guia + parafuso passante com porca.** Nunca parafuso auto-atarraxante direto no PVC — ele age como cunha e **racha o cano**. Fure com broca do diâmetro do corpo do parafuso (furo M4 → broca 4 mm), atravesse, e feche com arruela dos dois lados + porca nylock. A arruela espalha a pressão (sapato de neve: distribui o peso pra não afundar).
+1. **Plástico (mala, necessaire) e alumínio: sempre furo-guia + parafuso passante com porca.** Nunca parafuso auto-atarraxante direto no plástico — ele age como cunha e **racha a casca**; no alumínio de 1,5 mm, a rosca espana no terceiro aperto. Fure com broca do diâmetro do corpo do parafuso (furo M4 → broca 4 mm), atravesse, e feche com arruela dos dois lados + porca nylock. A arruela espalha a pressão (sapato de neve: distribui o peso pra não afundar).
 2. **Aperto em plástico: firme + ¼ de volta. Pare quando a arruela assentar.** Se o plástico "estalar", já foi longe demais.
 3. **Madeira: furo-guia com broca da metade do diâmetro** do parafuso de madeira (chipboard). Sem guia perto da borda = racha.
 4. **Metal (base da cadeira, suporte do motor): use os furos que já existem.** O motor de limpador vem com 3 orelhas de fixação M6/M8 — projetar a montagem em volta dos furos existentes é o segredo de projeto de sucata. Furar aço com furadeira de mão é o plano B, não o A.
@@ -107,14 +107,14 @@ O motor de limpador de para-brisa é o oposto disso: fortíssimo, mas **lento** 
 
 - Sobre o disco de MDF, monte um **quadro em "H" de MDF**: 2 laterais verticais (~40 cm) + 1 travessa superior horizontal (~35 cm) = a **placa dos ombros**. Junções madeira-madeira: **cantoneiras de aço + parafuso M5×20 com nylock** (4 por cantoneira). Cantoneira, não parafuso de topo: parafuso no topo do MDF racha a chapa.
 - A travessa dos ombros deve ficar ~15 cm acima do topo da coluna, dando espaço pra bandeja da eletrônica no meio do "peito".
-- Estética (opcional, por último): gaiola de PVC 40 mm contornando o quadro, presa com abraçadeiras.
+- **Este quadro é o osso; a casca é a mala rígida** (seção 8). O quadro em "H" mora dentro dela, e tudo que faz força — motor de ombro, pescoço, bandeja — é parafusado na madeira, nunca no plástico da mala.
 
 ### 2.3 Ombro (a junta-estrela do projeto)
 
 Cada ombro = 1 motor de limpador fazendo **flexão** (braço sobe/desce à frente do corpo). 1 grau de liberdade bem-feito > 3 bambos.
 
 - **Fixação do motor**: o corpo do motor aparafusado na face externa da lateral do quadro em H, usando as 3 orelhas originais do motor → **parafusos M6×30 + arruela + nylock** atravessando o MDF. O **eixo de saída do motor É o eixo do ombro**, atravessando a lateral por um furo de folga (Ø 25-30 mm, serra-copo ou Dremel).
-- **Fixação do braço no eixo**: aqui entra o braço do limpador que você pediu no ferro-velho — o clamp dele morde o eixo estriado com a porca original (M8/M10, aperto forte, esta pode: é aço com aço). Corte a haste da palheta a uns 6 cm do clamp (Dremel disco de corte) e **aparafuse o PVC do braço nesse toco**: 2× furos M5 atravessando haste + cano, **M5×50 + arruela + nylock**. Dois parafusos, não um — um só vira dobradiça e o braço gira em falso.
+- **Fixação do braço no eixo**: aqui entra o braço do limpador que você pediu no ferro-velho — o clamp dele morde o eixo estriado com a porca original (M8/M10, aperto forte, esta pode: é aço com aço). Corte a haste da palheta a uns 6 cm do clamp (Dremel disco de corte) e **aparafuse o tubo de alumínio do braço nesse toco**: 2× furos M5 atravessando haste + tubo, **M5×50 + arruela + nylock**. Dois parafusos, não um — um só vira dobradiça e o braço gira em falso. ⚠️ Enfie antes o **taquinho de madeira dentro do tubo** (bucha interna, seção 2.4): sem ele o alumínio amassa no aperto e a junta afrouxa pra sempre.
 - **Potenciômetro de feedback**: na face interna da lateral, coaxial ao eixo. Suporte de fita perfurada dobrada em "L" (2× M3×10 no corpo do pot… na verdade o pot fixa pela porca própria no furo da fita; o L fixa no MDF com M4×16). Acoplamento eixo-do-pot ↔ ponta do eixo do motor: **mangueirinha de silicone/combustível + 2 abraçadeiras mini** — acoplamento flexível de R$2 que perdoa desalinhamento (rígido quebraria o pot na primeira vibração).
   ⚠️ Pot gira só ~270°. O braço vai trabalhar em ~120° — configure limites por software E microswitches (2.5).
 - **Rolamento de apoio** (recomendado): o eixo do motor aguenta o braço sozinho, mas um mancal 608 do lado do pot (barra M8 curta colada no prolongamento do eixo, rolamento preso na lateral por flange de fita perfurada) tira o esforço radial de cima do motor e da vida útil dele.
@@ -169,14 +169,38 @@ De quebra: alumínio é mais leve que PVC na mesma rigidez, não amarela, e depo
 ### 2.6 Pescoço e cabeça
 
 - **Pan** (gira): MG996R de pé no centro da travessa dos ombros, corpo preso em bloquinho de MDF (4× M3×16), horn pra cima segurando a plataforma da cabeça (disco MDF fino, 4× M3×10). Opcional: rolamento 608 + eixo M8 ao lado do servo pra suportar peso se a cabeça crescer.
-- **Tilt** (assente/olha pra baixo): MG90S deitado na plataforma, horn na "testa" do crânio de pote plástico.
+- **Tilt** (assente/olha pra baixo): MG90S deitado na plataforma, horn na "testa" do crânio — a **necessaire rígida** da mesma linha da mala (pote plástico só como alternativa, se não achar a necessaire).
 - **Olhos**: 2× HC-SR04 lado a lado na frente do crânio — os 4 cilindros dão a cara clássica de robô de graça. Furos Ø 16 mm (serra-copo/Dremel), sensor por trás, fita perfurada + M3.
 
 ### 2.7 Garra (tendão)
 
-- Base: T de PVC 32 mm no fim do antebraço. 2 dedos de MDF fino (2 falanges cada, dobradiça de fita adesiva reforçada ou mini-dobradiças M2).
+- Base: **flange de MDF (ou cantoneira de alumínio em "L") parafusada na ponta do antebraço** — 2× M4×20 passante + nylock, na face plana do tubo 20×20. 2 dedos de MDF fino (2 falanges cada, dobradiça de fita adesiva reforçada ou mini-dobradiças M2).
 - Fechamento: **MG90S no antebraço** (perto do cotovelo, pra tirar peso da ponta!) enrola um cordão (cabo de freio de bike ou linha de pipa encerada) que corre por dentro dos dedos → puxa, fecha. **Elásticos no dorso dos dedos** reabrem quando o servo solta.
 - Por quê tendão e não engrenagem: a garra de tendão se adapta sozinha ao formato do objeto e, se algo esbarrar, o elástico cede em vez de espanar o servo.
+
+#### O que faz ela MOVER e o que faz ela SEGURAR
+
+São dois mecanismos diferentes, e confundir os dois é o motivo de garra caseira não funcionar.
+
+**Mover** — o servo enrola o cabo, o cabo encurta, os dedos dobram. Soltou o cabo, o elástico do dorso devolve. É a sua mão: o músculo não está no dedo, está no antebraço puxando tendão. Por isso o servo da garra fica no **antebraço**, não na mão — tira peso da ponta, onde ele mais atrapalha.
+
+**Segurar** — não é o aperto que impede o objeto de cair, é o **atrito**. Dedo de MDF liso deixa copo escorregar mesmo apertando forte; dedo com borracha segura com um terço da força.
+
+> ⚠️ **Item obrigatório e de custo zero:** um pedaço de **câmara de bicicleta velha colado na ponta de cada dedo**. Vem do mesmo lugar do cabo de freio. É a diferença entre uma garra que funciona e uma que derruba tudo.
+
+#### O que a garra realmente consegue pegar
+
+| Objeto | Consegue |
+|---|---|
+| Copo plástico vazio | ✅ |
+| Caneta, mini lata, objeto cilíndrico leve | ✅ |
+| Cartão colocado por alguém entre os dedos | ✅ |
+| **Folha de papel solta sobre a mesa** | ❌ na prática, não |
+| Acima de 250 g | ❌ limite do servo do cotovelo |
+
+**Por que papel solto não dá:** é geometria, não limitação do projeto. O papel é fino demais e o dedo empurra a folha em vez de entrar por baixo. É por isso que robô de armazém usa **ventosa a vácuo** para papel e caixa, e não garra de dedos.
+
+**E o cupom não precisa da garra:** a impressora térmica entrega sozinha pela fresta do peito, e a pessoa puxa. Mais confiável e mais rápido. Se um dia quiser o gesto de "entregar na mão", o caminho é o inverso — alguém coloca um cartão na garra antes e o robô estende o braço oferecendo.
 
 ### Tabela-resumo de junções
 
@@ -186,12 +210,13 @@ De quebra: alumínio é mais leve que PVC na mesma rigidez, não amarela, e depo
 | MDF ↔ MDF (quadro do torso) | cantoneira + M5×20 nylock | nunca parafusar no topo da chapa |
 | Motor limpador → lateral MDF | M6×30 nas orelhas originais (3×) | arruela dos dois lados |
 | Braço limpador (clamp) → eixo motor | porca original M8/M10 | única junção de aperto forte |
-| Haste do clamp → PVC úmero | 2× M5×50 passante + nylock | 2 parafusos = não gira em falso |
-| Servo → PVC/MDF | 4× M3×16 passante + nylock | furo-guia 3 mm |
+| Haste do clamp → úmero de alumínio | 2× M5×50 passante + nylock | 2 parafusos = não gira em falso; **bucha de madeira dentro do tubo** |
+| Servo → tubo de alumínio / MDF | 4× M3×16 passante + nylock | furo-guia 3 mm; **nunca roscar na parede do tubo** |
 | Horn do servo → peça movida | 4× M3×10 | usar furos do próprio horn |
 | Pot/microswitch → suporte | M3×10 / porca do pot em fita perfurada | acoplamento por mangueira flexível |
 | Sensores/eletrônica → bandeja | M3×10 + espaçador (ou parafuso de sucata de PC) | nunca placa direto na madeira |
-| Coisas em cano de PVC | abraçadeira rosca sem-fim | zero furos |
+| Peça avulsa no tubo do braço | abraçadeira rosca sem-fim | zero furos |
+| Qualquer coisa → casca da mala | ⛔ não parafusar | vai no quadro de madeira interno (seção 8) |
 
 ---
 
@@ -265,10 +290,10 @@ De quebra: alumínio é mais leve que PVC na mesma rigidez, não amarela, e depo
 | # | Etapa | Compra | Teste pra liberar a próxima |
 |---|---|---|---|
 | A | **Bancada eletrônica**: ESP32 + PCA9685 + 1 servo + 1 HC-SR04 na protoboard | ESP32, PCA9685, 1 MG996R, HC-SR04, jumpers, protoboard (~R$155) | Servo varre 0–180° suave; Serial mostra distância estável (±2 cm em alvo parado) |
-| B | **Cabeça + pescoço** completos, funcionando presos numa tábua na bancada | MG90S ×2, pote/crânio (~R$50) | Pan+tilt por slider no painel web; cabeça vira sozinha pro lado do sensor que detectar você |
+| B | **Cabeça + pescoço** completos, funcionando presos numa tábua na bancada | MG90S ×2, necessaire/crânio (~R$50) | Pan+tilt por slider no painel web; cabeça vira sozinha pro lado do sensor que detectar você |
 | C | **Base + coluna + torso** (cadeira, disco, quadro em H) | parafusos, cantoneiras (~R$60) | Empurrão firme no topo: sem tombar, sem balanço >2-3 cm |
 | D | **Motor de limpador domado, na bancada**: BTS7960 + pot + fins-de-curso, motor preso em morsa | 2× BTS7960, pots, fusível, botão emerg., fonte ATX preparada (~R$130) | Comanda "vai pra 45°" e ele vai e **para** a ±5°; microswitch pressionado na mão corta o motor na hora |
-| E | **Braço 1 completo na bancada**: ombro (motor) + úmero + cotovelo (servo) + antebraço | MG996R cotovelo, PVC, M5/M6 (~R$70) | Levanta o antebraço com 100 g na ponta, 10 ciclos sobe-desce sem afrouxar parafuso (reapertar e usar nylock onde faltou) |
+| E | **Braço 1 completo na bancada**: ombro (motor) + úmero + cotovelo (servo) + antebraço | MG996R cotovelo, tubo de alumínio 25×25 e 20×20, M3/M5/M6 (~R$70) | Levanta o antebraço com 100 g na ponta, 10 ciclos sobe-desce sem afrouxar parafuso (reapertar e usar nylock onde faltou) |
 | F | **Integração**: braço 1 no torso, cabeça no torso, eletrônica na bandeja do peito | — | Rotina "acenar" pelo painel 20× seguidas; nada afrouxa, nada esquenta (dedo no driver e no motor: morno ok, quente demais pra segurar = investigar) |
 | G | **Braço 2** (agora você já sabe o caminho — vai 3× mais rápido) | espelho da etapa E (~R$70) | Os dois braços em rotina simultânea sem a fonte fraquejar (se o ESP32 resetar com os 2 motores juntos: capacitores + checar bitola dos fios de 12 V) |
 | H | **Garra + polimento**: tendão, rotinas finais, comportamento autônomo | MG90S, cordão, elásticos (~R$30) | Pega um copo plástico vazio, segura 30 s, solta sob comando |
@@ -293,7 +318,7 @@ Ritmo realista no seu esquema "um pouco por vez, só não parar": **1 etapa a ca
 - Robô energizado nunca fica sozinho com criança ou pet no cômodo.
 
 **Peça e ferramenta**
-- Corte de PVC/metal com Dremel: **óculos de proteção sempre** (caco de disco de corte voa) e máscara ao lixar PVC.
+- Corte de alumínio, plástico da mala ou MDF com Dremel: **óculos de proteção sempre** (caco de disco de corte voa) e máscara ao lixar plástico ou MDF.
 - Todo corte em metal ganha rebarba afiada: passar lima/lixa na hora, não "depois eu vejo".
 - Peça de ferro-velho chega suja de graxa e às vezes com aresta viva escondida: luva na triagem, lavar com desengraxante antes de montar.
 - Solda de estanho: área ventilada, não respirar a fumaça do fluxo.
@@ -420,7 +445,7 @@ Mantenha o **recorte grande do visor (236 × 96 mm)** já previsto na prancha de
 
 | Solução | Custo | Quando |
 |---|---|---|
-| **MDF do caixote** — recorta, lixa, pinta de preto | R$ 0 | ⭐ MK1. Fica atrás do acrílico, ninguém vê a madeira |
+| **Sobra de MDF do quadro interno** — recorta, lixa, pinta de preto | R$ 0 | ⭐ MK1. Fica atrás do acrílico, ninguém vê a madeira |
 | Fita VHB 3M dupla-face estrutural | ~R$ 25 | A mesma que cola vidro em carro. Fina e segura demais |
 | Impressão 3D | R$ 30-50 | MK2, junto com as outras peças de precisão |
 
@@ -428,7 +453,9 @@ Peça impressa de moldura pesa 15-25 g → R$ 8-15 de material. O que encarece �
 
 ⚠️ **O que realmente define se fica impecável não é o componente, é a fixação.** Tela que balança no encaixe estraga qualquer projeto. A moldura tem que ser rígida e o acrílico não pode ceder quando alguém encostar.
 
-**Sobre a cor:** o preto do render do Gemini funcionou melhor que o navy — e é vantagem prática, porque mala preta é o padrão do mercado (mais barata e muito mais comum usada). O ciano ganha mais contraste contra preto. Paleta final: **preto fosco 60% · grafite 30% · ciano 10%**.
+**Sobre a cor:** o render em preto do Gemini ficou bonito, mas a paleta que vale é a da Kronos — **navy fosco 60% · grafite 30% · ciano 10%** (decisão de 27/07, ver seção 9). O robô é o agente físico da marca; a cor dele é a mesma da landing e do material comercial, não a cor que a mala veio de fábrica.
+
+Consequência prática: a mala preta usada continua sendo a compra certa (é a mais comum e barata no mercado de segunda mão) — ela só entra na receita de pintura da seção 9 como qualquer outra peça. Lixar 220 + primer cinza + navy fosco cobre preto sem drama; o que não se faz é pular o primer.
 
 ---
 
@@ -522,7 +549,7 @@ Decisão tomada em 25/07: em vez de construir a carcaça do zero e "encapar" dep
 
 ⚠️ **O erro que arruinaria essa montagem: parafusar o motor do ombro direto na casca.** A parede de uma mala tem 2-3 mm de plástico. O motor de limpador pesa 1,2 kg e aplica dezenas de N·m de torque — ele vai **rasgar o plástico** em poucos dias de uso, e o furo alargado não tem conserto.
 
-**A regra: a mala é a pele, não o osso.** Por dentro dela continua existindo o quadro de madeira do caixote — e é nele que tudo que faz força é parafusado. Como fazer:
+**A regra: a mala é a pele, não o osso.** Por dentro dela continua existindo o quadro de madeira em "H" (seção 2.2) — e é nele que tudo que faz força é parafusado. Como fazer:
 
 - **Sanduíche**: o parafuso atravessa a casca da mala e morde uma placa de madeira de 15 mm por dentro, com arruela larga dos dois lados. A madeira distribui a carga por uma área grande, e a casca só acompanha.
 - **Analogia**: a mala é a lataria do carro; a madeira é o chassi. Ninguém parafusa o motor na lataria.
@@ -548,7 +575,7 @@ Existem duas escolas que funcionam, e o erro é misturar as duas sem intenção:
 - **Industrial limpo** — tudo na mesma cor, painéis fechados, fiação invisível. Parece produto de empresa.
 - **Mecânico exposto (steampunk)** — engrenagem e rolamento à vista de propósito, metal envelhecido, madeira aparente. Assume a sucata como estilo.
 
-Recomendação: **industrial limpo em navy**, a mesma identidade da Kronos. Motivo prático além do gosto — navy escuro é a cor mais generosa que existe com peça reciclada: esconde imperfeição de corte, marca de lixa e diferença de textura entre PVC, MDF e aço. Branco e cores claras denunciam tudo.
+Recomendação: **industrial limpo em navy**, a mesma identidade da Kronos. Motivo prático além do gosto — navy escuro é a cor mais generosa que existe com peça reciclada: esconde imperfeição de corte, marca de lixa e diferença de textura entre o plástico da mala, o MDF e o alumínio. Branco e cores claras denunciam tudo.
 
 **Regra 60/30/10:** 60% navy no corpo, 30% grafite nas juntas e partes móveis, 10% ciano nos acentos (olhos, painel, LED). Essa proporção é o que dá cara de projeto pensado em vez de pintura aleatória.
 
@@ -558,7 +585,7 @@ Esta é a parte que se perde se o acabamento ficar 100% pro final — algumas co
 
 | Decisão | Quando | Por quê não dá pra deixar pro fim |
 |---|---|---|
-| **Passar os fios por dentro do PVC** | Ao montar cada braço | Depois de fechar a junta, o cano fica inacessível. Fio por fora é o item nº 1 que faz um robô parecer amador — e o único jeito de evitar é enfiar antes. |
+| **Passar os fios por dentro do tubo de alumínio** | Ao montar cada braço | Depois de fechar a junta, o tubo fica inacessível. Fio por fora é o item nº 1 que faz um robô parecer amador — e o único jeito de evitar é enfiar antes. |
 | **Padronizar a cabeça do parafuso** | Ao comprar a ferragem | Todo parafuso visível com a mesma cabeça (Philips ou Allen, escolha uma). Ninguém percebe conscientemente, mas mistura de cabeças lê como remendo. |
 | **Deixar folga de 10 mm pro painel** | Ao dimensionar o torso | Se o torso for montado justo, não sobra espaço pra fechar com uma tampa depois. |
 | **Furos de acesso** | Ao montar | Marque onde ficam os parafusos que você vai precisar reapertar. Carcaça que precisa ser desmontada inteira pra apertar um parafuso nunca mais é aberta — e aí o robô fica quebrado pra sempre. |
@@ -566,12 +593,12 @@ Esta é a parte que se perde se o acabamento ficar 100% pro final — algumas co
 
 ### A receita de pintura (é aqui que a mágica acontece)
 
-Vale pra PVC, MDF e metal — a sequência é a mesma, o que muda é o primer:
+Vale pro plástico da mala e da necessaire, pro MDF e pro alumínio — a sequência é a mesma, o que muda é o primer:
 
-1. **Lixar** — em PVC é obrigatório porque **todo cano tem a marca do fabricante impressa** (aquela escrita azul). Lixa 220 tira a escrita e dá "mordida" pra tinta. Em MDF, lixa 180 nas faces e nas quinas.
+1. **Lixar** — no plástico da mala é obrigatório: a casca vem brilhante e com textura, e tinta não morde superfície lisa. Lixa 220 fosqueia e dá "mordida". Em MDF, lixa 180 nas faces e nas quinas. No alumínio, lixa 220 leve só pra tirar o brilho — e **primer específico para não-ferrosos** (o alumínio é o único material aqui que rejeita primer comum).
 2. **Desengraxar** — álcool isopropílico ou detergente. Peça de ferro-velho tem graxa que faz a tinta descascar em uma semana.
 3. **Selar o MDF** — MDF cru bebe tinta pela borda e fica felpudo. Uma demão de cola branca diluída (1:3 com água) ou massa corrida sela e lixa liso depois.
-4. **Primer spray cinza** — 2 demãos leves. É o primer que uniformiza materiais diferentes: depois dele, PVC, madeira e aço viram a mesma superfície. **Não pule esta etapa** — é ela que faz o robô parecer feito de um material só.
+4. **Primer spray cinza** — 2 demãos leves. É o primer que uniformiza materiais diferentes: depois dele, plástico, madeira e alumínio viram a mesma superfície. **Não pule esta etapa** — é ela que faz o robô parecer feito de um material só.
 5. **Tinta spray navy fosco** — 3 demãos leves em vez de 1 pesada (demão pesada escorre e empoça). Fosco esconde imperfeição; brilhante denuncia cada ondulação.
 6. **Verniz fosco** (opcional) — só nas partes que serão tocadas.
 
@@ -586,7 +613,7 @@ Vale pra PVC, MDF e metal — a sequência é a mesma, o que muda é o primer:
 | **Visor único no lugar de 4 furos** | R$ 15 | Uma tira de acrílico fumê na frente dos ultrassônicos (o som passa pelas laterais abertas). Transforma "4 buracos" em "um rosto". |
 | **Espiral organizadora de cabo** | R$ 12 | Os fios que ficarem à vista viram um chicote único. Espaguete → cabo. |
 | **Painel de identidade no peito** | R$ 10 | Placa com o monograma. É onde o robô ganha nome e vira *seu*. |
-| **Saia na base** | sucata | Uma cinta de PVC ou MDF em volta da estrela esconde lastro, fios e rodízios travados. |
+| **Saia na base** | sucata | Uma cinta de plástico ou MDF em volta da estrela esconde lastro, fios e rodízios travados. |
 | **Feltro sob as patas** | R$ 8 | Não risca o piso e mata a vibração do motor — acabamento que se ouve. |
 
 ### A regra de ouro do acabamento
@@ -613,12 +640,12 @@ O critério é **densidade de precisão**: peça pequena, com encaixe exato e po
 
 | Peça | Vale imprimir? | Por quê |
 |---|---|---|
-| **Berço/suporte de servo** (cotovelo, pescoço) | ⭐ Sim — melhor custo-benefício | Encaixe perfeito no PVC, com o rasgo exato do servo. Substitui o "corte a boca no cano com Dremel e reze". Peça de ~20 g, barata, e resolve o ponto mais malfeito do MK1. |
+| **Berço/suporte de servo** (cotovelo, pescoço) | ⭐ Sim — melhor custo-benefício | Encaixe perfeito no tubo quadrado, com o rasgo exato do servo. Substitui o "corte a janela no tubo com Dremel e reze". Peça de ~20 g, barata, e resolve o ponto mais malfeito do MK1. |
 | **Garra inteira** (base, falanges, guias do tendão) | ⭐ Sim | Geometria complexa é exatamente onde MDF e fita adesiva ficam feios e imprecisos. Dedos com canal interno pro cabo passar é impossível de fazer à mão. |
 | **Suporte do potenciômetro** (coaxial ao eixo) | ⭐ Sim | O alinhamento do pot com o eixo é sub-milimétrico; fita perfurada dobrada com alicate nunca fica bom. Peça pequena, esforço zero. |
-| **Adaptador horn-do-servo → PVC** | Sim | Peça-chave de transmissão, some 4 gambiarras numa só. |
+| **Adaptador horn-do-servo → tubo de alumínio** | Sim | Peça-chave de transmissão, some 4 gambiarras numa só. |
 | **Hub do eixo do motor de limpador** | Com ressalva | É o sonho (dispensa o braço original do limpador), mas leva **todo o torque** do projeto. Só em PETG, parede grossa, e de preferência abraçando o clamp metálico original em vez de substituí-lo. PLA puro espana. |
-| **Máscara facial / painel dos olhos** | Sim, por estética | Furos dos HC-SR04 na medida exata dão o acabamento que o pote plástico não dá. Imprimir só a face, não o crânio inteiro — casca grande é caro. |
+| **Máscara facial / painel dos olhos** | Sim, por estética | Furos dos HC-SR04 na medida exata dão o acabamento que o recorte na mão não dá. Imprimir só a face, não o crânio inteiro — casca grande é caro. |
 | **Engrenagens de transmissão** | Não | Dente impresso em FDM sob torque desgasta rápido. Se precisar de redução, use motor com redutor pronto (é o caso do limpador). |
 | **Torso, base, placa dos ombros** | **Não** | Peça grande é o que encarece o serviço, e madeira/aço de sucata é mais rígido e sai de graça. Aqui o 3D perde em tudo. |
 
@@ -640,7 +667,7 @@ Peça pra IA gerar **código OpenSCAD** (gratuito, roda em qualquer PC), não ar
 ### Sequência recomendada
 
 1. Monte o MK1 com sucata até a etapa E (primeiro braço andando).
-2. **Meça com paquímetro** o eixo do motor, as orelhas de fixação, o horn dos servos e o diâmetro real do seu PVC. Anote tudo — essa lista de cotas é o insumo do desenho.
+2. **Meça com paquímetro** o eixo do motor, as orelhas de fixação, o horn dos servos e a seção real do seu tubo de alumínio. Anote tudo — essa lista de cotas é o insumo do desenho.
 3. Peça o pacote OpenSCAD das peças de precisão (berço de servo, suporte de pot, garra, adaptadores).
 4. Imprima **uma peça de teste primeiro** — o berço de servo, que é a mais barata. Encaixou? Manda o resto. Não encaixou? Muda um número e reimprime só ela.
 5. O MK2 nasce como **evolução do MK1**, não do zero: a eletrônica inteira, o código e os motores são reaproveitados 100%. Só as juntas mal-acabadas viram peça impressa.

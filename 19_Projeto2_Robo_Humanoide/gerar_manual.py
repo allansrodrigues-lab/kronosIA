@@ -27,6 +27,7 @@ DOCUMENTOS = [
     ("FERRO_VELHO_Bilhete.md",      "PARTE V — BILHETE DO FERRO-VELHO"),
     ("FASE_A_Lista_de_Compra.md",   "PARTE VI — PRIMEIRA COMPRA"),
     ("Guia_Sistema_Eletronica.md",  "PARTE VII — CURSO DE ELETRÔNICA"),
+    ("mvp/README.md",               "PARTE VIII — MVP: O ROBÔ EM SOFTWARE"),
 ]
 
 CAPA = """# FERRÃO

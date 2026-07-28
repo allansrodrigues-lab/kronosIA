@@ -73,6 +73,32 @@ livres: 12 e 0
 
 ---
 
+## MVP — o robô que já funciona (sem peça comprada)
+
+`19_Projeto2_Robo_Humanoide/mvp/` tem um Ferrão funcional em software. **Não é maquete:** é a camada de controle definitiva — quando o ESP32 chegar, muda-se uma linha e os mesmos comandos movem motor de verdade.
+
+```bash
+cd 19_Projeto2_Robo_Humanoide/mvp && python ferrao_bridge.py
+# painel: http://localhost:4700
+```
+
+| Arquivo | Papel |
+|---|---|
+| `ferrao_bridge.py` | A ponte — guarda o estado, aplica limites de curso, executa rotinas |
+| `painel.html` | Painel visual: robô em SVG que se move, sliders, rotinas, emergência |
+| `mcp_ferrao.py` | **MCP** — dá ao Claude o controle direto do robô |
+
+**Ferramentas do MCP:** `ferrao_estado`, `ferrao_mover`, `ferrao_rotina`, `ferrao_rosto`, `ferrao_falar`, `ferrao_imprimir`, `ferrao_emergencia`.
+
+Para ativar, acrescentar em `~/.claude.json` → `mcpServers`:
+```json
+"ferrao": {"command":"python","args":["<caminho>/mvp/mcp_ferrao.py"]}
+```
+
+**Para virar robô físico:** definir `ESP32_URL` no topo de `ferrao_bridge.py`. Painel e MCP não mudam.
+
+⚠️ `mcp_ferrao.py` força UTF-8 no stdout — sem isso o primeiro acento derruba o JSON-RPC no Windows.
+
 ## Como operar
 
 ### Atualizar o manual (fazer SEMPRE que algo mudar)

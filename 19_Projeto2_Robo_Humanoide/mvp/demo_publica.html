@@ -1,0 +1,343 @@
+<title>Ferrão — atendente presencial da Kronos</title>
+<style>
+  :root{
+    --preto:#0b0f0e; --carta:#141a19; --linha:#242e2c;
+    --tinta:#e8efec; --fraco:#7d918b;
+    --ciano:#22d3ee; --ciano-fraco:#0e7490;
+    --verde:#5cb094; --ambar:#d99a4e; --vermelho:#e0645a;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--preto);color:var(--tinta);font-family:var(--sans);
+       font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:24px 18px 56px}
+
+  header{margin-bottom:22px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+           color:var(--ciano);margin:0 0 8px}
+  h1{font-size:clamp(30px,6vw,44px);margin:0 0 6px;letter-spacing:-.02em;font-weight:600;
+     text-wrap:balance}
+  .sub{color:var(--fraco);margin:0;font-size:15.5px;max-width:56ch}
+
+  .palco{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-top:26px}
+  @media(max-width:860px){.palco{grid-template-columns:1fr}}
+
+  .carta{background:var(--carta);border:1px solid var(--linha);border-radius:8px;padding:18px}
+  h2{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+     color:var(--fraco);margin:0 0 13px;font-weight:400}
+
+  .cena{background:radial-gradient(ellipse at 50% 35%, #1b2321 0%, #0d1211 70%);
+        border:1px solid var(--linha);border-radius:8px;padding:8px;position:relative;overflow:hidden}
+  svg{width:100%;height:auto;display:block;max-height:62vh}
+
+  .fala{position:absolute;left:50%;top:14px;transform:translateX(-50%);
+        background:#10201d;border:1px solid var(--verde);color:var(--tinta);
+        padding:9px 15px;border-radius:16px;font-size:14px;max-width:78%;
+        opacity:0;transition:opacity .3s;text-align:center;pointer-events:none}
+  .fala.on{opacity:1}
+
+  .btns{display:flex;flex-wrap:wrap;gap:7px}
+  button{background:#1a2523;color:var(--tinta);border:1px solid var(--linha);border-radius:5px;
+         padding:8px 13px;cursor:pointer;font-size:13px;font-family:inherit;transition:.15s}
+  button:hover{border-color:var(--ciano);color:var(--ciano)}
+  button:focus-visible{outline:2px solid var(--ciano);outline-offset:2px}
+  button.ativo{background:var(--ciano);color:#05171b;border-color:var(--ciano);font-weight:600}
+  button.destaque{background:linear-gradient(135deg,#0e7490,#22d3ee);color:#04141a;
+                  border:0;font-weight:600;font-size:14px;padding:11px 18px;width:100%}
+  button.destaque:hover{filter:brightness(1.12)}
+  button.destaque:disabled{opacity:.5;cursor:default;filter:none}
+  button.perigo{border-color:#4a201c;color:var(--vermelho);background:#1d1211}
+  button.perigo:hover{background:var(--vermelho);color:#120a08;border-color:var(--vermelho)}
+
+  .ctrl{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+  .ctrl label{flex:0 0 108px;font-size:12.5px;color:#a8bab4}
+  .ctrl input[type=range]{flex:1;accent-color:var(--ciano);min-width:60px}
+  .ctrl .v{font-family:var(--mono);width:46px;text-align:right;font-size:12px;color:var(--fraco)}
+
+  .kpi{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dotted var(--linha);font-size:13.5px}
+  .kpi:last-child{border:0}
+  .kpi b{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ciano)}
+
+  .roteiro{font-family:var(--mono);font-size:11.5px;line-height:1.9;color:var(--fraco);
+           max-height:150px;overflow:auto}
+  .roteiro .now{color:var(--ciano)}
+
+  .rodape{margin-top:30px;padding-top:20px;border-top:1px solid var(--linha);
+          display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-start}
+  .rodape p{margin:0;font-size:13.5px;color:var(--fraco);max-width:62ch}
+  .marca{font-family:var(--mono);font-size:12px;color:var(--ciano);letter-spacing:.1em;white-space:nowrap}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Kronos Intelligence</p>
+    <h1>Ferrão</h1>
+    <p class="sub">O atendente presencial que conversa com o mesmo cérebro do seu atendimento
+      no WhatsApp. Mexa nele — está funcionando de verdade aqui nesta página.</p>
+  </header>
+
+  <div class="palco">
+    <div class="cena">
+      <div class="fala" id="fala"></div>
+      <svg viewBox="0 0 460 540" id="robo" aria-label="Robô Ferrão">
+        <ellipse cx="230" cy="512" rx="105" ry="12" fill="#000" opacity=".45"/>
+        <g stroke="#3e474f" stroke-width="8" stroke-linecap="round">
+          <line x1="230" y1="462" x2="160" y2="494"/><line x1="230" y1="462" x2="300" y2="494"/>
+          <line x1="230" y1="462" x2="196" y2="506"/><line x1="230" y1="462" x2="264" y2="506"/>
+        </g>
+        <g fill="#333b42"><circle cx="160" cy="498" r="7"/><circle cx="300" cy="498" r="7"/>
+          <circle cx="196" cy="510" r="6"/><circle cx="264" cy="510" r="6"/></g>
+        <rect x="216" y="402" width="28" height="64" rx="6" fill="#4b545d"/>
+
+        <!-- torso -->
+        <rect x="160" y="210" width="140" height="200" rx="19" fill="#151b1f" stroke="#080b0d" stroke-width="2"/>
+        <g stroke="#0b0f12" stroke-width="2.5" opacity=".9">
+          <line x1="179" y1="228" x2="179" y2="394"/><line x1="197" y1="223" x2="197" y2="399"/>
+          <line x1="263" y1="223" x2="263" y2="399"/><line x1="281" y1="228" x2="281" y2="394"/>
+        </g>
+        <line x1="162" y1="332" x2="298" y2="332" stroke="var(--ciano-fraco)" stroke-width="7" opacity=".45"/>
+        <line x1="162" y1="332" x2="298" y2="332" stroke="var(--ciano)" stroke-width="2.2"/>
+        <rect x="196" y="248" width="68" height="54" rx="7" fill="#080d14" stroke="var(--ciano)" stroke-width=".9" opacity=".9"/>
+        <text x="230" y="280" text-anchor="middle" font-size="19" font-weight="700" fill="var(--ciano)" font-family="var(--sans)">iK</text>
+        <g fill="#080b0d">
+          <rect x="170" y="258" width="18" height="3.5" rx="1.7"/><rect x="170" y="268" width="18" height="3.5" rx="1.7"/>
+          <rect x="170" y="278" width="18" height="3.5" rx="1.7"/>
+          <rect x="272" y="258" width="18" height="3.5" rx="1.7"/><rect x="272" y="268" width="18" height="3.5" rx="1.7"/>
+          <rect x="272" y="278" width="18" height="3.5" rx="1.7"/>
+        </g>
+        <rect x="202" y="358" width="56" height="8" rx="3" fill="#05080a" stroke="#333b42" stroke-width="1"/>
+        <g id="cupom" style="display:none">
+          <rect x="206" y="366" width="48" height="34" fill="#eef2f0" stroke="#8a9a94"/>
+          <rect x="220" y="374" width="20" height="20" fill="#0b0f0e"/>
+          <g fill="#eef2f0"><rect x="223" y="377" width="5" height="5"/><rect x="233" y="377" width="5" height="5"/>
+            <rect x="223" y="387" width="5" height="5"/><rect x="229" y="383" width="4" height="4"/></g>
+        </g>
+        <circle cx="292" cy="222" r="7" fill="#7f1d1d" stroke="#450a0a" stroke-width="1.5"/>
+
+        <!-- ombros -->
+        <circle cx="160" cy="230" r="14" fill="#3b444c" stroke="#080b0d" stroke-width="2"/>
+        <circle cx="300" cy="230" r="14" fill="#3b444c" stroke="#080b0d" stroke-width="2"/>
+        <circle cx="160" cy="230" r="4.5" fill="var(--ciano)" opacity=".8"/>
+        <circle cx="300" cy="230" r="4.5" fill="var(--ciano)" opacity=".8"/>
+
+        <!-- braços -->
+        <g id="bE">
+          <line x1="160" y1="230" x2="160" y2="306" stroke="#2b3f66" stroke-width="17" stroke-linecap="round"/>
+          <g id="aE">
+            <line x1="160" y1="306" x2="160" y2="368" stroke="#2b3f66" stroke-width="13" stroke-linecap="round"/>
+            <g id="gE"><path d="M153 372 q-6 13 2 22" stroke="#2b3f66" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+              <path d="M167 372 q6 13 -2 22" stroke="#2b3f66" stroke-width="4.5" fill="none" stroke-linecap="round"/></g>
+          </g>
+        </g>
+        <g id="bD">
+          <line x1="300" y1="230" x2="300" y2="306" stroke="#2b3f66" stroke-width="17" stroke-linecap="round"/>
+          <g id="aD">
+            <line x1="300" y1="306" x2="300" y2="368" stroke="#2b3f66" stroke-width="13" stroke-linecap="round"/>
+            <g id="gD"><path d="M293 372 q-6 13 2 22" stroke="#2b3f66" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+              <path d="M307 372 q6 13 -2 22" stroke="#2b3f66" stroke-width="4.5" fill="none" stroke-linecap="round"/></g>
+          </g>
+        </g>
+
+        <!-- pescoço + cabeça -->
+        <rect x="218" y="192" width="24" height="20" rx="5" fill="#4b545d"/>
+        <g id="cabeca">
+          <rect x="176" y="110" width="108" height="86" rx="21" fill="#151b1f" stroke="#080b0d" stroke-width="2"/>
+          <g stroke="#0b0f12" stroke-width="1.6" opacity=".7">
+            <line x1="192" y1="122" x2="192" y2="184"/><line x1="268" y1="122" x2="268" y2="184"/>
+          </g>
+          <rect x="188" y="124" width="84" height="44" rx="13" fill="#04070c"/>
+          <g id="olhos"></g>
+          <g fill="#0a0e12"><rect x="208" y="176" width="44" height="3.4" rx="1.7"/>
+            <rect x="216" y="184" width="28" height="3.4" rx="1.7"/></g>
+        </g>
+      </svg>
+    </div>
+
+    <div>
+      <div class="carta" style="margin-bottom:14px">
+        <h2>Veja funcionando</h2>
+        <button class="destaque" id="btnCena" onclick="rodarCena()">▶  Simular cliente chegando</button>
+        <div class="roteiro" id="roteiro" style="margin-top:12px"></div>
+      </div>
+
+      <div class="carta" style="margin-bottom:14px">
+        <h2>Comande você mesmo</h2>
+        <div class="btns" id="btnRotinas"></div>
+        <h2 style="margin-top:15px">Expressão</h2>
+        <div class="btns" id="btnRostos"></div>
+        <h2 style="margin-top:15px">Segurança</h2>
+        <div class="btns"><button class="perigo" id="btnEmg" onclick="emergencia()">Parada de emergência</button></div>
+      </div>
+
+      <div class="carta">
+        <h2>Estado</h2>
+        <div class="kpi"><span>Pessoa detectada a</span><b id="kDist">—</b></div>
+        <div class="kpi"><span>Expressão</span><b id="kRosto">neutro</b></div>
+        <div class="kpi"><span>Cupons impressos</span><b id="kCup">0</b></div>
+        <div class="kpi"><span>Situação</span><b id="kSit">em repouso</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="carta" style="margin-top:16px">
+    <h2>Juntas</h2>
+    <div id="ctrls"></div>
+  </div>
+
+  <div class="rodape">
+    <p>O robô é cedido em comodato enquanto durar o contrato — sem custo de aquisição.
+       Ele capta quem chega na recepção e leva a pessoa para o mesmo agente que já atende
+       no seu WhatsApp.</p>
+    <span class="marca">KRONOS INTELLIGENCE</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  const J = {
+    ombro_e:{min:-20,max:100,a:0,alvo:0,nome:"Ombro esq."},
+    ombro_d:{min:-20,max:100,a:0,alvo:0,nome:"Ombro dir."},
+    cotovelo_e:{min:0,max:120,a:0,alvo:0,nome:"Cotovelo esq."},
+    cotovelo_d:{min:0,max:120,a:0,alvo:0,nome:"Cotovelo dir."},
+    pescoco_pan:{min:-70,max:70,a:0,alvo:0,nome:"Pescoço"},
+    pescoco_tilt:{min:-25,max:25,a:0,alvo:0,nome:"Inclinar"},
+    garra:{min:0,max:90,a:0,alvo:0,nome:"Garra"}
+  };
+  const ROT = {
+    acenar:[["ombro_d",70],["cotovelo_d",55],["ombro_d",92],["ombro_d",62],["ombro_d",92],["ombro_d",0],["cotovelo_d",0]],
+    cumprimentar:[["pescoco_tilt",14],["pescoco_tilt",0]],
+    "olhar à esquerda":[["pescoco_pan",-52]],
+    "olhar à direita":[["pescoco_pan",52]],
+    pegar:[["ombro_d",58],["cotovelo_d",78],["garra",88],["garra",12],["cotovelo_d",42]],
+    descanso:[["ombro_e",0],["ombro_d",0],["cotovelo_e",0],["cotovelo_d",0],["pescoco_pan",0],["pescoco_tilt",0],["garra",0]]
+  };
+  const OLHOS = {
+    neutro:`<circle cx="212" cy="146" r="7.5" fill="#22d3ee"/><circle cx="248" cy="146" r="7.5" fill="#22d3ee"/>`,
+    atento:`<circle cx="212" cy="146" r="10" fill="#22d3ee"/><circle cx="248" cy="146" r="10" fill="#22d3ee"/>`,
+    pensando:`<circle cx="212" cy="144" r="7.5" fill="#22d3ee"/><circle cx="248" cy="144" r="4" fill="#22d3ee"/>`,
+    feliz:`<path d="M204 150 q8 -10 16 0" stroke="#22d3ee" stroke-width="4" fill="none" stroke-linecap="round"/>
+           <path d="M240 150 q8 -10 16 0" stroke="#22d3ee" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+    confuso:`<circle cx="212" cy="146" r="8.5" fill="#22d3ee"/><circle cx="248" cy="144" r="5" fill="#22d3ee"/>`,
+    alerta:`<circle cx="212" cy="146" r="8.5" fill="#e0645a"/><circle cx="248" cy="146" r="8.5" fill="#e0645a"/>`,
+    dormindo:`<path d="M204 146 h17" stroke="#5cb094" stroke-width="4" stroke-linecap="round"/>
+              <path d="M239 146 h17" stroke="#5cb094" stroke-width="4" stroke-linecap="round"/>`
+  };
+
+  let rosto="neutro", cupons=0, emg=false, dist=null, sit="em repouso", ocupado=false;
+  const $ = id => document.getElementById(id);
+  const dorme = ms => new Promise(r => setTimeout(r, ms));
+
+  function mover(j,v){
+    if(emg || !J[j]) return;
+    J[j].alvo = Math.max(J[j].min, Math.min(J[j].max, Number(v)));
+  }
+  async function rotina(nome){
+    if(emg) return;
+    for(const [j,v] of ROT[nome]){ mover(j,v); await dorme(620); }
+  }
+  function setRosto(r){ rosto = r; pintarBotoes(); }
+  function falar(t){
+    const f = $("fala");
+    f.textContent = t; f.classList.add("on");
+    clearTimeout(f._t); f._t = setTimeout(()=>f.classList.remove("on"), 3600);
+  }
+  function imprimir(){
+    cupons++; $("cupom").style.display="";
+    setTimeout(()=>{ $("cupom").style.display="none"; }, 3200);
+  }
+  function emergencia(){
+    emg = !emg;
+    $("btnEmg").textContent = emg ? "Destravar emergência" : "Parada de emergência";
+    setRosto(emg ? "alerta" : "neutro");
+    sit = emg ? "travado" : "em repouso";
+    if(emg) falar("Movimentos travados.");
+  }
+  window.emergencia = emergencia;
+
+  const CENA = [
+    [0,    "Ninguém por perto — o robô descansa.", () => { setRosto("dormindo"); sit="em repouso"; dist=null; }],
+    [1400, "Sensor detecta alguém a 1,8 m.",       () => { dist=180; setRosto("atento"); sit="detectou"; }],
+    [1100, "Vira a cabeça para quem chegou.",      () => { mover("pescoco_pan",-34); dist=120; }],
+    [1200, "Cumprimenta.",                          () => { rotina("acenar"); falar("Olá! Bem-vindo à clínica."); }],
+    [2600, "Pergunta o motivo da visita.",          () => { setRosto("pensando"); falar("Você já tem horário marcado?"); sit="conversando"; }],
+    [2400, "Entende a resposta e confirma.",        () => { setRosto("feliz"); falar("Perfeito, já anotei!"); }],
+    [1800, "Imprime o cupom com o QR do WhatsApp.", () => { imprimir(); falar("Escaneie o código — a Vera continua com você."); sit="imprimindo"; }],
+    [2800, "A pessoa sai com o atendimento na mão.",() => { setRosto("neutro"); mover("pescoco_pan",0); rotina("descanso"); sit="em repouso"; dist=null; }]
+  ];
+
+  async function rodarCena(){
+    if(ocupado || emg) return;
+    ocupado = true; $("btnCena").disabled = true;
+    const r = $("roteiro"); r.innerHTML = "";
+    const linhas = CENA.map(c => { const d=document.createElement("div"); d.textContent="· "+c[1]; r.appendChild(d); return d; });
+    for(let i=0;i<CENA.length;i++){
+      await dorme(CENA[i][0]);
+      linhas.forEach(l=>l.classList.remove("now"));
+      linhas[i].classList.add("now");
+      linhas[i].scrollIntoView({block:"nearest"});
+      CENA[i][2]();
+    }
+    await dorme(1200);
+    linhas.forEach(l=>l.classList.remove("now"));
+    ocupado = false; $("btnCena").disabled = false;
+  }
+  window.rodarCena = rodarCena;
+
+  function pintarBotoes(){
+    $("btnRotinas").innerHTML = Object.keys(ROT)
+      .map(n=>`<button data-rot="${n}">${n}</button>`).join("");
+    $("btnRotinas").querySelectorAll("button").forEach(b =>
+      b.onclick = () => rotina(b.dataset.rot));
+    $("btnRostos").innerHTML = Object.keys(OLHOS)
+      .map(n=>`<button data-r="${n}" class="${n===rosto?'ativo':''}">${n}</button>`).join("");
+    $("btnRostos").querySelectorAll("button").forEach(b =>
+      b.onclick = () => setRosto(b.dataset.r));
+  }
+
+  function montarCtrls(){
+    const box = $("ctrls"); box.innerHTML = "";
+    for(const [id,j] of Object.entries(J)){
+      const d = document.createElement("div"); d.className="ctrl";
+      d.innerHTML = `<label for="s_${id}">${j.nome}</label>
+        <input type="range" id="s_${id}" min="${j.min}" max="${j.max}" value="0">
+        <span class="v" id="v_${id}">0°</span>`;
+      box.appendChild(d);
+      d.querySelector("input").oninput = e => mover(id, e.target.value);
+    }
+  }
+
+  function girar(el,g,x,y){ el.setAttribute("transform",`rotate(${g} ${x} ${y})`); }
+
+  function quadro(){
+    for(const j of Object.values(J)){
+      const d = j.alvo - j.a;
+      j.a += Math.abs(d) > .5 ? Math.max(-3.2, Math.min(3.2, d)) : d;
+    }
+    girar($("bE"), -J.ombro_e.a, 160, 230);
+    girar($("bD"),  J.ombro_d.a, 300, 230);
+    girar($("aE"), -J.cotovelo_e.a, 160, 306);
+    girar($("aD"),  J.cotovelo_d.a, 300, 306);
+    $("cabeca").setAttribute("transform",
+      `rotate(${J.pescoco_tilt.a*.35} 230 196) translate(${J.pescoco_pan.a*.32} 0)`);
+    const ab = 1 + J.garra.a/70;
+    $("gE").setAttribute("transform",`translate(${160*(1-ab)} 0) scale(${ab} 1)`);
+    $("gD").setAttribute("transform",`translate(${300*(1-ab)} 0) scale(${ab} 1)`);
+    $("olhos").innerHTML = OLHOS[rosto];
+
+    for(const [id,j] of Object.entries(J)){
+      const v = $("v_"+id); if(v) v.textContent = Math.round(j.a)+"°";
+      const s = $("s_"+id);
+      if(s && document.activeElement !== s) s.value = Math.round(j.a);
+    }
+    $("kDist").textContent = dist ? dist+" cm" : "—";
+    $("kRosto").textContent = rosto;
+    $("kCup").textContent = cupons;
+    $("kSit").textContent = sit;
+    requestAnimationFrame(quadro);
+  }
+
+  montarCtrls(); pintarBotoes(); quadro();
+})();
+</script>
