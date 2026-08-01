@@ -92,6 +92,27 @@ function dataRows(sheet: string[][]): string[][] {
   return sheet.slice(1).filter((r) => r.some((c) => (c || '').trim() !== ''));
 }
 
+function normPhone(s: string): string {
+  return (s || '').replace('@s.whatsapp.net', '').trim();
+}
+
+// Algumas abas de agendamento (ex.: Visitas da Sofia) não guardam o nome —
+// só o jid. A sessão da conversa (Sessoes_*) geralmente sabe o nome de quem
+// está falando. Monta telefone -> nome a partir da sessão pra preencher esse buraco.
+function buildNomePorTelefone(sessions: string[][]): Map<string, string> {
+  const map = new Map<string, string>();
+  const header = sessions[0] ?? [];
+  const iSTel = findCol(header, ['telefone', 'jid', 'contato', 'id']);
+  const iSNome = findCol(header, ['nome']);
+  if (iSTel < 0 || iSNome < 0) return map;
+  for (const r of dataRows(sessions)) {
+    const tel = normPhone(r[iSTel]);
+    const nome = (r[iSNome] || '').trim();
+    if (tel && nome) map.set(tel, nome);
+  }
+  return map;
+}
+
 export function computeKpis(
   client: ClientCfg,
   log: string[][],
@@ -139,6 +160,7 @@ export function computeKpis(
   const iBData = findCol(bHeader, ['data']);
   const iBHora = findCol(bHeader, ['hora', 'periodo', 'período']);
   const iBStatus = findCol(bHeader, ['status']);
+  const nomePorTelefone = buildNomePorTelefone(sessions);
 
   // Histórico do MÊS CORRENTE inteiro (não só os últimos N) — cliente não precisa
   // pedir relatório por mensagem, o site já mostra tudo que caiu no mês atual.
@@ -157,14 +179,18 @@ export function computeKpis(
   const comData = doMes.filter((x) => x.d !== null).sort((a, b) => (b.d as Date).getTime() - (a.d as Date).getTime());
   const semData = doMes.filter((x) => x.d === null).reverse();
 
-  const proximosAgendamentos: BookingRow[] = [...comData, ...semData].map(({ r }) => ({
-    data: iBData >= 0 ? r[iBData] || '' : '',
-    hora: iBHora >= 0 ? r[iBHora] || '' : '',
-    nome: iBNome >= 0 ? r[iBNome] || '' : '',
-    telefone: iBTelefone >= 0 ? (r[iBTelefone] || '').replace('@s.whatsapp.net', '') : '',
-    servico: iBServico >= 0 ? r[iBServico] || '' : '',
-    status: iBStatus >= 0 ? r[iBStatus] || '' : '',
-  }));
+  const proximosAgendamentos: BookingRow[] = [...comData, ...semData].map(({ r }) => {
+    const telefone = iBTelefone >= 0 ? normPhone(r[iBTelefone]) : '';
+    const nomeDireto = iBNome >= 0 ? (r[iBNome] || '').trim() : '';
+    return {
+      data: iBData >= 0 ? r[iBData] || '' : '',
+      hora: iBHora >= 0 ? r[iBHora] || '' : '',
+      nome: nomeDireto || nomePorTelefone.get(telefone) || '',
+      telefone,
+      servico: iBServico >= 0 ? r[iBServico] || '' : '',
+      status: iBStatus >= 0 ? r[iBStatus] || '' : '',
+    };
+  });
 
   // Estimativa configurável (avgTicket em clients.json) — o painel deixa claro que é estimativa.
   const roiEstimado =
