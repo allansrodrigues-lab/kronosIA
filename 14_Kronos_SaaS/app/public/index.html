@@ -155,9 +155,9 @@ function openClient(id){
       '<div class="kpi"><p>O bot já se pagou*</p><b class="hl">'+String(k.roiEstimado).replace('.',',')+'×</b></div>'+
     '</div>'+
     '<p class="muted" style="margin:8px 0 0">*estimativa: agendamentos × '+esc(c.avgTicketLabel)+' ÷ mensalidade</p>'+
-    '<p style="margin:16px 0 2px;font-size:13px;font-weight:500;color:var(--ts)">Agendamentos</p>';
+    '<p style="margin:16px 0 2px;font-size:13px;font-weight:500;color:var(--ts)">Agendamentos deste mês</p>';
   if(!k.proximosAgendamentos || k.proximosAgendamentos.length===0){
-    h += '<p class="muted">Nenhum agendamento registrado ainda.</p>';
+    h += '<p class="muted">Nenhum agendamento registrado neste mês ainda.</p>';
   } else {
     k.proximosAgendamentos.forEach(function(a){
       var quem = a.nome ? esc(a.nome) : (a.telefone ? esc(a.telefone) : 'contato sem nome');

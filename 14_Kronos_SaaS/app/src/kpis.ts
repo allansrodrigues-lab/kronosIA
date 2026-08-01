@@ -68,6 +68,25 @@ function parseDate(s: string): Date | null {
   return isNaN(d.getTime()) ? null : d;
 }
 
+// Aceita "03/07/2026" (pt-BR) OU "2026-07-03" (ISO, usado em alguns nichos).
+// Bots de voz às vezes gravam só "quinta-feira" ou "quinta-feira (10/07)" sem ano —
+// nesse caso devolve null (linha entra no painel mesmo assim, sem filtrar por mês,
+// porque é melhor mostrar um agendamento real com data incompleta do que escondê-lo).
+function parseFlexibleDate(s: string): Date | null {
+  const v = (s || '').trim();
+  const br = v.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+  if (br) {
+    const d = new Date(Number(br[3]), Number(br[2]) - 1, Number(br[1]));
+    return isNaN(d.getTime()) ? null : d;
+  }
+  const iso = v.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (iso) {
+    const d = new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3]));
+    return isNaN(d.getTime()) ? null : d;
+  }
+  return null;
+}
+
 function dataRows(sheet: string[][]): string[][] {
   if (sheet.length <= 1) return [];
   return sheet.slice(1).filter((r) => r.some((c) => (c || '').trim() !== ''));
@@ -121,7 +140,24 @@ export function computeKpis(
   const iBHora = findCol(bHeader, ['hora', 'periodo', 'período']);
   const iBStatus = findCol(bHeader, ['status']);
 
-  const proximosAgendamentos: BookingRow[] = bookingRows.slice(-5).reverse().map((r) => ({
+  // Histórico do MÊS CORRENTE inteiro (não só os últimos N) — cliente não precisa
+  // pedir relatório por mensagem, o site já mostra tudo que caiu no mês atual.
+  const agora = new Date();
+  const mesAtual = agora.getMonth();
+  const anoAtual = agora.getFullYear();
+
+  const bookingRowsComData = bookingRows.map((r) => ({
+    r,
+    d: iBData >= 0 ? parseFlexibleDate(r[iBData]) : null,
+  }));
+  const doMes = bookingRowsComData.filter(
+    ({ d }) => d === null || (d.getMonth() === mesAtual && d.getFullYear() === anoAtual)
+  );
+  // Mais recentes primeiro: com data válida ordenadas por data desc, sem data válida no fim (ordem original invertida).
+  const comData = doMes.filter((x) => x.d !== null).sort((a, b) => (b.d as Date).getTime() - (a.d as Date).getTime());
+  const semData = doMes.filter((x) => x.d === null).reverse();
+
+  const proximosAgendamentos: BookingRow[] = [...comData, ...semData].map(({ r }) => ({
     data: iBData >= 0 ? r[iBData] || '' : '',
     hora: iBHora >= 0 ? r[iBHora] || '' : '',
     nome: iBNome >= 0 ? r[iBNome] || '' : '',
