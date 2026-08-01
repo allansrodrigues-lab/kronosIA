@@ -29,6 +29,15 @@ export interface RecentRow {
   mensagem: string;
 }
 
+export interface BookingRow {
+  data: string;
+  hora: string;
+  nome: string;
+  telefone: string;
+  servico: string;
+  status: string;
+}
+
 export interface Kpis {
   atendimentos: number;
   atendimentos30d: number;
@@ -39,6 +48,7 @@ export interface Kpis {
   roiEstimado: number;
   ultimaAtividade: string;
   recentes: RecentRow[];
+  proximosAgendamentos: BookingRow[];
 }
 
 function findCol(header: string[], candidates: string[]): number {
@@ -99,8 +109,26 @@ export function computeKpis(
     }
   }
 
-  const agendamentos = dataRows(bookings).length;
+  const bookingRows = dataRows(bookings);
+  const agendamentos = bookingRows.length;
   const sessoes = dataRows(sessions).length;
+
+  const bHeader = bookings[0] ?? [];
+  const iBNome = findCol(bHeader, ['nome']);
+  const iBTelefone = findCol(bHeader, ['telefone', 'jid', 'contato']);
+  const iBServico = findCol(bHeader, ['servico', 'serviço', 'procedimento', 'codigo_imovel', 'assunto', 'area', 'área', 'tipo']);
+  const iBData = findCol(bHeader, ['data']);
+  const iBHora = findCol(bHeader, ['hora', 'periodo', 'período']);
+  const iBStatus = findCol(bHeader, ['status']);
+
+  const proximosAgendamentos: BookingRow[] = bookingRows.slice(-5).reverse().map((r) => ({
+    data: iBData >= 0 ? r[iBData] || '' : '',
+    hora: iBHora >= 0 ? r[iBHora] || '' : '',
+    nome: iBNome >= 0 ? r[iBNome] || '' : '',
+    telefone: iBTelefone >= 0 ? (r[iBTelefone] || '').replace('@s.whatsapp.net', '') : '',
+    servico: iBServico >= 0 ? r[iBServico] || '' : '',
+    status: iBStatus >= 0 ? r[iBStatus] || '' : '',
+  }));
 
   // Estimativa configurável (avgTicket em clients.json) — o painel deixa claro que é estimativa.
   const roiEstimado =
@@ -126,5 +154,6 @@ export function computeKpis(
       ? ultima.toLocaleDateString('pt-BR')
       : 'sem registro',
     recentes,
+    proximosAgendamentos,
   };
 }
