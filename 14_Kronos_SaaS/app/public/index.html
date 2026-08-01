@@ -40,12 +40,16 @@ h1{font-size:17px;font-weight:600;margin:0}
 .muted{color:var(--tm);font-size:12px}
 .feed{border-top:0.5px solid var(--bd);padding:9px 0;font-size:13px}
 .feed .muted{font-size:11px}
-.bk{border-top:0.5px solid var(--bd);padding:9px 0;display:flex;align-items:center;gap:10px;font-size:13px}
+.bk{border-top:0.5px solid var(--bd);padding:9px 0;font-size:13px}
+.bk .bktop{display:flex;align-items:center;gap:10px}
 .bk .bkwhen{width:96px;flex-shrink:0;color:var(--ts);font-size:12px}
 .bk .bkwho{flex:1;min-width:0}
 .bk .bkwho b{font-weight:600}
 .bk .bkwho span{display:block;color:var(--tm);font-size:11px}
 .bk .bksvc{color:var(--ts);font-size:12px;text-align:right;flex-shrink:0;max-width:150px}
+.bk .bkinfo{margin-top:5px;font-size:11px;color:var(--ts)}
+.bk .bkinfo b{color:var(--ac);font-weight:600}
+.bk .bkdesc{margin-top:2px;font-size:11px;color:var(--tm);font-style:italic}
 button{font-family:inherit;background:transparent;border:0.5px solid var(--bds);color:var(--tp);border-radius:8px;padding:7px 12px;font-size:12px;cursor:pointer}
 button:hover{background:var(--s2)}
 .err{background:var(--badbg);color:var(--bad);border-radius:8px;padding:12px 14px;font-size:13px;display:none}
@@ -162,10 +166,18 @@ function openClient(id){
     k.proximosAgendamentos.forEach(function(a){
       var quem = a.nome ? esc(a.nome) : (a.telefone ? esc(a.telefone) : 'contato sem nome');
       var sub = a.nome && a.telefone ? esc(a.telefone) : '';
+      var infoBits = [];
+      if(a.finalidade) infoBits.push('<b>'+esc(a.finalidade==='aluguel'?'Aluguel':a.finalidade==='compra'?'Compra':a.finalidade)+'</b>');
+      if(a.quartos) infoBits.push(esc(a.quartos)+' quarto'+(a.quartos=='1'?'':'s'));
+      if(a.garagem) infoBits.push('Garagem: '+esc(a.garagem));
       h += '<div class="bk">'+
-        '<div class="bkwhen">'+esc(a.data)+(a.hora?' · '+esc(a.hora):'')+'</div>'+
-        '<div class="bkwho"><b>'+quem+'</b>'+(sub?'<span>'+sub+'</span>':'')+'</div>'+
-        '<div class="bksvc">'+esc(a.servico||'—')+(a.status?'<br>'+bkStatus(a.status):'')+'</div>'+
+        '<div class="bktop">'+
+          '<div class="bkwhen">'+esc(a.data)+(a.hora?' · '+esc(a.hora):'')+'</div>'+
+          '<div class="bkwho"><b>'+quem+'</b>'+(sub?'<span>'+sub+'</span>':'')+'</div>'+
+          '<div class="bksvc">'+esc(a.servico||'—')+(a.status?'<br>'+bkStatus(a.status):'')+'</div>'+
+        '</div>'+
+        (infoBits.length ? '<div class="bkinfo">'+infoBits.join(' · ')+'</div>' : '')+
+        (a.descricao ? '<div class="bkdesc">'+esc(a.descricao)+'</div>' : '')+
       '</div>';
     });
   }

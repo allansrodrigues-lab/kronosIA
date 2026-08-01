@@ -54,7 +54,7 @@
       "avgTicketLabel": "comissão média por fechamento",
       "status": "ativo",
       "spreadsheetId": "1bXnGkPZBNeDm_Uicr-sAVPY5ZMw1eHiM6h2ziaPwTWM",
-      "tabs": { "log": "Log_Interacoes", "bookings": "Visitas", "sessions": "Sessoes_Imobiliaria", "leads": "Leads_Imobiliaria" },
+      "tabs": { "log": "Log_Interacoes", "bookings": "Visitas", "sessions": "Sessoes_Imobiliaria", "leads": "Leads_Imobiliaria", "catalog": "Carteira_Imoveis" },
       "services": [
         { "id": "atendimento", "label": "Qualificação 24h (Sofia)", "on": true },
         { "id": "matching", "label": "Matching com a carteira", "on": true },

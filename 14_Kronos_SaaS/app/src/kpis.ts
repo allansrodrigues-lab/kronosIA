@@ -36,6 +36,13 @@ export interface BookingRow {
   telefone: string;
   servico: string;
   status: string;
+  // Detalhe do item da carteira (só quando o serviço bate com um código do catálogo,
+  // ex.: SCH-006 numa aba "catalog" tipo Carteira_Imoveis). Fica vazio se não houver catálogo
+  // configurado pro cliente, ou se o código não for encontrado (texto livre do bot de voz).
+  finalidade: string;
+  quartos: string;
+  garagem: string;
+  descricao: string;
 }
 
 export interface Kpis {
@@ -113,11 +120,49 @@ function buildNomePorTelefone(sessions: string[][]): Map<string, string> {
   return map;
 }
 
+interface CatalogItem {
+  finalidade: string;
+  quartos: string;
+  garagem: string;
+  descricao: string;
+}
+
+// Catálogo opcional (ex.: Carteira_Imoveis) — só existe pro nicho Imobiliária hoje.
+// Cruza o código do item (SCH-006 etc.) citado no agendamento com os detalhes reais:
+// finalidade (compra/aluguel), quartos, vagas de garagem, descrição/destaque.
+function buildCatalogMap(catalog: string[][]): Map<string, CatalogItem> {
+  const map = new Map<string, CatalogItem>();
+  const header = catalog[0] ?? [];
+  const iCod = findCol(header, ['codigo', 'código']);
+  if (iCod < 0) return map;
+  const iFin = findCol(header, ['finalidade']);
+  const iQuartos = findCol(header, ['quartos']);
+  const iVagas = findCol(header, ['vagas']);
+  const iDestaque = findCol(header, ['destaque', 'descricao', 'descrição']);
+  const iTipo = findCol(header, ['tipo']);
+  const iBairro = findCol(header, ['bairro']);
+  for (const r of dataRows(catalog)) {
+    const cod = (r[iCod] || '').trim();
+    if (!cod) continue;
+    const vagas = iVagas >= 0 ? Number(r[iVagas]) || 0 : 0;
+    const tipo = iTipo >= 0 ? r[iTipo] || '' : '';
+    const bairro = iBairro >= 0 ? r[iBairro] || '' : '';
+    map.set(cod, {
+      finalidade: iFin >= 0 ? (r[iFin] || '').toLowerCase() : '',
+      quartos: iQuartos >= 0 ? r[iQuartos] || '' : '',
+      garagem: iVagas >= 0 ? (vagas > 0 ? `sim (${vagas})` : 'não') : '',
+      descricao: [tipo, bairro].filter(Boolean).join(' · ') + (iDestaque >= 0 && r[iDestaque] ? ' — ' + r[iDestaque] : ''),
+    });
+  }
+  return map;
+}
+
 export function computeKpis(
   client: ClientCfg,
   log: string[][],
   bookings: string[][],
-  sessions: string[][]
+  sessions: string[][],
+  catalog: string[][] = []
 ): Kpis {
   const logHeader = log[0] ?? [];
   const rows = dataRows(log);
@@ -161,6 +206,7 @@ export function computeKpis(
   const iBHora = findCol(bHeader, ['hora', 'periodo', 'período']);
   const iBStatus = findCol(bHeader, ['status']);
   const nomePorTelefone = buildNomePorTelefone(sessions);
+  const catalogMap = buildCatalogMap(catalog);
 
   // Histórico do MÊS CORRENTE inteiro (não só os últimos N) — cliente não precisa
   // pedir relatório por mensagem, o site já mostra tudo que caiu no mês atual.
@@ -182,13 +228,19 @@ export function computeKpis(
   const proximosAgendamentos: BookingRow[] = [...comData, ...semData].map(({ r }) => {
     const telefone = iBTelefone >= 0 ? normPhone(r[iBTelefone]) : '';
     const nomeDireto = iBNome >= 0 ? (r[iBNome] || '').trim() : '';
+    const servico = iBServico >= 0 ? r[iBServico] || '' : '';
+    const item = catalogMap.get(servico.trim());
     return {
       data: iBData >= 0 ? r[iBData] || '' : '',
       hora: iBHora >= 0 ? r[iBHora] || '' : '',
       nome: nomeDireto || nomePorTelefone.get(telefone) || '',
       telefone,
-      servico: iBServico >= 0 ? r[iBServico] || '' : '',
+      servico,
       status: iBStatus >= 0 ? r[iBStatus] || '' : '',
+      finalidade: item ? (item.finalidade === 'locacao' ? 'aluguel' : item.finalidade === 'venda' ? 'compra' : item.finalidade) : '',
+      quartos: item?.quartos || '',
+      garagem: item?.garagem || '',
+      descricao: item?.descricao || '',
     };
   });
 

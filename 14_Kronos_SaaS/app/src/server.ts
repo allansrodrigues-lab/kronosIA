@@ -25,6 +25,7 @@ const RANGE_BY_KIND: Record<string, string> = {
   bookings: 'A1:H5000',
   sessions: 'A1:D5000',
   leads: 'A1:H5000',
+  catalog: 'A1:M2000',
 };
 
 interface ClientOut {
@@ -86,7 +87,7 @@ async function buildOverview(): Promise<Overview> {
 
   const clients: ClientOut[] = cfg.clients.map((c) => {
     const bag = dataByClient.get(c.id) ?? {};
-    const kpis = computeKpis(c, bag.log ?? [], bag.bookings ?? [], bag.sessions ?? []);
+    const kpis = computeKpis(c, bag.log ?? [], bag.bookings ?? [], bag.sessions ?? [], bag.catalog ?? []);
     return {
       id: c.id,
       name: c.name,
