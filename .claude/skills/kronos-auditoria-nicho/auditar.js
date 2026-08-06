@@ -70,7 +70,9 @@ db.all("SELECT id,name,nodes,activeVersionId FROM workflow_entity WHERE active=1
 
       // 7 - perfil: dado autoritativo e chave composta
       if (/^Parsear Resposta /.test(n.name) && /perfilFinal/.test(c)) {
-        if (/if \(!perfilFinal\.(valor_conta|area_m2)\)/.test(c) && !/mContaLida|autoritativ/i.test(c)) {
+        // marcadores de que o dado do documento ja e tratado como autoritativo
+        const jaAutoritativo = /mContaLida|area_detectada|mPlanta|autoritativ/i.test(c);
+        if (/if \(!perfilFinal\.(valor_conta|area_m2)\)/.test(c) && !jaAutoritativo) {
           nota(7, w.name, n.name, "dado lido de documento NAO sobrescreve o que o cliente declarou");
         }
       }
