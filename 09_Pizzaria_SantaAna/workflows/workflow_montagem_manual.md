@@ -22,7 +22,7 @@ Guia passo a passo para importar e ativar os workflows no n8n quando o cliente f
 |---|---|
 | `ANTHROPIC_API_KEY` | (já existe — compartilhada) |
 | `EVO_BASE_URL` | `https://evo.kronosintelligence.com.br` |
-| `EVO_API_KEY` | `kronos-evo-key-2024` |
+| `EVO_API_KEY` | (buscar no VPS: `grep EVO_API_KEY /docker/n8n-xve0/docker-compose.yml` — nunca hardcodar aqui) |
 | `EVO_INSTANCE_SANTAANA` | nome da instância criada (ex: `santaana`) |
 | `EVO_TEAM_NUMBER_SANTAANA` | número do grupo da equipe (com 55 + DDD) |
 | `GOOGLE_SHEETS_CRM_ID_SANTAANA` | ID da planilha Google Sheets do cliente |
@@ -48,7 +48,7 @@ Criar planilha nova e compartilhar com: `kronos-n8n@kronos-ia-498605.iam.gservic
 ```bash
 ssh -i ~/.ssh/kronos_vps root@2.24.101.180 "curl -s -X POST https://evo.kronosintelligence.com.br/instance/create \
   -H 'Content-Type: application/json' \
-  -H 'apikey: kronos-evo-key-2024' \
+  -H "apikey: $(grep AUTHENTICATION_API_KEY /docker/evolution-api/docker-compose.yml | cut -d= -f2)" \
   -d '{
     \"instanceName\": \"santaana\",
     \"webhook\": \"https://n8n.kronosintelligence.com.br/webhook/whatsapp-santaana\",
@@ -60,7 +60,7 @@ ssh -i ~/.ssh/kronos_vps root@2.24.101.180 "curl -s -X POST https://evo.kronosin
 Depois escanear o QR:
 ```bash
 curl -s https://evo.kronosintelligence.com.br/instance/connect/santaana \
-  -H 'apikey: kronos-evo-key-2024' | python3 -c "import sys,json; print(json.load(sys.stdin).get('base64',''))"
+  -H "apikey: $(grep AUTHENTICATION_API_KEY /docker/evolution-api/docker-compose.yml | cut -d= -f2)" | python3 -c "import sys,json; print(json.load(sys.stdin).get('base64',''))"
 ```
 Usar `/fix-n8n-auth` se der 401. Mostrar QR ao cliente via Read no chat.
 

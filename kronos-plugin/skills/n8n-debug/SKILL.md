@@ -42,7 +42,7 @@ Nós HTTP com erro tratado devolvem `{error:...}` como item normal e o fluxo seg
 
 ## Acesso
 - SSH: `ssh -i ~/.ssh/kronos_vps -o BatchMode=yes root@2.24.101.180`
-- Container n8n: **`n8n-xve0-n8n-1`** · Evolution: **`evolution-api`** (apikey `kronos-evo-key-2024`, porta 8080)
+- Container n8n: **`n8n-xve0-n8n-1`** · Evolution: **`evolution-api`** (apikey rotativa — buscar via `grep AUTHENTICATION_API_KEY /docker/evolution-api/docker-compose.yml` no VPS, nunca hardcode aqui; porta 8080)
 - n8n usa **SQLite**: `/home/node/.n8n/database.sqlite`
 - Webhooks: Aurora → `/webhook/whatsapp` · Odonto → `/webhook/whatsapp-odonto`
 - Números: Aurora `5519971514971` (instância `clinica01`) · Odonto `5519997237404` (instância `kronosdemo`) · Kronos teste `5519971266736` (sem bot)
@@ -72,11 +72,11 @@ done
 ```
 Confere a config de webhook do Evolution (a porta tem que bater com a do workflow):
 ```bash
-for i in kronosdemo clinica01; do curl -s -H "apikey: kronos-evo-key-2024" http://localhost:8080/webhook/find/$i; echo; done
+for i in kronosdemo clinica01; do curl -s -H "apikey: $(grep AUTHENTICATION_API_KEY /docker/evolution-api/docker-compose.yml | cut -d= -f2)" http://localhost:8080/webhook/find/$i; echo; done
 ```
 Estado das instâncias (tem que ser `open`):
 ```bash
-for i in kronosdemo clinica01; do curl -s -H "apikey: kronos-evo-key-2024" http://localhost:8080/instance/connectionState/$i; echo; done
+for i in kronosdemo clinica01; do curl -s -H "apikey: $(grep AUTHENTICATION_API_KEY /docker/evolution-api/docker-compose.yml | cut -d= -f2)" http://localhost:8080/instance/connectionState/$i; echo; done
 ```
 
 ### 3. Workflows ativos e execuções (via SQLite)

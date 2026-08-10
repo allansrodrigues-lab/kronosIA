@@ -14,15 +14,16 @@ Rodar no VPS (Evolution API é localhost):
   ssh root@2.24.101.180 "python3 /docker/onboard-cliente.py /docker/config.json"
 """
 
-import json, sys, time, re, argparse, requests
+import json, os, sys, time, re, argparse, requests
 from datetime import datetime
 
 # ─── Config do servidor ───────────────────────────────────────────────────────
 N8N_BASE    = "https://n8n.kronosintelligence.com.br"
-# JWT expira 2026-07-12 — renovar em Settings → API (label: kronos-claude)
-N8N_JWT     = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NGNjNmViNi05MTFjLTRhZTEtYTFhZS1lMWMzM2M1Yjg4OTkiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiZDZjYTdiMDQtYWIzZS00MDhiLThkZmEtMDA3NzA3MDA3NGE4IiwiaWF0IjoxNzgxNDM3MjEyLCJleHAiOjE3ODM5OTgwMDB9.0Ikl1TLiNW9YQ7n8Qa3n5xV9p8WRMd6wJDNdY5FrPA4"
+# Gerar/renovar em n8n → Settings → API (label: kronos-claude) e exportar antes de rodar:
+#   export N8N_JWT="..." EVO_KEY="$(grep AUTHENTICATION_API_KEY /docker/evolution-api/docker-compose.yml | cut -d= -f2)"
+N8N_JWT     = os.environ["N8N_JWT"]
 EVO_BASE    = "http://localhost:8080"
-EVO_KEY     = "kronos-evo-key-2024"
+EVO_KEY     = os.environ["EVO_KEY"]
 
 # ─── Valores do template Aurora (o que será substituído por cliente) ──────────
 TEMPLATE_SHEETS_ID     = "1ZlDFYkgx6aXUM0ayj1e1_K6uX0cruo7VuCcmg1_w5ps"

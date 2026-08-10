@@ -81,7 +81,7 @@ O script faz automaticamente:
 
 ```bash
 # No VPS — gera QR code em base64
-curl -H "apikey: kronos-evo-key-2024" \
+curl -H "apikey: $(grep AUTHENTICATION_API_KEY /docker/evolution-api/docker-compose.yml | cut -d= -f2)" \
   http://localhost:8080/instance/connect/clinica02
 ```
 

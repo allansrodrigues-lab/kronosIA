@@ -47,7 +47,7 @@ echo
 echo "--- 5) Evolution: estado das instancias ---"
 for i in kronosdemo clinica01; do
   printf "  %s: " "$i"
-  curl -s --max-time 10 -H "apikey: kronos-evo-key-2024" http://localhost:8080/instance/connectionState/$i || echo "(sem resposta)"
+  curl -s --max-time 10 -H "apikey: $(grep AUTHENTICATION_API_KEY /docker/evolution-api/docker-compose.yml | cut -d= -f2)" http://localhost:8080/instance/connectionState/$i || echo "(sem resposta)"
   echo
 done
 echo
