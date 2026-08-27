@@ -40,3 +40,4 @@ público e `-A` arrastaria `18_Kronos_Voce/`, `19_Projeto2_Robo_Humanoide/`, `qp
 Rodar `bash scripts/radar_headless.sh --dry-run` para conferir a saída antes de agendar
 na tarefa diária. Nada mais está bloqueado.
 Thu Aug 27 23:39:04 UTC 2026
+Thu Aug 27 23:46:09 UTC 2026
