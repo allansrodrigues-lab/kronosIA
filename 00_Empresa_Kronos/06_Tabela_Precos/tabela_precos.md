@@ -36,6 +36,23 @@ Inclui: agente de IA no atendimento 24h · agendamento + lembretes · resumo e e
 
 ---
 
+---
+
+## 🔧 NOVO (piloto — ainda não está no site) — Implantação de IA Operacional
+
+Serviço #8, ver `20_Servico_ImplementacaoIA/README.md`. Não é atendimento ao cliente final — é
+automação de processo interno (e-mail, relatório, conciliação de dado) via Claude + MCP nas
+ferramentas que a empresa já usa. Faixa de referência, cada proposta é dimensionada pelo escopo real:
+
+| Item | Faixa |
+|---|---|
+| Diagnóstico | R$ 0 – R$ 300 (abatido se fechar) |
+| Implementação (1º processo) | R$ 1.500 – R$ 3.000 |
+| Retainer mensal | R$ 500 – R$ 1.200/mês |
+| Processo adicional | R$ 800 – R$ 1.800 |
+
+---
+
 ## Regras de negociação (uso interno)
 
 1. **Nunca dar desconto na mensalidade** — se precisar ceder, parcele ou reduza a implantação.
