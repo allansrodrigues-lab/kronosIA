@@ -10,7 +10,7 @@
         "path": "contato-kronos",
         "responseMode": "responseNode",
         "options": {
-          "allowedOrigins": "*"
+          "allowedOrigins": "https://kronosintelligence.com.br"
         }
       },
       "id": "wh-lead",
@@ -22,7 +22,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Dados vindos do formulário da landing page (sendBeacon text/plain ou POST JSON)\nlet raw = $input.first().json.body;\nlet b;\nif (typeof raw === 'string') { try { b = JSON.parse(raw); } catch (e) { b = {}; } }\nelse { b = raw || $input.first().json || {}; }\n\nconst lead = {\n  nome:     (b.nome     || '').toString().trim(),\n  contato:  (b.contato  || '').toString().trim(),\n  segmento: (b.segmento || '').toString().trim(),\n  mensagem: (b.mensagem || '').toString().trim(),\n  origem:   (b.origem   || 'landing-page').toString().trim(),\n  dataHora: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })\n};\n\n// Validação mínima\nlead.valido = lead.nome.length > 0 && lead.contato.length > 0;\n\n// Mensagem de alerta interno para a equipe Kronos\nlead.alerta =\n  '🔔 *Novo lead pelo site!*\\n\\n' +\n  '*Nome:* ' + (lead.nome || '—') + '\\n' +\n  '*Contato:* ' + (lead.contato || '—') +\n  (lead.segmento ? '\\n*Segmento:* ' + lead.segmento : '') +\n  (lead.mensagem ? '\\n*Mensagem:* ' + lead.mensagem : '') +\n  '\\n\\n_via ' + lead.origem + ' • ' + lead.dataHora + '_';\n\nreturn [{ json: lead }];"
+        "jsCode": "// Dados vindos do formulário da landing page (sendBeacon text/plain ou POST JSON)\nlet raw = $input.first().json.body;\nlet b;\nif (typeof raw === 'string') { try { b = JSON.parse(raw); } catch (e) { b = {}; } }\nelse { b = raw || $input.first().json || {}; }\n\n// Corta tamanho absurdo antes de qualquer outra coisa (evita flood/DoS na planilha e no WhatsApp)\nconst cap = (s, max) => (s || '').toString().trim().slice(0, max);\n\n// CSV/Formula Injection: campo iniciando com = + - @ é interpretado como fórmula\n// pelo Excel/Sheets quando a planilha é aberta. Prefixa com aspa simples para\n// forçar leitura como texto literal (mitigação padrão OWASP para essa classe).\nconst safeCell = (s) => /^[=+\\-@]/.test(s) ? \"'\" + s : s;\n\nconst lead = {\n  nome:     safeCell(cap(b.nome, 120)),\n  contato:  safeCell(cap(b.contato, 60)),\n  segmento: safeCell(cap(b.segmento, 60)),\n  mensagem: safeCell(cap(b.mensagem, 1000)),\n  origem:   safeCell(cap(b.origem, 60)) || 'landing-page',\n  dataHora: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })\n};\n\n// Validação mínima\nlead.valido = lead.nome.length > 0 && lead.contato.length > 0;\n\n// Mensagem de alerta interno para a equipe Kronos\nlead.alerta =\n  '🔔 *Novo lead pelo site!*\\n\\n' +\n  '*Nome:* ' + (lead.nome || '—') + '\\n' +\n  '*Contato:* ' + (lead.contato || '—') +\n  (lead.segmento ? '\\n*Segmento:* ' + lead.segmento : '') +\n  (lead.mensagem ? '\\n*Mensagem:* ' + lead.mensagem : '') +\n  '\\n\\n_via ' + lead.origem + ' • ' + lead.dataHora + '_';\n\nreturn [{ json: lead }];"
       },
       "id": "code-validar-lead",
       "name": "Validar e Normalizar Lead",
