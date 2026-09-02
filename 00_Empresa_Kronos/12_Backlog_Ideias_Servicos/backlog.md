@@ -60,7 +60,45 @@ Ideias capturadas durante o pivot de serviço (ver `CLAUDE.md`) — ainda **não
 **Candidatos levantados mas NÃO fechados ainda (mercado de alimento — aplicar se/quando decidido):**
 Mercadinho/mercearia de bairro, padaria (módulo de estoque vira previsão de produção, não só contagem), açougue (estoque por peso + validade curta + fiscalização sanitária), hortifruti (validade curtíssima, preço variável, desperdício é a dor #1), restaurante/lanchonete pequeno (estoque de ingrediente com ficha técnica, não produto pronto), loja de conveniência, distribuidora de bebida.
 
+### Agentes definidos (quadro completo)
+
+| Agente | O que faz | Observação crítica |
+|---|---|---|
+| **Orquestrador** | Recebe a demanda interna e aciona o agente certo | Mesmo padrão da Aurora, virado pra dentro da empresa |
+| **Compras/Estoque** | Controla estoque, calcula reposição, alerta ruptura e validade | Ponto de partida do piloto — valor rápido, risco baixo |
+| **Fornecedores** | Pesquisa fornecedor principal + alternativo, compara preço/risco | Formato validado em `19_Projeto2_Robo_Humanoide/FORNECEDORES.md`. **Nunca compra sozinho** — só apresenta pra aprovação |
+| **Marketing/Conteúdo** | Cria foto, vídeo e texto de post; publica em rede social | **Revisão humana antes de publicar** (lição da Meli IA) |
+| **Vendas** | Acompanha pedido, funil, cliente | — |
+| **Fiscal/Contabilidade** | Prepara o dado e aciona emissão de NF-e | **Não reinventa cálculo fiscal** — integra com provedor de NF-e já homologado. Erro fiscal é problema jurídico do cliente, não bug |
+| **RH** | Cálculo de folha, INSS, FGTS, admissão | Mesma regra: tabela oficial sempre atualizada, **nunca hardcoded** (muda todo ano) |
+| **Financeiro** | Contas a pagar/receber, fluxo de caixa, saldo | Construível direto (registro + alerta), mas é o dado mais sensível — segurança de acesso pesa mais aqui |
+
+### Etapas do serviço (iguais para qualquer loja)
+
+1. **Diagnóstico** — como a loja trabalha hoje (caderno, planilha, sistema), onde o dado está e em que formato.
+2. **Escopo da Fase 1** — Estoque + Fornecedores primeiro (valor rápido, pouco dado sensível).
+3. **Modelagem do catálogo** — base compartilhada por todos os agentes; **é aqui que os nichos se separam** (ver tabela abaixo).
+4. **Implantação local + permissões** — instalar na máquina da loja, menor privilégio por agente desde o dia 1.
+5. **Hardening** — credencial protegida, acesso restrito a pasta, aprovação humana antes de ação irreversível (comprar, publicar, emitir nota).
+6. **Treinamento do dono + operação assistida** — ele precisa saber conferir o que o agente fez.
+7. **Expansão por fase** — Marketing → Vendas → e só no fim os regulados (Fiscal, RH, Financeiro).
+
+### O que muda em cada nicho
+
+| | **Autopeças** | **Roupas** | **Farmácia** |
+|---|---|---|---|
+| **Chave do catálogo** | Compatibilidade veículo (marca/modelo/ano) | Grade: tamanho × cor × modelo (1 produto = 15-30 SKUs) | Lote + **validade** |
+| **Dor #1** | Achar a peça certa rápido no balcão | Encalhe de coleção fora de estação | Vencimento e ruptura de controlado |
+| **Agente de maior valor** | Consulta de compatibilidade no balcão | **Marketing/Conteúdo** (moda vende por foto) | Estoque com alerta de validade |
+| **Fornecedores** | Original × paralelo × similar (preço não decide sozinho) | Atacado/confecção, compra por grade fechada | Distribuidor regulado |
+| **Marketing** | Técnico ("tem pro seu carro") | Forte, visual, Instagram/TikTok | **Restrito por Anvisa** — foca perfumaria/higiene |
+| **Dado sensível** | Margem e custo de fornecedor | Margem | **Máximo**: dado de saúde (LGPD) + controlados/SNGPC |
+| **Compliance extra** | — | — | Anvisa, SNGPC, receita de controlado |
+
+**Leitura:** autopeças e roupas têm risco parecido (dado sensível = margem). Farmácia é outro patamar — fiscalização + dado de saúde: é o que mais justifica cobrar por segurança, mas também o que exige mais rigor pra entregar.
+
 **Em aberto / próximos passos:**
-- Detalhar o Módulo Compras/Estoque e o Módulo Marketing/Conteúdo em profundidade técnica (schema de dado, ferramentas/MCP necessárias) antes de criar a pasta de projeto.
+- Detalhar um nicho inteiro (fluxo completo, agente por agente) — nicho ainda não escolhido.
+- Pesquisar provedores reais de NF-e e de folha/RH pra saber com quem a Kronos integraria.
 - Escolher qual dos 3 nichos fechados vira o primeiro piloto real.
 - Nome do projeto/próximo número de pasta (seguiria `20_...`) — só depois de escolhido o piloto.
