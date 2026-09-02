@@ -2,9 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Kronos Intelligence — automação de atendimento (n8n + WhatsApp)
+# Kronos Intelligence — implementação de IA para empresas
 
-Produto SaaS de bots WhatsApp para clínicas (agendamento + atendimento) via n8n, Evolution API e Google Sheets, rodando num VPS Hostinger. Landing page em `07_Recursos/index.html`. Protótipos ativos: TODOS rodam na central de demos `clinica01` (chavinha) — Aurora, OdontoVita, Léa, Sofia, Helena, Vera. A instância `kronosdemo` foi desativada; seu antigo número virou o chip de prospecção (ver abaixo).
+**Pivot de serviço (decidido 2026-09):** a Kronos deixou de vender bot de WhatsApp como produto principal — a Meta passou a oferecer chatbot com agentes de graça na própria plataforma, e não faz sentido competir de frente com isso. O novo foco é **implementação de IA sob medida dentro de empresas** (consultoria + construção): diagnóstico, arquitetura de agentes, integração com sistemas do cliente, e — puxado pelo aprendizado de cyber segurança do Allan — hardening/segurança da IA implantada (webhooks, dados sensíveis, prompt injection) como parte do serviço, não como extra.
+
+Os bots de clínica (Aurora, Bia, Clara, Diana, Eva e as demos de nicho — OdontoVita, Léa, Sofia, Helena, Vera) continuam no ar na central de demos `clinica01` (chavinha) e viram **case/portfólio**: prova de capacidade técnica pra mostrar em prospecção do novo serviço, não mais o produto vendido. Toda a infraestrutura abaixo (n8n, Evolution API, Google Sheets, VPS) continua valendo — é o mesmo stack, agora a serviço de implementações sob medida em vez de um SaaS padronizado. A instância `kronosdemo` foi desativada; seu antigo número virou o chip de prospecção (ver *Stack & Ambiente*).
 
 ---
 
