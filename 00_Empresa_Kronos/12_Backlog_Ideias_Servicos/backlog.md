@@ -98,7 +98,64 @@ Mercadinho/mercearia de bairro, padaria (módulo de estoque vira previsão de pr
 **Leitura:** autopeças e roupas têm risco parecido (dado sensível = margem). Farmácia é outro patamar — fiscalização + dado de saúde: é o que mais justifica cobrar por segurança, mas também o que exige mais rigor pra entregar.
 
 **Em aberto / próximos passos:**
-- Detalhar um nicho inteiro (fluxo completo, agente por agente) — nicho ainda não escolhido.
 - Pesquisar provedores reais de NF-e e de folha/RH pra saber com quem a Kronos integraria.
-- Escolher qual dos 3 nichos fechados vira o primeiro piloto real.
-- Nome do projeto/próximo número de pasta (seguiria `20_...`) — só depois de escolhido o piloto.
+- Nome do projeto/próximo número de pasta (seguiria `20_...`) — ainda não criado.
+
+**Decisão de prioridade (2026-09-02):** **autopeças é o primeiro nicho a construir.** Roupas e farmácia seguem fechados como próximos, nessa ordem de aparição na conversa.
+
+---
+
+## 2026-09-02 — Posicionamento do site: Linha A no topo
+
+**Decisão:** o site (`07_Recursos/index.html`) tem duas linhas de serviço, e a **Linha A (Agente de Operação — o serviço novo, multi-departamento) vai pro topo/carro-chefe.** A Linha B (Agente de Atendimento — os bots de WhatsApp que já existem: Aurora, Bia, Clara, Léa, Sofia, Helena, Vera etc.) **não é excluída** — continua vendável (WhatsApp Business API cobra por conversa, "grátis" do Meta tem limite) e as 6 demos animadas viram prova de capacidade técnica.
+
+**O que muda em cada seção do site (levantado, ainda não implementado):**
+
+| Seção | Hoje | Como fica |
+|---|---|---|
+| Hero | Só fala da Linha B | Comunicar as duas linhas, Linha A primeiro |
+| `#servicos` | Lista única | Dividido: Operação / Atendimento |
+| `#segmentos` | 6 abas, todas com chat de WhatsApp animado | Mantém as 6 (Linha B) + abas novas de Autopeças/Roupas/Farmácia (Linha A) — **a demo da Linha A NÃO pode ser chat de WhatsApp animado**, senão o site continua parecendo empresa de chatbot. Precisa mostrar alerta de estoque, tabela de fornecedor comparado, post esperando aprovação |
+| `#planos` | Plano de bot | Somar faixa de projeto de implantação + mensalidade de manutenção |
+| `#implantacao` | "7 a 14 dias" (vale pra Linha B) | Linha A usa as 7 etapas (diagnóstico → hardening → expansão por fase) |
+
+**Ainda não implementado no HTML** — só desenhado nesta conversa.
+
+---
+
+## 2026-09-02 — Desenho técnico: autopeças, fase 1 (Estoque + Fornecedores)
+
+**Onde o agente se encaixa em relação ao que a loja já usa:**
+
+A loja já tem PDV/ERP (Bling, Tiny, Omie, ou sistema local antigo) — isso é **cadastro e registro**, não agente. Guarda dado com perfeição, mas não decide nada; o máximo que faz é alarme de regra fixa ("avise quando chegar a 3 unidades"). **A Kronos não substitui o ERP — fica por cima dele**, lendo via API (Bling/Tiny têm API) e agindo como o "funcionário experiente que lê o caderno todo dia de manhã". Primeira pergunta do diagnóstico: *"qual sistema você usa hoje, e ele deixa exportar/consultar os dados?"*
+
+**Stack (o que muda em relação aos bots de clínica):**
+
+| Camada | Bots (hoje) | Agente de loja (novo) |
+|---|---|---|
+| Onde roda | VPS da Kronos | Máquina da loja — dado não sai de lá |
+| Dados | Google Sheets | SQLite local (exporta pra planilha quando o dono quiser ver) |
+| Raciocínio | Claude Haiku+Sonnet via n8n | Claude + Skill de autopeças (regras do nicho) |
+| Ferramentas | Nós do n8n | MCP por domínio (banco, pasta de fotos, busca web, API de marketplace/ERP) |
+| Agendamento | Cron do n8n | Tarefa agendada do SO **ou** n8n local — Fase 1 talvez nem precise de n8n/Docker |
+
+**As 4 operações do agente:**
+
+| Operação | O que faz | Risco |
+|---|---|---|
+| Checar | Lê o ERP via API, cruza com histórico de venda, detecta ruptura/parado/vencendo | Baixo (só leitura) |
+| Transcrever mercadoria | Foto da peça chegando → identifica → preenche cadastro (nome, categoria, compatibilidade, preço) | Médio (escreve no sistema) |
+| Administrar orquestrado | Estoque detecta falta → Fornecedores pesquisa → Financeiro checa caixa → decisão única | Médio |
+| Notificar | Avisa o dono (peça acabando, lote vencendo, peça sem cadastro) | Baixo |
+
+**Gradiente de autonomia (não é liga/desliga — por nível de risco):**
+- 🟢 **Autônomo desde o dia 1:** ler, analisar, calcular, notificar — nada disso muda o mundo real.
+- 🟡 **Prepara e pede confirmação:** cadastrar produto, alterar preço, escrever no ERP — dono confirma no começo; libera automático por categoria depois que o agente prova acerto consistente.
+- 🔴 **Sempre com aprovação humana:** comprar de fornecedor, emitir nota fiscal — qualquer coisa que mexe em dinheiro ou tem efeito jurídico.
+
+**Canal de notificação:** WhatsApp do dono — é onde ele já vive. **Diferença importante do modelo antigo:** não é bot de atendimento falando com cliente (isso o Meta comoditizou) — é **alerta operacional interno**, dono para consigo mesmo/equipe. Mesmo canal, papel completamente diferente.
+
+**Ainda em aberto:**
+- Como o agente identifica a peça pela foto tecnicamente (visão + busca de compatibilidade).
+- Detalhar Fornecedores e os agentes seguintes (Vendas, depois Fiscal/RH/Financeiro) no mesmo nível de profundidade.
+- Criar a pasta do projeto (`20_AutoPecas` ou nome a definir) — ainda não criada, tudo até aqui é desenho em backlog.
