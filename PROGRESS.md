@@ -59,14 +59,14 @@ na tarefa diária. Nada mais está bloqueado.
 **Autopeças/Kronos Operação — estado atual, tudo pronto pra prospectar:**
 - **Painel real, hospedado, testado e confirmado funcionando:** https://kronosintelligence.com.br/operacao (`14_Kronos_SaaS/app-operacao/`, deploy Docker+Traefik, container `kronos-operacao`). Login confirmado pelo Allan com credenciais novas (senhas sem caracteres ambíguos, geradas nesta sessão, nunca commitadas — só o Allan tem). ⚠️ Não confundir com `/painel` (esse é o painel de atendimento, Linha B — outro sistema, outros usuários; já causou um "senha inválida" por engano de URL).
 - **88 leads levantados** em `20_AutoPecas/LEADS.md` (3 captações): #1 (8, Campinas) e #2 (40, Pedreira/região — maioria telefone FIXO) e #3 (40, região ampliada DDD 19 — todos com CELULAR/WhatsApp confirmado na fonte, sem duplicata das anteriores).
-- **Mensagem de prospecção completa** (o quê/como funciona/como acompanha) salva em `LEADS.md`, seção "Mensagem de prospecção (modelo)" — pronta pra personalizar e usar nas 40 da Captação #3.
+- **Mensagem de prospecção completa** (o quê/como funciona/como acompanha) salva em `LEADS.md`, seção "Mensagem de prospecção (modelo)" — já **personalizada pras 5 primeiras** da Captação #3 (seção "Mensagens personalizadas — 5 primeiras da Captação #3"): Auto Peças Capuava (Valinhos), Autopeças Romaninho (Americana), Girley Suspensão (Americana), Auto Peças Europa (Sta. Bárbara D'Oeste — cuidado, tem outra com mesmo nome em Sta. Gertrudes), Garcia e Guedes Auto Peças (Nova Odessa). Faltam 35.
 - Pivot de arquitetura (local→SaaS hospedado) está 100% concluído: decisão, docs, site e infra real, tudo consistente.
 
 **Site/redesign (ainda não iniciado, fica pra depois):**
 - Allan quer separar o site em 2 páginas (Agente de Atendimento / Agente Operacional) e deixar visual mais profissional — só mantém o fundo geométrico + azul da Kronos, resto muda. Continuar editando o site atual como está até ele sinalizar pra começar o redesign.
 - Achado: plugin oficial `frontend-design` (Anthropic, repo `anthropics/claude-code`) resolve "cara de IA genérica" — não instalado nessa sessão, instalar via `/plugin` quando for a hora.
 
-**Próxima ação real:** escolher quais/quantas das 40 da Captação #3 abordar primeiro e personalizar a mensagem-modelo por loja (mesmo padrão usado nas 5 primeiras da Captação #2) — Allan ainda não escolheu quando o clear foi pedido.
+**Próxima ação real ("já pode prospectar" — instrução do Allan antes do clear):** ao retomar, seguir personalizando as mensagens das próximas lojas da Captação #3 (já tem 5/40 prontas) sem precisar perguntar de novo — ele quer continuidade automática nesse passo. **Continua valendo a regra-mãe: nunca enviar mensagem sozinho**, só preparar/personalizar; quem manda é o Allan pelo WhatsApp dele.
 
 **Pergunta em aberto do Allan de sessão anterior, ainda não fechada:** se é cedo pra criar uma skill/MCP própria da Kronos pro Agente Operacional, ou ir direto pra versão completa. Recomendação registrada: é cedo — só formalizar depois de validar manualmente com 1 loja piloto real.
 
