@@ -2,7 +2,7 @@
 
 **Nome oficial da Linha A, decidido em 2026-09-02: "Agente Operacional Inteligente para Negócios."** É a chamada principal do serviço novo da Kronos: implantação de IA sob medida dentro de empresa, com segurança por design, em vez de bot de atendimento (Linha B, já comoditizada pelo Meta).
 
-**Status (2026-09-03): preço fechado, site implementado e NO AR.** Preço oficial em `00_Empresa_Kronos/06_Tabela_Precos/tabela_precos.md`. Aba "Autopeças (Kronos Operação)" está em produção em `07_Recursos/index.html` — primeira aba de `#segmentos`, com o terminal animado e os 3 planos em `#planos`. Deploy confirmado (scp 162723 bytes idênticos ao local, smoke test HTTP 200 — ver `PROGRESS.md`). Falta só a abordagem de uma loja real (leads em `LEADS.md`, imagem estática pronta em `demo/kronos-operacao-demo.png`).
+**Status (2026-09-03): preço fechado, site no ar, painel hospedado funcionando local.** Preço oficial em `00_Empresa_Kronos/06_Tabela_Precos/tabela_precos.md`. Aba "Autopeças (Kronos Operação)" em produção em `07_Recursos/index.html`. Painel real em `14_Kronos_SaaS/app-operacao/` — login + isolamento por cliente + ruptura/capital parado calculados do SQLite, testado e batendo com o protótipo Python (ver seção "Painel hospedado" abaixo). Falta: deploy do painel no VPS e abordagem de uma loja real (leads em `LEADS.md`, triagem + rascunho de mensagem prontos).
 
 Histórico completo da decisão está em `00_Empresa_Kronos/12_Backlog_Ideias_Servicos/backlog.md` — este README consolida o desenho já fechado como ponto de partida do projeto.
 
@@ -47,9 +47,21 @@ Loja física de autopeças, sem TI própria, que já tem algum PDV/ERP. Dado sen
 
 Cada agente só acessa o dado do próprio domínio (menor privilégio) — Marketing não lê financeiro, Compras não toca em RH. Nenhuma ação irreversível (comprar, publicar, emitir nota, pagar) roda sem aprovação humana na Fase 1. **Isolamento por cliente é obrigatório** (regra-mãe já usada na Linha B, agora aplicada ao SaaS hospedado): cada loja tem seu próprio banco/ambiente, nunca uma tabela compartilhada entre clientes — vazamento de margem/fornecedor de um cliente pra outro é o pior cenário possível nesse produto.
 
-## Próximos passos reais (não mais desenho)
+## Painel hospedado (Fase 1 construída — 2026-09-03)
+
+**`14_Kronos_SaaS/app-operacao/` existe e roda de verdade.** Reaproveita login e
+isolamento por cliente do painel de atendimento (`auth.ts`/`hashpass.ts` copiados sem
+alteração); a fonte de dado é SQLite por loja (`node:sqlite`, nativo do Node, zero
+dependência nova) em vez de Google Sheets. Testado local: login admin + login de loja
+(isolamento confirmado — role `client` não vê MRR nem dado de outra loja), ruptura e
+capital parado batendo exatamente com o protótipo Python (`mvp/agente_estoque.py`) —
+6 itens em ruptura, R$ 1.164,00 de capital parado nos dados fictícios do cliente piloto
+`ouro-verde`. Ver `14_Kronos_SaaS/app-operacao/README.md` pra rodar e pro que falta
+(deploy no VPS, ações de aprovação, billing).
+
+## Próximos passos reais
 
 1. Ver `PROVEDORES.md` — comparação de provedores de NF-e, folha/RH e base TecDoc já pesquisada.
 2. Diagnóstico com uma loja real: qual PDV/ERP ela usa, e se ele tem API.
-3. **Decidir a base de hospedagem do painel** — reaproveitar `14_Kronos_SaaS/app` (já lê KPIs de planilha e tem visão cliente + cockpit Kronos) ou construir novo, com banco isolado por cliente. Isso é pré-requisito pro piloto agora que o modelo é SaaS hospedado, não só o prototipo local que já existe.
-4. Construir a Fase 1 (Estoque + Fornecedores) sobre essa base.
+3. **Deploy do painel no VPS** — hoje só roda local (porta 4700). Ver "O que falta" no README do `app-operacao/`.
+4. Onboardar o 1º cliente pagante: trocar o SQLite fictício por um real, a partir de export do PDV/ERP dele.

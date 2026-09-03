@@ -1,0 +1,12 @@
+node_modules/
+dist/
+credentials/
+.env
+*.log
+users.json
+.secret
+
+# Banco de cliente real nunca vai pro git (regra-mãe: dado sensível de loja não é público).
+# ouro-verde.db é fictício (protótipo), fica liberado — qualquer outro .db em data/ é ignorado.
+data/*.db
+!data/ouro-verde.db

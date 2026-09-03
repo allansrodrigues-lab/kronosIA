@@ -4,6 +4,13 @@
 > O CLT do Allan banca as plataformas; os 1º–5º clientes são encarados como investimento; há reserva guardada.
 > Mockup do painel **aprovado pelo Allan em 04/07** ("gostei"). Este README é a planta que a sessão Fable usa pra codar.
 
+> **Atualização 2026-09-03:** existem agora **dois painéis separados**, um por linha de
+> serviço (decisão de manter Linha A e Linha B sem se misturar, nem no site nem no produto):
+> - **`app/`** — painel do Agente de Atendimento (Linha B), este README/planta original.
+> - **`app-operacao/`** — painel do Kronos Operação (Linha A, autopeças), documentado no
+>   README dele. Reaproveita `auth.ts`/`hashpass.ts` (login e isolamento por cliente) sem
+>   alteração; a fonte de dado troca de Google Sheets pra SQLite por loja.
+
 ## Modelo de negócio — "pagou/usou, suspendeu/suspende"
 SaaS de baixa burocracia e pouco contato preso (casa com a meta de ser nômade digital):
 - **Cobrança recorrente automática** (Mercado Pago/Stripe): pagou → ativa; falhou o pagamento → **suspende sozinho**.

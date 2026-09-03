@@ -1,0 +1,27 @@
+{
+  "_aviso": "Dados FICTÍCIOS pra provar o formato do Agente Fornecedores. Preço/prazo não são reais — não usar pra comprar nada.",
+  "PF-ONX-001": [
+    {"tipo": "principal", "fornecedor": "Bosch (distribuidor SP)", "preco": 44.50, "prazo_dias": 3, "categoria_peca": "original"},
+    {"tipo": "alternativo", "fornecedor": "Mercado Livre - loja XPTO", "preco": 38.90, "prazo_dias": 5, "categoria_peca": "paralela"},
+    {"tipo": "alternativo", "fornecedor": "Distribuidora Freios BR", "preco": 41.00, "prazo_dias": 2, "categoria_peca": "paralela"}
+  ],
+  "OL-5W30-001": [
+    {"tipo": "principal", "fornecedor": "Mobil (distribuidor regional)", "preco": 21.00, "prazo_dias": 1, "categoria_peca": "original"},
+    {"tipo": "alternativo", "fornecedor": "Mercado Livre - AutoOil", "preco": 19.90, "prazo_dias": 4, "categoria_peca": "original"}
+  ],
+  "AM-HB20-003": [
+    {"tipo": "principal", "fornecedor": "Cofap (distribuidor SP)", "preco": 175.00, "prazo_dias": 5, "categoria_peca": "original"},
+    {"tipo": "alternativo", "fornecedor": "Mercado Livre - SuspensãoTotal", "preco": 149.90, "prazo_dias": 7, "categoria_peca": "similar"}
+  ],
+  "DF-CIV-004": [
+    {"tipo": "principal", "fornecedor": "Fremax (distribuidor regional)", "preco": 92.00, "prazo_dias": 3, "categoria_peca": "original"},
+    {"tipo": "alternativo", "fornecedor": "Mercado Livre - FreioCerto", "preco": 78.90, "prazo_dias": 6, "categoria_peca": "paralela"}
+  ],
+  "FA-HLX-006": [
+    {"tipo": "principal", "fornecedor": "Tecfil (distribuidor SP)", "preco": 31.00, "prazo_dias": 4, "categoria_peca": "original"}
+  ],
+  "KE-FST-001": [
+    {"tipo": "principal", "fornecedor": "Sachs (distribuidor regional)", "preco": 275.00, "prazo_dias": 6, "categoria_peca": "original"},
+    {"tipo": "alternativo", "fornecedor": "Mercado Livre - TransmissãoJá", "preco": 239.90, "prazo_dias": 9, "categoria_peca": "similar"}
+  ]
+}

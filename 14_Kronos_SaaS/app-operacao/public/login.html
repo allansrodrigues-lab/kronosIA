@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/operacao/">
+<title>Kronos Operação — Entrar</title>
+<style>
+:root{--s0:#020c2a;--s1:#0a1738;--s2:#122150;--tp:#eef1fb;--ts:#9aa6c8;--tm:#6b779c;--bd:rgba(120,140,200,0.18);--bds:rgba(120,140,200,0.4);--ac:#a679ff;--bad:#f08a89;--badbg:rgba(226,75,74,0.18)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--s0);color:var(--tp);font-family:'Inter',-apple-system,'Segoe UI',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:var(--s1);border-radius:14px;padding:34px 30px;width:100%;max-width:360px;text-align:center}
+img{width:52px;height:52px;object-fit:contain;margin-bottom:10px}
+h1{font-size:16px;font-weight:600;margin:0 0 2px}
+.sub{font-size:12px;color:var(--tm);margin-bottom:22px}
+input{width:100%;background:var(--s2);border:0.5px solid var(--bd);border-radius:8px;color:var(--tp);padding:11px 13px;font-size:14px;font-family:inherit;margin-bottom:10px;outline:none}
+input:focus{border-color:var(--ac)}
+.pwrap{position:relative;margin-bottom:10px}
+.pwrap input{margin-bottom:0;padding-right:42px}
+.eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;width:32px;height:32px;padding:0;margin:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tm)}
+.eye:hover{color:var(--tp)}
+.eye svg{width:19px;height:19px}
+button{width:100%;background:var(--ac);border:none;border-radius:8px;color:#120b2e;font-weight:600;font-size:14px;padding:11px;cursor:pointer;font-family:inherit;margin-top:4px}
+button:hover{opacity:.92}
+.err{background:var(--badbg);color:var(--bad);border-radius:8px;padding:9px 12px;font-size:12.5px;margin-bottom:10px;display:none;text-align:left}
+.foot{font-size:11px;color:var(--tm);margin-top:18px}
+</style>
+</head>
+<body>
+<form class="card" id="f">
+  <img src="kronos_icone.png" alt="Kronos">
+  <h1>Kronos Operação</h1>
+  <div class="sub">Entre com o acesso da sua loja</div>
+  <div class="err" id="err"></div>
+  <input id="user" placeholder="usuário" autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false" autofocus>
+  <div class="pwrap">
+    <input id="pass" type="password" placeholder="senha" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false">
+    <button type="button" class="eye" id="eye" aria-label="Mostrar senha" title="Mostrar senha">
+      <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
+  </div>
+  <button type="submit">Entrar</button>
+  <div class="foot">Kronos Intelligence · sistema operacional de agentes</div>
+</form>
+<script>
+document.getElementById('eye').addEventListener('click', function(){
+  var pass = document.getElementById('pass');
+  var icon = document.getElementById('eyeIcon');
+  var mostrando = pass.type === 'text';
+  pass.type = mostrando ? 'password' : 'text';
+  this.setAttribute('aria-label', mostrando ? 'Mostrar senha' : 'Ocultar senha');
+  this.title = mostrando ? 'Mostrar senha' : 'Ocultar senha';
+  icon.innerHTML = mostrando
+    ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/>'
+    : '<path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a18.7 18.7 0 0 1 4.22-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+});
+
+document.getElementById('f').addEventListener('submit', function(ev){
+  ev.preventDefault();
+  var err = document.getElementById('err');
+  err.style.display = 'none';
+  fetch('api/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ user: document.getElementById('user').value, pass: document.getElementById('pass').value })
+  }).then(function(r){ return r.json().then(function(d){ return {ok: r.ok, d: d}; }); })
+    .then(function(res){
+      if (!res.ok) throw new Error(res.d.error || 'Falha no login');
+      window.location.href = './';
+    })
+    .catch(function(e){ err.textContent = e.message; err.style.display = 'block'; });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "kronos-operacao-painel",
+  "version": "0.1.0",
+  "description": "Painel Kronos Operação — Agente Estoque/Fornecedores (autopeças). Reaproveita login e isolamento por cliente do app de atendimento (14_Kronos_SaaS/app), fonte de dado troca de Google Sheets pra SQLite por loja.",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "tsc && node dist/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.0"
+  }
+}

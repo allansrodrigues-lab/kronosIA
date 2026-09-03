@@ -1,0 +1,17 @@
+{
+  "comment": "Configuração dos clientes do painel Kronos Operação. Cada cliente aponta pro PRÓPRIO banco SQLite (regra-mãe: base isolada por cliente — nunca compartilhada). 'Ouro Verde' é o piloto de demonstração com dados fictícios (ver 20_AutoPecas/mvp/README.md); trocar dbPath por um banco real ao onboardar o 1º cliente pagante.",
+  "clients": [
+    {
+      "id": "ouro-verde",
+      "name": "Auto e Moto Peças Ouro Verde",
+      "niche": "Autopeças",
+      "icon": "tool",
+      "plan": "Piloto Operacional",
+      "monthlyFee": 397,
+      "status": "piloto",
+      "dbPath": "data/ouro-verde.db",
+      "fornecedoresPath": "data/ouro-verde.fornecedores.json",
+      "diasCapitalParado": 90
+    }
+  ]
+}
