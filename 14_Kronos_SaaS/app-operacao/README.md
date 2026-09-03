@@ -50,9 +50,8 @@ recebe `totals: null` e só o próprio `clientId`; sem cookie ou senha errada �
 1. **Dado real** — hoje só existe o cliente fictício `ouro-verde`. Onboardar o
    1º cliente pagante = criar o SQLite dele (schema de `seed_dados_ficticios.py`)
    a partir de export do PDV/ERP real, apontar `clients.json` pro arquivo dele.
-2. **Deploy** — roda só local por enquanto (porta 4700). Falta subir no VPS
-   (mesmo padrão do painel de atendimento, ver `14_Kronos_SaaS/deploy/`) com
-   domínio/subdomínio próprio, por trás do Traefik.
+2. ~~**Deploy**~~ — feito (2026-09-03): container `kronos-operacao` no ar em
+   `https://kronosintelligence.com.br/operacao`, atrás do Traefik (ver `deploy/`).
 3. **Ações de aprovação** — hoje o painel só mostra as opções de fornecedor; o
    botão "aprovar pedido" que aparece na demo do site (`20_AutoPecas/demo/`)
    ainda não existe aqui. Próxima fatia.

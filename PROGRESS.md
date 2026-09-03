@@ -50,6 +50,8 @@ na tarefa diária. Nada mais está bloqueado.
 
 2026-09-03 — deploy landing via CI (`main` @ `3e3428e`) — pivot local→SaaS hospedado (Kronos Operação): textos "roda local"/"no seu computador" trocados por "painel próprio na nuvem, isolamento por cliente" — scp e smoke test HTTP 200 passaram (run 33771698819); job geral marcou `failure` só porque a etapa "Notificar deploy" (webhook pro n8n) segue quebrada, problema pré-existente e não-bloqueante já registrado no CLAUDE.md.
 
+2026-09-03 — **primeiro deploy do painel Kronos Operação** (`14_Kronos_SaaS/app-operacao/`), manual via `deploy.sh` no VPS (Docker + Traefik, mesmo padrão do painel de atendimento — container `kronos-operacao`, imagem `node:22-alpine`, subcaminho `/operacao`, sem porta exposta). Executado pelo Allan no Git Bash local (esta sessão remota não tem ssh/scp). Verificado no ar pelo próprio Allan: `curl .../operacao/login.html` → HTTP 200. Login testado com credenciais reais (senha aleatória de 16 caracteres, gerada nesta sessão, nunca commitada).
+
 ---
 
 ## Checkpoint (2026-09-03, antes de clear por contexto alto)
