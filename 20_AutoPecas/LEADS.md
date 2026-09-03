@@ -241,7 +241,7 @@ Mensagem completa pra abordar essas 40 (e reaproveitável pras próximas captaç
 >
 > Posso te fazer uma pergunta rápida, sem compromisso: hoje o controle de estoque de vocês é em algum sistema ou ainda é mais na mão? Se quiser, te mostro como funciona na prática 🙂
 
-## Mensagens personalizadas — 5 primeiras da Captação #3
+## Mensagens personalizadas — 10 primeiras da Captação #3
 
 Mesmo modelo acima, só o abre-alas trocado pra citar loja/cidade. Rascunho — nenhuma enviada.
 
@@ -302,9 +302,66 @@ Mesmo modelo acima, só o abre-alas trocado pra citar loja/cidade. Rascunho — 
 >
 > Posso te fazer uma pergunta rápida, sem compromisso: hoje o controle de estoque de vocês é em algum sistema ou ainda é mais na mão? Se quiser, te mostro como funciona na prática 🙂
 
+**6. Daas Mel Autopeças (Louveira)**
+> Oi! Tudo bem? Sou o Allan, da Kronos — trabalho com implementação de IA pra negócio local aqui na região de Campinas. Vi a Daas Mel Autopeças aqui em Louveira e queria te mostrar rapidinho o que construí pra loja de autopeças.
+>
+> 📦 **O que ele faz:** todo dia, sozinho, ele confere seu estoque — avisa quando uma peça tá quase acabando (ruptura) e mostra o que já não vende há meses e tá com dinheiro parado. Quando falta peça, ele já pesquisa fornecedor (original e alternativo), compara preço e prazo, e te mostra as opções.
+>
+> 🔒 **Como funciona:** ele lê os dados do sistema que você já usa (Bling, Tiny, ou até planilha) — não troca seu jeito de vender, só fica de olho no que passa despercebido no corre do dia a dia. E o mais importante: ele **nunca compra nada sozinho** — só te mostra as opções, quem decide é você.
+>
+> 📱 **Como você acompanha:** você entra num painel próprio da sua loja, com login e senha só seus, de qualquer lugar (celular, computador). Não precisa perguntar nada — o painel já mostra tudo atualizado.
+>
+> Posso te fazer uma pergunta rápida, sem compromisso: hoje o controle de estoque de vocês é em algum sistema ou ainda é mais na mão? Se quiser, te mostro como funciona na prática 🙂
+
+**7. Casa das Baterias 2 Irmãos (Monte Mor)**
+> Oi! Tudo bem? Sou o Allan, da Kronos — trabalho com implementação de IA pra negócio local aqui na região de Campinas. Vi a Casa das Baterias 2 Irmãos aqui em Monte Mor e queria te mostrar rapidinho o que construí pra loja de autopeças.
+>
+> 📦 **O que ele faz:** todo dia, sozinho, ele confere seu estoque — avisa quando uma peça tá quase acabando (ruptura) e mostra o que já não vende há meses e tá com dinheiro parado. Quando falta peça, ele já pesquisa fornecedor (original e alternativo), compara preço e prazo, e te mostra as opções.
+>
+> 🔒 **Como funciona:** ele lê os dados do sistema que você já usa (Bling, Tiny, ou até planilha) — não troca seu jeito de vender, só fica de olho no que passa despercebido no corre do dia a dia. E o mais importante: ele **nunca compra nada sozinho** — só te mostra as opções, quem decide é você.
+>
+> 📱 **Como você acompanha:** você entra num painel próprio da sua loja, com login e senha só seus, de qualquer lugar (celular, computador). Não precisa perguntar nada — o painel já mostra tudo atualizado.
+>
+> Posso te fazer uma pergunta rápida, sem compromisso: hoje o controle de estoque de vocês é em algum sistema ou ainda é mais na mão? Se quiser, te mostro como funciona na prática 🙂
+
+**8. Deninho Autopeças (Piracicaba)**
+> Oi! Tudo bem? Sou o Allan, da Kronos — trabalho com implementação de IA pra negócio local aqui na região de Campinas. Vi a Deninho Autopeças aqui em Piracicaba e queria te mostrar rapidinho o que construí pra loja de autopeças.
+>
+> 📦 **O que ele faz:** todo dia, sozinho, ele confere seu estoque — avisa quando uma peça tá quase acabando (ruptura) e mostra o que já não vende há meses e tá com dinheiro parado. Quando falta peça, ele já pesquisa fornecedor (original e alternativo), compara preço e prazo, e te mostra as opções.
+>
+> 🔒 **Como funciona:** ele lê os dados do sistema que você já usa (Bling, Tiny, ou até planilha) — não troca seu jeito de vender, só fica de olho no que passa despercebido no corre do dia a dia. E o mais importante: ele **nunca compra nada sozinho** — só te mostra as opções, quem decide é você.
+>
+> 📱 **Como você acompanha:** você entra num painel próprio da sua loja, com login e senha só seus, de qualquer lugar (celular, computador). Não precisa perguntar nada — o painel já mostra tudo atualizado.
+>
+> Posso te fazer uma pergunta rápida, sem compromisso: hoje o controle de estoque de vocês é em algum sistema ou ainda é mais na mão? Se quiser, te mostro como funciona na prática 🙂
+
+**9. JP Automotiva (Piracicaba)**
+> Oi! Tudo bem? Sou o Allan, da Kronos — trabalho com implementação de IA pra negócio local aqui na região de Campinas. Vi a JP Automotiva aqui em Piracicaba e queria te mostrar rapidinho o que construí pra loja de autopeças.
+>
+> 📦 **O que ele faz:** todo dia, sozinho, ele confere seu estoque — avisa quando uma peça tá quase acabando (ruptura) e mostra o que já não vende há meses e tá com dinheiro parado. Quando falta peça, ele já pesquisa fornecedor (original e alternativo), compara preço e prazo, e te mostra as opções.
+>
+> 🔒 **Como funciona:** ele lê os dados do sistema que você já usa (Bling, Tiny, ou até planilha) — não troca seu jeito de vender, só fica de olho no que passa despercebido no corre do dia a dia. E o mais importante: ele **nunca compra nada sozinho** — só te mostra as opções, quem decide é você.
+>
+> 📱 **Como você acompanha:** você entra num painel próprio da sua loja, com login e senha só seus, de qualquer lugar (celular, computador). Não precisa perguntar nada — o painel já mostra tudo atualizado.
+>
+> Posso te fazer uma pergunta rápida, sem compromisso: hoje o controle de estoque de vocês é em algum sistema ou ainda é mais na mão? Se quiser, te mostro como funciona na prática 🙂
+>
+> _(atenção: é linha pesada/importados, perfil mais estruturado que loja de bairro — pode já ter sistema mais robusto, vale ajustar a conversa depois da primeira resposta)_
+
+**10. IBrasileira Auto Peças (Hortolândia)**
+> Oi! Tudo bem? Sou o Allan, da Kronos — trabalho com implementação de IA pra negócio local aqui na região de Campinas. Vi a IBrasileira Auto Peças aqui em Hortolândia e queria te mostrar rapidinho o que construí pra loja de autopeças.
+>
+> 📦 **O que ele faz:** todo dia, sozinho, ele confere seu estoque — avisa quando uma peça tá quase acabando (ruptura) e mostra o que já não vende há meses e tá com dinheiro parado. Quando falta peça, ele já pesquisa fornecedor (original e alternativo), compara preço e prazo, e te mostra as opções.
+>
+> 🔒 **Como funciona:** ele lê os dados do sistema que você já usa (Bling, Tiny, ou até planilha) — não troca seu jeito de vender, só fica de olho no que passa despercebido no corre do dia a dia. E o mais importante: ele **nunca compra nada sozinho** — só te mostra as opções, quem decide é você.
+>
+> 📱 **Como você acompanha:** você entra num painel próprio da sua loja, com login e senha só seus, de qualquer lugar (celular, computador). Não precisa perguntar nada — o painel já mostra tudo atualizado.
+>
+> Posso te fazer uma pergunta rápida, sem compromisso: hoje o controle de estoque de vocês é em algum sistema ou ainda é mais na mão? Se quiser, te mostro como funciona na prática 🙂
+
 ## Próximo passo (Captação #3)
 
-Essas 40 já têm WhatsApp direto — dá pra usar a mensagem acima direto, sem o problema do fixo. Ainda não escolhi as primeiras pra abordar — só avise quais/quantas quer priorizar que eu personalizo (nome da loja/cidade) no mesmo padrão usado nas 5 primeiras da Captação #2.
+10/40 personalizadas. As outras 30 já têm WhatsApp direto — dá pra usar a mensagem-modelo acima direto, sem o problema do fixo. Só avise quantas mais quer que eu personalize, ou se prefere já ir enviando essas 10 enquanto eu sigo com o resto.
 
 Sources (Captação #3):
 - [Auto Peças Capuava – Site da Cidade Valinhos](https://www.sitedacidade.com.br/endereco-telefone-whatsapp/auto-pecas-capuava-2415-em-valinhos-sp)
