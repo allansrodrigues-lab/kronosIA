@@ -155,7 +155,20 @@ A loja já tem PDV/ERP (Bling, Tiny, Omie, ou sistema local antigo) — isso é 
 
 **Canal de notificação:** WhatsApp do dono — é onde ele já vive. **Diferença importante do modelo antigo:** não é bot de atendimento falando com cliente (isso o Meta comoditizou) — é **alerta operacional interno**, dono para consigo mesmo/equipe. Mesmo canal, papel completamente diferente.
 
+**Reconhecimento de peça por foto (desenhado 2026-09-02):**
+
+```
+Foto da peça → Visão lê texto/código gravado → Número de referência do fabricante
+                                                        ↓
+                                          Base de referência cruzada (ex: TecDoc — licenciada, não construída do zero)
+                                                        ↓
+                                          Lista de veículos compatíveis
+                                                        ↓
+                                   Confiança alta → preenche · Confiança baixa → pergunta pro balconista (fallback humano)
+```
+
+Importante: a IA não "reconhece" compatibilidade pela forma da peça — isso seria chute. O confiável é ler o código gravado (OCR) e cruzar numa base de referência (tipo TecDoc, padrão da indústria, é integração/licença, não construção própria — mesmo princípio já aplicado a NF-e e folha). Sem código legível ou sem match, o agente não inventa: pergunta pro humano. Por isso a ordem certa da Fase 1 é Estoque/Fornecedores primeiro (não depende disso) e Transcrição por foto fica pra fase seguinte.
+
 **Ainda em aberto:**
-- Como o agente identifica a peça pela foto tecnicamente (visão + busca de compatibilidade).
 - Detalhar Fornecedores e os agentes seguintes (Vendas, depois Fiscal/RH/Financeiro) no mesmo nível de profundidade.
 - Criar a pasta do projeto (`20_AutoPecas` ou nome a definir) — ainda não criada, tudo até aqui é desenho em backlog.
