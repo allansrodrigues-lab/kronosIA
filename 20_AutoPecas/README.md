@@ -65,6 +65,9 @@ dado real de cliente).
 
 1. Ver `PROVEDORES.md` — comparação de provedores de NF-e, folha/RH e base TecDoc já pesquisada.
 2. Diagnóstico com uma loja real: qual PDV/ERP ela usa, e se ele tem API.
-3. Abordar leads reais (`LEADS.md` — 88 lojas levantadas em 3 captações) e onboardar o
-   1º cliente pagante: trocar o SQLite fictício por um real, a partir de export do
-   PDV/ERP dele.
+3. **Ativar o rodízio de disparo pra autopeças** — ver `prospeccao_robo_disparador.md` (templates
+   Linha A prontos, mas precisa de sessão local com MCP n8n/Sheets pra abastecer a fila e ajustar
+   o disparador; esta sessão remota não tem esse acesso).
+4. Abordar leads reais (`LEADS.md` — 88 lojas levantadas em 3 captações, 20/40 da Captação #3
+   já com mensagem personalizada) e onboardar o 1º cliente pagante: trocar o SQLite fictício
+   por um real, a partir de export do PDV/ERP dele.
