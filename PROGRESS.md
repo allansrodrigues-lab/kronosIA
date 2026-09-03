@@ -49,6 +49,22 @@ na tarefa diária. Nada mais está bloqueado.
 2026-09-03 — deploy landing via CI (`main` @ `d8206c3`) — 9º agente (Relatório/Gestão) na Operação Completa + ponte jurídica com a Léa (nota no site, sem preço próprio) — verificado no ar: scp copiou 163826 bytes (idêntico ao local), smoke test HTTP 200.
 
 2026-09-03 — deploy landing via CI (`main` @ `3e3428e`) — pivot local→SaaS hospedado (Kronos Operação): textos "roda local"/"no seu computador" trocados por "painel próprio na nuvem, isolamento por cliente" — scp e smoke test HTTP 200 passaram (run 33771698819); job geral marcou `failure` só porque a etapa "Notificar deploy" (webhook pro n8n) segue quebrada, problema pré-existente e não-bloqueante já registrado no CLAUDE.md.
+
+---
+
+## Checkpoint (2026-09-03, antes de clear por contexto alto)
+
+**Autopeças/Kronos Operação:**
+- Captação #2 feita: 40 lojas (Pedreira e região), triagem de 5 candidatas + 5 rascunhos de mensagem de diagnóstico prontos em `20_AutoPecas/LEADS.md` — nenhuma contatada ainda.
+- Checagem de WhatsApp dos 5 números **não deu pra fazer** (sessão remota sem navegador local) — Allan precisa checar manualmente ou ligar direto nos 4 números fixos.
+- **Pivot de arquitetura decidido:** Kronos Operação vira SaaS hospedado (não mais "roda local"). Site, README, tabela de preços e demo já corrigidos e no ar. **Falta construir de verdade** a infra multi-tenant — hoje só existe o protótipo local (SQLite). Próxima decisão: reaproveitar `14_Kronos_SaaS/app` ou construir painel novo com banco isolado por cliente.
+
+**Site/redesign:**
+- Allan quer separar o site em 2 páginas (Agente de Atendimento / Agente Operacional) e deixar visual mais profissional — só mantém o fundo geométrico + azul da Kronos, resto muda. **Por enquanto continuar editando o site atual como está**, redesign fica pra depois.
+- Achado: plugin oficial `frontend-design` (Anthropic, repo `anthropics/claude-code`) resolve "cara de IA genérica" — não instalado nessa sessão, instalar via `/plugin` quando for a hora do redesign.
+
+**Pergunta em aberto do Allan (não respondida ainda no momento do clear):** se é cedo pra criar uma skill/MCP própria da Kronos (formalizar como MCP/skill) pro Agente Operacional, ou se deveria ir direto pra versão mais completa/"extraordinária". Recomendação a dar na próxima sessão: **é cedo** — a stack de MCP por domínio (ver `20_AutoPecas/README.md`) só compensa formalizar depois de validar manualmente com 1 loja piloto real; construir MCP/skill antes de ter cliente usando é risco de over-engineering.
+
 Wed Sep  2 17:44:14 UTC 2026
 Wed Sep  2 17:56:29 UTC 2026
 Wed Sep  2 18:02:19 UTC 2026
