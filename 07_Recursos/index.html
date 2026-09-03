@@ -23,7 +23,7 @@
   <meta name="twitter:description" content="Inteligência que automatiza. Resultado que transforma."/>
   <meta name="twitter:image" content="https://kronosintelligence.com.br/identidade_visual/kronos_perfil_azul_marinho.png"/>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -797,7 +797,8 @@
   <p class="section-sub">Veja como a Kronos funciona especificamente para o seu tipo de negócio — e o que você ganha em cada caso.</p>
 
   <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px">
-    <button class="seg-tab seg-ativo" onclick="abrirSeg('clinica',this)">🏥 Clínicas &amp; Consultórios</button>
+    <button class="seg-tab seg-ativo" onclick="abrirSeg('operacao',this)">🔧 Autopeças (Kronos Operação)</button>
+    <button class="seg-tab" onclick="abrirSeg('clinica',this)">🏥 Clínicas &amp; Consultórios</button>
     <button class="seg-tab" onclick="abrirSeg('advocacia',this)">⚖️ Advocacia</button>
     <button class="seg-tab" onclick="abrirSeg('imobiliaria',this)">🏠 Imobiliária</button>
     <button class="seg-tab" onclick="abrirSeg('solar',this)">☀️ Energia Solar</button>
@@ -806,8 +807,78 @@
     <button class="seg-tab" onclick="abrirSeg('servicos',this)">🏪 Empresas de Serviços</button>
   </div>
 
+  <!-- AUTOPEÇAS / KRONOS OPERAÇÃO -->
+  <div id="seg-operacao" class="seg-conteudo">
+
+    <!-- ▶ DEMO: painel de terminal, não é chat de WhatsApp -->
+    <div class="op-demo">
+      <div class="op-col">
+        <div class="op-terminal">
+          <div class="op-bar">
+            <div class="op-dots"><span></span><span></span><span></span></div>
+            <div class="op-tabname"><span class="op-dotlive"></span>agente_estoque · Ouro Verde</div>
+            <div class="op-clock" id="op-clock">08:00:00</div>
+          </div>
+          <div class="op-body" id="op-body"></div>
+        </div>
+      </div>
+      <div class="op-side">
+        <div class="section-label" style="color:#a888f0;margin-bottom:10px">Kronos Operação</div>
+        <h3 style="font-size:1.35rem;font-weight:600;margin-bottom:12px;line-height:1.3">O sistema operacional de agentes que cuida do seu negócio.</h3>
+        <p style="color:var(--cinza);font-size:0.9rem;margin-bottom:22px">Instalado no computador da loja. Acompanha estoque, compara fornecedor e avisa antes do problema — todos os dias, sem que ninguém precise lembrar de checar.</p>
+        <ul class="wa-caps">
+          <li><span>📦</span> <b>Estoque</b> checado todo dia — ruptura e capital parado</li>
+          <li><span>🔎</span> <b>Fornecedor</b> pesquisado e comparado automaticamente</li>
+          <li><span>🧾</span> Escreve direto no <b>seu ERP</b> (Bling, Tiny) — sem sistema paralelo</li>
+          <li><span>🔒</span> <b>Nunca compra sozinho</b> — só apresenta pra você aprovar</li>
+          <li><span>💻</span> Roda <b>local</b>, no seu computador — dado não sai da loja</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
+      <div>
+        <h3 style="font-size:1.2rem;font-weight:600;margin-bottom:16px">Como funciona pra loja de autopeças</h3>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(144,96,224,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">📦</div>
+            <div><strong style="display:block;margin-bottom:4px">Estoque + Fornecedor</strong><span style="color:var(--cinza);font-size:0.87rem">Detecta ruptura e capital parado, pesquisa fornecedor principal e alternativo — original, paralela ou similar, com preço e prazo comparados.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(144,96,224,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">📸</div>
+            <div><strong style="display:block;margin-bottom:4px">Cadastro por foto</strong><span style="color:var(--cinza);font-size:0.87rem">Chegou peça nova? Foto vira cadastro completo — descrição, compatibilidade de veículo e preço sugerido, direto no seu sistema.</span></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="background:rgba(144,96,224,0.18);border-radius:8px;padding:8px 12px;font-size:1.2rem;flex-shrink:0">🔐</div>
+            <div><strong style="display:block;margin-bottom:4px">Segurança por design</strong><span style="color:var(--cinza);font-size:0.87rem">Cada agente só acessa o dado do próprio domínio. Nenhuma ação que mexe em dinheiro roda sem sua aprovação.</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(120,72,200,0.2);border-radius:16px;padding:28px">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#a888f0;margin-bottom:16px">O que a loja ganha</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Checagem de estoque</span><strong style="color:#18c0a0">Diária</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Comparação de fornecedor</span><strong style="color:#18c0a0">Automática</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(120,72,200,0.15);padding-bottom:12px">
+            <span style="color:var(--cinza);font-size:0.88rem">Onde roda</span><strong style="color:#18c0a0">No seu PC</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="color:var(--cinza);font-size:0.88rem">Compra sem aprovação</span><strong style="color:#18c0a0">Nunca</strong>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(120,72,200,0.15)">
+          <div style="font-size:0.78rem;color:var(--cinza)">Piloto: autopeças. Próximos: roupas, farmácia.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- CLÍNICA -->
-  <div id="seg-clinica" class="seg-conteudo">
+  <div id="seg-clinica" class="seg-conteudo" style="display:none">
 
     <!-- ▶ DEMO EM VÍDEO: conversa real (alterna Estética / Odonto) -->
     <div class="wa-demo">
@@ -1442,6 +1513,43 @@
 @media (max-width: 768px) {
   .seg-conteudo > div { grid-template-columns: 1fr !important; }
 }
+
+/* ── Kronos Operação — demo de terminal (Linha A, não é chat) ── */
+.op-demo{display:grid;grid-template-columns:400px 1fr;gap:52px;align-items:center;margin-bottom:52px}
+.op-col{display:flex;flex-direction:column;align-items:center}
+.op-terminal{width:100%;max-width:400px;background:#050b22;border:1px solid rgba(144,96,224,0.25);border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,0.55),0 0 0 1px rgba(144,96,224,0.06);overflow:hidden}
+.op-bar{background:#0a1230;border-bottom:1px solid rgba(240,244,255,0.08);padding:10px 14px;display:flex;align-items:center;gap:10px}
+.op-dots{display:flex;gap:6px;flex-shrink:0}
+.op-dots span{width:9px;height:9px;border-radius:50%}
+.op-dots span:nth-child(1){background:#e8636b}
+.op-dots span:nth-child(2){background:#e8b25e}
+.op-dots span:nth-child(3){background:#5ec98f}
+.op-tabname{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:var(--cinza);background:rgba(240,244,255,0.04);border:1px solid rgba(240,244,255,0.08);padding:3px 8px;border-radius:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.op-dotlive{width:6px;height:6px;border-radius:50%;background:#34c98f;flex-shrink:0;animation:opPulse 2.2s ease-in-out infinite}
+.op-clock{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:#5d6b91;white-space:nowrap}
+.op-body{padding:16px 16px 18px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;line-height:1.6;min-height:280px}
+.op-ln{opacity:0;transform:translateY(3px);white-space:pre-wrap;word-break:break-word}
+.op-ln.show{animation:opLnIn .28s ease-out forwards}
+.op-ln.indent{padding-left:1.4em}
+.op-ln.blank{height:1.6em}
+.op-prompt{color:#a888f0}
+.op-warn{color:#e8a23c;font-weight:600}
+.op-ok{color:#34c98f}
+.op-info{color:var(--turq);font-weight:600}
+.op-price{color:var(--branco);font-weight:600}
+.op-muted{color:#5d6b91}
+.op-cursor{display:inline-block;width:6px;height:1em;background:#a888f0;vertical-align:text-bottom;margin-left:2px;animation:opBlink 1s step-end infinite}
+.op-action{margin-top:12px;padding-top:12px;border-top:1px dashed rgba(240,244,255,0.08);display:flex;align-items:center;gap:8px;flex-wrap:wrap;opacity:0;transform:translateY(4px)}
+.op-action.show{animation:opLnIn .35s ease-out forwards}
+.op-action .q{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--branco)}
+.op-btns{display:flex;gap:6px;margin-left:auto}
+.op-btn{padding:5px 10px;border-radius:6px;border:1px solid rgba(240,244,255,0.08);font-family:'JetBrains Mono',monospace;font-weight:600;font-size:0.64rem;cursor:pointer;background:transparent;color:var(--cinza)}
+.op-btn.primary{background:linear-gradient(135deg,#9060e0,#3060c8);border-color:transparent;color:#fff}
+.op-note{margin-top:9px;font-size:0.64rem;color:#5d6b91;font-style:italic;font-family:'Inter',sans-serif}
+@keyframes opLnIn{to{opacity:1;transform:translateY(0)}}
+@keyframes opBlink{50%{opacity:0}}
+@keyframes opPulse{0%,100%{opacity:1}50%{opacity:.35}}
+@media (max-width:900px){.op-demo{grid-template-columns:1fr;justify-items:center;gap:34px}}
 </style>
 <script>
 function abrirSeg(id, btn) {
@@ -1449,12 +1557,17 @@ function abrirSeg(id, btn) {
   document.querySelectorAll('.seg-tab').forEach(function(el){ el.classList.remove('seg-ativo'); });
   document.getElementById('seg-'+id).style.display='block';
   btn.classList.add('seg-ativo');
+  if (id === 'operacao' && window.__opStart) window.__opStart();
+  if (id === 'clinica' && window.__waStartCli) window.__waStartCli();
   if (id === 'advocacia' && window.__waStart) window.__waStart();
   if (id === 'imobiliaria' && window.__waStartImob) window.__waStartImob();
   if (id === 'solar' && window.__waStartSolar) window.__waStartSolar();
   if (id === 'medica' && window.__waStartMedica) window.__waStartMedica();
   if (id === 'arquitetura' && window.__waStartArq) window.__waStartArq();
 }
+document.addEventListener('DOMContentLoaded', function(){
+  if (window.__opStart) window.__opStart();
+});
 </script>
 
 <!-- Motor da conversa animada da Léa (aba advocacia) -->
@@ -1607,7 +1720,8 @@ function abrirSeg(id, btn) {
     if (btn) btn.classList.add('wa-tg-on');
     start(nicho);
   };
-  start('estetica');
+  var startedCli = false;
+  window.__waStartCli = function(){ if (startedCli) return; startedCli = true; start('estetica'); };
 })();
 </script>
 
@@ -1840,6 +1954,111 @@ function abrirSeg(id, btn) {
 })();
 </script>
 
+<!-- Motor do terminal do Agente (aba Autopeças / Kronos Operação) -->
+<script>
+(function(){
+  var body = document.getElementById('op-body');
+  var clock = document.getElementById('op-clock');
+  if (!body) return;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var lines = [
+    {h:'<span class="op-prompt">$</span> <span class="op-muted">~/ouro-verde</span> python3 agente_estoque.py'},
+    {blank:true},
+    {h:'🔔 <b>Alerta do Agente — Estoque</b>'},
+    {blank:true},
+    {h:'<span class="op-ok">6</span> peça(s) precisam de reposição:'},
+    {blank:true},
+    {h:'<span class="op-warn">⚠ Pastilha de freio dianteira - Onix</span> <span class="op-muted">(PF-ONX-001)</span> — <span class="op-price">2</span> em estoque, mínimo é 5'},
+    {h:'<span class="op-ok">✓</span> principal — Bosch (distribuidor SP) · <span class="op-price">R$ 44,50</span> · 3d · original', indent:true},
+    {h:'· alternativo — Mercado Livre · loja XPTO · <span class="op-price">R$ 38,90</span> · 5d · paralela', indent:true},
+    {h:'· alternativo — Distribuidora Freios BR · <span class="op-price">R$ 41,00</span> · 2d · paralela', indent:true},
+    {blank:true},
+    {h:'<span class="op-warn">⚠ Amortecedor traseiro - HB20</span> <span class="op-muted">(AM-HB20-003)</span> — <span class="op-price">1</span> em estoque, mínimo é 3'},
+    {h:'<span class="op-ok">✓</span> principal — Cofap (distribuidor SP) · <span class="op-price">R$ 175,00</span> · 5d · original', indent:true},
+    {h:'· alternativo — Mercado Livre · SuspensãoTotal · <span class="op-price">R$ 149,90</span> · 7d · similar', indent:true},
+    {blank:true},
+    {h:'<span class="op-muted">··· +4 outras peças em ruptura</span>'},
+    {blank:true},
+    {h:'<span class="op-info">3</span> item(ns) com capital parado <span class="op-muted">(sem venda há 90+ dias):</span>'},
+    {blank:true},
+    {h:'🐢 Correia dentada - Uno/Palio — 22 un. paradas há 150 dias'},
+    {h:'🐢 Palheta limpador 20" — 12 un. paradas há 120 dias'},
+    {h:'🐢 Filtro de ar - Hilux — 5 un. paradas há 200 dias'},
+    {blank:true},
+    {h:'💰 Total parado: <span class="op-info">R$ 1.164,00</span>'},
+    {blank:true},
+    {h:'<span class="op-muted">O Agente não compra sozinho — essas são só as opções pra você aprovar.</span>'}
+  ];
+
+  var timers = [];
+  function lineNode(l){
+    var d = document.createElement('div');
+    d.className = 'op-ln' + (l.indent ? ' indent' : '') + (l.blank ? ' blank' : '');
+    if (!l.blank) d.innerHTML = l.h;
+    return d;
+  }
+
+  function run(){
+    body.innerHTML = '';
+    var cursor = document.createElement('span');
+    cursor.className = 'op-cursor';
+
+    var actionWrap = document.createElement('div');
+    actionWrap.className = 'op-action';
+    actionWrap.innerHTML =
+      '<span class="q"><span class="op-prompt">$</span> aprovar pedido de reposição das 6 peças?</span>' +
+      '<div class="op-btns">' +
+        '<button class="op-btn" type="button">revisar depois</button>' +
+        '<button class="op-btn primary" type="button">s — aprovar</button>' +
+      '</div>';
+    var note = document.createElement('div');
+    note.className = 'op-note';
+    note.textContent = 'Nada é comprado até você apertar "aprovar". Dados fictícios pra demonstração.';
+
+    if (reduced) {
+      lines.forEach(function(l){ var n = lineNode(l); n.classList.add('show'); body.appendChild(n); });
+      body.appendChild(actionWrap); actionWrap.classList.add('show');
+      body.appendChild(note);
+      return;
+    }
+
+    var t = 150;
+    lines.forEach(function(l){
+      timers.push(setTimeout(function(){
+        var n = lineNode(l);
+        body.appendChild(n);
+        if (body.contains(cursor)) cursor.remove();
+        body.appendChild(cursor);
+        requestAnimationFrame(function(){ n.classList.add('show'); });
+      }, t));
+      t += l.blank ? 55 : 105;
+    });
+
+    timers.push(setTimeout(function(){
+      cursor.remove();
+      body.appendChild(actionWrap);
+      requestAnimationFrame(function(){ actionWrap.classList.add('show'); });
+      body.appendChild(note);
+    }, t + 200));
+  }
+
+  function tickClock(){
+    if (!clock) return;
+    var now = new Date();
+    var h = String(now.getHours()).padStart(2,'0');
+    var m = String(now.getMinutes()).padStart(2,'0');
+    var s = String(now.getSeconds()).padStart(2,'0');
+    clock.textContent = h + ':' + m + ':' + s;
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  var started = false;
+  window.__opStart = function(){ if (started) return; started = true; run(); };
+})();
+</script>
+
 <!-- POR QUE A KRONOS -->
 <section id="por-que" style="border-top:1px solid rgba(120,72,200,0.12)">
   <div class="section-label">Por que a Kronos</div>
@@ -1916,7 +2135,62 @@ function abrirSeg(id, btn) {
   <h2 class="section-title">Planos claros,<br/>sem letra miúda</h2>
   <p class="section-sub">Implantação única + mensalidade fixa, sem surpresa. Sem fidelidade — fica porque funciona.</p>
 
-  <!-- CARDS -->
+  <!-- KRONOS OPERAÇÃO -->
+  <div class="section-label" style="margin-top:0">Kronos Operação</div>
+  <h3 style="font-size:1.25rem;font-weight:600;margin:6px 0 22px">O sistema operacional de agentes — piloto: autopeças</h3>
+  <div class="planos-grid">
+    <div class="plano">
+      <div class="plano-nome">Piloto Operacional</div>
+      <div class="plano-publico">Loja física começando pelo essencial</div>
+      <div class="plano-preco"><span>R$ 397</span><small> /mês</small></div>
+      <div style="font-size:0.75rem;color:var(--cinza);margin-bottom:10px">+ R$ 1.500 implantação</div>
+      <ul>
+        <li>Agente Estoque — ruptura e capital parado</li>
+        <li>Agente Fornecedores — compara preço e prazo</li>
+        <li>Roda local, no seu computador</li>
+        <li class="off">Cadastro de produto por foto</li>
+        <li class="off">Marketing e conteúdo</li>
+        <li class="off">Financeiro, fiscal e RH</li>
+      </ul>
+      <a href="https://wa.me/5519971266736?text=Olá!%20Tenho%20interesse%20no%20Piloto%20Operacional%20da%20Kronos%20Intelligence." target="_blank" class="btn-secondary">Quero o Piloto</a>
+    </div>
+
+    <div class="plano plano-destaque">
+      <div class="plano-tag">⭐ Recomendado</div>
+      <div class="plano-nome">Operação Completa</div>
+      <div class="plano-publico">Loja que quer estoque + cadastro + marketing</div>
+      <div class="plano-preco"><span>R$ 897</span><small> /mês</small></div>
+      <div style="font-size:0.75rem;color:rgba(160,160,200,0.7);margin-bottom:10px">+ R$ 3.000 implantação</div>
+      <ul>
+        <li>Tudo do Piloto Operacional</li>
+        <li>Cadastro de produto por foto (descrição + preço)</li>
+        <li>Agente Vendas — histórico e venda casada</li>
+        <li>Agente Marketing/Conteúdo</li>
+        <li class="off">Financeiro, fiscal e RH</li>
+      </ul>
+      <a href="https://wa.me/5519971266736?text=Olá!%20Tenho%20interesse%20na%20Operação%20Completa%20da%20Kronos%20Intelligence." target="_blank" class="btn-primary">Quero a Operação Completa</a>
+    </div>
+
+    <div class="plano">
+      <div class="plano-nome">Agente Completo</div>
+      <div class="plano-publico">Operação inteira, do estoque ao financeiro</div>
+      <div class="plano-preco"><span>R$ 1.497</span><small> /mês</small></div>
+      <div style="font-size:0.75rem;color:var(--cinza);margin-bottom:10px">+ R$ 5.000 implantação</div>
+      <ul>
+        <li>Tudo da Operação Completa</li>
+        <li>Agente Financeiro — contas a pagar/receber</li>
+        <li>Agente Fiscal — concilia nota, alerta prazo</li>
+        <li>Agente RH — rascunho de folha</li>
+        <li>Personalização total + suporte dedicado</li>
+      </ul>
+      <a href="https://wa.me/5519971266736?text=Olá!%20Tenho%20interesse%20no%20Agente%20Completo%20de%20Operação%20da%20Kronos%20Intelligence." target="_blank" class="btn-secondary">Quero o Agente Completo</a>
+    </div>
+  </div>
+  <div style="margin-top:14px;font-size:0.78rem;color:var(--cinza)">Assinatura de provedor externo (nota fiscal, folha, catálogo de peças) é à parte — a Kronos integra, não revende.</div>
+
+  <!-- AGENTE DE ATENDIMENTO -->
+  <div class="section-label" style="margin-top:52px">Agente de Atendimento</div>
+  <h3 style="font-size:1.25rem;font-weight:600;margin:6px 0 22px">Bot de WhatsApp por segmento — clínicas, advocacia, imobiliárias e serviços</h3>
   <div class="planos-grid">
     <div class="plano">
       <div class="plano-nome">Essencial</div>
