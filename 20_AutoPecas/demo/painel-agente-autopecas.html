@@ -1,0 +1,314 @@
+<title>Painel do Agente</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg:#020c2a;
+    --term-bg:#08102c;
+    --term-bar:#0d1638;
+    --border:rgba(144,96,224,0.20);
+    --border-soft:rgba(240,244,255,0.08);
+    --text:#f0f4ff;
+    --text-muted:#8898bb;
+    --text-faint:#546089;
+    --accent:#9060e0;
+    --indigo:#3060c8;
+    --turq:#4fd3e8;
+    --warning:#f0b25e;
+    --positive:#34c98f;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    margin:0;
+    padding:56px 24px 80px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:34px;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(74,14,144,0.32), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 88% 8%, rgba(24,144,192,0.12), transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+  body > *{ position:relative; z-index:1; }
+
+  .intro{ max-width:660px; text-align:center; display:flex; flex-direction:column; gap:14px; }
+  .eyebrow{
+    font-size:0.72rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--accent); font-family:'JetBrains Mono',monospace;
+  }
+  h1{
+    font-size:1.9rem; font-weight:800; margin:0; letter-spacing:-0.01em; text-wrap:balance; line-height:1.2;
+    background:linear-gradient(135deg,#c8b0ff,#7cd4e8);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .intro p{
+    margin:0; color:var(--text-muted); font-size:0.98rem; line-height:1.65; max-width:58ch; margin-inline:auto;
+  }
+  .intro p strong{ color:var(--text); font-weight:600; }
+  .intro p .linha-b{ color:var(--turq); font-weight:600; }
+
+  /* ── Janela de terminal ── */
+  .terminal{
+    width:640px;
+    max-width:94vw;
+    background:var(--term-bg);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(144,96,224,0.06);
+    overflow:hidden;
+  }
+
+  .term-bar{
+    background:var(--term-bar);
+    border-bottom:1px solid var(--border-soft);
+    padding:11px 16px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .term-dots{ display:flex; gap:7px; flex-shrink:0; }
+  .term-dots span{ width:11px; height:11px; border-radius:50%; }
+  .term-dots span:nth-child(1){ background:#e8636b; }
+  .term-dots span:nth-child(2){ background:#e8b25e; }
+  .term-dots span:nth-child(3){ background:#5ec98f; }
+
+  .term-tab{
+    display:flex; align-items:center; gap:7px;
+    font-family:'JetBrains Mono',monospace; font-size:0.74rem; color:var(--text-muted);
+    background:rgba(240,244,255,0.04); border:1px solid var(--border-soft);
+    padding:4px 10px; border-radius:7px;
+  }
+  .term-tab .dot{ width:6px; height:6px; border-radius:50%; background:var(--positive); animation:pulse 2.2s ease-in-out infinite; flex-shrink:0; }
+
+  .term-clock{
+    margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-faint);
+    white-space:nowrap;
+  }
+
+  .term-body{
+    padding:20px 22px 22px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.82rem;
+    line-height:1.68;
+    min-height:340px;
+  }
+
+  .ln{ opacity:0; transform:translateY(3px); white-space:pre-wrap; word-break:break-word; }
+  .ln.show{ animation:lnIn .28s ease-out forwards; }
+  .ln .prompt{ color:var(--accent); }
+  .ln .path{ color:var(--text-faint); }
+  .ln .cmd{ color:var(--text); }
+  .ln .h1{ color:var(--text); font-weight:700; }
+  .ln .warn{ color:var(--warning); font-weight:600; }
+  .ln .warn-tag{ color:var(--warning); }
+  .ln .ok{ color:var(--positive); }
+  .ln .muted{ color:var(--text-faint); }
+  .ln .info{ color:var(--turq); font-weight:600; }
+  .ln .price{ color:var(--text); font-weight:600; }
+  .ln .indent{ padding-left:1.6em; }
+  .ln.blank{ height:1.68em; }
+
+  .cursor{
+    display:inline-block; width:7px; height:1.05em; background:var(--accent);
+    vertical-align:text-bottom; margin-left:2px; opacity:0;
+    animation:blink 1s step-end infinite;
+  }
+  .cursor.show{ opacity:1; }
+
+  /* ── prompt de ação (estilo CLI) ── */
+  .term-prompt{
+    margin-top:14px; padding-top:14px; border-top:1px dashed var(--border-soft);
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    opacity:0; transform:translateY(4px);
+  }
+  .term-prompt.show{ animation:lnIn .35s ease-out forwards; }
+  .term-prompt .q{ font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:var(--text); }
+  .term-prompt .q .prompt{ color:var(--accent); }
+
+  .term-btns{ display:flex; gap:8px; margin-left:auto; }
+  .btn{
+    padding:7px 14px; border-radius:7px; border:1px solid var(--border-soft);
+    font-family:'JetBrains Mono',monospace; font-weight:600; font-size:0.76rem; cursor:pointer;
+    background:transparent; color:var(--text-muted);
+    transition:filter .15s ease, transform .15s ease, border-color .15s ease;
+  }
+  .btn:hover{ filter:brightness(1.15); }
+  .btn:active{ transform:scale(0.97); }
+  .btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .btn-ghost:hover{ border-color:var(--text-muted); color:var(--text); }
+  .btn-primary{ background:linear-gradient(135deg,var(--accent),var(--indigo)); border-color:transparent; color:#fff; }
+
+  .term-note{
+    margin-top:12px; font-size:0.72rem; color:var(--text-faint); font-style:italic;
+    font-family:'Inter',sans-serif;
+  }
+
+  @keyframes lnIn{ to{ opacity:1; transform:translateY(0); } }
+  @keyframes blink{ 50%{ opacity:0; } }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+
+  .replay{
+    display:flex; align-items:center; gap:7px;
+    background:transparent; border:1px solid var(--border-soft); color:var(--text-muted);
+    font-family:'JetBrains Mono',monospace; font-size:0.74rem; padding:8px 14px;
+    border-radius:100px; cursor:pointer; transition:border-color .15s ease, color .15s ease;
+  }
+  .replay:hover{ border-color:var(--accent); color:var(--text); }
+  .replay:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .replay svg{ width:13px; height:13px; }
+
+  .caption{ max-width:640px; text-align:center; font-size:0.74rem; color:var(--text-faint); line-height:1.6; }
+  .caption code{ font-family:'JetBrains Mono',monospace; color:var(--text-muted); }
+
+  @media (max-width:700px){
+    .terminal{ width:100%; }
+    .term-body{ font-size:0.74rem; padding:16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ln, .term-prompt{ animation:none !important; opacity:1 !important; transform:none !important; }
+    .cursor, .term-tab .dot{ animation:none; }
+  }
+</style>
+
+<div class="intro">
+  <div class="eyebrow">Linha A · Agente Operacional Inteligente</div>
+  <h1>Isso roda no computador da loja — não no WhatsApp.</h1>
+  <p>O <span class="linha-b">Agente de Atendimento</span> (WhatsApp) já existe, já funciona e continua sendo vendido — nada muda nele. Este é um <strong>produto diferente</strong>: sem chat, sem bolha de mensagem. Uma tela que roda local e mostra só o que a loja precisa saber, todo dia.</p>
+</div>
+
+<div class="terminal">
+  <div class="term-bar">
+    <div class="term-dots"><span></span><span></span><span></span></div>
+    <div class="term-tab"><span class="dot"></span>agente_estoque · Ouro Verde</div>
+    <div class="term-clock" id="clock">08:00:00</div>
+  </div>
+  <div class="term-body" id="body"></div>
+</div>
+
+<button class="replay" id="replay" type="button">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+  Rodar verificação de novo
+</button>
+
+<p class="caption">Dados fictícios — mesma saída do protótipo real (<code>20_AutoPecas/mvp/agente_estoque.py</code>), só estilizado pra tela. Rascunho de layout pra aprovação antes de entrar no site.</p>
+
+<script>
+(function(){
+  var body = document.getElementById('body');
+  var clock = document.getElementById('clock');
+  var replayBtn = document.getElementById('replay');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var lines = [
+    {h:'<span class="prompt">$</span> <span class="path">~/ouro-verde</span> <span class="cmd">python3 agente_estoque.py</span>'},
+    {blank:true},
+    {h:'<span class="h1">🔔 Alerta do Agente — Estoque</span>'},
+    {blank:true},
+    {h:'<span class="ok">6</span> peça(s) precisam de reposição:'},
+    {blank:true},
+    {h:'<span class="warn-tag">⚠</span> <span class="warn">Pastilha de freio dianteira - Onix</span> <span class="muted">(PF-ONX-001)</span> — <span class="price">2</span> em estoque, mínimo é 5'},
+    {h:'<span class="ok">✓</span> principal — Bosch (distribuidor SP) · <span class="price">R$ 44,50</span> · 3d · original', indent:true},
+    {h:'· alternativo — Mercado Livre · loja XPTO · <span class="price">R$ 38,90</span> · 5d · paralela', indent:true},
+    {h:'· alternativo — Distribuidora Freios BR · <span class="price">R$ 41,00</span> · 2d · paralela', indent:true},
+    {blank:true},
+    {h:'<span class="warn-tag">⚠</span> <span class="warn">Amortecedor traseiro - HB20</span> <span class="muted">(AM-HB20-003)</span> — <span class="price">1</span> em estoque, mínimo é 3'},
+    {h:'<span class="ok">✓</span> principal — Cofap (distribuidor SP) · <span class="price">R$ 175,00</span> · 5d · original', indent:true},
+    {h:'· alternativo — Mercado Livre · SuspensãoTotal · <span class="price">R$ 149,90</span> · 7d · similar', indent:true},
+    {blank:true},
+    {h:'<span class="muted">··· +4 outras peças em ruptura (relatório completo no painel)</span>'},
+    {blank:true},
+    {h:'<span class="info">3</span> item(ns) com capital parado <span class="muted">(sem venda há 90+ dias):</span>'},
+    {blank:true},
+    {h:'🐢 Correia dentada - Uno/Palio — 22 un. paradas há 150 dias'},
+    {h:'🐢 Palheta limpador 20" — 12 un. paradas há 120 dias'},
+    {h:'🐢 Filtro de ar - Hilux — 5 un. paradas há 200 dias'},
+    {blank:true},
+    {h:'💰 Total parado: <span class="info">R$ 1.164,00</span>'},
+    {blank:true},
+    {h:'<span class="muted">O Agente não compra sozinho — essas são só as opções pra você aprovar.</span>'}
+  ];
+
+  var timers = [];
+  function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+
+  function lineNode(l){
+    var d = document.createElement('div');
+    d.className = 'ln' + (l.indent ? ' indent' : '') + (l.blank ? ' blank' : '');
+    if (!l.blank) d.innerHTML = l.h;
+    return d;
+  }
+
+  function run(){
+    clearTimers();
+    body.innerHTML = '';
+
+    var cursor = document.createElement('span');
+    cursor.className = 'cursor';
+
+    var promptWrap = document.createElement('div');
+    promptWrap.className = 'term-prompt';
+    promptWrap.innerHTML =
+      '<span class="q"><span class="prompt">$</span> aprovar pedido de reposição das 6 peças?</span>' +
+      '<div class="term-btns">' +
+        '<button class="btn btn-ghost" type="button">revisar depois</button>' +
+        '<button class="btn btn-primary" type="button">s — aprovar</button>' +
+      '</div>';
+
+    var note = document.createElement('div');
+    note.className = 'term-note';
+    note.textContent = 'Nada é comprado até você apertar “aprovar”.';
+
+    if (reduced) {
+      lines.forEach(function(l){ var n = lineNode(l); n.classList.add('show'); body.appendChild(n); });
+      body.appendChild(promptWrap); promptWrap.classList.add('show');
+      body.appendChild(note);
+      return;
+    }
+
+    var t = 200;
+    lines.forEach(function(l){
+      timers.push(setTimeout(function(){
+        var n = lineNode(l);
+        body.appendChild(n);
+        if (body.contains(cursor)) cursor.remove();
+        body.appendChild(cursor);
+        cursor.classList.add('show');
+        requestAnimationFrame(function(){ n.classList.add('show'); });
+      }, t));
+      t += l.blank ? 70 : 130;
+    });
+
+    timers.push(setTimeout(function(){
+      cursor.remove();
+      body.appendChild(promptWrap);
+      requestAnimationFrame(function(){ promptWrap.classList.add('show'); });
+      body.appendChild(note);
+    }, t + 250));
+  }
+
+  function tickClock(){
+    var now = new Date();
+    var h = String(now.getHours()).padStart(2,'0');
+    var m = String(now.getMinutes()).padStart(2,'0');
+    var s = String(now.getSeconds()).padStart(2,'0');
+    clock.textContent = h + ':' + m + ':' + s;
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  replayBtn.addEventListener('click', run);
+  run();
+})();
+</script>

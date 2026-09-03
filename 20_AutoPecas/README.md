@@ -2,7 +2,7 @@
 
 **Nome oficial da Linha A, decidido em 2026-09-02: "Agente Operacional Inteligente para Negócios."** É a chamada principal do serviço novo da Kronos: implantação de IA sob medida dentro de empresa, com segurança por design, em vez de bot de atendimento (Linha B, já comoditizada pelo Meta).
 
-**Status: desenho fechado, execução não iniciada** (fora o protótipo em `mvp/`, que já roda com dado fictício).
+**Status: desenho fechado, execução não iniciada** (fora o protótipo em `mvp/`, que já roda com dado fictício, e o rascunho de demo em `demo/`, já aprovado na direção).
 
 Histórico completo da decisão está em `00_Empresa_Kronos/12_Backlog_Ideias_Servicos/backlog.md` — este README consolida o desenho já fechado como ponto de partida do projeto.
 
