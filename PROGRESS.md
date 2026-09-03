@@ -54,18 +54,21 @@ na tarefa diária. Nada mais está bloqueado.
 
 ---
 
-## Checkpoint (2026-09-03, antes de clear por contexto alto)
+## Checkpoint (2026-09-03, antes de clear — painel Kronos Operação NO AR e confirmado)
 
-**Autopeças/Kronos Operação:**
-- Captação #2 feita: 40 lojas (Pedreira e região), triagem de 5 candidatas + 5 rascunhos de mensagem de diagnóstico prontos em `20_AutoPecas/LEADS.md` — nenhuma contatada ainda.
-- Checagem de WhatsApp dos 5 números **não deu pra fazer** (sessão remota sem navegador local) — Allan precisa checar manualmente ou ligar direto nos 4 números fixos.
-- **Pivot de arquitetura decidido:** Kronos Operação vira SaaS hospedado (não mais "roda local"). Site, README, tabela de preços e demo já corrigidos e no ar. **Falta construir de verdade** a infra multi-tenant — hoje só existe o protótipo local (SQLite). Próxima decisão: reaproveitar `14_Kronos_SaaS/app` ou construir painel novo com banco isolado por cliente.
+**Autopeças/Kronos Operação — estado atual, tudo pronto pra prospectar:**
+- **Painel real, hospedado, testado e confirmado funcionando:** https://kronosintelligence.com.br/operacao (`14_Kronos_SaaS/app-operacao/`, deploy Docker+Traefik, container `kronos-operacao`). Login confirmado pelo Allan com credenciais novas (senhas sem caracteres ambíguos, geradas nesta sessão, nunca commitadas — só o Allan tem). ⚠️ Não confundir com `/painel` (esse é o painel de atendimento, Linha B — outro sistema, outros usuários; já causou um "senha inválida" por engano de URL).
+- **88 leads levantados** em `20_AutoPecas/LEADS.md` (3 captações): #1 (8, Campinas) e #2 (40, Pedreira/região — maioria telefone FIXO) e #3 (40, região ampliada DDD 19 — todos com CELULAR/WhatsApp confirmado na fonte, sem duplicata das anteriores).
+- **Mensagem de prospecção completa** (o quê/como funciona/como acompanha) salva em `LEADS.md`, seção "Mensagem de prospecção (modelo)" — pronta pra personalizar e usar nas 40 da Captação #3.
+- Pivot de arquitetura (local→SaaS hospedado) está 100% concluído: decisão, docs, site e infra real, tudo consistente.
 
-**Site/redesign:**
-- Allan quer separar o site em 2 páginas (Agente de Atendimento / Agente Operacional) e deixar visual mais profissional — só mantém o fundo geométrico + azul da Kronos, resto muda. **Por enquanto continuar editando o site atual como está**, redesign fica pra depois.
-- Achado: plugin oficial `frontend-design` (Anthropic, repo `anthropics/claude-code`) resolve "cara de IA genérica" — não instalado nessa sessão, instalar via `/plugin` quando for a hora do redesign.
+**Site/redesign (ainda não iniciado, fica pra depois):**
+- Allan quer separar o site em 2 páginas (Agente de Atendimento / Agente Operacional) e deixar visual mais profissional — só mantém o fundo geométrico + azul da Kronos, resto muda. Continuar editando o site atual como está até ele sinalizar pra começar o redesign.
+- Achado: plugin oficial `frontend-design` (Anthropic, repo `anthropics/claude-code`) resolve "cara de IA genérica" — não instalado nessa sessão, instalar via `/plugin` quando for a hora.
 
-**Pergunta em aberto do Allan (não respondida ainda no momento do clear):** se é cedo pra criar uma skill/MCP própria da Kronos (formalizar como MCP/skill) pro Agente Operacional, ou se deveria ir direto pra versão mais completa/"extraordinária". Recomendação a dar na próxima sessão: **é cedo** — a stack de MCP por domínio (ver `20_AutoPecas/README.md`) só compensa formalizar depois de validar manualmente com 1 loja piloto real; construir MCP/skill antes de ter cliente usando é risco de over-engineering.
+**Próxima ação real:** escolher quais/quantas das 40 da Captação #3 abordar primeiro e personalizar a mensagem-modelo por loja (mesmo padrão usado nas 5 primeiras da Captação #2) — Allan ainda não escolheu quando o clear foi pedido.
+
+**Pergunta em aberto do Allan de sessão anterior, ainda não fechada:** se é cedo pra criar uma skill/MCP própria da Kronos pro Agente Operacional, ou ir direto pra versão completa. Recomendação registrada: é cedo — só formalizar depois de validar manualmente com 1 loja piloto real.
 
 Wed Sep  2 17:44:14 UTC 2026
 Wed Sep  2 17:56:29 UTC 2026

@@ -225,9 +225,25 @@ Não dupliquei nenhuma loja das Captações #1 e #2 (conferi nome e endereço um
 - "Autopeças Europa" (linha 4, Sta. Bárbara D'Oeste) e "Autopeças Europa" (linha 14, Santa Gertrudes) são empresas diferentes, mesmo nome — confirmar ao abordar.
 - Linhas 9 (JP Automotiva) e 24 (Morada Centro Automotivo) são mais "centro automotivo"/linha pesada do que autopeças de bairro pura — ainda dentro do critério (vendem peça), mas o perfil de dono pode ser um pouco mais estruturado.
 
+## Mensagem de prospecção (modelo, 2026-09-03)
+
+Mensagem completa pra abordar essas 40 (e reaproveitável pras próximas captações) — explica o quê, como funciona e como a loja acompanha, antes de mandar a pergunta de diagnóstico. Rascunho, nenhuma enviada ainda.
+
+> Oi! Tudo bem? Sou o Allan, da Kronos — trabalho com implementação de IA pra negócio local aqui na região de Campinas.
+>
+> Construí um agente inteligente pensado pra loja de autopeças. Explico rápido:
+>
+> 📦 **O que ele faz:** todo dia, sozinho, ele confere seu estoque — avisa quando uma peça tá quase acabando (ruptura) e mostra o que já não vende há meses e tá com dinheiro parado. Quando falta peça, ele já pesquisa fornecedor (original e alternativo), compara preço e prazo, e te mostra as opções.
+>
+> 🔒 **Como funciona:** ele lê os dados do sistema que você já usa (Bling, Tiny, ou até planilha) — não troca seu jeito de vender, só fica de olho no que passa despercebido no corre do dia a dia. E o mais importante: ele **nunca compra nada sozinho** — só te mostra as opções, quem decide é você.
+>
+> 📱 **Como você acompanha:** você entra num painel próprio da sua loja, com login e senha só seus, de qualquer lugar (celular, computador). Não precisa perguntar nada — o painel já mostra tudo atualizado.
+>
+> Posso te fazer uma pergunta rápida, sem compromisso: hoje o controle de estoque de vocês é em algum sistema ou ainda é mais na mão? Se quiser, te mostro como funciona na prática 🙂
+
 ## Próximo passo (Captação #3)
 
-Essas 40 já têm WhatsApp direto — dá pra ir direto pra a mensagem de diagnóstico (mesmo roteiro/pergunta central da Captação #2) sem o problema do fixo. Ainda não escrevi o roteiro individual pra essa leva nem escolhi as primeiras pra abordar — só avise quais/quantas quer priorizar que eu preparo as mensagens no mesmo padrão.
+Essas 40 já têm WhatsApp direto — dá pra usar a mensagem acima direto, sem o problema do fixo. Ainda não escolhi as primeiras pra abordar — só avise quais/quantas quer priorizar que eu personalizo (nome da loja/cidade) no mesmo padrão usado nas 5 primeiras da Captação #2.
 
 Sources (Captação #3):
 - [Auto Peças Capuava – Site da Cidade Valinhos](https://www.sitedacidade.com.br/endereco-telefone-whatsapp/auto-pecas-capuava-2415-em-valinhos-sp)
