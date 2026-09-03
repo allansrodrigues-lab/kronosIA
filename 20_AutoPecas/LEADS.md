@@ -167,3 +167,105 @@ Sources (Captação #2):
 - [Auto Pecas Fujimura em Cosmópolis, SP](https://www.diariocidade.com/sp/cosmopolis/guia/auto-pecas-fujimura-30282605000183/)
 - [Comércio de Peças Novas e Usadas Irmãos Devinhale](https://www.listamais.com.br/local/cad_idX7B0Df9/comercio-de-pecas-novas-e-usadas-irmaos-devinhale-auto-pecas-em-cosmopolis-sp)
 - [AUTOPECAS E MONTCAR Mogi Guaçu](https://guiafacil.com/site/autopecas-e-montcar/mogi-guacu/sp/1938914020)
+
+---
+
+## Captação #3 (2026-09-03) — foco em celular/WhatsApp
+
+Pedido do Allan: como a maioria dos telefones da Captação #2 é fixo comercial (não dá pra abrir conversa direta no WhatsApp), essa captação levantou 40 lojas **novas** de autopeças com **telefone celular confirmado na fonte** (9 dígitos, começando com 9 — a maioria divulgada como WhatsApp da própria loja em diretório, Instagram ou Facebook). Nenhum número foi arredondado ou adivinhado: toda loja cujo único contato encontrado era fixo ficou de fora. **Nenhuma loja foi contatada** — é levantamento, mesma regra das captações anteriores. Priorizei o DDD 19 (Campinas e metropolitana — Valinhos, Vinhedo, Indaiatuba, Hortolândia, Sumaré, Paulínia, Americana, Santa Bárbara D'Oeste, Nova Odessa, Monte Mor, Louveira, Holambra e mais bairros de Campinas), mas para completar 40 com celular confirmado precisei espalhar pela região do Circuito das Águas e Piracicabana, ainda toda DDD 19: Piracicaba, Rio Claro, Pirassununga, Mogi Guaçu, Porto Ferreira, São João da Boa Vista, Vargem Grande do Sul, Casa Branca, Aguaí, Espírito Santo do Pinhal, Águas da Prata, Santa Gertrudes, Capivari, Cosmópolis e Socorro. **Não saí do DDD 19 em nenhum momento** — todos os 40 números abaixo são (19).
+
+Não dupliquei nenhuma loja das Captações #1 e #2 (conferi nome e endereço um a um antes de incluir). Em alguns casos apareceu uma filial/variação de nome já usado (ex.: "Alemão Autopeças" tem unidade própria em Amparo além da de Ribeirão já listada, "Tavinho Autopeças" e "Revisa Auto Peças" de Itapira/Cosmópolis reapareceram com celular confirmado) — esses ficaram de fora por já constarem na Captação #2, mesmo tendo achado o celular deles agora; se quiser reabordar esses dois com WhatsApp em vez do fixo já listado, aviso à parte.
+
+| # | Loja | Cidade | Endereço | Telefone |
+|---|---|---|---|---|
+| 1 | Auto Peças Capuava | Valinhos | Rod. Flávio de Carvalho, 1215, Jd. São Paulo | (19) 97417-0477 |
+| 2 | Autopeças Romaninho | Americana | Av. Rafael Vitta, 444, Jd. São Domingos | (19) 99755-1007 |
+| 3 | Girley Suspensão | Americana | R. José Bonifácio, 447, Chácara Machadinho | (19) 99206-3059 |
+| 4 | Auto Peças Europa | Santa Bárbara D'Oeste | Av. Alonso Keese Dodson, 182, Planalto do Sol II | (19) 98235-7184 |
+| 5 | Garcia e Guedes Auto Peças | Nova Odessa | R. Duque de Caxias, 231, Centro | (19) 98143-4894 |
+| 6 | Daas Mel Autopeças | Louveira | Av. Ricieri Chiquetto, 281, Sto. Antônio | (19) 99686-6204 |
+| 7 | Casa das Baterias 2 Irmãos | Monte Mor | R. Hipólito Piva, 20, Centro | (19) 99227-2497 |
+| 8 | Deninho Autopeças | Piracicaba | Av. Armando Sales de Oliveira, 1515, Centro | (19) 99785-3029 |
+| 9 | JP Automotiva | Piracicaba | — (linha pesada, importados) | (19) 97420-8300 |
+| 10 | IBrasileira Auto Peças | Hortolândia | R. Líbero Badaró, 277, Jd. do Bosque | (19) 99325-8391 |
+| 11 | Bella Autopeças | Hortolândia | Av. Princesa Isabel, 593, Jd. Amanda I | (19) 98168-9039 |
+| 12 | Vi Auto Peças | Sumaré | R. João Ferreira de Castilho, 165, Nova Veneza | (19) 97415-6255 |
+| 13 | Auto Elétrica São Judas Tadeu | Santa Gertrudes | R. Marcos, 985, Jd. Luciana | (19) 99891-0572 |
+| 14 | Autopeças Europa | Santa Gertrudes | — | (19) 98124-3111 |
+| 15 | Ricardo Autopeças e Acessórios | Espírito Santo do Pinhal | Av. João Bertoldo, 160, Parque das Nações | (19) 99355-5408 |
+| 16 | Kiko Autopeças | Aguaí | R. Nicola Carnaval, 90, Vila Montevidéu | (19) 99287-0709 |
+| 17 | Oficina Mecânica e Auto Peças Paulista | Aguaí | Av. Miguel Biazzo, 901, Parque Miguelito | (19) 99429-5923 |
+| 18 | Autocar | Casa Branca | Av. Presidente Kennedy, 27, Centro | (19) 98136-1831 |
+| 19 | ELLO Autopeças | Sumaré | Av. Eng. Jayme Pinheiro Ulhôa Cintra, 2416, Pq. Bandeirantes | (19) 99103-4391 |
+| 20 | Sensor Auto Peças | São João da Boa Vista | R. Mato Grosso, 440, Vila Fleming | (19) 99758-3293 |
+| 21 | Auto Peças Saldanha | São João da Boa Vista | Av. Brasília, 1336, Vila Loyola | (19) 99973-9303 |
+| 22 | Trovão Comércio de Peças p/ Carros Antigos | Vargem Grande do Sul | R. Capitão Gabriel Ribeiro, 379, Centro | (19) 98244-8899 |
+| 23 | Auto Peças Central | Porto Ferreira | R. Daniel de Oliveira Carvalho, 964, Jd. Primavera | (19) 99208-5729 |
+| 24 | Morada Centro Automotivo | Pirassununga | Av. Painguás, 1345, Jd. Rosim | (19) 99800-0911 |
+| 25 | Campedrini Autopeças e Importados | Mogi Guaçu | Av. 9 de Abril, 893 | (19) 98239-3583 |
+| 26 | Autopeças Vimal (Casa Vimal) | Pirassununga | R. Siqueira Campos, 1256, Centro | (19) 99808-9219 |
+| 27 | Autopeças Eneo Palazzi (Primo Auto Peças) | Águas da Prata | R. Afonso Fernandes, 74, Cascata | (19) 99931-8430 |
+| 28 | Carburadores Garcia | Campinas | Av. Ibirapuera, 354, Jd. Londres | (19) 99390-8540 |
+| 29 | DG Auto Peças | Holambra | — | (19) 99600-5333 |
+| 30 | Souza Auto Peças (HL/SG Souza e Godói) | Capivari | R. Franklina de Almeida Barros, 234, Centro | (19) 99399-1319 |
+| 31 | Auto Peças 3R | Rio Claro | R. 6-A, 1269 | (19) 99752-0863 |
+| 32 | Mega Auto Peças | Sumaré | Av. Fuad Assef Maluf, 15, Jd. Picerno | (19) 99446-2486 |
+| 33 | Izidio Auto Peças e Acessórios | Cosmópolis | R. 25 de Dezembro, 301 | (19) 98137-2267 |
+| 34 | Auto Peças 101 | Hortolândia | Av. Tarsila do Amaral, 850, Jd. Amanda II | (19) 98827-4394 |
+| 35 | Casagrande Autopeças & Centro Automotivo Express | Valinhos | Av. Independência, 2070, Jd. Sto. Antônio | (19) 99221-1201 |
+| 36 | Corujão 4 Auto Peças | Americana | Av. Iacanga, 410, Vila Mollon IV | (19) 99920-0014 |
+| 37 | 3 Irmãos Auto Peças e Oficina Mecânica | Piracicaba | Av. Raposo Tavares, 586, Paulicéia | (19) 98239-0671 |
+| 38 | Auto Peças Avenida | Socorro | R. Dr. Hallin, Centro | (19) 99755-6568 |
+| 39 | Auto Peças Cintra | Socorro | R. Dr. Hallin Feres, 445, Centro | (19) 97138-9378 |
+| 40 | Auto Peças Trevo | Santo Antônio de Posse | Av. Marginal José Pandolfo | (19) 97419-9138 |
+
+**Leitura rápida:**
+- Todos os 40 telefones acima são celular (9 dígitos, começa com 9) confirmado na fonte como contato da própria loja — a maioria explicitamente rotulado "WhatsApp" no diretório/Instagram/Facebook de origem.
+- Piracicaba, Hortolândia e Sumaré renderam mais de um lead cada (3 lojas por cidade) por serem polos maiores; a maior parte das cidades pequenas do Circuito das Águas só tinha 1 loja com celular achável — muita loja pequena da região só diverge o fixo mesmo.
+- "Autopeças Europa" (linha 4, Sta. Bárbara D'Oeste) e "Autopeças Europa" (linha 14, Santa Gertrudes) são empresas diferentes, mesmo nome — confirmar ao abordar.
+- Linhas 9 (JP Automotiva) e 24 (Morada Centro Automotivo) são mais "centro automotivo"/linha pesada do que autopeças de bairro pura — ainda dentro do critério (vendem peça), mas o perfil de dono pode ser um pouco mais estruturado.
+
+## Próximo passo (Captação #3)
+
+Essas 40 já têm WhatsApp direto — dá pra ir direto pra a mensagem de diagnóstico (mesmo roteiro/pergunta central da Captação #2) sem o problema do fixo. Ainda não escrevi o roteiro individual pra essa leva nem escolhi as primeiras pra abordar — só avise quais/quantas quer priorizar que eu preparo as mensagens no mesmo padrão.
+
+Sources (Captação #3):
+- [Auto Peças Capuava – Site da Cidade Valinhos](https://www.sitedacidade.com.br/endereco-telefone-whatsapp/auto-pecas-capuava-2415-em-valinhos-sp)
+- [Auto Peças em Americana – GoldLinks](https://www.goldlinks.com.br/listing/auto-pecas-e-mecanica-em-americana.html)
+- [Auto Peças Europa – AppLocal Santa Bárbara D'Oeste](https://applocal.com.br/empresa/auto-pecas-europa/santa-barbara-d-oeste/sp/10546030)
+- [Garcia e Guedes Auto Peças – ConsertaMeuCarro](https://www.consertameucarro.com.br/mais/785088/garcia_e_guedes_auto_pecas_ltda)
+- [Daas Mel Autopeças – Portal da Cidade Louveira](https://louveira.portaldacidade.com/guia-comercial/louveira/daas-mel-autopecas)
+- [Casa das Baterias 2 Irmãos – ConsertaMeuCarro](https://www.consertameucarro.com.br/casa-das-baterias-2-irmaos-monte-mor-sp)
+- [Deninho Autopeças – AppLocal Piracicaba](https://applocal.com.br/empresa/deninho-autopecas/piracicaba/sp/7996992)
+- [JP Automotiva](https://www.jpautomotiva.com.br/)
+- [Autopeças Ibrasileira – Lista Mais Hortolândia](https://www.listamais.com.br/local/cad_idX7BXf7X/autopecas-ibrasileira-auto-pecas-em-hortolandia-sp)
+- [Bella Autopeças – AppLocal Hortolândia](https://applocal.com.br/empresa/bella-autopecas/hortolandia/sp/10282663)
+- [Vi Auto Peças – Acharei Sumaré](https://acharei.com.br/poi/vi_auto_pecas_rua_joao_ferreira_de_castilho-553179.html)
+- [Auto Elétrica São Judas Tadeu – Guiatelefone Santa Gertrudes](https://www.guiatelefone.com/santa-gertrudes-sp/equipamentos-pecas-e-acessorios/2762230/auto-eletrica-sao-judas-tadeu)
+- [Autopeças Europa (Santa Gertrudes)](https://www.autopecaseuropa.com.br/)
+- [Ricardo Autopeças e Acessórios – Skylinq Espírito Santo do Pinhal](https://espiritosantodopinhal.skylinq.com.br/Ricardo-Autope%C3%A7as-e-Acess%C3%B3rios-(19-993555408)-ESPIRITO-SANTO-DO-PINHAL-skymap-3461063.htm)
+- [Kiko Autopeças – O Melhor de Aguaí](https://omelhordeaguai.com.br/kiko-autopecas/)
+- [Oficina Mecânica e Auto Peças Paulista – O Melhor de Aguaí](https://omelhordeaguai.com.br/oficina-mecanica-autopecas-paulista/)
+- [Autocar – Guiatelefone Casa Branca](https://www.guiatelefone.com/casa-branca-sp/equipamentos-pecas-e-acessorios/2770662/autocar)
+- [ELLO Autopeças](https://www.elloautopecas.com.br/)
+- [Sensor Auto Peças – Fala São João](https://falasaojoao.com.br/sensor-auto-pecas)
+- [Auto Peças Saldanha – Solutudo São João da Boa Vista](https://www.solutudo.com.br/empresas/sp/sao-joao/autopecas/auto-pecas-saldanha-287282)
+- [Trovão Comércio de Peças para Carros Antigos – AppLocal Vargem Grande do Sul](https://applocal.com.br/empresa/trovao-comercio-de-pecas-para-carros-antigos/vargem-grande-do-sul/sp/10607138)
+- [Auto Peças Central – Solutudo Porto Ferreira](https://www.solutudo.com.br/empresas/sp/pto-ferreira/autopecas/auto-pecas-central-1814110)
+- [Morada Centro Automotivo](https://moradacentroautomotivo.com.br/)
+- [Campedrini AutoPeças e Importados](https://www.campedrini.com.br/)
+- [Autopeças Vimal (Casa Vimal) – Solutudo Pirassununga](https://www.solutudo.com.br/empresas/sp/pirassununga/autopecas/casa-vimal-1791262)
+- [Autopeças Eneo Palazzi – ConsertaMeuCarro Águas da Prata](https://www.consertameucarro.com.br/mais/606952/autopecas_eneo_palazzi)
+- [Carburadores Garcia – Diário Cidade Campinas](https://www.diariocidade.com/sp/campinas/guia/carburadores-garcia-04361439000109/)
+- [DG Auto Peças – Na Holambra Tem (Facebook)](https://www.facebook.com/holambratem/posts/dg-auto-pe%C3%A7as-na-holambra-tem-19-3802-5333-19-99600-5333precisando-de-pe%C3%A7as-e-ac/1467281170147999/)
+- [Souza Auto Peças – Instagram](https://www.instagram.com/souza.autopecas/)
+- [Auto Peças 3R – Instagram](https://www.instagram.com/autopecas3rrc/)
+- [Mega Auto Peças – Bendito Guia Sumaré](https://www.benditoguia.com.br/empresa/mega-auto-parts-jardim-picerno-i-sumare-sp)
+- [Izidio Auto Peças e Acessórios – Instagram](https://www.instagram.com/izidioautopecas/)
+- [Auto Peças 101 – Bendito Guia Hortolândia](https://www.benditoguia.com.br/empresa/auto-pecas-101-jardim-amanda-ii-hortolandia-sp)
+- [Casagrande Autopeças & Centro Automotivo Express – AppLocal Valinhos](https://applocal.com.br/empresa/auto-pecas-casagrande/valinhos/sp/10386535/amp)
+- [Corujão 4 Auto Peças – Instagram](https://www.instagram.com/corujao4autopecas/)
+- [3 Irmãos Auto Peças e Oficina Mecânica – Instagram](https://www.instagram.com/3irmaos.autopecas/)
+- [Auto Peças Avenida – Instagram](https://www.instagram.com/avenida_autopecas1/)
+- [Auto Peças Cintra – Portal Comercial de Socorro](https://socorrocomercio.com.br/item/auto-pecas-cintra/)
+- [Auto Peças Trevo – Contato](https://www.autopecastrevo.com/contato)
