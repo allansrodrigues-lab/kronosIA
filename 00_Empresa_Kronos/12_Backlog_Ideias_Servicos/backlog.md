@@ -107,7 +107,7 @@ Mercadinho/mercearia de bairro, padaria (módulo de estoque vira previsão de pr
 
 ## 2026-09-02 — Posicionamento do site: Linha A no topo
 
-**Decisão:** o site (`07_Recursos/index.html`) tem duas linhas de serviço, e a **Linha A (Agente de Operação — o serviço novo, multi-departamento) vai pro topo/carro-chefe.** A Linha B (Agente de Atendimento — os bots de WhatsApp que já existem: Aurora, Bia, Clara, Léa, Sofia, Helena, Vera etc.) **não é excluída** — continua vendável (WhatsApp Business API cobra por conversa, "grátis" do Meta tem limite) e as 6 demos animadas viram prova de capacidade técnica.
+**Decisão:** o site (`07_Recursos/index.html`) tem duas linhas de serviço, e a **Linha A — nome oficial "Agente Operacional Inteligente para Negócios" (decidido 2026-09-02), o serviço novo, multi-departamento — vai pro topo/carro-chefe.** A Linha B (Agente de Atendimento — os bots de WhatsApp que já existem: Aurora, Bia, Clara, Léa, Sofia, Helena, Vera etc.) **não é excluída** — continua vendável (WhatsApp Business API cobra por conversa, "grátis" do Meta tem limite) e as 6 demos animadas viram prova de capacidade técnica.
 
 **O que muda em cada seção do site (levantado, ainda não implementado):**
 
