@@ -86,6 +86,20 @@ Pedido do Allan: 40 lojas começando por Pedreira e espalhando pra região. Mesm
 - **"Autopeças Pedreira"** aparece em 3 cidades (matriz Pedreira + filiais Amparo e Jaguariúna) — é uma pequena rede regional, não 3 donos independentes. Interessante como piloto **multi-loja** (um agente cuidando de 3 unidades), mas o dono provavelmente já pensa em escala — vale confirmar se topa ser o primeiro piloto sabendo disso.
 - Porte não foi classificado individualmente pra essas 40 (volume grande demais pra pesquisar uma por uma) — recomendo aplicar a mesma triagem 🟢/🟡 só depois de reduzir a lista pra quem você realmente for abordar.
 
+## Triagem inicial (Captação #2)
+
+5 candidatas pra abordar primeiro, escolhidas por: (a) telefone existente (sem telefone não dá pra contatar), (b) sinal de dono/família no nome (apelido, sobrenome, "primos") — indica decisão rápida sem TI própria, (c) loja única (não é filial de rede), (d) cidades diferentes, pra não concentrar risco/aprendizado numa praça só. Ficaram de fora por enquanto: as 3 unidades da rede "Autopeças Pedreira" (é rede, não dono único — ver nota acima) e as 2 com telefone DDD 11 anômalo (confirmar portabilidade antes).
+
+| # | Loja | Cidade | Telefone | Por quê |
+|---|---|---|---|---|
+| 3 | Primos Autopeças | Amparo | (19) 97413-1859 | Celular (sinal de dono tocando o negócio) + nome de família ("Primos") |
+| 25 | Tavinho Autopeças | Itapira | (19) 3863-4434 | Nome é o apelido do dono — forte sinal de negócio pessoal, decisão rápida |
+| 38 | Auto Peças Fujimura | Cosmópolis | (19) 3874-1641 | Sobrenome de família, loja única, sem sinal de rede |
+| 10 | Autopeças Pinheiro | Serra Negra | (19) 3892-5544 | Loja única, telefone fixo comercial ativo, cidade menor (perfil sem TI própria) |
+| 17 | Autopeças Águas Lindóia | Águas de Lindóia | (19) 3824-2948 | Loja única, cidade turística pequena — completa a diversidade geográfica |
+
+Se topar, o primeiro contato continua sendo **diagnóstico, não venda** (mesma pergunta central do README: qual sistema usa hoje pra estoque, e se exporta dado). Eu preparo o roteiro/mensagem quando você disser qual dessas 5 (ou quantas) quer abordar — não envio nada sozinho.
+
 ## Próximo passo (Captação #2)
 
 Escolher 3-5 dessa lista pra abordagem real (mesmo critério: perfil pequeno/familiar primeiro), ou pedir que eu aprofunde porte de um subconjunto antes de decidir.
