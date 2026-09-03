@@ -14,7 +14,7 @@ Não é um chatbot de atendimento a cliente. É um **conjunto de agentes de IA r
 
 Loja física de autopeças, sem TI própria, que já tem algum PDV/ERP. Dado sensível central: margem/custo de fornecedor.
 
-## Os 8 agentes (ordem de construção em 5 fases)
+## Os 9 agentes (ordem de construção em 5 fases)
 
 | Fase | Agente | Autonomia | Risco/observação |
 |---|---|---|---|
@@ -24,9 +24,12 @@ Loja física de autopeças, sem TI própria, que já tem algum PDV/ERP. Dado sen
 | 2 | **Transcrição por foto** | 🟡 confiança baixa → pergunta ao balconista | Depende de base de referência cruzada (TecDoc) |
 | 2 | **Vendas** | 🟢 análise/sugestão · 🟡 oferta direta exige opt-in LGPD | Histórico por cliente + cross-sell |
 | 3 | **Marketing/Conteúdo** | 🟡 revisão humana antes de publicar | Foto/vídeo/post técnico ("tem pro seu carro") |
-| 4 | **Financeiro** | 🟢 registra/projeta · 🔴 nunca paga sozinho | Dado mais sensível dos 8 |
+| 3 | **Relatório/Gestão** | 🟢 leitura agregada | Resumo semanal juntando dado dos outros agentes — mesmo padrão do "Relatório Automático" da Linha B |
+| 4 | **Financeiro** | 🟢 registra/projeta · 🔴 nunca paga sozinho | Dado mais sensível dos 9 |
 | 5 | **Fiscal** | 🟢 concilia/alerta · 🟡 sugere classificação NCM/CFOP | Não reinventa emissão — ERP já emite via provedor de NF-e |
 | 5 | **RH** | 🟡 prepara rascunho, dono/contador confirma | Nunca calcula folha final sozinho — LGPD trabalhista |
+
+**Jurídico não é um agente da lista.** Parecer jurídico é ato privativo de advogado (OAB) — não dá pra automatizar nem integrar com "provedor homologado" igual NF-e. A Kronos **conecta a loja com a Léa** (Linha B, Advocacia), que já faz triagem pra escritório real.
 
 ## Stack
 

@@ -72,6 +72,9 @@ Mercadinho/mercearia de bairro, padaria (módulo de estoque vira previsão de pr
 | **Fiscal/Contabilidade** | Prepara o dado e aciona emissão de NF-e | **Não reinventa cálculo fiscal** — integra com provedor de NF-e já homologado. Erro fiscal é problema jurídico do cliente, não bug |
 | **RH** | Cálculo de folha, INSS, FGTS, admissão | Mesma regra: tabela oficial sempre atualizada, **nunca hardcoded** (muda todo ano) |
 | **Financeiro** | Contas a pagar/receber, fluxo de caixa, saldo | Construível direto (registro + alerta), mas é o dado mais sensível — segurança de acesso pesa mais aqui |
+| **Relatório/Gestão** (2026-09-03) | Resumo semanal pro dono — o que vendeu, o que travou, saúde do caixa, juntando dado de todos os outros agentes | Mesmo padrão do "Relatório Automático" já vendido na Linha B — risco baixo, é leitura agregada |
+
+**Jurídico — decisão (2026-09-03): não é um agente novo, é conexão com produto que já existe.** Dar parecer jurídico é ato privativo de advogado (OAB) — não dá pra reinventar, nem tem "provedor homologado" pra integrar igual NF-e. Em vez de construir um Agente Jurídico, a Kronos **conecta a loja com a Léa** (Linha B, Advocacia) — que já faz triagem de caso pra escritório real. Kronos Operação cuida do contrato/prazo/organização (baixo risco); qualquer parecer de verdade vai pra advogado humano via Léa.
 
 ### Etapas do serviço (iguais para qualquer loja)
 

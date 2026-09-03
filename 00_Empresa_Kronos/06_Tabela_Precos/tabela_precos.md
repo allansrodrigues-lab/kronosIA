@@ -12,7 +12,7 @@ Sistema operacional de agentes que roda **local, no computador da empresa**, cui
 | Nível | Fases incluídas | Implantação | Mensal |
 |---|---|---|---|
 | **Piloto Operacional** | Estoque + Fornecedores | R$ 1.500 – 2.000 | R$ 397 – 497/mês |
-| **Operação Completa** | + Transcrição por foto, Vendas, Marketing/Conteúdo | R$ 3.000 – 4.000 | R$ 897 – 997/mês |
+| **Operação Completa** | + Transcrição por foto, Vendas, Marketing/Conteúdo, Relatório/Gestão | R$ 3.000 – 4.000 | R$ 897 – 997/mês |
 | **Agente Completo** | + Financeiro, Fiscal, RH | R$ 5.000 – 6.000 | R$ 1.497 – 1.997/mês |
 
 **Regras específicas da Linha A:**
@@ -20,6 +20,7 @@ Sistema operacional de agentes que roda **local, no computador da empresa**, cui
 2. Assinatura de provedor terceiro (TecDoc, Focus NFe, Pontotel/folha) é **conta do cliente, à parte** — a Kronos integra, não revende.
 3. **Comparação âncora não é funcionário CLT** (isso é da Linha B) — é **capital parado e ruptura de estoque não percebidos**. Argumento real: o protótipo achou R$ 1.164 de capital parado fictício em só 12 peças; numa loja de verdade isso sozinho já cobre a mensalidade.
 4. Roda local — sem custo de VPS pra Kronos, margem melhor que a Linha B.
+5. **Jurídico não tem preço próprio na Linha A** — não é um agente, é ponte pra Léa (Linha B, Advocacia). Se o cliente precisar de advogado de verdade, conecta com um escritório parceiro; não cobrar como se fosse módulo de Kronos Operação.
 
 ---
 
