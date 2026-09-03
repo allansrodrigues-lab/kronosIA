@@ -1,6 +1,6 @@
-# Robô de Prospecção Ativa — chip descartável `prospeccao01`
+# Robô de Prospecção Ativa — rodízio Comercial + cobaia (`prospeccao01`)
 
-Disparo automático de 1ª abordagem pra prospects do CRM, com ritmo humano, pelo chip **queimável** do Allan (nunca clinica01/kronosdemo — esses têm login gov/demos). Decisão do Allan em 10/07: "vale o teste, temos que tentar".
+Disparo automático de 1ª abordagem pra prospects do CRM, com ritmo humano, pelos chips do rodízio de prospecção fria (nunca clinica01/kronosdemo — esses têm login gov/demos). Decisão original do Allan em 10/07: "vale o teste, temos que tentar" — atualizado em 03/09: **Comercial (`5519971266736`) entrou no rodízio junto do cobaia**, cap subiu pra **20 msgs/dia por chip**, e o Protótipo (`5519971514971`) saiu por já ter automação própria rodando e estar sob risco.
 
 ## Workflows (n8n)
 
@@ -11,11 +11,11 @@ Disparo automático de 1ª abordagem pra prospects do CRM, com ritmo humano, pel
 
 ## Regras fixas do disparador (cinto de segurança)
 
-- Máx. **6 envios/dia** (contando 1ª abordagem + follow-up), 2 por rodada.
+- Máx. **20 envios/dia por chip** (contando 1ª abordagem + follow-up), 2 por rodada.
 - Espera aleatória de até 30 min após o cron + 2-7 min entre envios (nunca rajada).
 - 4 templates girando + nome da empresa/nicho/cidade (nunca texto idêntico).
 - Follow-up único após 4+ dias sem resposta; depois encerra.
-- Blocklist fixa: números da casa (5519971266736 / 5519971514971 / 5519997237404).
+- Blocklist fixa: números da casa, nunca viram prospect/alvo de disparo (5519971266736 / 5519971514971 / 5519997237404) — isso é sobre nunca abordar esses números como se fossem lead, não sobre quem dispara.
 - Anti-loop: robô manda e **para** — nunca responde sozinho.
 - Chip offline → rodada abortada + alerta no WhatsApp da Kronos.
 - Resumo de cada rodada no WhatsApp da Kronos.

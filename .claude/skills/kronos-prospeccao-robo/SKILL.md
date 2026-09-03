@@ -6,7 +6,7 @@ description: Operar a máquina de prospecção da Kronos — robô de disparo at
 # Máquina de Prospecção Kronos — robô outbound + Eva inbound
 
 Duas frentes complementares (construídas 10/07/2026):
-- **Outbound (robô)**: dispara 1ª abordagem padronizada pra fila do CRM pelo chip cobaia. SEM IA (custo zero).
+- **Outbound (robô)**: dispara 1ª abordagem padronizada pra fila do CRM pelos chips do rodízio (Comercial + cobaia — ver CLAUDE.md "Prospecção fria"). SEM IA (custo zero).
 - **Inbound (Eva)**: lead clica no link `wa.me`, manda a 1ª mensagem, Eva (Sonnet 5) qualifica, grava CRM e alerta o Allan. ~R$0,30-0,50/conversa.
 
 ## Mapa de peças
@@ -19,11 +19,11 @@ Duas frentes complementares (construídas 10/07/2026):
 | Desvio da Eva no roteador | n8n `2hYQv4sOQq5AOXmt` (gatilho: texto com "agente"+"kronos") |
 | Fila outbound | aba `Prospeccao` do Kronos CRM Interno `1tOXVM8frTwxbhCR1Gmb2dyPFNks8INCNSKWeg9t1UK4` |
 | Leads da Eva | aba `Leads` da mesma planilha (Origem `prospeccao-<canal>`) |
-| Chip cobaia | `5519997237404`, instância Evolution `prospeccao01` (descartável) |
+| Chips do rodízio (disparo) | `5519971266736` Comercial + `5519997237404` cobaia, instância Evolution `prospeccao01` — 20 msgs/dia cada |
 | Links wa.me por canal | `07_Recursos/prospeccao_eva_links.md` |
 | Doc do robô + templates | `07_Recursos/prospeccao_robo_disparador.md` |
 
-**Números intocáveis (NUNCA viram cobaia nem recebem abordagem):** `5519971266736` (Kronos) e `5519971514971` (todos os protótipos).
+**Fora do rodízio (nunca dispara por ele, nunca recebe abordagem):** `5519971514971` (Kronos Protótipo) — já roda automação própria e está sob risco, não empilhar disparo de prospecção nele. (Correção 03/09: essa seção dizia "Comercial nunca entra" — estava desatualizada, o Comercial faz parte do rodízio desde a decisão de 24/07 no CLAUDE.md.)
 
 ## Operações comuns (tudo via MCP — mcp__n8n__* e mcp__google-sheets__*)
 
@@ -34,7 +34,7 @@ Duas frentes complementares (construídas 10/07/2026):
 
 ### Ligar / desligar o robô
 - Ligar: `n8n_update_partial_workflow` no `qVgwvD3ZW9COqdMA` com `[{"type":"activateWorkflow"}]` → **restart do n8n** (skill `restart-n8n`). Desligar: `deactivateWorkflow` (efeito imediato no cron após restart).
-- Regras fixas no nó `Preparar Rodada`: 2/rodada, 6/dia, esperas aleatórias, blocklist, follow-up 4d. Mudar limites = editar o jsCode desse nó (e re-publicar + restart).
+- Regras fixas no nó `Preparar Rodada`: 2/rodada, 20/dia por chip, esperas aleatórias, blocklist, follow-up 4d. Mudar limites = editar o jsCode desse nó (e re-publicar + restart).
 
 ### Parear / re-parear o chip (se cair ou banir)
 No VPS (key nunca no chat — usar `\$KEY` dentro do SSH):
@@ -48,14 +48,14 @@ curl -s "http://127.0.0.1:8080/instance/connect/prospeccao01?number=<NUMERO>" -H
 `curl -X POST https://n8n.kronosintelligence.com.br/webhook/whatsapp-demo` com payload Evolution (remoteJid `5500TEST*@s.whatsapp.net`) e `conversation` contendo "agente" + "Kronos". Conferir execução em `bnwAPhtE8CSEJS9d`, linha na aba `Leads` e (se quente) alerta no WhatsApp Kronos. Sessões Eva expiram em 24h; comando `/` do dono no roteador encerra a dele.
 
 ### Diagnóstico rápido
-- **Robô não disparou**: workflow ativo? chip `open`? fila tem `Status=Fila` com WhatsApp válido? já bateu 6/dia? Ver execução do cron no `qVgwvD3ZW9COqdMA`.
+- **Robô não disparou**: workflow ativo? chip `open`? fila tem `Status=Fila` com WhatsApp válido? já bateu 20/dia daquele chip? Ver execução do cron no `qVgwvD3ZW9COqdMA`.
 - **Alerta não chegou**: resposta veio de número que está na aba `Prospeccao` com status ativo? (filtro "É Prospect?" derruba conversa pessoal de propósito — é o comportamento do aquecimento, não bug).
 - **Eva muda**: quase sempre crédito Anthropic (`400 credit balance too low`) — checar antes de mexer no workflow (lição 10/07).
 - Edição via MCP não "pegou" → versão publicada + restart (skills `n8n-edit`/`restart-n8n`).
 
 ## Guardrails (não negociar)
-- Disparador NUNCA aponta pra outra instância que não `prospeccao01`.
-- Não subir os limites (6/dia) sem semanas de chip saudável.
-- Chip novo: **aquecer 7-10 dias** (uso humano normal) antes de ativar o robô.
+- Disparador só aponta pro Comercial e pro cobaia (instância `prospeccao01`) — nunca pro Protótipo.
+- Não subir os limites (20/dia por chip) sem semanas de chip saudável.
+- Chip novo (se algum dia entrar um 3º): **aquecer 7-10 dias** (uso humano normal) antes de ativar o robô nele.
 - Sem link na 1ª mensagem fria. Robô nunca responde sozinho (anti-loop).
 - Se o chip banir: perda aceita — novo chip pré-pago, re-parear, seguir. Nunca "dar um jeito" de burlar.
