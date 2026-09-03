@@ -100,6 +100,29 @@ Pedido do Allan: 40 lojas começando por Pedreira e espalhando pra região. Mesm
 
 Se topar, o primeiro contato continua sendo **diagnóstico, não venda** (mesma pergunta central do README: qual sistema usa hoje pra estoque, e se exporta dado). Eu preparo o roteiro/mensagem quando você disser qual dessas 5 (ou quantas) quer abordar — não envio nada sozinho.
 
+## Roteiro de abordagem — as 5 escolhidas
+
+Mensagem pronta pra WhatsApp, uma por loja, personalizada com nome/cidade. **Rascunho — nenhuma foi enviada.** Copiar, revisar e mandar você mesmo (nenhum número liberado pra prospecção de autopeças ainda — usar um dos 3 chips do rodízio já autorizado no CLAUDE.md). Estrutura igual nas 5: quem é, por que tá chamando, a pergunta de diagnóstico (não menciona preço nem "IA vai substituir" nada) — pra loja não sentir que é venda empurrada.
+
+**1. Primos Autopeças (Amparo)**
+> Oi, tudo bem? Sou o Allan, trabalho com IA aplicada a negócio local aqui na região de Campinas. Vi a Primos Autopeças aqui em Amparo e queria fazer só uma pergunta rápida, sem compromisso nenhum: hoje o controle de estoque de vocês é em algum sistema (Bling, Tiny, outro) ou ainda é mais na mão mesmo? Pergunto porque tô estruturando um projeto de agente de IA voltado pra loja de autopeças e queria entender como funciona na prática antes de qualquer coisa 🙂
+
+**2. Tavinho Autopeças (Itapira)**
+> Oi, tudo bem? Sou o Allan, trabalho com IA aplicada a negócio local na região de Campinas. Vi a Tavinho Autopeças aqui em Itapira e queria fazer uma pergunta rápida, sem compromisso: o controle de estoque de vocês hoje é feito em algum sistema (tipo Bling, Tiny) ou ainda é mais manual? Tô estruturando um projeto de agente de IA pra loja de autopeças e queria entender a realidade de vocês antes de mais nada 🙂
+
+**3. Auto Peças Fujimura (Cosmópolis)**
+> Oi, tudo bem? Sou o Allan, trabalho com IA aplicada a negócio local aqui na região de Campinas. Vi a Auto Peças Fujimura em Cosmópolis e queria fazer só uma pergunta rápida, sem compromisso: hoje vocês controlam o estoque em algum sistema (Bling, Tiny, outro) ou ainda é mais na mão? Pergunto porque tô estruturando um projeto de agente de IA voltado pra loja de autopeças e queria entender como funciona na prática de vocês 🙂
+
+**4. Autopeças Pinheiro (Serra Negra)**
+> Oi, tudo bem? Sou o Allan, trabalho com IA aplicada a negócio local na região de Campinas. Vi a Autopeças Pinheiro aqui em Serra Negra e queria fazer uma pergunta rápida, sem compromisso: o controle de estoque de vocês hoje é em algum sistema (Bling, Tiny, outro) ou ainda mais manual mesmo? Tô estruturando um projeto de agente de IA pra loja de autopeças e queria entender a realidade de vocês antes de qualquer coisa 🙂
+
+**5. Autopeças Águas Lindóia (Águas de Lindóia)**
+> Oi, tudo bem? Sou o Allan, trabalho com IA aplicada a negócio local na região de Campinas. Vi a Autopeças Águas Lindóia aqui na cidade e queria fazer só uma pergunta rápida, sem compromisso: hoje vocês controlam o estoque em algum sistema (Bling, Tiny, outro) ou ainda é mais na mão? Pergunto porque tô estruturando um projeto de agente de IA voltado pra loja de autopeças e queria entender como funciona na prática de vocês 🙂
+
+**Se a loja responder que usa sistema com API (Bling/Tiny/Omie):** essa é a resposta boa — significa que dá pra integrar direto (ver `PROVEDORES.md`), próximo passo é perguntar se topa uma conversa de 15min pra mostrar a demo (`demo/painel-agente-autopecas.html` ou a imagem `demo/kronos-operacao-demo.png`).
+**Se responder que é tudo manual/caderno/planilha solta:** ainda é lead válido, mas a implantação muda — o Agente Estoque precisaria de um cadastro inicial mais manual (Fase 1 sem integração de PDV). Vale registrar a resposta aqui antes de decidir se segue.
+**Se não responder em ~2-3 dias:** natural pra prospecção fria, seguir pra próxima da lista de 40 sem insistir.
+
 ## Próximo passo (Captação #2)
 
 Escolher 3-5 dessa lista pra abordagem real (mesmo critério: perfil pequeno/familiar primeiro), ou pedir que eu aprofunde porte de um subconjunto antes de decidir.
