@@ -30,3 +30,6 @@ node_modules/
 # Logs de ferramenta
 qphotorec.log
 *.log
+
+# Banco SQLite gerado por script de seed (recriável, não commitar dado local)
+20_AutoPecas/mvp/*.db
