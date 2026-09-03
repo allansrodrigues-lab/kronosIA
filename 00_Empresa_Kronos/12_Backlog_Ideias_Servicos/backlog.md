@@ -211,4 +211,6 @@ Importante: a IA não "reconhece" compatibilidade pela forma da peça — isso s
 | 4 | Financeiro | Mais sensível, mas não regulado |
 | 5 | Fiscal + RH | Regulados — só depois de confiança estabelecida com o cliente |
 
-**Desenho de todos os 8 agentes agora completo pra autopeças.** Próximo passo real (não mais desenho): pesquisar provedores de NF-e/folha e de base de referência cruzada (TecDoc), e criar a pasta do projeto (`20_AutoPecas` ou nome a definir).
+**Desenho de todos os 8 agentes agora completo pra autopeças.**
+
+**Status: projeto criado (2026-09-02).** Pasta `20_AutoPecas/` criada com `README.md` (consolidação do desenho) e `PROVEDORES.md` (pesquisa de Focus NFe/NFE.io, Pontotel/RHID, TecDoc — preço, cobertura, o que falta confirmar). Este backlog continua sendo o histórico da decisão; o projeto em `20_AutoPecas/` é a fonte viva daqui pra frente. Próximo passo real: diagnóstico com uma loja real (qual PDV/ERP ela usa) e confirmar com Focus NFe/TecAlliance se dá acesso via API.
