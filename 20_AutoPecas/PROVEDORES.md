@@ -71,6 +71,25 @@ Sources:
 
 ---
 
+## Confirmação — Bling e Tiny têm escrita, não só leitura (2026-09-02)
+
+Pergunta que motivou a checagem: o Agente de Transcrição consegue **gerar descrição/preço e gravar o produto direto na plataforma que a loja já usa** (Bling/Tiny), sem precisar de sistema paralelo da Kronos?
+
+**✅ Confirmado — os dois suportam escrita:**
+- **Bling API v3:** `POST /produtos` cria produto novo diretamente.
+- **Tiny API:** endpoint "Alterar Produto" (edita cadastro) + endpoint específico "Atualizar Estoque" (separado, só pra quantidade).
+
+Isso fecha tecnicamente o fluxo do Agente de Transcrição (Fase 2): foto → OCR do código → cruza no TecDoc → sugere descrição/preço/compatibilidade → grava via API do Bling/Tiny — sem inventar plataforma nova.
+
+**Em aberto:** a regra de precificação (custo + margem fixa? olhar preço de peça parecida?) ainda não foi definida — depende do que a loja real usar como critério, é pergunta de diagnóstico, não de pesquisa.
+
+Sources:
+- [API Pública do Bling](https://www.bling.com.br/api-bling)
+- [Alterar Produto — API Tiny](https://tiny.com.br/api-docs/api2-produtos-alterar)
+- [Atualizar Estoque do Produto — API Tiny](https://tiny.com.br/api-docs/api2-produtos-atualizar-estoque)
+
+---
+
 ## Próxima ação real
 
 Contato comercial com Focus NFe (ou NFE.io) e com TecAlliance Brasil pra confirmar: (1) se a licença TecDoc dá acesso via API, (2) preço real de uso da API de NF-e por volume de nota/mês — nenhum dos dois foi confirmado além do que aparece no site público.
