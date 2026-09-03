@@ -169,6 +169,46 @@ Foto da peça → Visão lê texto/código gravado → Número de referência do
 
 Importante: a IA não "reconhece" compatibilidade pela forma da peça — isso seria chute. O confiável é ler o código gravado (OCR) e cruzar numa base de referência (tipo TecDoc, padrão da indústria, é integração/licença, não construção própria — mesmo princípio já aplicado a NF-e e folha). Sem código legível ou sem match, o agente não inventa: pergunta pro humano. Por isso a ordem certa da Fase 1 é Estoque/Fornecedores primeiro (não depende disso) e Transcrição por foto fica pra fase seguinte.
 
-**Ainda em aberto:**
-- Detalhar Fornecedores e os agentes seguintes (Vendas, depois Fiscal/RH/Financeiro) no mesmo nível de profundidade.
-- Criar a pasta do projeto (`20_AutoPecas` ou nome a definir) — ainda não criada, tudo até aqui é desenho em backlog.
+### Agentes restantes detalhados (2026-09-02) — desenho completo, autopeças
+
+**Agente Fornecedores**
+- Gatilho: Estoque detecta ruptura, ou pedido manual do dono.
+- Processo: pesquisa Mercado Livre + distribuidoras do ramo, monta tabela principal + alternativo (preço, prazo, referência) — mesmo formato validado em `19_Projeto2_Robo_Humanoide/FORNECEDORES.md`.
+- Particularidade do nicho: peça tem 3 categorias — **original**, **paralela** (fabricante terceirizado homologado), **similar** (genérica sem homologação). Preço mais baixo não decide sozinho — cliente que pede original não aceita paralela. Trazer as 3 etiquetadas, não só "mais barato".
+- Autonomia: 🔴 nunca compra sozinho, só apresenta.
+- Dado sensível: preço de custo do fornecedor = margem.
+
+**Agente Vendas**
+- O que faz: não tem funil longo (venda de balcão é rápida) — valor real é histórico por cliente + cross-sell ("trocou pastilha há 3 meses, veio comprar óleo, sugerir revisão de freio").
+- Como: lê o PDV após cada venda, atualiza ticket médio, produto mais vendido, sugestão de venda casada pro balconista.
+- Autonomia: 🟢 análise/sugestão pro balconista; 🟡 oferta direta pro cliente (WhatsApp/SMS) exige opt-in LGPD antes.
+- Dado sensível: histórico de compra + contato do cliente.
+
+**Agente Fiscal/Contabilidade — correção de escopo importante**
+- A maioria das lojas com PDV/ERP **já emite nota automaticamente** via provedor de NF-e que o ERP já integra — o agente não reinventa nem entra no meio disso (mesmo erro que seria tentar substituir o ERP).
+- Valor real: (1) concilia — toda venda gerou nota, alguma ficou pra trás; (2) sugere classificação fiscal (NCM/CFOP) ao cadastrar produto novo — risco real de erro humano; (3) alerta prazo de guia de imposto (ex: DAS do Simples Nacional).
+- Autonomia: 🟢 concilia e alerta; 🟡 sugere classificação fiscal, dono confirma.
+- Segurança crítica: certificado digital (A1/A3) é do cliente — **a Kronos nunca guarda a chave privada**, fica com o provedor de NF-e ou no ERP.
+
+**Agente RH**
+- Contexto: loja pequena tem poucos funcionários (2-6 balconistas), não é RH corporativo.
+- O que faz: prepara rascunho de folha via provedor homologado (nunca calcula sozinho o valor final), controla escala/ponto, alerta vencimento de ASO.
+- Autonomia: 🟡 prepara rascunho, dono/contador confirma antes de fechar.
+- Dado sensível: CPF, salário — LGPD trabalhista, um dos dados mais protegidos que existem.
+
+**Agente Financeiro**
+- O que faz: contas a pagar/receber, fluxo de caixa, saldo projetado.
+- Autonomia: 🟢 registra e projeta; 🔴 nunca paga/transfere dinheiro sozinho.
+- Dado sensível: o mais sensível dos 8 agentes — saúde financeira real da loja.
+
+### Ordem de construção (fases, consolidado)
+
+| Fase | Agentes | Por quê |
+|---|---|---|
+| 1 | Estoque + Fornecedores | Valor rápido, risco baixo, não depende de reconhecimento por foto |
+| 2 | Transcrição por foto + Vendas | Depende de base de referência (TecDoc) e histórico acumulado |
+| 3 | Marketing/Conteúdo | Precisa do catálogo já organizado pelas fases 1-2 |
+| 4 | Financeiro | Mais sensível, mas não regulado |
+| 5 | Fiscal + RH | Regulados — só depois de confiança estabelecida com o cliente |
+
+**Desenho de todos os 8 agentes agora completo pra autopeças.** Próximo passo real (não mais desenho): pesquisar provedores de NF-e/folha e de base de referência cruzada (TecDoc), e criar a pasta do projeto (`20_AutoPecas` ou nome a definir).
