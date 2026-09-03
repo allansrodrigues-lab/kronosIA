@@ -39,6 +39,12 @@ público e `-A` arrastaria `18_Kronos_Voce/`, `19_Projeto2_Robo_Humanoide/`, `qp
 
 Rodar `bash scripts/radar_headless.sh --dry-run` para conferir a saída antes de agendar
 na tarefa diária. Nada mais está bloqueado.
+
+---
+
+## Log de deploy
+
+2026-09-03 — deploy landing via CI (`main` @ `12f559f`) — nova aba "Autopeças (Kronos Operação)" em #segmentos + preço da Linha A em #planos — verificado no ar: scp copiou 162723 bytes (idêntico ao local), smoke test HTTP 200.
 Wed Sep  2 17:44:14 UTC 2026
 Wed Sep  2 17:56:29 UTC 2026
 Wed Sep  2 18:02:19 UTC 2026

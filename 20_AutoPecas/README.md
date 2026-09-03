@@ -2,7 +2,7 @@
 
 **Nome oficial da Linha A, decidido em 2026-09-02: "Agente Operacional Inteligente para Negócios."** É a chamada principal do serviço novo da Kronos: implantação de IA sob medida dentro de empresa, com segurança por design, em vez de bot de atendimento (Linha B, já comoditizada pelo Meta).
 
-**Status (2026-09-03): preço fechado e site implementado.** Preço oficial em `00_Empresa_Kronos/06_Tabela_Precos/tabela_precos.md`. Aba "Autopeças (Kronos Operação)" já está de verdade em `07_Recursos/index.html` — primeira aba de `#segmentos` (posição de carro-chefe), com o terminal animado (baseado no rascunho de `demo/`) e os 3 planos em `#planos`. Falta só deploy pro ar e abordagem de uma loja real.
+**Status (2026-09-03): preço fechado, site implementado e NO AR.** Preço oficial em `00_Empresa_Kronos/06_Tabela_Precos/tabela_precos.md`. Aba "Autopeças (Kronos Operação)" está em produção em `07_Recursos/index.html` — primeira aba de `#segmentos`, com o terminal animado e os 3 planos em `#planos`. Deploy confirmado (scp 162723 bytes idênticos ao local, smoke test HTTP 200 — ver `PROGRESS.md`). Falta só a abordagem de uma loja real (leads em `LEADS.md`, imagem estática pronta em `demo/kronos-operacao-demo.png`).
 
 Histórico completo da decisão está em `00_Empresa_Kronos/12_Backlog_Ideias_Servicos/backlog.md` — este README consolida o desenho já fechado como ponto de partida do projeto.
 
