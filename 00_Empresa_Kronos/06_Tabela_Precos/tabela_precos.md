@@ -7,7 +7,7 @@
 
 # Linha A — Kronos Operação (carro-chefe)
 
-Sistema operacional de agentes que roda **local, no computador da empresa**, cuidando de estoque, fornecedor, marketing e (nas fases seguintes) financeiro/fiscal/RH. Primeiro nicho: autopeças (ver `20_AutoPecas/`).
+Sistema operacional de agentes **hospedado na nuvem Kronos, com painel próprio por cliente** (acesso por login, de qualquer lugar), cuidando de estoque, fornecedor, marketing e (nas fases seguintes) financeiro/fiscal/RH. Primeiro nicho: autopeças (ver `20_AutoPecas/`).
 
 | Nível | Fases incluídas | Implantação | Mensal |
 |---|---|---|---|
@@ -19,7 +19,7 @@ Sistema operacional de agentes que roda **local, no computador da empresa**, cui
 1. Cobrar no **piso** da faixa pro primeiro cliente/piloto — mesma lógica já usada na Linha B quando não havia case público ainda.
 2. Assinatura de provedor terceiro (TecDoc, Focus NFe, Pontotel/folha) é **conta do cliente, à parte** — a Kronos integra, não revende.
 3. **Comparação âncora não é funcionário CLT** (isso é da Linha B) — é **capital parado e ruptura de estoque não percebidos**. Argumento real: o protótipo achou R$ 1.164 de capital parado fictício em só 12 peças; numa loja de verdade isso sozinho já cobre a mensalidade.
-4. Roda local — sem custo de VPS pra Kronos, margem melhor que a Linha B.
+4. **Hospedado na nuvem Kronos** (decisão 2026-09-03, revisando o desenho original que era 100% local) — painel próprio por cliente, dado isolado, acesso de qualquer lugar. Isso tem custo de servidor pra Kronos (diferente da suposição inicial de "sem custo de VPS"); ainda assim, comparado à Linha B, o custo por cliente tende a ser menor porque não roda WhatsApp/Evolution — reavaliar margem quando a infra de hospedagem multi-tenant estiver definida (ver `20_AutoPecas/README.md`).
 5. **Jurídico não tem preço próprio na Linha A** — não é um agente, é ponte pra Léa (Linha B, Advocacia). Se o cliente precisar de advogado de verdade, conecta com um escritório parceiro; não cobrar como se fosse módulo de Kronos Operação.
 
 ---

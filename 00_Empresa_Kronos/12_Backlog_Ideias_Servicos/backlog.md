@@ -217,3 +217,16 @@ Importante: a IA não "reconhece" compatibilidade pela forma da peça — isso s
 **Desenho de todos os 8 agentes agora completo pra autopeças.**
 
 **Status: projeto criado (2026-09-02).** Pasta `20_AutoPecas/` criada com `README.md` (consolidação do desenho) e `PROVEDORES.md` (pesquisa de Focus NFe/NFE.io, Pontotel/RHID, TecDoc — preço, cobertura, o que falta confirmar). Este backlog continua sendo o histórico da decisão; o projeto em `20_AutoPecas/` é a fonte viva daqui pra frente. Próximo passo real: diagnóstico com uma loja real (qual PDV/ERP ela usa) e confirmar com Focus NFe/TecAlliance se dá acesso via API.
+
+---
+
+## Pivot de arquitetura — local vira SaaS hospedado (2026-09-03)
+
+O desenho original (Fase 1) previa o agente rodando **100% local, na máquina da loja**, sem custo de servidor pra Kronos — esse era inclusive o argumento de margem da regra 4 da tabela de preços. Na hora de detalhar como o dono ia *acompanhar* o que o agente fazia (perguntou o Allan: "sera SAAS/ como a pessoa acompanha, sera oque na minha conta oque na conta dele"), ficou claro que rodar só local limita o acesso a "só quando tá na máquina da loja".
+
+**Decisão: SaaS completo hospedado.** O dado (estoque, fornecedor, margem) sobe pra um ambiente da Kronos, o dono acessa por login, de qualquer lugar (celular, outro PC) — mais parecido com o modelo Bling/Tiny do que com o desenho local original. Isso muda:
+- **Segurança:** o diferencial deixa de ser "dado nunca sai da loja" e passa a ser **isolamento por cliente na nuvem** (mesma regra-mãe já usada nos bots da Linha B — cada cliente com ambiente/banco próprio, nunca base compartilhada). Vazar margem/fornecedor de um cliente pro painel de outro é o pior cenário de segurança desse produto — e o motivo pelo qual o Allan quis aprender cyber segurança na origem de tudo isso.
+- **Margem/preço:** a regra 4 da tabela de preços ("roda local, sem custo de VPS") não vale mais — Kronos passa a ter custo de hospedagem, precisa reavaliar depois que a infra estiver definida.
+- **Infra a decidir:** reaproveitar `14_Kronos_SaaS/app` (painel que já lê KPIs de planilha e mostra visão cliente + cockpit Kronos) ou construir um painel novo com banco isolado por cliente.
+
+Textos que diziam "roda local"/"no seu computador" já corrigidos no site (`07_Recursos/index.html`), no `20_AutoPecas/README.md`, na `tabela_precos.md` e no rascunho de demo (`20_AutoPecas/demo/painel-agente-autopecas.html`) — a imagem estática `demo/kronos-operacao-demo.png` ainda precisa ser regenerada pra bater com o texto novo antes de usar em prospecção.

@@ -8,7 +8,9 @@ Histórico completo da decisão está em `00_Empresa_Kronos/12_Backlog_Ideias_Se
 
 ## O que é
 
-Não é um chatbot de atendimento a cliente. É um **conjunto de agentes de IA rodando local, na máquina da loja física de autopeças**, que fica **por cima do PDV/ERP que a loja já usa** (Bling, Tiny, Omie ou sistema local) — lê os dados de lá, nunca substitui o sistema de venda.
+Não é um chatbot de atendimento a cliente. É um **conjunto de agentes de IA hospedado na nuvem da Kronos, com painel próprio por loja**, que fica **por cima do PDV/ERP que a loja já usa** (Bling, Tiny, Omie ou sistema local) — lê os dados de lá, nunca substitui o sistema de venda. O dono acessa o painel por login, de qualquer lugar (celular, outro computador) — mesmo princípio de isolamento por cliente já usado na Linha B (regra-mãe: cada cliente nasce isolado, nunca base compartilhada), aplicado agora a um ambiente/banco próprio por loja em vez de instância Evolution.
+
+**Decisão 2026-09-03:** o desenho original (Fase 1, ver histórico no backlog) previa rodar 100% local, sem custo de servidor pra Kronos. O Allan optou por hospedar (SaaS completo) pra o dono acompanhar de qualquer lugar, não só do computador da loja — isso muda a regra 4 da tabela de preços (ver `tabela_precos.md`) e implica montar infraestrutura multi-tenant (painel + banco isolado por cliente), reaproveitando possivelmente `14_Kronos_SaaS/app` como base.
 
 ## Perfil do cliente-alvo
 
@@ -35,18 +37,19 @@ Loja física de autopeças, sem TI própria, que já tem algum PDV/ERP. Dado sen
 
 | Camada | Escolha |
 |---|---|
-| Onde roda | Máquina da loja — dado não sai de lá |
-| Dados | SQLite local, exporta pra planilha quando o dono quiser ver |
+| Onde roda | Nuvem Kronos — painel próprio por loja, login individual, banco isolado (nunca compartilhado entre clientes) |
+| Dados | Banco isolado por cliente (a definir: Postgres com schema/linha própria por loja, seguindo a regra-mãe de isolamento já usada na Linha B) |
 | Raciocínio | Claude + Skill de autopeças |
 | Ferramentas | MCP por domínio (banco, pasta de fotos, busca web, API de ERP/marketplace) |
-| Agendamento | Tarefa agendada do SO ou n8n local — Fase 1 talvez nem precise de n8n/Docker |
+| Agendamento | Job agendado no servidor da Kronos (n8n ou cron), por cliente |
 
 ## Princípio de segurança central
 
-Cada agente só acessa o dado do próprio domínio (menor privilégio) — Marketing não lê financeiro, Compras não toca em RH. Nenhuma ação irreversível (comprar, publicar, emitir nota, pagar) roda sem aprovação humana na Fase 1.
+Cada agente só acessa o dado do próprio domínio (menor privilégio) — Marketing não lê financeiro, Compras não toca em RH. Nenhuma ação irreversível (comprar, publicar, emitir nota, pagar) roda sem aprovação humana na Fase 1. **Isolamento por cliente é obrigatório** (regra-mãe já usada na Linha B, agora aplicada ao SaaS hospedado): cada loja tem seu próprio banco/ambiente, nunca uma tabela compartilhada entre clientes — vazamento de margem/fornecedor de um cliente pra outro é o pior cenário possível nesse produto.
 
 ## Próximos passos reais (não mais desenho)
 
 1. Ver `PROVEDORES.md` — comparação de provedores de NF-e, folha/RH e base TecDoc já pesquisada.
 2. Diagnóstico com uma loja real: qual PDV/ERP ela usa, e se ele tem API.
-3. Construir a Fase 1 (Estoque + Fornecedores).
+3. **Decidir a base de hospedagem do painel** — reaproveitar `14_Kronos_SaaS/app` (já lê KPIs de planilha e tem visão cliente + cockpit Kronos) ou construir novo, com banco isolado por cliente. Isso é pré-requisito pro piloto agora que o modelo é SaaS hospedado, não só o prototipo local que já existe.
+4. Construir a Fase 1 (Estoque + Fornecedores) sobre essa base.
