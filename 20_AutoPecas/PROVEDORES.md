@@ -51,7 +51,18 @@ Sources:
 |---|---|
 | **TecDoc (TecAlliance do Brasil)** | Padrão mundial da indústria, 26 anos de histórico. Catálogo Brasil cobre 560 marcas e 56 mil tipos de veículo. **TecDoc Catalogue Brasil Premium: R$400/licença/ano** (pagamento único anual) — inclui busca por placa e chassi. Existe também versão gratuita mais limitada via campanha da TecAlliance. Contato comercial: vendasbrasil@tecalliance.net. |
 
-**Leitura:** R$400/ano por licença é barato frente ao valor que resolve (é literalmente o dado que faltava pro Agente de Transcrição funcionar) — mas precisa confirmar se a licença dá acesso via **API** (pra automação) ou só via app/site (uso manual) antes de fechar. Isso muda se o agente consegue consultar programaticamente ou se vira um passo manual do balconista.
+**✅ Confirmado (2026-09-02): existe acesso via API, não só manual.** A TecAlliance expõe **web service REST/SOAP** (`TecdocToCatDLB.jsonEndpoint`), autenticado por API key + provider ID, gerada na conta do desenvolvedor. Dá acesso a dado de veículo, referência cruzada OE↔aftermarket, especificação técnica, imagem e instrução de instalação — exatamente o que o Agente de Transcrição precisa. **Falta só confirmar se o plano Premium de R$400/ano inclui a chave de API ou se API é um plano/contrato separado do catálogo de uso manual** — isso só contato comercial direto responde.
+
+Sources (API TecDoc):
+- [TecAlliance API - Developer docs, APIs, SDKs, and auth](https://apitracker.io/a/tecalliance-net)
+- [What is TecDoc? A Practical Integration Guide](https://dev-opla.com/resources/what-is-tecdoc-auto-parts-ecommerce-guide)
+- [TECDOC API Connection for Importing Car Parts Information](https://www.corenio.com/tecdoc-api)
+
+---
+
+## Confirmação adicional — Focus NFe (2026-09-02)
+
+**✅ API REST confirmada e documentada publicamente**, integra com qualquer linguagem moderna (JS/Node, PHP, Python, Java, C#, Ruby, Go) — inclusive tem [documentação no Postman](https://www.postman.com/focusnfe/focus-nfe/documentation/906jrtc/focus-nfe) pra testar antes de integrar de verdade. **Sem taxa de setup e sem tempo mínimo de contrato** — cancela sem multa se não fizer sentido. Preço exato por nota/mês não veio na busca pública; isso sim precisa de contato comercial ou checar `focusnfe.com.br/precos/` direto.
 
 Sources:
 - [TecDoc Catalogue – TecAlliance do Brasil](https://tecalliance.com.br/tecdoc-catalogue/)
