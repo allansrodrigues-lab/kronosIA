@@ -6,6 +6,26 @@ Atualizar **ao fim de cada fase**, sem esperar o Allan pedir.
 
 ---
 
+## Checkpoint (2026-09-04/05, antes de clear — robô de autopeças ativo + 1º lead quente em conversa)
+
+**MCPs locais configurados (finalmente):** n8n e google-sheets nunca tinham sido registrados no `~/.claude.json` desta máquina — não era bug, é que nunca foram adicionados. Corrigido: `n8n-mcp` (npm) apontando pra `n8n.kronosintelligence.com.br` com API key nova (a primeira vazou num print e foi revogada/trocada), e `mcp-google-sheets` trocado de `npx -y` (lento, estourava timeout de 60s) pro binário Python já instalado via `uv tool install` (`~/.local/bin/mcp-google-sheets.exe`) — conecta em <2s agora. Documentado pra próxima vez que sumir: skill `mcp-reload` (que na verdade não existe como skill formal ainda, só foi diagnosticado ad-hoc — considerar criar de verdade). Sessão nesta nuvem **não tem** esses MCPs (são locais) — pra mexer em n8n/Sheets sempre precisa da sessão local (Git Bash ou Claude Code Desktop, mesma engine, mesmo projeto).
+
+**Rodízio de disparo corrigido e ativo:** o CLAUDE.md e a skill `kronos-prospeccao-robo` estavam desatualizados (diziam "só cobaia, 6/dia, Comercial nunca entra" — decisão de 10/07, superada). Corrigido pra bater com a decisão real de 24/07 + ajuste de 03/09: **Comercial (`comercial01`, 5519971266736) + cobaia (`prospeccao01`, 5519997237404) disparam, 20/dia cada, round-robin**; Protótipo fica de fora (já roda automação própria, sob risco). O Comercial já existia pareado desde 29/07 (o próprio Allan tinha feito, ninguém lembrava) — só faltou configurar o webhook. Workflow `qVgwvD3ZW9COqdMA` reescrito: checagem dupla de chip online, cap de verdade por chip (coluna `Chip` nova na aba `Prospeccao`), templates da Linha A (estoque/ruptura/fornecedor, sem linguagem de atendimento) só pra `Segmento=Autopecas`. Validado (`n8n_validate_workflow` 0 erros), n8n reiniciado, confirmado `active: true` com os dois chips `open`.
+
+**Alerta de fila baixa testado de verdade:** dispara todo dia 8h se `Status=Fila` cair abaixo de 5 (mensagem real chegou no WhatsApp Kronos, teste forçado manualmente via Evolution API).
+
+**Captação #3 (autopeças) inteira na fila:** as 20 primeiras (linhas 203-222) foram escritas e confirmadas por releitura direta. As 20 restantes (21-40, lista completa em `20_AutoPecas/LEADS.md` linhas 201-220) foram **pedidas** pro Allan escrever via sessão local — **não tenho confirmação de que entraram**, checar no início da próxima sessão (`get_sheet_data` na aba `Prospeccao`, deveria ter 242 linhas incluindo cabeçalho se deu certo).
+
+**1º lead quente em conversa real:** Dorival, **Autopeças Romaninho** (Americana, 5519997551007) respondeu "Boa noite" → "Sim pode ser" ao pedido de demo. Enviei a demo (`20_AutoPecas/demo/kronos-operacao-demo.png`) e uma mensagem detalhada com preço real da tabela (`00_Empresa_Kronos/06_Tabela_Precos/tabela_precos.md` — Piloto Operacional: R$1.500 implantação + R$397/mês, framing de "valor de piloto"), deixando claro que o "R$1.164 de capital parado" é exemplo de dado fictício do protótipo, não número dele. Pergunta em aberto pra ele: qual sistema usa (Bling/Tiny/planilha) — resposta vira o diagnóstico real. Estado: mensagem visualizada, aguardando resposta. **Pendente:** Allan pediu pra atualizar `Observacoes` da linha do Romaninho na planilha com esse resumo — comando dado, não confirmado que rodou.
+
+**Decisão tomada:** não construir os Níveis 2/3 (Transcrição por foto, Vendas, Marketing, Relatório, Financeiro, Fiscal, RH — nenhum tem código, só preço na tabela) até validar o Nível 1 com um cliente pagante real. Nível 1 (Estoque+Fornecedores, painel real em `14_Kronos_SaaS/app-operacao/`) já foi precificado pra se justificar sozinho pela dor de capital parado/ruptura — não depende dos outros agentes.
+
+**Rotina de captação semanal (só nesta sessão nuvem):** criei um cron (`CronCreate`, job `b934776b`, dia 1/8/15/22/29 ~9h) pra levantar mais 20 leads de autopeças quando a fila esvaziar. ⚠️ **É session-only — se essa sessão terminar (o que um `/clear` provavelmente causa), o job some.** Se o Allan pedir "bora prospectar autopeças" numa sessão nova e nada tiver rodado sozinho, é por isso — recriar o cron ou fazer sob demanda.
+
+**Allan sinalizou fricção com a sessão local (Git Bash) e cogitou configurar os mesmos MCPs nesta sessão nuvem também.** Orientação dada: não colar credencial no chat (já vazou uma vez); ele precisaria configurar `N8N_BASE_URL`/`N8N_API_KEY` (key nova, separada da local) e o JSON da service account como variáveis de ambiente do *ambiente* do Claude Code on the web (fora desta conversa), e essa sessão nuvem operaria via chamada HTTP direta (curl/script), não MCP formal. Ainda não decidido/feito.
+
+---
+
 ## Build atual — aplicar recomendações do `/insights` (26/07/2026)
 
 | # | Fase | Status | Arquivos tocados |
